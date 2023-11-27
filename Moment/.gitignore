@@ -1,5 +1,5 @@
-root-context.xml
-db.properties
+!**/src/main/spring/root-context.xml
+!**/src/main/resources/config/db.properties
 
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse,windows,java,vuejs
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,windows,java,vuejs
