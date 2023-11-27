@@ -15,7 +15,7 @@
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
  		<property name="driverClassName" value="${driver}"></property>
 		<property name="jdbcUrl" value="${url}"></property> 
-		<property name="username" value="${user}"></property>
+		<property name="username" value="${username}"></property>
 		<property name="password" value="${password}"></property>
 	</bean>
 	
