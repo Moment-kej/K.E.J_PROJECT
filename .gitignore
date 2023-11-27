@@ -1,5 +1,5 @@
-!**/src/main/spring/root-context.xml
-!**/src/main/resources/config/db.properties
+/root-context.xml
+/db.properties
 
 # Compiled class file
 *.class
