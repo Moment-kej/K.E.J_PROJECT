@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kej.app.common.mapper.CommonMapper">
+
+	<!-- 공통코드 조회 -->
+	<select id="selectCode" resultType="CodeVO">
+		SELECT common_detail_cd
+		     , common_cd
+		     , common_detail_name
+		     , common_detail_ex
+		  FROM common_detail
+		 WHERE 1=1
+		 AND common_cd = #{commonCd}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kej.app.board.mapper.BoardMapper">
+	<!-- 옷 게시판 전체 목록 -->
+	<select id="dressBoradAllList" resultType="BoardVO">
+		SELECT b.board_no
+		     , code
+		     , category
+		     , writer
+		     , title
+		     , b.content
+		     , b.write_dt
+		     , view
+		     , count(*) AS "reply_count"
+		  FROM board b
+		  LEFT JOIN reply r
+		    ON b.board_no = r.board_no
+		 WHERE code = 10
+		   AND b.yn = 0
+		   AND r.yn = 0
+		 GROUP BY b.board_no
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

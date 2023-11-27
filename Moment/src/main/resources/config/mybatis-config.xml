@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	
+	<settings>
+		<!-- 필수 표기법 전환 -->
+		<!-- 언더바 못읽으니까 이거 써주자  -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- 얘는 선택이긴한데 sql문에 null이들어가면 어떻게 처리할건지 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<!-- VO 클래스에 대한 별칭 설정 -->
+		<package name="com.kej.app"/>
+	</typeAliases>
+	
+	<typeHandlers>
+		<!-- db에서의 데이터타입이 자바에서의 데이터 타입이 일치하지않을때 어떻게 처리하는지에 관련 -->
+		<typeHandler javaType="java.sql.Date" handler="org.apache.ibatis.type.DateTypeHandler"/>
+	</typeHandlers>
+	
+</configuration>
