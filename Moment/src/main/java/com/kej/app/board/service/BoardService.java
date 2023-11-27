@@ -1,11 +1,11 @@
 package com.kej.app.board.service;
 
-import java.util.List;
+import org.springframework.ui.Model;
 
-import com.kej.app.board.service.vo.BoardVO;
 
 public interface BoardService {
-	public List<BoardVO> dressBoradAllList();
+	public int execute(Model model, String pagenum, String contentnum);
+	
 	
 	
 	
