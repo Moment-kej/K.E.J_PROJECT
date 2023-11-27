@@ -1,5 +1,5 @@
-db.properties
 root-context.xml
+db.properties
 
 # Compiled class file
 *.class
