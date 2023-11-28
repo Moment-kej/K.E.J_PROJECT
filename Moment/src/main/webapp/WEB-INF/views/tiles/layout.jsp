@@ -1,6 +1,7 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,24 +11,26 @@
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   	<title>Moment</title>
-  	
+
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+
   	<!-- plugins:css -->
-  	<link rel="stylesheet" href="assets/vendors/feather/feather.css">
- 	<link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
-  	<link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/feather/feather.css">
+ 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/ti-icons/css/themify-icons.css">
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/css/vendor.bundle.base.css">
   	
   	<!-- endinject -->
   	<!-- Plugin css for this page -->
-  	<link rel="stylesheet" href="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  	<link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
-  	<link rel="stylesheet" type="text/css" href="assets/js/select.dataTables.min.css">
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/ti-icons/css/themify-icons.css">
+  	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/select.dataTables.min.css">
   	
   	<!-- End plugin css for this page -->
   	<!-- inject:css -->
-  	<link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/vertical-layout-light/style.css">
   	
   	<!-- endinject -->
-  	<link rel="shortcut icon" href="assets/images/favicon.png" />
+  	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
   	
 	<!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
