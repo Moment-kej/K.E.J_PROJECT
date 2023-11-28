@@ -5,13 +5,13 @@
 <tiles-definitions>
 
     <definition name="mainTemplate" template="/WEB-INF/views/tiles/layout.jsp">
-        <put-attribute name="title" value="Moment"></put-attribute>
         <put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
-        <put-attribute name="content" value="/WEB-INF/views/tiles/content.jsp" />
+        <put-attribute name="content" value="" />
         <put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
     </definition>
     
     <definition name="*/*" extends="mainTemplate">
+        <put-attribute name="title" value="Moment" />
         <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
     </definition>
 

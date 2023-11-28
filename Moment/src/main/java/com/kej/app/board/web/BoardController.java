@@ -19,13 +19,13 @@ public class BoardController {
 	//https://badstorage.tistory.com/13 , required = false
 	@GetMapping("/1")
 	public String TestBoardViewPage(Model model,
-									@RequestParam(defaultValue = "1") String pagenum,
-									@RequestParam(defaultValue = "10") String contentnum ) throws Exception {
+									@RequestParam(defaultValue = "1", required = false) String pagenum,
+									@RequestParam(defaultValue = "10", required = false) String contentnum ) throws Exception {
 		
-		service.execute(model, pagenum, contentnum);
+		//service.execute(model, pagenum, contentnum);
 		model.addAttribute("code", cservice.getCodes("CO", "CA")); 
 		
-		return "board/TestBoardViewPage";
+		return "board/boardDressPage";
 	}
 	
 
