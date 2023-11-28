@@ -38,9 +38,10 @@
         <c:forEach var="item" items="${code.CO}">
             <c:if test="${item.commonDetailCd == 10}">
                 <h3>${item.commonDetailName} 게시판</h3>
+                <a href="#">전체보기</a> <span> | </span>
                 <c:forEach var="coDetailList" items="${code.CA}">
                     <c:if test="${coDetailList.commonDetailEx eq '옷 카테고리'}">
-                        <a href="#">${coDetailList.commonDetailName}</a> <span> | </span>
+                        <a href="#" >${coDetailList.commonDetailName}</a> <span> | </span>
                     </c:if>
                 </c:forEach>
             </c:if>
@@ -50,42 +51,47 @@
     <!-- 게시글 보기 양식 정하는 장소 -->
     <div class="boardAllList">
         <div class="boardTempList">
-            <a><i class="fas fa-th-large"></i></a>
-            <a><i class="fas fa-th-list"></i></a>
-            <a><i class="fas fa-bars"></i></a>
+            <a href="#"><i class="fas fa-th-large"></i></a>
+            <a href="#"><i class="fas fa-th-list"></i></a>
+            <a href="#"><i class="fas fa-bars"></i></a>
         </div>
         <div class="listSizeSelect">
-            <select>
-                <option>10개씩</option>
-                <option>20개씩</option>
-                <option>30개씩</option>
-                <option>40개씩</option>
+            <!-- 한번에 보여줄 개수 정하기 -->
+            <select name="contentnum" id="cotentnum" onchange="page(1)">
+                <option value="10" <c:if test="${page.getContentnum() == 10 }">selected="selected"</c:if> >10개씩</option>
+                <option value="20" <c:if test="${page.getContentnum() == 20 }">selected="selected"</c:if> >20개씩</option>
+                <option value="30" <c:if test="${page.getContentnum() == 30 }">selected="selected"</c:if> >30개씩</option>
+                <option value="40" <c:if test="${page.getContentnum() == 40 }">selected="selected"</c:if> >40개씩</option>
             </select>
         </div>
     </div>
     <div style="clear:both"></div>
 
     <!--게시글 전체 목록 장소-->
-    <table id="boardList">
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-        </tr>
-        <c:forEach var="item" items="${list}">
+    <table id="boardList" class="table table-bordered">
+        <thead>
             <tr>
-                <td>${item.boardNo}</td>
-                <td>
-                    ${item.title}
-                    <span style="color: red;">[${item.replyCount}]</span>
-                </td>
-                <td>${item.writer}</td>
-                <td>${item.writeDt}</td>
-                <td>${item.view}</td>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
             </tr>
-        </c:forEach>
+        </thead>
+        <tbody>
+            <c:forEach var="item" items="${list}">
+                <tr>
+                    <td>${item.boardNo}</td>
+                    <td>
+                        ${item.title}
+                        <span style="color: red;">[${item.replyCount}]</span>
+                    </td>
+                    <td>${item.writer}</td>
+                    <td>${item.writeDt}</td>
+                    <td>${item.view}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
     </table>
     <div>
         <button type="button">글쓰기</button>
@@ -93,14 +99,15 @@
 
     <!-- 페이징 장소 -->
     <div class="pagination">
-        <a href="#">&laquo;</a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-        <a href="#">&raquo;</a>
+        <c:if test="${page.prev}">
+            <a href="javascript:page(${page.getStartPage()-1});">&laquo;</a>
+        </c:if>
+        <c:forEach begin="${page.getStartPage()}" end="${page.getEndPage()}" var="idx">
+            <a href="javascript:page(${idx});">${idx}</a>
+        </c:forEach>
+        <c:if test="${page.next}">
+            <a href="javascript:page(${page.getEndPage()+1});">&raquo;</a>
+        </c:if>
     </div>
 
     <!-- 검색 장소 -->
@@ -123,5 +130,22 @@
             <button type="submit" class="boardSearchBnt">검색</button>
         </form>
     </div>
+    <script type="text/javascript">
+        // 한페이지당 게시물
+        function page(idx) {
+            var pagenum = idx;
+            var contentnum = $("#contentnum option:selected").val();
+
+            if(contentnum == 10) {
+                location.href="${pageContext.request.contextPath}/board/1?pagenum="+pagenum+"&contentnum="+contentnum;
+            } else if(contentnum == 20) {
+                location.href="${pageContext.request.contextPath}/board/1?pagenum="+pagenum+"&contentnum="+contentnum;
+            } else if(contentnum == 30) {
+                location.href="${pageContext.request.contextPath}/board/1?pagenum="+pagenum+"&contentnum="+contentnum;
+            } else if(contentnum == 40) {
+                location.href="${pageContext.request.contextPath}/board/1?pagenum="+pagenum+"&contentnum="+contentnum;
+            }
+        }
+    </script>
 </body>
 </html>

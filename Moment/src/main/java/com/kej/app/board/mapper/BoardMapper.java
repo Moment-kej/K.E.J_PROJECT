@@ -5,7 +5,8 @@ import java.util.List;
 import com.kej.app.board.service.vo.BoardVO;
 
 public interface BoardMapper {
-	public List<BoardVO> dressBoradAllList();
+	public List<BoardVO> dressBoradList(int pagenum, int contentnum);
+	public int pagecount();
 	
 	
 	
