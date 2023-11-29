@@ -1,13 +1,17 @@
 package com.kej.app.board.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kej.app.board.service.BoardService;
+import com.kej.app.board.service.vo.BoardVO;
+import com.kej.app.board.service.vo.Criteria;
+import com.kej.app.board.service.vo.PageVO;
 import com.kej.app.common.service.CommonService;
 
 @Controller
@@ -16,51 +20,28 @@ public class BoardController {
 	@Autowired BoardService service;
 	@Autowired CommonService cservice;
 	
-	//https://badstorage.tistory.com/13 , required = false
+	//https://badstorage.tistory.com/13 == 페이징/실패
+	//https://jadestone.tistory.com/101 == 페이징/진행중
 	@GetMapping("/1")
-	public String TestBoardViewPage(Model model,
-									@RequestParam(defaultValue = "1", required = false) String pagenum,
-									@RequestParam(defaultValue = "10", required = false) String contentnum ) throws Exception {
+	public String TestBoardViewPage(Model model
+									,Criteria cri
+									, String category) throws Exception {
 		
-		//service.execute(model, pagenum, contentnum);
-		model.addAttribute("code", cservice.getCodes("CO", "CA")); 
+		model.addAttribute("code", cservice.getCodes("CO", "CA"));
+		
+		//목록
+		List<BoardVO> list = service.dressBoradList(cri);
+		model.addAttribute("list", list);
+		
+		//페이지 네이션
+		int total = service.pagecount();
+		PageVO pageVO = new PageVO(cri, total);
+		model.addAttribute("pageVO", pageVO);
 		
 		return "board/boardDressPage";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@GetMapping("/BoardInsert")
-	public String BOardInsert(Model model) {
-		
-		return "board/BoardInsert";
-	}
-	
+
 	
 	
 	
@@ -94,5 +75,5 @@ public class BoardController {
 				
 	}
 	
-	
+
 }
