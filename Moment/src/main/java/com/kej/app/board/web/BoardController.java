@@ -90,6 +90,7 @@ public class BoardController {
 	public String BoardUpdate(Model model) {
 		
 		return "board/boardUpdate";
+	}
 
     
     
