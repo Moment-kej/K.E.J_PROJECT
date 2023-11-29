@@ -51,6 +51,16 @@ public class BoardController {
 	
 	
 	
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 	
 	
 	
@@ -67,13 +77,105 @@ public class BoardController {
 	
 	
 	
-	
+
+//	게시판 등록
+	@GetMapping("/3/1")
+	public String BoardInsert(Model model) {
+		
+		return "board/boardInsert";
+	}
+
+//	게시판 수정
+	@GetMapping("/1/3")
+	public String BoardUpdate(Model model) {
+		
+		return "board/boardUpdate";
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  // 게시판 디테일 Page
 	@GetMapping("/2_1")
 	public String BoardDetail(Model model) {
 		
 		return "board/boardDetail";
 				
+
 	}
 	
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
