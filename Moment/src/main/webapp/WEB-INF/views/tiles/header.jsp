@@ -286,6 +286,20 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Board</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/3">Art</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/1">Dress</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/2_1">Music</a></li>
+              </ul>
+            </div>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
               <span class="menu-title">UI Elements</span>
               <i class="menu-arrow"></i>
             </a>
@@ -296,7 +310,7 @@
                 <li class="nav-item"> <a class="nav-link" href="assets/pages/ui-features/typography.html">Typography</a></li>
               </ul>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
               <i class="icon-columns menu-icon"></i>

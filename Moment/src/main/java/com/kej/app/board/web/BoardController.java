@@ -42,4 +42,38 @@ public class BoardController {
 	}
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/2_1")
+	public String BoardDetail(Model model) {
+		
+		return "board/boardDetail";
+				
+	}
+	
+
 }
