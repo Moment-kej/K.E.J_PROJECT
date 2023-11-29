@@ -20,8 +20,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int pagecount() {
-		return bMapper.pagecount();
+	public int pagecount(Criteria cri) {
+		return bMapper.pagecount(cri);
 	}
 
 

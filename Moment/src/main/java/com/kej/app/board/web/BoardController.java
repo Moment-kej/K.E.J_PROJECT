@@ -24,17 +24,15 @@ public class BoardController {
 	//https://jadestone.tistory.com/101 == 페이징/진행중
 	@GetMapping("/1")
 	public String TestBoardViewPage(Model model
-									,Criteria cri
-									, String category) throws Exception {
+									,Criteria cri) throws Exception {
 		
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
-		
 		//목록
 		List<BoardVO> list = service.dressBoradList(cri);
 		model.addAttribute("list", list);
 		
-		//페이지 네이션
-		int total = service.pagecount();
+		//페이지네이션
+		int total = service.pagecount(cri);
 		PageVO pageVO = new PageVO(cri, total);
 		model.addAttribute("pageVO", pageVO);
 		

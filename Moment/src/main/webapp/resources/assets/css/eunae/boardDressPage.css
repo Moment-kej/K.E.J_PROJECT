@@ -1,0 +1,71 @@
+.pagination {
+    display: inline-block;
+}
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+.boardAllList {
+    float: right;
+}
+.boardTempList {
+    display: inline-block;
+    margin-right: 10px;
+}
+.listSizeSelect {
+    display: inline-block;
+}
+.writingBntDiv {
+    float: right;
+    margin-top: 10px;
+}
+.boardSearchInput {
+    width: 500px;
+}
+#boardCategory, #searchType {
+    width: 30%;
+    margin-right: 10px;
+    padding-left: 20px;
+}
+#boardNotList{
+    text-align: center; 
+    height: 300px;
+}
+fieldset {
+    border : none !important;
+}
+.menuCategoryDiv .menuCategory > li::after {
+    content: "";
+    width: 1px;
+    height: 20px;
+    background: #dadada;
+    position: absolute;
+    top: 77px;
+    margin-left: 15px;
+}
+.menuCategory {
+    display: -webkit-box !important;
+    list-style: none !important;
+}
+.menuCategory > li {
+    margin: 0 15px !important;
+}
+.menuCategory > li > a{
+    color: black !important;
+    text-decoration : unset !important;
+}
+.menuCategory > li > a:hover {
+    cursor: pointer !important;
+    color: rgb(174, 77, 204) !important;
+}
