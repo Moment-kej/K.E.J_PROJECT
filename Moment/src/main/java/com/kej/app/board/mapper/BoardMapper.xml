@@ -29,7 +29,7 @@
 				   AND b.yn = 0
 			 ) a
 		ORDER BY 1
-  		LIMIT #{pagenum}, #{contentnum}
+  		LIMIT #{pageStart}, #{amount}
 	</select>
 	
 	<select id="pagecount" resultType="int">

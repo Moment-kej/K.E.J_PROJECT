@@ -1,5 +1,8 @@
 package com.kej.app.board.service.vo;
 
+import lombok.Data;
+
+@Data
 public class BoardPager {
 	private int totalcount; // 페이징에 적용할 전체 데이터 갯수
     private int pagenum; // 현재 페이지 번호
