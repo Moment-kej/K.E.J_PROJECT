@@ -1,12 +1,14 @@
 package com.kej.app.board.service;
 
-import org.springframework.ui.Model;
+import java.util.List;
+
+import com.kej.app.board.service.vo.BoardVO;
+import com.kej.app.board.service.vo.Criteria;
 
 
 public interface BoardService {
-	public int execute(Model model, String pagenum, String contentnum);
-	
-	
+	public List<BoardVO> dressBoradList(Criteria cri);
+	public int pagecount();
 	
 	
 	
