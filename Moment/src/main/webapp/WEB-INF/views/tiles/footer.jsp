@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
     	<!-- Kakao Map -->
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=796cf859ad3574f6a087d7c99ef6b404&libraries=services"></script>
+		<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=796cf859ad3574f6a087d7c99ef6b404&libraries=services"></script> -->
 		
     	<!-- jQuery -->
     	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>\
