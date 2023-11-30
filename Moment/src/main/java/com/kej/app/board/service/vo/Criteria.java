@@ -8,18 +8,21 @@ import lombok.Data;
 @Data
 public class Criteria {
 	
-	private int page; //페이지번호
-	private int amount; //데이터개수
+	private int page; 		//페이지번호
+	private int amount; 	//데이터개수
+	private int category;	// 카테고리
 
 	public Criteria() {
 		this.page = 1;
 		this.amount = 10;
+		this.category = 0;
 	}
 
-	public Criteria(int page, int amout) {
+	public Criteria(int page, int amout, int catagory) {
 		super();
 		this.page = page;
 		this.amount = amout;
+		this.category = catagory;
 	}
 
 	//limit함수의 페이지시작 부분에 들어갈 getter

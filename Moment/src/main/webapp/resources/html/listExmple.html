@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다양한 게시글 목록</title>
+    <style>
+
+    </style>
+    <!-- jQuery 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <div id="contentListType">
+        <p>여기는 contetn 자리다</p>
+    </div>
+
+    <!-- 버튼들을 통해 형식 변경 -->
+    <button onclick="showPosts('albumType')">앨범형</button>
+    <button onclick="showPosts('cardsType')">카드형</button>
+    <button onclick="showPosts('listType')">리스트형</button>
+
+    <script>
+        const contentContainer = $('#contentListType');
+        let currentView = 'albumType'; // 기본적으로 앨범형으로 시작
+
+        function showPosts(view) {
+            currentView = view;
+            renderPosts();
+        }
+
+        function createPostElement(post) {
+            const postElement = $('<div>').addClass('postType');
+
+            switch (currentView) {
+                case 'albumType':
+                    postElement.html(`<img src="${post.image}" alt="${post.title}"><p>${post.title}</p>`);
+                    break;
+
+                case 'cardsType':
+                    const cardElement = $('<div>').addClass('cardType').html(`<img src="${post.image}" alt="${post.title}"><p>${post.title}</p>`);
+                    postElement.append(cardElement);
+                    break;
+
+                case 'listType':
+                    const listItemElement = $('<li>').addClass('postType').text(post.title);
+                    postElement.append(listItemElement);
+                    break;
+            }
+
+            return postElement;
+        }
+
+        function renderPosts() {
+            // Ajax로 서버에서 데이터 가져오기
+            $.ajax({
+                url: '서버에서_데이터를_제공하는_API_URL',
+                method: 'GET',
+                dataType: 'json',
+                success: function(posts) {
+                    renderPostsContent(posts);
+                },
+                error: function(error) {
+                    console.error('데이터를 가져오는 중 에러가 발생했습니다.', error);
+                }
+            });
+        }
+
+        function renderPostsContent(posts) {
+            // 기존 내용 지우기
+            contentContainer.empty();
+
+            switch (currentView) {
+                case 'album':
+                    const albumContainer = $('<div>').addClass('albumType');
+                    posts.forEach(post => {
+                        const postElement = createPostElement(post);
+                        albumContainer.append(postElement);
+                    });
+                    contentContainer.append(albumContainer);
+                    break;
+
+                case 'cards':
+                    const cardsContainer = $('<div>').addClass('cardsType');
+                    posts.forEach(post => {
+                        const postElement = createPostElement(post);
+                        cardsContainer.append(postElement);
+                    });
+                    contentContainer.append(cardsContainer);
+                    break;
+
+                case 'list':
+                    const listContainer = $('<ul>').addClass('listType');
+                    posts.forEach(post => {
+                        const postElement = createPostElement(post);
+                        listContainer.append(postElement);
+                    });
+                    contentContainer.append(listContainer);
+                    break;
+            }
+        }
+
+        // 초기 렌더링
+        renderPosts();
+    </script>
+</body>
+</html>

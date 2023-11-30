@@ -27,6 +27,14 @@
 				    ON b.board_no = r.board_no
 				 WHERE code = 10
 				   AND b.yn = 0
+				   <if test="category != null">
+				   AND category LIKE CONCAT('%',#{category},'%')
+				   </if>
+				   <choose>
+					   	<when test="category == null and category == ''">
+					   		AND category LIKE '%%')
+					   	</when>
+				   </choose>
 			 ) a
 		ORDER BY 1
   		LIMIT #{pageStart}, #{amount}
@@ -37,6 +45,14 @@
 		   FROM board
 		  WHERE code = 10
 		    AND yn = 0
+		    <if test="category != null">
+		   	AND category LIKE CONCAT('%',#{category},'%')
+		    </if>
+		   <choose>
+			   	<when test="category == null and category == ''">
+			   		AND category LIKE '%%')
+			   	</when>
+		   </choose>
 	</select>
 
 

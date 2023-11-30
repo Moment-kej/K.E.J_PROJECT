@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kej.app.board.service.BoardService;
 import com.kej.app.board.service.vo.BoardVO;
@@ -23,25 +26,34 @@ public class BoardController {
 	//https://badstorage.tistory.com/13 == 페이징/실패
 	//https://jadestone.tistory.com/101 == 페이징/진행중
 	@GetMapping("/1")
-	public String TestBoardViewPage(Model model
-									,Criteria cri
-									, String category) throws Exception {
+	public String boardDressPage(Model model
+									,Criteria cri) throws Exception {
 		
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
-		
 		//목록
 		List<BoardVO> list = service.dressBoradList(cri);
 		model.addAttribute("list", list);
 		
-		//페이지 네이션
-		int total = service.pagecount();
+		//페이지네이션
+		int total = service.pagecount(cri);
 		PageVO pageVO = new PageVO(cri, total);
 		model.addAttribute("pageVO", pageVO);
 		
 		return "board/boardDressPage";
 	}
 	
-
+	// 게시판 전체조회 HTML 양식
+	@GetMapping("/boardListTemp")
+	public String boardAllListTemp() {
+		return "board/boardListTemp";
+	}
+	
+	// Test
+	@RequestMapping(value="/temp", method = {RequestMethod.GET})
+	@ResponseBody
+	public List<BoardVO> getPosts(Criteria cri){
+		return service.dressBoradList(cri);
+	}
 	
 	
 	
@@ -51,16 +63,6 @@ public class BoardController {
 	
 	
 	
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 	
 	
 	
