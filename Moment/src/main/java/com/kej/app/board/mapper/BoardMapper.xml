@@ -16,10 +16,6 @@
 				     , b.content
 				     , b.write_dt
 				     , view
-				     -- , r.id
-				     -- , r.content AS rct
-				     -- , IFNULL(r.reply_count, 0) AS "reply_count"
-				     -- , r.content as con
 				     , ( SELECT  count(*) as cnt
 					       FROM REPLY c
 					      WHERE 1=1
