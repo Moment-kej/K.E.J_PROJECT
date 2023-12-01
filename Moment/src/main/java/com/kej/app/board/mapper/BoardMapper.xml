@@ -31,7 +31,7 @@
 				                   ) r
 				    ON b.board_no = r.board_no
 				 WHERE 1=1 
-		           AND code = 10
+		           AND code = #{code}
 		           AND b.yn = 0
 				   <if test="category != null">
 				   AND category LIKE CONCAT('%',#{category},'%')

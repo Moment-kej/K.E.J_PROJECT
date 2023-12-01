@@ -31,6 +31,7 @@ public class BoardController {
 	public String boardDressPage(Model model
 									,Criteria cri) throws Exception {
 		
+		cri.setCode(10);
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
 		//목록
 		
