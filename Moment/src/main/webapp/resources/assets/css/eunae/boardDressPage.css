@@ -50,6 +50,10 @@ fieldset {border : none !important;}
     text-align: center; 
     height: 300px;
 }
+.postNotData {
+    text-align: center;
+    height: 300px;
+}
 .menuCategoryDiv .menuCategory > li::after {
     content: "";
     width: 1px;

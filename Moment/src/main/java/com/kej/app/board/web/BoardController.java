@@ -33,6 +33,7 @@ public class BoardController {
 		
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
 		//목록
+		
 		List<BoardVO> list = service.dressBoradList(cri);
 		model.addAttribute("list", list);
 		
@@ -40,7 +41,6 @@ public class BoardController {
 		int total = service.pagecount(cri);
 		PageVO pageVO = new PageVO(cri, total);
 		model.addAttribute("pageVO", pageVO);
-		
 		return "board/boardDressPage";
 	}
 	

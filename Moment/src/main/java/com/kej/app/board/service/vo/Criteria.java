@@ -8,14 +8,16 @@ import lombok.Data;
 @Data
 public class Criteria {
 	
-	private int page; 		//페이지번호
-	private int amount; 	//데이터개수
-	private int category;	// 카테고리
+	private int page; 			// 페이지번호
+	private int amount; 		// 데이터개수
+	private int category;		// 카테고리
+	private String listType;	// 게시글타입
 
 	public Criteria() {
 		this.page = 1;
 		this.amount = 10;
 		this.category = 0;
+		this.listType = "";
 	}
 
 	public Criteria(int page, int amout, int catagory) {

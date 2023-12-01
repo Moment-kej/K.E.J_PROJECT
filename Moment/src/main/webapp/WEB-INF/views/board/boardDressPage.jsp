@@ -68,12 +68,13 @@
                             <input type="hidden" name="page" id="criteriaPage" value="${criteria.page}">
                             <input type="hidden" name="amount" id="criteriaAmount" value="${criteria.amount}">
                             <input type="hidden" name="category" id="criteriaCategory" value="${criteria.category}">
+                            <input type="hidden" name="listType" id="criteriaListType" value="${criteria.listType}">
                         </div>
                         <!-- pagination -->
                         <div class="pagination d-flex justify-content-center">
                             <!-- 5. 맨 처음으로 -->
                             <c:if test="${pageVO.end != 0}">
-                            <a href="${pageContext.request.contextPath}/board/1?page=1&amount=${pageVO.amount}&category=${pageVO.cri.category}"
+                            <a href="${pageContext.request.contextPath}/board/1?page=1&amount=${pageVO.amount}&category=${pageVO.cri.category}&listType=${pageVO.cri.listType}"
                                 class="firstpage pbtn">
                                 <!--<img src="${pageContext.request.contextPath }/resources/img/btn_firstpage.png" alt="첫 페이지로 이동">-->
                                 &laquo;&laquo;
@@ -82,7 +83,7 @@
                             
                             <!-- 3.이전페이지네이션 -->
                             <c:if test="${pageVO.prev }">
-                            <a href="${pageContext.request.contextPath}/board/1?page=${pageVO.start-1 }&amount=${pageVO.amount}&category=${pageVO.cri.category}" class="prevpage pbtn">
+                            <a href="${pageContext.request.contextPath}/board/1?page=${pageVO.start-1 }&amount=${pageVO.amount}&category=${pageVO.cri.category}&listType=${pageVO.cri.listType}" class="prevpage pbtn">
                                 <!--<img src="${pageContext.request.contextPath }/resources/img/btn_prevpage.png" alt="이전 페이지로 이동">-->
                                 &laquo;
                             </a>
@@ -90,14 +91,14 @@
                             
                             <!-- 1.페이지네이션 -->
                             <c:forEach var="num" begin="${ pageVO.start}" end="${ pageVO.end}">
-                            <a href="${pageContext.request.contextPath}/board/1?page=${num }&amount=${pageVO.amount}&category=${pageVO.cri.category}">
+                            <a href="${pageContext.request.contextPath}/board/1?page=${num }&amount=${pageVO.amount}&category=${pageVO.cri.category}&listType=${pageVO.cri.listType}">
                                 <span class="pagenum ${pageVO.page == num ? 'currentpage' : '' }currentpage">${num}</span>
                             </a>
                             </c:forEach>
                             
                             <!-- 2.다음페이지네이션 -->
                             <c:if test="${pageVO.next }">
-                            <a href="${pageContext.request.contextPath}/board/1?page=${pageVO.end+1 }&amount=${pageVO.amount}&category=${pageVO.cri.category}" class="nextpage pbtn">
+                            <a href="${pageContext.request.contextPath}/board/1?page=${pageVO.end+1 }&amount=${pageVO.amount}&category=${pageVO.cri.category}&listType=${pageVO.cri.listType}" class="nextpage pbtn">
                                 <!--<img src="${pageContext.request.contextPath }/resources/img/btn_nextpage.png" alt="다음 페이지로 이동">-->
                                 &raquo;
                             </a>
@@ -105,7 +106,7 @@
                             
                             <!-- 4. 맨 마지막으로 -->
                             <c:if test="${pageVO.end != 0}">
-                            <a href="${pageContext.request.contextPath}/board/1?page=${pageVO.realEnd }&amount=${pageVO.amount}&category=${pageVO.cri.category}" class="lastpage  pbtn">
+                            <a href="${pageContext.request.contextPath}/board/1?page=${pageVO.realEnd }&amount=${pageVO.amount}&category=${pageVO.cri.category}&listType=${pageVO.cri.listType}" class="lastpage  pbtn">
                                 <!--<img src="${pageContext.request.contextPath }/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동">-->
                                 &raquo;&raquo;
                             </a>
@@ -147,7 +148,12 @@
     let currentView = 'albumType'; // 기본적으로 앨범형으로 시작
 
     function showPosts(view) {
+
+        let listTypeValue = document.getElementById('criteriaListType');
+
         currentView = view;
+        listTypeValue.value = view;
+
         renderPosts();
     };
 
@@ -184,31 +190,46 @@
 
         //테이블 내용(게시글)
         const tbody = document.createElement('tbody');
-        posts.forEach(post => {
-            let replyCount = post.replyCount;
-            const row = document.createElement('tr');
-            const data = [post.boardNo, post.title, post.writer, formatTimestamp(post.writeDt), post.view];
 
-            data.forEach((cellText, index) => {
-                const td = document.createElement('td');
-                // td.style.border = '1px solid #ddd';
-                // td.style.padding = '8px';
-                // td.style.textAlign = 'left';
-                if (index === 1) { // 제목 열인 경우
-                    const titleA = document.createElement('a');
-                    titleA.setAttribute('href','#');
-                    titleA.innerHTML = cellText +
-                                        ' <span style="color:red;">[' + replyCount +  ']</span>';
-                    td.appendChild(titleA);
-                } else {
-                    td.textContent = cellText;
-                };
-                row.appendChild(td);
+        if(posts == null || posts == '' || posts == undefined){
+            let notDataTr = document.createElement('tr');
+            notDataTr.setAttribute('colspan', 5);
+            let notDataTd = document.createElement('td');
+            notDataTd.setAttribute('colspan', 5);
+            notDataTd.setAttribute('id', 'boardNotList');
+            let notDataH3 = document.createElement('h3');
+            notDataH3.innerText = '조회할 게시글이 없습니다.';
+
+            notDataTd.appendChild(notDataH3);
+            notDataTr.appendChild(notDataTd);
+            tbody.appendChild(notDataTr);
+        } else {
+            posts.forEach(post => {
+                let replyCount = post.replyCount;
+                const row = document.createElement('tr');
+                const data = [post.boardNo, post.title, post.writer, formatTimestamp(post.writeDt), post.view];
+
+                data.forEach((cellText, index) => {
+                    const td = document.createElement('td');
+                    // td.style.border = '1px solid #ddd';
+                    // td.style.padding = '8px';
+                    // td.style.textAlign = 'left';
+                    if (index === 1) { // 제목 열인 경우
+                        const titleA = document.createElement('a');
+                        titleA.setAttribute('href','#');
+                        titleA.innerHTML = cellText +
+                                            ' <span style="color:red;">[' + replyCount +  ']</span>';
+                        td.appendChild(titleA);
+                    } else {
+                        td.textContent = cellText;
+                    };
+                    row.appendChild(td);
+                });
+                tbody.appendChild(row);
             });
-            tbody.appendChild(row);
-        });
-        table.appendChild(tbody);
+        };
 
+        table.appendChild(tbody);
         listTypeDiv.appendChild(table);
 
         return listTypeDiv;
@@ -227,7 +248,14 @@
         let boardView = post.view;      //조회수
         let boardReplyCount = post.replyCount;  //댓글개수
 
-        switch (currentView) {
+        if(post == '' || post == null || post == undefined){
+            postElement.classList.remove('postType');
+            postElement.classList.add('postNotData');
+            let postNotDataH3 = document.createElement('h3');
+            postNotDataH3.innerText = '조회할 게시글이 없습니다.';
+            postElement.appendChild(postNotDataH3);
+        } else {
+            switch (currentView) {
             case 'albumType':
                     //카드형에 적용되어있는 css 클래스 삭제
                     postElement.classList.remove('postType');
@@ -376,6 +404,8 @@
                     postElement.appendChild(cardsTypeDiv);
                 break;
             };
+        }
+        
         return postElement;
     };
 
@@ -451,6 +481,18 @@
 </script>
 
 <script type="text/javascript">
+
+    //폼변경
+    let criteriaListType = document.getElementById('criteriaListType');
+    console.log(criteriaListType);
+
+    if(criteriaListType.value == '') {
+        //showPosts('albumType');
+    } else {
+        showPosts(criteriaListType.value);
+    }
+
+
     // 글쓰기 버튼 클릭 이벤트
     $("#writingBnt").click(()=>{
         let writingLink = '${pageContext.request.contextPath}/board/3/1';
@@ -472,16 +514,18 @@
 
     // 게시글 목록 수 : 10개씩, 20개씩 ... 40개씩
     function Change(idx, category) {
+        var listType = $("#criteriaListType").val();
         var pagenum = idx;
         var nowPaging = $("#handleAmount option:selected").val();
+
         if(nowPaging == 10){
-            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category;
+            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category + "&listType=" + listType;
         }else if(nowPaging == 20){
-            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category;    
+            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category + "&listType=" + listType;    
         }else if(nowPaging == 30){
-            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category;    
+            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category + "&listType=" + listType;    
         }else if(nowPaging == 40){
-            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category;    
+            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category + "&listType=" + listType;    
         }
     };
 </script>
