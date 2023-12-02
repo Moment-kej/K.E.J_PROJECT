@@ -292,7 +292,7 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/3">Art</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/1">Dress</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/10">Dress</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/2_1">Music</a></li>
               </ul>
             </div>

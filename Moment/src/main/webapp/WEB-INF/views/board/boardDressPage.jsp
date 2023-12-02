@@ -144,6 +144,7 @@
         </div>
     </div>
 </div>
+<script type="module" src="${pageContext.request.contextPath}/assets/js/eunae/index.js"></script>
 <script type="text/javascript">
     const contentContainer = document.getElementById('contentListTest');
     let currentView = 'albumType'; // 기본적으로 앨범형으로 시작
@@ -409,7 +410,8 @@
         let page = $('#criteriaPage').val();
         let amount = $('#criteriaAmount').val();
         let category = $('#criteriaCategory').val();
-        const dataForm = {page : page , amount : amount, category : category, code : 10};
+        let code = 10;
+        const dataForm = {page : page , amount : amount, category : category, code : code};
         
         $.ajax({
             url: '${pageContext.request.contextPath}/board/temp',
@@ -424,7 +426,7 @@
             }
         });
     };
-    renderPosts();
+    // renderPosts(currentView);
 
     // ajax를 통해 받아온 data를 forEach 돌려서 리스트 양식에 맞게 화면을 뿌림.
     function renderPostsContent(posts) {
@@ -525,26 +527,26 @@
             let selectedValue  = nowPaging.value;
             // <<, <, >, >> a tag에 href 속성 추가
             allListView.setAttribute('href',
-                                        '${pageContext.request.contextPath}/board/1?page=1&amount=' + selectedValue +
+                                        '${pageContext.request.contextPath}/board/${criteria.code}?page=1&amount=' + selectedValue +
                                         '&category=0' +
                                         '&listType=' + listType);
             pageNumberOne.setAttribute('href',
-                                        '${pageContext.request.contextPath}/board/1?page=1&amount=' + selectedValue +
+                                        '${pageContext.request.contextPath}/board/${criteria.code}?page=1&amount=' + selectedValue +
                                         '&category=' + 0 +
                                         '&listType=' + listType);
             pageRealEnd.setAttribute('href',
-                                        '${pageContext.request.contextPath}/board/1?page=' + pagerealEnd_v +
+                                        '${pageContext.request.contextPath}/board/${criteria.code}?page=' + pagerealEnd_v +
                                         '&amount=' + selectedValue +
                                         '&category=' + category +
                                         '&listType=' + listType);
             if(pageStart_v != false && pageEnd_v != false ) {
                 pageStart.setAttribute('href', 
-                                            '${pageContext.request.contextPath}/board/1?page=' + pageStart_v +
+                                            '${pageContext.request.contextPath}/board/${criteria.code}?page=' + pageStart_v +
                                                 '&amount=' + selectedValue +
                                                 '&category=' + category +
                                                 '&listType=' + listType);
                 pageNext.setAttribute('href', 
-                                            '${pageContext.request.contextPath}/board/1?page=' + pageEnd_v +
+                                            '${pageContext.request.contextPath}/board/${criteria.code}?page=' + pageEnd_v +
                                                 '&amount=' + selectedValue +
                                                 '&category=' + category +
                                                 '&listType=' + listType);
@@ -556,7 +558,7 @@
         }
     };
 
-    //페이지네이션 1,2,3,4... number
+    //페이지네이션 1,2,3,4... numberf
     function pagenationNumber(listType) {
         document.querySelectorAll('.pageNumber').forEach((anchor, index) => {
             // anchor -> 빈값
@@ -568,7 +570,7 @@
             let pageNum     = index + 1 ;
             
             anchor.setAttribute('id', 'pageNumber_' + pageNum);
-            let pageNumHref = '${pageContext.request.contextPath}/board/1?page=' + pageNum 
+            let pageNumHref = '${pageContext.request.contextPath}/board/${criteria.code}?page=' + pageNum 
                             + '&amount=' + selectedValue 
                             + '&category=' + category
                             + '&listType=' + listType;
