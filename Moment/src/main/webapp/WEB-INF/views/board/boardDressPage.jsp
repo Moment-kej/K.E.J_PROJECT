@@ -158,6 +158,7 @@
         renderPosts();
     };
 
+    // 리스트형 렌더링
     function createTable(posts) {
         let listTypeDiv = document.createElement('div');
         if(posts.length != 0) {
@@ -237,18 +238,19 @@
         return listTypeDiv;
     };
 
+    // 앨범형, 카드형 렌더링
     function createPostElement(post) {
         const postElement = document.createElement('div');
         postElement.className = 'postType';
 
-        let boardTitle = post.title;    //제목
-        let boardContent = post.content;
-        let boardContentEx = '글내용놔둘곳';
-        let boardImg = post.Img;        //이미지
-        let boardWriter = post.writer;  //닉네임
-        let boardWriteDt = formatTimestamp(post.writeDt);//시간
-        let boardView = post.view;      //조회수
-        let boardReplyCount = post.replyCount;  //댓글개수
+        let boardTitle = post.title;                        // 제목
+        let boardContent = post.content;                    // 게시글 내용
+        let boardContentEx = '글내용놔둘곳';                   // 게시글 내용 대타
+        let boardImg = post.Img;                            // 이미지
+        let boardWriter = post.writer;                      // 닉네임
+        let boardWriteDt = formatTimestamp(post.writeDt);   // 시간
+        let boardView = post.view;                          // 조회수
+        let boardReplyCount = post.replyCount;              // 댓글개수
 
         switch (currentView) {
             case 'albumType':

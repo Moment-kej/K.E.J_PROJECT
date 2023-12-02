@@ -5,8 +5,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="/moment"><img src="assets/images/logo.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="/moment"><img src="assets/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="/moment"><img src="${pageContext.request.contextPath}/assets/images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="/moment"><img src="${pageContext.request.contextPath}/assets/images/logo-mini.svg" alt="logo"/></a>
       </div>
 
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -76,7 +76,7 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="assets/images/faces/face28.jpg" alt="profile"/>
+              <img src="${pageContext.request.contextPath}/assets/images/faces/face28.jpg" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
@@ -217,7 +217,7 @@
             </div>
             <ul class="chat-list">
               <li class="list active">
-                <div class="profile"><img src="assets/images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="${pageContext.request.contextPath}/assets/images/faces/face1.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Thomas Douglas</p>
                   <p>Available</p>
@@ -225,7 +225,7 @@
                 <small class="text-muted my-auto">19 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="assets/images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
+                <div class="profile"><img src="${pageContext.request.contextPath}/assets/images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
                 <div class="info">
                   <div class="wrapper d-flex">
                     <p>Catherine</p>
@@ -236,7 +236,7 @@
                 <small class="text-muted my-auto">23 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="assets/images/faces/face3.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="${pageContext.request.contextPath}/assets/images/faces/face3.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Daniel Russell</p>
                   <p>Available</p>
@@ -244,7 +244,7 @@
                 <small class="text-muted my-auto">14 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="assets/images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
+                <div class="profile"><img src="${pageContext.request.contextPath}/assets/images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
                 <div class="info">
                   <p>James Richardson</p>
                   <p>Away</p>
@@ -252,7 +252,7 @@
                 <small class="text-muted my-auto">2 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="assets/images/faces/face5.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="${pageContext.request.contextPath}/assets/images/faces/face5.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Madeline Kennedy</p>
                   <p>Available</p>
@@ -260,7 +260,7 @@
                 <small class="text-muted my-auto">5 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="assets/images/faces/face6.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="${pageContext.request.contextPath}/assets/images/faces/face6.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Sarah Graves</p>
                   <p>Available</p>
@@ -319,7 +319,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="assets/pages/forms/basic_elements.html">Basic Elements</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/assets/pages/forms/basic_elements.html">Basic Elements</a></li>
               </ul>
             </div>
           </li>
@@ -331,7 +331,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="assets/pages/charts/chartjs.html">ChartJs</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/assets/pages/charts/chartjs.html">ChartJs</a></li>
               </ul>
             </div>
           </li>
@@ -343,7 +343,7 @@
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="assets/pages/tables/basic-table.html">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/assets/pages/tables/basic-table.html">Basic table</a></li>
               </ul>
             </div>
           </li>
@@ -355,7 +355,7 @@
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="assets/pages/icons/mdi.html">Mdi icons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/assets/pages/icons/mdi.html">Mdi icons</a></li>
               </ul>
             </div>
           </li>
@@ -367,8 +367,8 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="assets/pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="assets/pages/samples/register.html"> Register </a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/assets/pages/samples/login.html"> Login </a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/assets/pages/samples/register.html"> Register </a></li>
               </ul>
             </div>
           </li>
@@ -381,12 +381,12 @@
             <div class="collapse" id="error">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="assets/pages/samples/error-404.html"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="assets/pages/samples/error-500.html"> 500 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/assets/pages/samples/error-500.html"> 500 </a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="assets/pages/documentation/documentation.html">
+            <a class="nav-link" href="${pageContext.request.contextPath}/assets/pages/documentation/documentation.html">
               <i class="icon-paper menu-icon"></i>
               <span class="menu-title">Documentation</span>
             </a>
