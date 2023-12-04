@@ -1,21 +1,23 @@
 package com.kej.app.board.service.vo;
 
-import java.util.ArrayList;
-
 import lombok.Data;
 
 //sql문에 페이지번호, 데이터개수 전달해줄 클래스
 @Data
 public class Criteria {
 	
-	private int page; 		//페이지번호
-	private int amount; 	//데이터개수
-	private int category;	// 카테고리
+	private int page; 			// 페이지번호
+	private int amount; 		// 데이터개수
+	private int category;		// 카테고리
+	private String listType;	// 게시글타입
+	private int code;			// 10, 20, 30
 
 	public Criteria() {
 		this.page = 1;
 		this.amount = 10;
 		this.category = 0;
+		this.listType = "";
+		this.code = 0;
 	}
 
 	public Criteria(int page, int amout, int catagory) {

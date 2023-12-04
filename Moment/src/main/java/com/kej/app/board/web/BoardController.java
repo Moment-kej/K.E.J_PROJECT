@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,20 +28,21 @@ public class BoardController {
 	
 	//https://badstorage.tistory.com/13 == 페이징/실패
 	//https://jadestone.tistory.com/101 == 페이징/진행중
-	@GetMapping("/1")
-	public String boardDressPage(Model model
-									,Criteria cri) throws Exception {
+	@GetMapping("/{code}")
+	public String boardDressPage(Model model, Criteria cri, @PathVariable("code") int code) throws Exception {
 		
+		cri.setCode(10);
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
 		//목록
+		
 		List<BoardVO> list = service.dressBoradList(cri);
 		model.addAttribute("list", list);
+//		System.out.println(list);
 		
 		//페이지네이션
 		int total = service.pagecount(cri);
 		PageVO pageVO = new PageVO(cri, total);
 		model.addAttribute("pageVO", pageVO);
-		
 		return "board/boardDressPage";
 	}
 	

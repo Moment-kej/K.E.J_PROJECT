@@ -7,7 +7,7 @@
 	<!-- 페이징+목록개수  https://badstorage.tistory.com/13 -->
 	<select id="dressBoradList" resultType="BoardVO">
 		SELECT *
-  			FROM (
+			FROM (
 				SELECT b.board_no
 				     , code
 				     , category
@@ -16,17 +16,23 @@
 				     , b.content
 				     , b.write_dt
 				     , view
-				     , IFNULL(r.reply_count, 0) AS "reply_count"
+				     , ( SELECT  count(*) as cnt
+					       FROM REPLY c
+					      WHERE 1=1
+					        AND b.board_no = c.board_no
+					     	AND c.yn = 0
+					      GROUP BY c.board_no) AS "reply_count" 
 				  FROM board b
-				  LEFT OUTER JOIN ( SELECT board_no, COUNT(*) "reply_count"
+				  LEFT OUTER JOIN ( SELECT board_no, GROUP_CONCAT(content order by content SEPARATOR ',') as content 
 				                      FROM reply
 				                     WHERE (yn = 0 OR yn IS NULL)
-				                       AND (re_reply_yn = 0 OR re_reply_yn IS NULL)
-				                     GROUP BY board_no
-				                  ) r
+				                      AND (re_reply_yn = 0 OR re_reply_yn IS NULL)
+				                    GROUP BY board_no
+				                   ) r
 				    ON b.board_no = r.board_no
-				 WHERE code = 10
-				   AND b.yn = 0
+				 WHERE 1=1 
+		           AND code = #{code}
+		           AND b.yn = 0
 				   <if test="category != null">
 				   AND category LIKE CONCAT('%',#{category},'%')
 				   </if>
