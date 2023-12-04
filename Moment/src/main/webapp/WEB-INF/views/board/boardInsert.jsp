@@ -25,7 +25,7 @@
   <div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
-            <div cla ss="card-body">
+            <div class="card-body">
                 <div class="contentCenterSetting">
                   <div class="contentWidthSetting">
                     <h4 class="card-title">게시판 등록 페이지</h4>
@@ -55,7 +55,7 @@
                       <div class="form-group">
                         <textarea class="form-control"  id=content name=content rows="4" placeholder="내용을 입력해주세요!"></textarea>
                       </div>
-                      <!-- 게시글 등록 또는 뒤로가기 -->
+                      <!-- 게시글 등록 또는 뒤로가기 (임시저장 없음 알림창 띄우기) -->
                       <button type="submit" class="btn btn-primary mr-2">등록</button>
                       <button class="btn btn-light">뒤로가기</button>
 
