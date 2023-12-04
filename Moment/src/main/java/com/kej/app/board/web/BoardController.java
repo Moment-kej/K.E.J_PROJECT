@@ -37,7 +37,7 @@ public class BoardController {
 		
 		List<BoardVO> list = service.dressBoradList(cri);
 		model.addAttribute("list", list);
-		System.out.println(list);
+//		System.out.println(list);
 		
 		//페이지네이션
 		int total = service.pagecount(cri);

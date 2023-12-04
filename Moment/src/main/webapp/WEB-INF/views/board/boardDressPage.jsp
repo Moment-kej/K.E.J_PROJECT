@@ -34,9 +34,9 @@
                         <!-- 게시글 보기 양식 정하는 장소 -->
                         <div class="boardListForm">
                             <div class="boardListFormBtn">
-                                <a onclick="showPosts('albumType')" class="boardListFormChangeBtn"><i class="fas fa-th-large"></i></a>
-                                <a onclick="showPosts('cardsType')" class="boardListFormChangeBtn"><i class="fas fa-th-list"></i></a>
-                                <a onclick="showPosts('listType')" class="boardListFormChangeBtn"><i class="fas fa-bars"></i></a>
+                                <a id="albumType" class="boardListFormChangeBtn"><i class="fas fa-th-large"></i></a>
+                                <a id="cardsType" class="boardListFormChangeBtn"><i class="fas fa-th-list"></i></a>
+                                <a id="listType" class="boardListFormChangeBtn"><i class="fas fa-bars"></i></a>
                             </div>
                             <div class="listSizeSelect">
                                 <!-- 한번에 보여줄 개수 정하기 -->
@@ -73,13 +73,15 @@
                         <div>
                             <p>확인용 >> ${criteria}</p>
                             <!-- <input type="text" name="contextPath" id="contextPath" value="${pageContext.request.contextPath}"> -->
-                            <input type="hidden" name="page" id="criteriaPage" value="${criteria.page}">
-                            <input type="hidden" name="amount" id="criteriaAmount" value="${criteria.amount}">
-                            <input type="hidden" name="category" id="criteriaCategory" value="${criteria.category}">
-                            <input type="hidden" name="listType" id="criteriaListType" value="${criteria.listType}">
-                            <input type="hidden" name="pageStart" id="pageVOStart" value="${pageVO.start-1}">
-                            <input type="hidden" name="pageEnd" id="pageVOEnd" value="${pageVO.end+1}">
+                            <input type="hidden" name="page"        id="criteriaPage" value="${criteria.page}">
+                            <input type="hidden" name="amount"      id="criteriaAmount" value="${criteria.amount}">
+                            <input type="hidden" name="category"    id="criteriaCategory" value="${criteria.category}">
+                            <input type="hidden" name="listType"    id="criteriaListType" value="${criteria.listType}">
+                            <input type="hidden" name ="code"       id="criteriaCode" value="${criteria.code}">
+                            <input type="hidden" name="pageStart"   id="pageVOStart" value="${pageVO.start-1}">
+                            <input type="hidden" name="pageEnd"     id="pageVOEnd" value="${pageVO.end+1}">
                             <input type="hidden" name="pagerealEnd" id="pageVORealEnd" value="${pageVO.realEnd}">
+                            <input type="hidden" name="contextPath" id="contextPath" value="${pageContext.request.contextPath}">
                         </div>
                         <!-- pagination -->
                         <div class="pagination d-flex justify-content-center">
@@ -145,9 +147,20 @@
     </div>
 </div>
 <script type="module" src="${pageContext.request.contextPath}/assets/js/eunae/index.js"></script>
-<script type="text/javascript">
+
+<!-- <script type="text/javascript">
     const contentContainer = document.getElementById('contentListTest');
     let currentView = 'albumType'; // 기본적으로 앨범형으로 시작
+    let criteriaListType = document.getElementById('criteriaListType').value;
+    // console.log(criteriaListType);
+
+    if(criteriaListType == ''){
+        pagenationNumber('');
+        pagenation('');
+        showPosts(currentView);
+    } else {
+        showPosts(criteriaListType);
+    }
 
     function showPosts(view) {
         let listTypeValue = document.getElementById('criteriaListType');
@@ -157,6 +170,28 @@
         pagenation(view);
         pagenationNumber(view);
         renderPosts();
+    };
+
+    function renderPosts() {
+        // Ajax로 서버에서 데이터 가져오기
+        let page = $('#criteriaPage').val();
+        let amount = $('#criteriaAmount').val();
+        let category = $('#criteriaCategory').val();
+        let code = 10;
+        const dataForm = {page : page , amount : amount, category : category, code : code};
+        
+        $.ajax({
+            url: '${pageContext.request.contextPath}/board/temp',
+            method: 'GET',
+            data : dataForm,
+            dataType: 'json',
+            success: function(posts) {
+                renderPostsContent(posts);
+            },
+            error: function(error) {
+                console.error('데이터를 가져오는 중 에러가 발생했습니다.', error);
+            }
+        });
     };
 
     // 리스트형 렌더링
@@ -195,19 +230,6 @@
             //테이블 내용(게시글)
             const tbody = document.createElement('tbody');
 
-            // if(posts == null || posts == '' || posts == undefined){
-            //     let notDataTr = document.createElement('tr');
-            //     notDataTr.setAttribute('colspan', 5);
-            //     let notDataTd = document.createElement('td');
-            //     notDataTd.setAttribute('colspan', 5);
-            //     notDataTd.setAttribute('id', 'boardNotList');
-            //     let notDataH3 = document.createElement('h3');
-            //     notDataH3.innerText = '조회할 게시글이 없습니다.';
-
-            //     notDataTd.appendChild(notDataH3);
-            //     notDataTr.appendChild(notDataTd);
-            //     tbody.appendChild(notDataTr);
-            // } else {
             posts.forEach(post => {
                 let replyCount = post.replyCount;
                 const row = document.createElement('tr');
@@ -231,8 +253,6 @@
                 });
                 tbody.appendChild(row);
             });
-            // };
-
             table.appendChild(tbody);
             listTypeDiv.appendChild(table);
         };
@@ -304,15 +324,15 @@
                 let albumTypeDiv_1_2_2 = document.createElement('div');
                 albumTypeDiv_1_2_2.className = 'date_num';
 
-                albumTypeDiv_1_2_2_sapn_1 = document.createElement('span');     // 시간
+                let albumTypeDiv_1_2_2_sapn_1 = document.createElement('span');     // 시간
                 albumTypeDiv_1_2_2_sapn_1.innerText = boardWriteDt;
                 albumTypeDiv_1_2_2.appendChild(albumTypeDiv_1_2_2_sapn_1);
 
-                albumTypeDiv_1_2_2_sapn_2 = document.createElement('span');     // 조회수
+                let albumTypeDiv_1_2_2_sapn_2 = document.createElement('span');     // 조회수
                 albumTypeDiv_1_2_2_sapn_2.innerText = '조회 ' + boardView;
                 albumTypeDiv_1_2_2.appendChild(albumTypeDiv_1_2_2_sapn_2);
                 
-                albumTypeDiv_1_2_2_sapn_3 = document.createElement('span');     // 댓글수
+                let albumTypeDiv_1_2_2_sapn_3 = document.createElement('span');     // 댓글수
                 albumTypeDiv_1_2_2_sapn_3.innerText = '댓글 ' + boardReplyCount;
                 albumTypeDiv_1_2_2.appendChild(albumTypeDiv_1_2_2_sapn_3);
 
@@ -405,29 +425,6 @@
         return postElement;
     };
 
-    function renderPosts() {
-        // Ajax로 서버에서 데이터 가져오기
-        let page = $('#criteriaPage').val();
-        let amount = $('#criteriaAmount').val();
-        let category = $('#criteriaCategory').val();
-        let code = 10;
-        const dataForm = {page : page , amount : amount, category : category, code : code};
-        
-        $.ajax({
-            url: '${pageContext.request.contextPath}/board/temp',
-            method: 'GET',
-            data : dataForm,
-            dataType: 'json',
-            success: function(posts) {
-                renderPostsContent(posts);
-            },
-            error: function(error) {
-                console.error('데이터를 가져오는 중 에러가 발생했습니다.', error);
-            }
-        });
-    };
-    // renderPosts(currentView);
-
     // ajax를 통해 받아온 data를 forEach 돌려서 리스트 양식에 맞게 화면을 뿌림.
     function renderPostsContent(posts) {
         // 기존 내용 지우기 : currentView는 기본 albumType으로 설정되어 있음.
@@ -458,7 +455,7 @@
         };
     };
 
-    //시간포맷
+    // 시간포맷
     function formatTimestamp(timestamp) {
         // 밀리초로 표현된 시간 데이터를 Date 객체로 변환
         const date    = new Date(timestamp);
@@ -472,19 +469,6 @@
         const formattedDate = year + '.' + month + '.' + day + ' ' + hours + ':' + minutes;
 
         return formattedDate;
-    }
-</script>
-
-<script type="text/javascript">
-    //폼변경
-    let criteriaListType = document.getElementById('criteriaListType');
-
-    if(criteriaListType.value == '') {
-        // 위에서 앨범형을 기본으로 셋팅했기 때문에 따로 지정해줄 필요없음.
-        pagenation('');
-        pagenationNumber('');
-    } else {
-        showPosts(criteriaListType.value);
     };
 
     // 글쓰기 버튼 클릭 이벤트
@@ -558,7 +542,7 @@
         }
     };
 
-    //페이지네이션 1,2,3,4... numberf
+    // 페이지네이션 1,2,3,4... numberf
     function pagenationNumber(listType) {
         document.querySelectorAll('.pageNumber').forEach((anchor, index) => {
             // anchor -> 빈값
@@ -578,21 +562,12 @@
         });
     };
 
-    // 게시글 목록 수 : 10개씩, 20개씩 ... 40개씩
+    //게시글 목록 수 : 10개씩, 20개씩 ... 40개씩
     function Change(idx, category) {
         let listType = document.getElementById('criteriaListType').value;
         let pagenum = idx;
         let nowPaging_el   = document.querySelector('#handleAmount option:checked');
         let nowPaging = nowPaging_el.value;
-
-        if(nowPaging == 10){
-            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category + "&listType=" + listType;
-        }else if(nowPaging == 20){
-            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category + "&listType=" + listType;    
-        }else if(nowPaging == 30){
-            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category + "&listType=" + listType;    
-        }else if(nowPaging == 40){
-            location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category + "&listType=" + listType;    
-        }
+        location.href="${pageContext.request.contextPath}/board/1?page="+pagenum+"&amount="+nowPaging+"&category=" + category + "&listType=" + listType;
     };
-</script>
+</script> -->
