@@ -199,8 +199,6 @@ const createPostElement = (post) => {
             //최종 div 붙혀넣기
             postElement.appendChild(albumTypeUi);
 
-            // postElement.innerHTML
-            //     = `<img class="boardListImg" src="${pageContext.request.contextPath}/assets/images/스크린샷 2023-09-06 163745.png" alt="${post.title}"><p>${post.title}</p>`;
             break;
 
         case 'cardsType':
@@ -287,7 +285,8 @@ const renderPosts = () => {
     let page = $('#criteriaPage').val();
     let amount = $('#criteriaAmount').val();
     let category = $('#criteriaCategory').val();
-    let code = 10;
+    let code = $('#criteriaCode').val();
+
     const dataForm = {page : page , amount : amount, category : category, code : code};
     
     $.ajax({
@@ -296,7 +295,6 @@ const renderPosts = () => {
         data : dataForm,
         dataType: 'json',
         success: function(posts) {
-            console.log(posts);
             renderPostsContent(posts);
         },
         error: function(error) {

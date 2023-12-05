@@ -28,9 +28,9 @@ public class BoardController {
 	
 	//https://badstorage.tistory.com/13 == 페이징/실패
 	//https://jadestone.tistory.com/101 == 페이징/진행중
-	@GetMapping("/{code}")
-	public String boardDressPage(Model model, Criteria cri, @PathVariable("code") int code) throws Exception {
-		
+	@GetMapping("/10")
+	public String boardDressPage(Model model, Criteria cri) throws Exception {
+		//, @PathVariable("code") int code
 		cri.setCode(10);
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
 		//목록
@@ -47,12 +47,12 @@ public class BoardController {
 	}
 	
 	// 게시판 전체조회 HTML 양식
-	@GetMapping("/boardListTemp")
-	public String boardAllListTemp() {
-		return "board/boardListTemp";
-	}
+//	@GetMapping("/boardListTemp")
+//	public String boardAllListTemp() {
+//		return "board/boardListTemp";
+//	}
 	
-	// Test
+	// Ajax Get Method 
 	@RequestMapping(value="/temp", method = {RequestMethod.GET})
 	@ResponseBody
 	public List<BoardVO> getPosts(Criteria cri){

@@ -13,6 +13,17 @@ export const writingBntEvent = () => {
     }
 };
 
+// 카테고리를 변경할 때 마다 URL 변경하기
+const Change = (category) => {
+    let contextPath = document.getElementById('contextPath').value;
+    let criteriaCode = document.getElementById('criteriaCode').value;
+    let listType = document.getElementById('criteriaListType').value;
+    let nowPaging_el   = document.querySelector('#handleAmount option:checked');
+    let nowPaging = nowPaging_el.value;
+    
+    location.href = contextPath + "/board/" + criteriaCode + "?page=1&amount="+nowPaging+"&category=" + category + "&listType=" + listType;
+};
+
 // a tag 읽어와서 Change 함수를 통해 category에 맞게 board list 반영
 export const menuCategoryEvent = () => {
     var aTag = document.querySelectorAll('.menuCategory a');
@@ -23,17 +34,6 @@ export const menuCategoryEvent = () => {
             Change(clickedId);
         });
     });
-};
-
-// 카테고리를 변경할 때 마다 URL 변경하기
-export const Change = (category) => {
-    let contextPath = document.getElementById('contextPath').value;
-    let criteriaCode = document.getElementById('criteriaCode').value;
-    let listType = document.getElementById('criteriaListType').value;
-    let nowPaging_el   = document.querySelector('#handleAmount option:checked');
-    let nowPaging = nowPaging_el.value;
-    
-    location.href = contextPath + "/board/" + criteriaCode + "?page=1&amount="+nowPaging+"&category=" + category + "&listType=" + listType;
 };
 
 // 게시글 목록개수 변경할 때 마다 URL 변경하기

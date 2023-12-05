@@ -5,7 +5,7 @@
 		<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=796cf859ad3574f6a087d7c99ef6b404&libraries=services"></script> -->
 		
     	<!-- jQuery -->
-    	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>\
+    	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		
 		<!-- Bootstrap -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

@@ -14,6 +14,9 @@
 
   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 
+	<!-- icon render : eunae -->
+	<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
   	<!-- plugins:css -->
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/feather/feather.css">
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/ti-icons/css/themify-icons.css">
