@@ -1,0 +1,43 @@
+/* book list style */
+#newsList {
+    width: 100%;
+}
+.bookTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 470px;
+}
+/* news list style */
+.button-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+    margin: 0 -16px;
+}
+.button-container > button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+}
+.button-container .left-button {
+    position: absolute;
+    left: -0;
+}
+.button-container .right-button {
+    position: absolute;
+    right: 0;
+}
+a {
+    color: black;
+    text-decoration: none !important;
+    cursor: pointer !important;
+}
+.newsCategoryChange {
+    float: right;
+}
+.categoryLink:hover {
+    color: blue;
+}

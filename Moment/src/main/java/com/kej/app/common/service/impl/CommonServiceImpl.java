@@ -12,19 +12,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.kej.app.board.service.vo.Criteria;
 import com.kej.app.common.mapper.CommonMapper;
 import com.kej.app.common.service.CommonService;
+import com.kej.app.common.service.vo.BookVO;
 import com.kej.app.common.service.vo.CodeVO;
-import com.kej.app.common.service.vo.NeverNews;
+import com.kej.app.common.service.vo.NaverBookVO;
+import com.kej.app.common.service.vo.NaverNewsVO;
 import com.kej.app.common.service.vo.NewsVO;
 
 @Service
 public class CommonServiceImpl implements CommonService{
 	@Autowired CommonMapper commonMapper;
-	private static String CLIENT_ID = "uzFgU5Xq_6esU6400qi2";
-	private static String CLIENT_SECRET = "2zYFlRC1sO";
+	private static String NEWS_CLIENT_ID = "uzFgU5Xq_6esU6400qi2";
+	private static String NEWS_CLIENT_SECRET = "2zYFlRC1sO";
 	private static int DISPLAY_COUNT = 10;	// 한 페이지에 보여줄 뉴스 개수
+	private static int DISPLAY_COUNT_BOOK = 8;	// 한 페이지에 보여줄 책 개수
+	
+	private static String BOOK_CLIENT_ID = "MhnHteJVoLFUSzJOxMAZ";
+	private static String BOOK_CLIENT_SECRET = "e4R7Hlzgbs"; 
     
 	// 여러 그룹 코드들의 상세코드 조회
 	@Override
@@ -52,12 +57,12 @@ public class CommonServiceImpl implements CommonService{
 
         // 헤더 설정
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Naver-Client-Id", CLIENT_ID);
-        headers.set("X-Naver-Client-Secret", CLIENT_SECRET);
+        headers.set("X-Naver-Client-Id", NEWS_CLIENT_ID);
+        headers.set("X-Naver-Client-Secret", NEWS_CLIENT_SECRET);
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         // API 호출 및 결과 처리
-        ResponseEntity<NeverNews> response = restTemplate.exchange(apiUrl, HttpMethod.GET, entity, NeverNews.class);
+        ResponseEntity<NaverNewsVO> response = restTemplate.exchange(apiUrl, HttpMethod.GET, entity, NaverNewsVO.class);
         
         List<NewsVO> list = response.getBody().getItems();
 
@@ -68,7 +73,35 @@ public class CommonServiceImpl implements CommonService{
 	public int getTotalPages(String query) {
 		int totalNewsCount = 100;
 		return totalNewsCount;
-	};
+	}
+
+	@Override
+	public List<BookVO> books(int page, String query) {
+		int start = (page - 1) * DISPLAY_COUNT_BOOK + 1;
+		
+		// 네이버 Book API 호출
+		String apiUrl = "https://openapi.naver.com/v1/search/book.json?query="
+		        		+ query
+		        		+ "&display="
+		        		+ DISPLAY_COUNT_BOOK
+						+ "&start="
+						+ start
+						+ "&sort=date";
+		
+		RestTemplate restTemplate = new RestTemplate();
+
+        // 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Naver-Client-Id", BOOK_CLIENT_ID);
+        headers.set("X-Naver-Client-Secret", BOOK_CLIENT_SECRET);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        
+        // API 호출 및 결과 처리
+        ResponseEntity<NaverBookVO> response = restTemplate.exchange(apiUrl, HttpMethod.GET, entity, NaverBookVO.class);
+        List<BookVO> list = response.getBody().getItems();
+        
+		return list;
+	}
 
 	
 	

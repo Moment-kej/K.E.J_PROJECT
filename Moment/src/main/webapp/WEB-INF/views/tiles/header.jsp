@@ -278,9 +278,15 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="/moment">
+            <a class="nav-link" href="${pageContext.request.contextPath}">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/mainTest">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">MainTestPage</span>
             </a>
           </li>
           <li class="nav-item">
