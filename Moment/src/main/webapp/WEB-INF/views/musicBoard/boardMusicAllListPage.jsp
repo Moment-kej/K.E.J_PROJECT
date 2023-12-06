@@ -11,23 +11,23 @@
                     <div class="card-body">
                         <!--제목, 카테고리 div-->
                         <div class="boardCategoryInfo">
-	                        <div class="card-title"><h2>Music 게시판</h2></div>
-	                        <div class="d-flex justify-content-center menuCategoryDiv">
-	                            <ul class="menuCategory p-0">
-	                                <li><a class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
+                            <div class="card-title"><h2>Music 게시판</h2></div>
+                            <div class="d-flex justify-content-center menuCategoryDiv">
+                                <ul class="menuCategory p-0">
+                                    <li><a class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
                                     <li><a class="menuCategoryATag">k-pop</a></li>
                                     <li><a class="menuCategoryATag">k-pop</a></li>
                                     <li><a class="menuCategoryATag">k-pop</a></li>
                                     <li><a class="menuCategoryATag">k-pop</a></li>
-	                            </ul>
-	                        </div>
+                                </ul>
+                            </div>
                         </div>
                         <!-- 게시글 보기 양식 정하는 장소 -->
                         <div class="boardListForm">
                             <div class="boardListFormBtn">
-                                <a id="albumType" class="boardListFormChangeBtn"><i class="fas fa-th-large"></i></a>
-                                <a id="cardsType" class="boardListFormChangeBtn"><i class="fas fa-th-list"></i></a>
-                                <a id="listType" class="boardListFormChangeBtn"><i class="fas fa-bars"></i></a>
+                                <a id="albumType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortCard.svg" alt="sort_card"></a>
+                                <a id="cardsType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortAlbum.svg" alt="sort_card"></a>
+                                <a id="listType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortList.svg" alt="sort_card"></a>
                             </div>
                             <div class="listSizeSelect">
                                 <!-- 한번에 보여줄 개수 정하기 -->
