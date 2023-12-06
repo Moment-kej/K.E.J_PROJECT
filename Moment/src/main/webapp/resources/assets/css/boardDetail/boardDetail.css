@@ -1,0 +1,332 @@
+hr {
+   color: rgba(207, 210, 226, 1);
+}
+
+a {
+   text-decoration: none !important;
+}
+
+.fontSizeSmall {
+   font-size: 11px;
+}
+
+.button {
+   box-sizing: border-box;
+   display: inline-block;
+   width: 45px;
+   height: 33px;
+   margin: 5px;
+   line-height: 30px;
+   color: #afafaf;
+   font-size: 13px;
+   font-weight: 700;
+   text-align: center;
+   cursor: pointer;
+   vertical-align: top;
+   transition: 0.5s;
+}
+
+.button:hover {
+   color: #222f4e;
+   transition: 0.5s;
+   text-decoration: none;
+}
+
+/* Top Button */
+.topBtn {
+   display: block;
+   float: right;
+   margin-bottom: 20px;
+}
+
+.topBtn a {
+   display: inline-block;
+   width: 70px;
+   height: 35px;
+   margin: 7px;
+   line-height: 32px;
+   color: #222f4e;
+   font-size: 12px;
+   font-weight: 700;
+   text-align: center;
+   border: 1px solid #d4dfe9;
+   border-radius: 5px;
+   background-color: #d4dfe9;
+   transition: 0.5s;
+}
+
+.topBtn a:last-child {
+   width: 50px;
+}
+
+.topBtn a:hover {
+   color: #fff;
+   border: 1px solid #222f4e;
+   background-color: #222f4e;
+   transition: 0.5s;
+}
+
+.topBtn a i {
+   margin-right: 3px;
+} /* Top Button End */
+
+/* 게시글 본문 시작 */
+.contentBox {
+   clear: both;
+   border: 1px solid rgba(207, 210, 226, 0.5);
+   border-radius: 10px;
+   padding: 30px;
+   margin-bottom: 30px;
+}
+
+/* 본문 제목 Box */
+.headerTitleBox {
+   margin-bottom: 15px;
+   font-size: 13px;
+}
+
+.headerTitleBox a {
+   color: #3289ba;
+   cursor: pointer;
+}
+
+.headerTitleBox a i {
+   margin-left: 3px;
+}
+
+.headerTitleBox h3 {
+   margin-top: 5px;
+   font-weight: 500;
+   display: block;
+} /* 본문 제목 Box End */
+
+/* 본문 User 프로필 정보 */
+.writerInfoBox {
+   margin-bottom: 25px;
+}
+
+.writerInfoBox .writerImgBox img {
+   display: block;
+   width: 45px;
+   height: 45px;
+   margin: auto;
+   margin-right: 10px;
+   border-radius: 50%;
+}
+
+.writerInfoBox .writerInfoID .userID {
+   font-size: 13px;
+   font-weight: 700;
+   color: #222f4e;
+}
+
+.writerInfoBox .writerInfo .date {
+   margin-right: 5px;
+   font-size: 12px;
+   color: #6a737e;
+}
+
+.writerInfoBox .writerInfo .view, .viewCount {
+   margin: 0px 3px;
+   font-size: 12px;
+   color: #6a737e;
+} /* 본문 User 프로필 정보 End */
+
+/* 게시글 내용 */
+.contentViewer {
+   margin-bottom: 50px;
+}
+
+/* 좋아요 및 댓글 count */
+.replyBox {
+   margin-bottom: -10px;
+   font-size: 13px;
+   color: #666;
+   font-weight: 500;
+}
+
+/* Like Icon */
+.replyBox .likeBox {
+   margin-right: 15px;
+}
+
+.replyBox .likeBox .like i {
+   margin-right: 5px;
+   color: red;
+   font-size: 16px;
+}
+
+.replyBox .likeBox .like, .likeCount {
+   margin-right: 3px;
+} /* Like Icon End */
+
+/* Reply */
+.replyBox .replyCountBox {
+   margin-right: 15px;
+}
+
+.replyBox .replyCountBox i {
+   margin-right: 5px;
+   font-size: 16px;
+   color: #000;
+}
+
+.replyBox .replyCountBox .reply, .replyCount {
+   margin-right: 3px;
+} /* Reply End */
+
+/* Reply */
+.commentBox ul {
+   display: block;
+   list-style: none;
+   margin-bottom: 30px;
+}
+
+/* User Info */
+.commentBox .replyUserImgBox {
+   width: 37px;
+   height: 37px;
+}
+
+.commentBox .replyUserImgBox img {
+   width: 100%;
+   border-radius: 50%;
+}
+
+.commentBox .replyInfoBox .replyInfoID {
+   font-size: 15px;
+   font-weight: 600;
+   color: #222f4e;
+   margin-bottom: -5px;
+   display: block;
+}
+
+.commentBox .replyInfoBox .replyInfoDate {
+   font-size: 11px;
+   font-weight: 500;
+   color: #6a737e;
+   display: block;
+}
+
+.commentBox .commentContent {
+   margin-top: 10px;
+   padding: 0px 3px;
+}
+.commentBox .commentContent span {
+   font-size: 13px;
+   font-weight: 500;
+   color: #222;
+}
+
+.commentWirterBtnBox {
+   margin-bottom: -10px;
+   margin-left: 3px;
+}
+
+.commentWirterBtnBox a {
+   font-size: 12px;
+   color: #6a737e;
+   font-weight: 500;
+}
+
+/* 답글 작성 */
+.commentWriter {
+   box-sizing: border-box;
+   margin: 13px 0px;
+   padding: 10px 17px;
+   border: 2px solid rgba(207, 210, 226, 1);
+   border-radius: 5px;
+   background-color: #fff;
+}
+
+.commentWriter .comment_inbox {
+   margin-bottom: 10px;
+}
+
+.commentWriter .comment_inbox .comment_inbox_name {
+   margin-bottom: 10px;
+   font-weight: 700;
+   font-size: 13px;
+   font-style: normal;
+   display: block;
+}
+
+.commentWriter .comment_inbox textarea {
+   overflow: hidden;
+   overflow-wrap: break-word;
+   display: block;
+   width: 100%;
+   min-height: 15px;
+   padding-right: 1px;
+   border: 0;
+   font-size: 13px;
+   resize: none;
+   box-sizing: border-box;
+   outline: 0;
+   font-weight: 400;
+}
+
+/* 관련 게시글 */
+.textColorTit {
+   color: #222;
+}
+
+.textColorGray {
+   color: #676767;
+}
+
+.textColor:hover {
+   text-decoration: none;
+}
+
+.related_list_article h2 {
+   margin-bottom: 15px;
+   font-size: 17px;
+   font-weight: bold;
+}
+
+.related_list_article .relatedArticleTab span {
+   display: block;
+}
+
+.related_list_article .relatedArticleTab ul li {
+   width: 100%;
+   border-bottom: 1px solid #e2e2e2;
+}
+
+.related_list_article .relatedArticleTab .tit_area {
+   width: 50%;
+   line-height: 35px;
+   font-size: 13px;
+   vertical-align: middle;
+}
+
+.related_list_article .relatedArticleTab .tit_area a:hover {
+   text-decoration: none;
+}
+
+.related_list_article .relatedArticleTab .tit_area .count {
+   color: #ff2f3b;
+   font-weight: 700;
+   margin-left: 3px;
+}
+
+.related_list_article .relatedArticleTab .member_area {
+   width: 25%;
+   line-height: 18px;
+   font-size: 13px;
+   vertical-align: middle;
+   color: #676767;
+}
+
+.related_list_article .relatedArticleTab .date_area {
+   width: 25%;
+   line-height: 18px;
+   font-size: 13px;
+   vertical-align: middle;
+   color: #676767;
+}
+
+.alignRight {
+   text-align: right;
+}
