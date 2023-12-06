@@ -6,6 +6,10 @@ ul, li, ol, dl {list-style: none !important;}
 ul::marker{list-style: none !important;}
 fieldset {border : none !important;}
 
+.selected{
+    color: #3935ff !important;
+    font-weight: bold;
+}
 .pagination {
     display: inline-block;
 }
@@ -30,6 +34,11 @@ fieldset {border : none !important;}
 .boardListFormBtn {
     display: inline-block;
     margin-right: 10px;
+}
+.boardListFormBtn a i {
+    color: #797979;
+    font-size: small;
+    margin-right: 5px;
 }
 .listSizeSelect {
     display: inline-block;
@@ -72,7 +81,7 @@ fieldset {border : none !important;}
     margin: 0 15px !important;
 }
 .menuCategory > li > a{
-    color: black !important;
+    color: black;
     text-decoration : unset !important;
 }
 .menuCategory > li > a:hover {
@@ -91,12 +100,9 @@ fieldset {border : none !important;}
     height: 300px;
     position: relative;
 }
-.inner-div {
-    width : 80%;
-    position: absolute;
-    top: 50%;
-    left: 20%;
-    margin: -50px 0 0 -50px;
+.inner-div > h3 {
+    line-height: 230px;
+
 }
 
 .postType {
@@ -218,4 +224,3 @@ fieldset {border : none !important;}
 .boardListFormChangeBtn {
     cursor: pointer;
 }
-

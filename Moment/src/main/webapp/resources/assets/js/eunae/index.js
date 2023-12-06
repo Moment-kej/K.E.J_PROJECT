@@ -1,5 +1,5 @@
 import { writingBntEvent, menuCategoryEvent, Change_valueNull } from "./pageLinkChange.js";
-import { boardListFormChang } from "./viewRender.js";
+import { boardListFormChang, initCategory, initPage } from "./viewRender.js";
 
 // ------pageLinkChange.js------
 // select tag option:checked onChang Event
@@ -13,3 +13,7 @@ writingBntEvent();
 menuCategoryEvent();
 // class="boardListFormChangeBtn" -> a tag onClick Event
 boardListFormChang();
+// class="menuCategoryATag" -> board category font color change
+initCategory();
+// class="pageNumber" -> board pagenation font color change
+initPage();
