@@ -45,7 +45,7 @@ public class BoardController {
 		int total = service.pagecount(cri);
 		PageVO pageVO = new PageVO(cri, total);
 		model.addAttribute("pageVO", pageVO);
-		return "board/boardDressPage";
+		return "dressBoard/boardDressPage";
 	}
 	
 	// Ajax Get Method 
@@ -60,7 +60,7 @@ public class BoardController {
 	public String boardDressDetail() {
 		
 		
-		return "board/boardDressDetail";
+		return "dressBoard/boardDressDetail";
 	}
 	
 	// dress insert page
@@ -68,7 +68,7 @@ public class BoardController {
 	public String boardDressInsert() {
 		
 		
-		return "board/boardDressInsert";
+		return "dressBoard/boardDressInsert";
 	}
 	
 	// dress update page
@@ -76,7 +76,7 @@ public class BoardController {
 	public String boardDressUpdate() {
 		
 		
-		return "board/boardDressUpdate";
+		return "dressBoard/boardDressUpdate";
 	}
 	
 	
@@ -103,17 +103,17 @@ public class BoardController {
 	
 
 	//게시판 등록
-	@GetMapping("/3/1")
+	@GetMapping("/30/1")
 	public String BoardInsert(Model model) {
 		
-		return "board/boardInsert";
+		return "artBoard/boardInsert";
 	}
 
 	//게시판 수정
-	@GetMapping("/1/3")
+	@GetMapping("/30/3")
 	public String BoardUpdate(Model model) {
 		
-		return "board/boardUpdate";
+		return "artBoard/boardUpdate";
 	}
     
     
@@ -148,10 +148,10 @@ public class BoardController {
     
     
     // 게시판 디테일 Page
-	@GetMapping("/2_1")
+	@GetMapping("/20_1")
 	public String BoardDetail(Model model) {
 		
-		return "board/boardDetail";
+		return "musicBoard/boardDetail";
 
 	}
 	
