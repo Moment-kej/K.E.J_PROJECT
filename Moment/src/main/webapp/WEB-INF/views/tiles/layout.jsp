@@ -21,6 +21,8 @@
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/feather/feather.css">
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/ti-icons/css/themify-icons.css">
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/css/vendor.bundle.base.css">
+  	<!-- boardDetail -->
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardDetail/boardDetail.css">
   	
   	<!-- endinject -->
   	<!-- Plugin css for this page -->
