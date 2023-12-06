@@ -21,6 +21,52 @@
     	/* 에디터 스타일 */
     	.ck-editor__editable { height: 400px; }
       	.ck-content { font-size: 12px; }
+      	  /* button */
+	      #submintBtn{
+		   box-sizing: border-box;
+		   display: inline-block;
+		   width: 45px;
+		   height: 33px;
+		   color: white;
+		   font-size: 13px;
+		   font-weight: 700;
+		   text-align: center;
+		   cursor: pointer;
+		   vertical-align: top;
+		   transition: 0.5s;
+		   background: #4B49AC;
+		   border: none;
+		   border-radius: 5px;
+		  }
+	
+		  #submintBtn:hover {	
+		   color: #4B49AC;
+		   background: white;
+		   transition: 0.5s;
+		  }
+		  
+	      #backBtn{
+	       background: #f8f9fa;
+	       box-sizing: border-box;
+		   display: inline-block;
+		   width: 80px;
+		   height: 33px;
+		   color: black;
+		   font-size: 13px;
+		   font-weight: 700;
+		   text-align: center;
+		   cursor: pointer;
+		   vertical-align: top;
+		   transition: 0.5s;
+		   border: none;
+		   border-radius: 5px;
+	      }
+	      
+	      #backBtn:hover {	
+		   color: #f8f9fa;
+		   transition: 0.5s;
+		   background: #a3a4a5;
+		  }
     </style>
    <div class="main-panel">
     <div class="content-wrapper">
@@ -56,8 +102,8 @@
                         <textarea class="form-control"  id=content name=content rows="4" placeholder="내용을 입력해주세요!"></textarea>
                       </div>
                       <!-- 게시글 등록 또는 뒤로가기 (임시저장 없음 알림창 띄우기) -->
-                      <button type="submit" class="btn btn-primary mr-2">등록</button>
-                      <button class="btn btn-light">뒤로가기</button>
+                       <button type="submit" class="mr-2" id="submintBtn" >등록</button>
+                      <button id="backBtn" >뒤로가기</button>
 
                     </form>
                   </div>
