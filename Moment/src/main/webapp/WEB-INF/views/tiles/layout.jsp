@@ -23,6 +23,10 @@
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/css/vendor.bundle.base.css">
   	<!-- boardDetail -->
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardDetail/boardDetail.css">
+  	<!-- boardInsert -->
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/soomin/boardInsert.css">
+  	<!-- boardUpdate -->
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/soomin/boardUpdate.css">
   	
   	<!-- endinject -->
   	<!-- Plugin css for this page -->
