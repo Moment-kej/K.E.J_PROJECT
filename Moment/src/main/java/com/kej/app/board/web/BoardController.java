@@ -138,24 +138,43 @@ public class BoardController {
     
     
     
+	
+	
+	
+	
+	
+	
+	
+	
+	
     
     
-    
-    
-    
-    
-    
-    
-    
-    // 게시판 디테일 Page
+    //Music 전체조회 Page
+    @GetMapping("/20")
+    public String MusicAllListPage(Model model) {
+    	
+    	return "musicBoard/boardMusicAllListPage";
+    }
+        
+    // Music 디테일 Page
 	@GetMapping("/20_1")
 	public String BoardDetail(Model model) {
 		
 		return "musicBoard/boardDetail";
-
 	}
 	
-
+	// Music insert page
+	@GetMapping("/20/1")
+	public String boardMusicInsert() {
+		
+		return "musicBoard/boardInsert";
+	}
+	
+	// Music update page
+	@GetMapping("/20/3")
+	public String boardMusicUpdate() {
+		return "musicBoard/boardUpdate";
+	}
     
     
     
@@ -163,6 +182,10 @@ public class BoardController {
     
     
     
+	
+	
+	
+	
     
     
     
