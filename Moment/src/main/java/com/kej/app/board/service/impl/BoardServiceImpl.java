@@ -14,6 +14,7 @@ import com.kej.app.board.service.vo.Criteria;
 public class BoardServiceImpl implements BoardService {
 	@Autowired BoardMapper bMapper;
 
+	// eunae ---------------------------------------------
 	@Override
 	public List<BoardVO> dressBoradList(Criteria cri) {
 		return bMapper.dressBoradList(cri);
@@ -24,5 +25,10 @@ public class BoardServiceImpl implements BoardService {
 		return bMapper.pagecount(cri);
 	}
 
+	@Override								// board insert
+	public int boardInsert(BoardVO vo) {
+		return 0;
+	}
+	// eunae ---------------------------------------------
 
 }

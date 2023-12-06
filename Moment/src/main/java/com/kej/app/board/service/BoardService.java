@@ -9,7 +9,7 @@ import com.kej.app.board.service.vo.Criteria;
 public interface BoardService {
 	public List<BoardVO> dressBoradList(Criteria cri);
 	public int pagecount(Criteria cri);
-	
+	public int boardInsert(BoardVO vo);
 	
 	
 	
