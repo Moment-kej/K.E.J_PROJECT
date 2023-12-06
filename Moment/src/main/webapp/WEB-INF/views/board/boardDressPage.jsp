@@ -17,12 +17,12 @@
                                 <c:if test="${item.commonDetailCd == 10}">
                                     <div class="card-title"><h2>${item.commonDetailName} 게시판</h2></div>
                                     <div class="d-flex justify-content-center menuCategoryDiv">
-                                        <ul class="menuCategory">
-                                            <li><a id="0" class="AllListView">전체보기</a></li>
+                                        <ul class="menuCategory p-0">
+                                            <li><a id="0" class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
                                             <c:forEach var="coDetailList" items="${code.CA}">
                                                 <c:if test="${coDetailList.commonDetailEx eq '옷 카테고리'}">
                                                     <li>
-                                                        <a id="${coDetailList.commonDetailCd}">${coDetailList.commonDetailName}</a>
+                                                        <a id="${coDetailList.commonDetailCd}" class="menuCategoryATag" data-category="${coDetailList.commonDetailCd}">${coDetailList.commonDetailName}</a>
                                                     </li>
                                                 </c:if>
                                             </c:forEach>
@@ -99,7 +99,7 @@
                             
                             <!-- 1.페이지네이션 -->
                             <c:forEach var="num" begin="${pageVO.start}" end="${pageVO.end}">
-                            <a class="pageNumber">
+                            <a class="pageNumber" data-page="${num}">
                                 <span class="pagenum ${pageVO.page == num ? 'currentpage' : '' }currentpage">${num}</span>
                             </a>
                             </c:forEach>

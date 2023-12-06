@@ -38,7 +38,7 @@
 				   </if>
 				   <choose>
 					   	<when test="category == null and category == ''">
-					   		AND category LIKE '%%')
+					   		AND category LIKE '%%'
 					   	</when>
 				   </choose>
 			 ) a
@@ -49,14 +49,14 @@
 	<select id="pagecount" resultType="int">
 		 SELECT count(*)
 		   FROM board
-		  WHERE code = 10
+		  WHERE code = #{code}
 		    AND yn = 0
 		    <if test="category != null">
 		   	AND category LIKE CONCAT('%',#{category},'%')
 		    </if>
 		   <choose>
 			   	<when test="category == null and category == ''">
-			   		AND category LIKE '%%')
+			   		AND category LIKE '%%'
 			   	</when>
 		   </choose>
 	</select>

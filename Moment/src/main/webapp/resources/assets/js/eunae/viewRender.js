@@ -334,3 +334,29 @@ export const boardListFormChang = () => {
         });
     });
 };
+
+// 선택된 카테고리 색상 변경
+export const initCategory = () => {
+    var category = document.getElementById('criteriaCategory').value;
+    if (category) {
+        // URL에서 추출한 카테고리에 해당하는 요소에 선택 클래스 추가
+        var categoryElement = document.querySelector('.menuCategoryATag[data-category="' + category + '"]');
+        console.log(categoryElement);
+        if (categoryElement) {
+            categoryElement.classList.add('selected');
+        }
+    }
+};
+
+// 선택된 페이지 색상 변경
+export const initPage = () => {
+    var category = document.getElementById('criteriaPage').value;
+    if (category) {
+        // URL에서 추출한 카테고리에 해당하는 요소에 선택 클래스 추가
+        var categoryElement = document.querySelector('.pageNumber[data-page="' + category + '"]');
+        console.log(categoryElement);
+        if (categoryElement) {
+            categoryElement.classList.add('selected');
+        }
+    }
+};

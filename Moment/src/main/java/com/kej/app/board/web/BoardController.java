@@ -26,18 +26,20 @@ public class BoardController {
 	@Autowired BoardService service;
 	@Autowired CommonService cservice;
 	
-	//https://badstorage.tistory.com/13 == 페이징/실패
 	//https://jadestone.tistory.com/101 == 페이징/진행중
 	@GetMapping("/10")
 	public String boardDressPage(Model model, Criteria cri) throws Exception {
-		//, @PathVariable("code") int code
-		cri.setCode(10);
-		model.addAttribute("code", cservice.getCodes("CO", "CA"));
-		//목록
 		
+		//cri vo에 code 값을 10으로 준 것
+		cri.setCode(10);
+		
+		//공통코드
+		model.addAttribute("code", cservice.getCodes("CO", "CA"));
+		
+		//목록
 		List<BoardVO> list = service.dressBoradList(cri);
 		model.addAttribute("list", list);
-//		System.out.println(list);
+
 		
 		//페이지네이션
 		int total = service.pagecount(cri);
@@ -46,12 +48,6 @@ public class BoardController {
 		return "board/boardDressPage";
 	}
 	
-	// 게시판 전체조회 HTML 양식
-//	@GetMapping("/boardListTemp")
-//	public String boardAllListTemp() {
-//		return "board/boardListTemp";
-//	}
-	
 	// Ajax Get Method 
 	@RequestMapping(value="/temp", method = {RequestMethod.GET})
 	@ResponseBody
@@ -59,7 +55,29 @@ public class BoardController {
 		return service.dressBoradList(cri);
 	}
 	
+	// dress detail page
+	@GetMapping("/10_1")
+	public String boardDressDetail() {
+		
+		
+		return "board/boardDressDetail";
+	}
 	
+	// dress insert page
+	@GetMapping("/10/1")
+	public String boardDressInsert() {
+		
+		
+		return "board/boardDressInsert";
+	}
+	
+	// dress update page
+	@GetMapping("/10/3")
+	public String boardDressUpdate() {
+		
+		
+		return "board/boardDressUpdate";
+	}
 	
 	
 	
