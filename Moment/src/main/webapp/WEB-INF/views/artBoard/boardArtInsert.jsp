@@ -1,80 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <style>
-    	/* 카테고리 스타일 */
-    	.contentCenterSetting{
-    		width: 1000px;
-    		margin: 0 auto;
-    	}
-    	.contentWidthSetting{
-    		width: 950px;
-    	}
-    	.listCategorySelect{
-    		display: flex;
-    	}
-    	.listCategorySelect > .form-group > select{
-    		width: 465px !important;
-    	}
-    	.listCategorySelect > .form-group {
-    		margin-right: 20px;
-    	}
-    	/* 에디터 스타일 */
-    	.ck-editor__editable { height: 400px; }
-      	.ck-content { font-size: 12px; }
-      	  /* button */
-	      #submintBtn{
-		   box-sizing: border-box;
-		   display: inline-block;
-		   width: 45px;
-		   height: 33px;
-		   color: white;
-		   font-size: 13px;
-		   font-weight: 700;
-		   text-align: center;
-		   cursor: pointer;
-		   vertical-align: top;
-		   transition: 0.5s;
-		   background: #4B49AC;
-		   border: none;
-		   border-radius: 5px;
-		  }
-	
-		  #submintBtn:hover {	
-		   color: #4B49AC;
-		   background: white;
-		   transition: 0.5s;
-		  }
-		  
-	      #backBtn{
-	       background: #f8f9fa;
-	       box-sizing: border-box;
-		   display: inline-block;
-		   width: 80px;
-		   height: 33px;
-		   color: black;
-		   font-size: 13px;
-		   font-weight: 700;
-		   text-align: center;
-		   cursor: pointer;
-		   vertical-align: top;
-		   transition: 0.5s;
-		   border: none;
-		   border-radius: 5px;
-	      }
-	      
-	      #backBtn:hover {	
-		   color: #f8f9fa;
-		   transition: 0.5s;
-		   background: #a3a4a5;
-		  }
-    </style>
-   <div class="main-panel">
+  <div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
             <div class="card-body">
                 <div class="contentCenterSetting">
                   <div class="contentWidthSetting">
-                    <h4 class="card-title">게시판 수정 페이지</h4>
+                    <h4 class="card-title">게시판 등록 페이지</h4>
                     <p class="card-description">작성자</p>
                     <!-- 게시판 등록 form -->
                     <form class="forms-sample">
@@ -102,7 +34,7 @@
                         <textarea class="form-control"  id=content name=content rows="4" placeholder="내용을 입력해주세요!"></textarea>
                       </div>
                       <!-- 게시글 등록 또는 뒤로가기 (임시저장 없음 알림창 띄우기) -->
-                       <button type="submit" class="mr-2" id="submintBtn" >등록</button>
+                      <button type="submit" class="mr-2" id="submintBtn" >등록</button>
                       <button id="backBtn" >뒤로가기</button>
 
                     </form>

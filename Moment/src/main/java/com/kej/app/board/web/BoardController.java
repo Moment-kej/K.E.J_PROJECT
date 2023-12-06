@@ -101,19 +101,47 @@ public class BoardController {
 	
 	
 	
-
-	//게시판 등록
-	@GetMapping("/30/1")
-	public String BoardInsert(Model model) {
+	//아트게시판 전체 조회
+	@GetMapping("/30")
+	public String boardArtPage(Model model, Criteria cri) throws Exception {
 		
-		return "artBoard/boardInsert";
+		//cri vo에 code 값을 10으로 준 것
+		cri.setCode(10);
+		
+		//공통코드
+		model.addAttribute("code", cservice.getCodes("CO", "CA"));
+		
+		//목록
+		List<BoardVO> list = service.dressBoradList(cri);
+		model.addAttribute("list", list);
+
+		
+		//페이지네이션
+		int total = service.pagecount(cri);
+		PageVO pageVO = new PageVO(cri, total);
+		model.addAttribute("pageVO", pageVO);
+		return "artBoard/boardArtsPage";
+	}
+	
+	//아트게시판 상세 조회
+	@GetMapping("/30_1")
+	public String BoardArtDetail(Model model) {
+		
+		return "artBoard/boardArtDetail";
+	}
+	
+	//아트게시판 등록_조회
+	@GetMapping("/30/1")
+	public String BoardArtInsert(Model model) {
+		
+		return "artBoard/boardArtInsert";
 	}
 
-	//게시판 수정
+	//아트게시판 수정_조회
 	@GetMapping("/30/3")
-	public String BoardUpdate(Model model) {
+	public String BoardArtUpdate(Model model) {
 		
-		return "artBoard/boardUpdate";
+		return "artBoard/boardArtUpdate";
 	}
     
     
