@@ -341,7 +341,6 @@ export const initCategory = () => {
     if (category) {
         // URL에서 추출한 카테고리에 해당하는 요소에 선택 클래스 추가
         var categoryElement = document.querySelector('.menuCategoryATag[data-category="' + category + '"]');
-        console.log(categoryElement);
         if (categoryElement) {
             categoryElement.classList.add('selected');
         }
@@ -354,7 +353,6 @@ export const initPage = () => {
     if (category) {
         // URL에서 추출한 카테고리에 해당하는 요소에 선택 클래스 추가
         var categoryElement = document.querySelector('.pageNumber[data-page="' + category + '"]');
-        console.log(categoryElement);
         if (categoryElement) {
             categoryElement.classList.add('selected');
         }

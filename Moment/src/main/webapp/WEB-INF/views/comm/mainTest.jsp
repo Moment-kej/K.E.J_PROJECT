@@ -306,6 +306,7 @@
             // string -> number change
             let currentPageNumber = parseInt(document.getElementById('currentPage').value);
 
+            
             if(currentPageNumber === 1) {
                 document.querySelector('.left-button').style.display = 'none';
             }
@@ -328,13 +329,13 @@
         const bookPagenationCondition = (bookPageNumber) => {
             let total = document.getElementById('total').value;
             let totalNumber = parseInt(total);
-
-            if(currentPageNumber === 1) {
+            
+            if(bookPageNumber === 1) {
                 // book
                 document.querySelector('.bookLeftBnt').style.disply = 'none';
                 document.querySelector('.bookRightBnt').style.display = 'block';
             } else {
-                if(currentPageNumber === totalNumber) {
+                if(bookPageNumber === totalNumber) {
                     // book
                     document.querySelector('.bookRightBnt').style.display = 'none';
                     document.querySelector('.bookLeftBnt').style.disply = 'block';
@@ -353,20 +354,20 @@
             
             // string -> number change
             let currentPageNumber = parseInt(document.getElementById('book_currentPage').value);
-            
+
             if(currentPageNumber === 1) {
                 document.querySelector('.bookLeftBnt').style.display = 'none';
             }
 
             document.querySelector('.bookLeftBnt').addEventListener('click', function() {
                 let pageDown = --currentPageNumber;
-                newsPageChangeBnt(pageDown);
+                bookPagenationCondition(pageDown);
                 createBookComponent(contextPath, pageDown, querySearch);
             });
             
             document.querySelector('.bookRightBnt').addEventListener('click', function() {
                 let pageUp = ++currentPageNumber;
-                newsPageChangeBnt(pageUp);
+                bookPagenationCondition(pageUp);
                 createBookComponent(contextPath, pageUp, querySearch);
             });
             

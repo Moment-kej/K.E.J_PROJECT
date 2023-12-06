@@ -2,10 +2,10 @@ const contextPath = document.getElementById('contextPath').value;
 
 // 글쓰기 버튼 클릭 이벤트
 export const writingBntEvent = () => {
-    const writingBnt = document.getElementById('writingBnt');
+    const writingBnt = document.getElementById('boardInsertBnt');
     if(writingBnt) {
         writingBnt.addEventListener('click', () => {
-            let writingLink = contextPath + '/board/3/1';
+            let writingLink = contextPath + '/board/10/1';
             window.location.href = writingLink;     // 현재 창으로 링크 열기
         });
     } else {

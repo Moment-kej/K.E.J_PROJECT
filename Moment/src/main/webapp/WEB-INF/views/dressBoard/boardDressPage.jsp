@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/eunae/boardDressPage.css"/>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
@@ -67,7 +67,7 @@
                         </div>
                         <!--글쓰기 버튼-->
                         <div class="writingBntDiv">
-                            <button type="button" class="btn btn-inverse-success btn-md" id="writingBnt">글쓰기</button>
+                            <button type="button" class="btn btn-inverse-success btn-md" id="boardInsertBnt">글쓰기</button>
                         </div>
                         <!--확인용 div-->
                         <div>
