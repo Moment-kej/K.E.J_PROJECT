@@ -13,11 +13,8 @@
     transform: translateY(-50%);
     width: 100%;
     text-align: center;
+    margin: 0 -22px;
 }
-.button-container div {
-    margin: 0 10px; /* 각 버튼 간의 간격을 조절할 수 있습니다. */
-}
-
 .button-container > button {
     padding: 10px 20px;
     font-size: 16px;
@@ -32,56 +29,31 @@
     right: 0;
 }
 </style>
-        <div class="main-panel">
-            <div class="content-wrapper">
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="col-md-12 grid-margin">
                 <div class="row">
-                    <h3 class="font-weight-bold">최근뉴스100</h3>
-                    <div class="container testDivStyle">
-                        <div class="col-12 ">
-                        <!-- naver news -->
-                            <!-- news category -->
-                            <div class="newsCategoryChange mb-4 mt-3">
-                                <a onclick="changeCategory('음악,옷,미술')" id="음악,옷,미술Link" class="categoryLink ${querySearch eq '음악,옷,미술' ? 'selected' : ''}">전체</a>
-                                <c:forEach var="cBoardlist" items="${code.CO}">
-                                <a onclick="changeCategory('${cBoardlist.commonDetailName}')" class="categoryLink ${querySearch eq cBoardlist.commonDetailName ? 'selected' : ''}" id="${cBoardlist.commonDetailName}Link">${cBoardlist.commonDetailName}</a>
-                                </c:forEach>
-                            </div>  <!-- news category end -->
-                            <table class="table">
-                                <tbody>
-                                    <c:forEach var="news" items="${newsApiResponse}">
-                                        <tr>
-                                            <td><a href="${news.originallink}" target="_blank">${news.title}</a></td>
-                                            <td><fmt:formatDate value="${news.pubDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"><p>${news.description}</p></td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                            <div class="pagenationDiv">
-                                <!-- pagenation -->
-                                <div class="button-container">
-                                    <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon left-button">
-                                        <iconify-icon icon="mdi:chevron-double-left"></iconify-icon>
-                                    </button>
-
-                                    <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon right-button">
-                                        <iconify-icon icon="mdi:chevron-double-right"></iconify-icon>
-                                    </button>
-                                </div>
-                                <!-- pagenation end -->
-                            </div>
-                        </div>  <!-- naver news end -->
+                    <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                        <h3 class="font-weight-bold">Welcome Aamir</h3>
+                        <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span class="text-primary">3 unread alerts!</span></h6>
                     </div>
-                    <div>
-                        <input type="hidden" name="contextPath" id="contextPath" value="${pageContext.request.contextPath}">
-                        <input type="hidden" name="currentPage" id="currentPage" value="${currenPage}">
-                        <input type="hidden" name="total" id="total" value="${totalPages}">
-                        <input type="hidden" name="querySearch" id="querySearch" value="${querySearch}">
+                    <div class="col-12 col-xl-4">
+                        <div class="justify-content-end d-flex">
+                            <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
+                                <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i class="mdi mdi-calendar"></i> Today (10 Jan 2021)
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
+                                    <a class="dropdown-item" href="#">January - March</a>
+                                    <a class="dropdown-item" href="#">March - June</a>
+                                    <a class="dropdown-item" href="#">June - August</a>
+                                    <a class="dropdown-item" href="#">August - November</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-md-6 grid-margin stretch-card">
                         <div class="card tale-bg">
                         <div class="card-people mt-auto">
@@ -698,59 +670,6 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
         </div>
     </div>
-
-    <script>
-        function changeCategory(category) {
-            let querySearch = document.getElementById('querySearch').value;
-            let contextPath = document.getElementById('contextPath').value;
-
-            // 현재 선택된 카테고리를 찾아서 selected 클래스를 제거
-            document.querySelector('.categoryLink').classList.remove('selected');
-            
-            // 선택된 카테고리에 selected 클래스를 추가
-            document.getElementById(category + 'Link').classList.add('selected');
-
-            // 페이지 이동
-            document.location.href = contextPath + "/?page=1&query=" + category;
-        };
-
-        const pageChangeBnt = () => {
-            let querySearch = document.getElementById('querySearch').value;
-            let contextPath = document.getElementById('contextPath').value;
-            let total = document.getElementById('total').value;
-            let currentPage = document.getElementById('currentPage').value;
-            
-            // 숫자변환
-            let currentPage_number = parseFloat(currentPage);
-            let total_number = parseFloat(total);
-
-            if(currentPage_number === 1) {
-                document.querySelector('.left-button').style.display = 'none';
-                document.querySelector('.right-button').style.display = 'block';
-            } else {
-                document.querySelector('.left-button').style.display = 'none';
-
-                if(currentPage_number === total_number) {
-                    document.querySelector('.right-button').style.display = 'none';
-                    document.querySelector('.left-button').style.display = 'block';
-                } else {
-                    document.querySelector('.right-button').style.display = 'block';
-                    document.querySelector('.left-button').style.display = 'block';
-                }
-            };
-
-            document.querySelector('.left-button').addEventListener('click', function() {
-                document.location.href = contextPath + '/?page=' + (currentPage_number - 1) + '&query=' + querySearch;
-            });
-            
-            document.querySelector('.right-button').addEventListener('click', function() {
-                document.location.href = contextPath + '/?page=' + (currentPage_number + 1) + '&query=' + querySearch;
-            });
-            
-        };
-        pageChangeBnt();
-
-    </script>
