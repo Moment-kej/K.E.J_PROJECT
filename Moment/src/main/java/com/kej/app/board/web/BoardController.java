@@ -2,16 +2,14 @@ package com.kej.app.board.web;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kej.app.board.service.BoardService;
@@ -55,20 +53,28 @@ public class BoardController {
 		return service.dressBoradList(cri);
 	}
 	
+	// dress insert page
+	@GetMapping("/10/1")
+	public String boardDressInsert(Model model) {
+		model.addAttribute("code", cservice.getCodes("CO", "CA"));
+        
+		return "dressBoard/boardDressInsert";
+	}
+	
+	@PostMapping("10/1")
+	public int boardInsertSave(@ModelAttribute BoardVO vo) {
+		// @ModelAttribute
+		// HTTP 요청 매개변수를 BoardVO 객체의 필드에 자동으로 매핑.
+		// BoardVO 객체의 필드 이름과 HTTP 요청 파라미터의 이름이 일치해야 함.
+		return service.boardInsert(vo); 
+	}
+	
 	// dress detail page
 	@GetMapping("/10_1")
 	public String boardDressDetail() {
 		
 		
 		return "dressBoard/boardDressDetail";
-	}
-	
-	// dress insert page
-	@GetMapping("/10/1")
-	public String boardDressInsert() {
-		
-		
-		return "dressBoard/boardDressInsert";
 	}
 	
 	// dress update page

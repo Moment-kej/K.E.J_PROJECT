@@ -313,12 +313,14 @@
             
             document.querySelector('.left-button').addEventListener('click', function() {
                 let pageDown = --currentPageNumber;
+                // console.log('pageDown>>>' + pageDown);
                 newsPagenationCondition(pageDown);
                 createNewsComponent(contextPath, pageDown, querySearch);
             });
             
             document.querySelector('.right-button').addEventListener('click', function() {
                 let pageUp = ++currentPageNumber;
+                // console.log('pageUp>>>' + pageUp);
                 newsPagenationCondition(pageUp);
                 createNewsComponent(contextPath, pageUp, querySearch);
             });
@@ -332,16 +334,17 @@
             
             if(bookPageNumber === 1) {
                 // book
-                document.querySelector('.bookLeftBnt').style.disply = 'none';
-                document.querySelector('.bookRightBnt').style.display = 'block';
+                document.querySelector('.bookLeftBnt').style.display = 'none';
+                document.querySelector('.bookLeftBnt').style.display = 'block';
             } else {
                 if(bookPageNumber === totalNumber) {
                     // book
                     document.querySelector('.bookRightBnt').style.display = 'none';
-                    document.querySelector('.bookLeftBnt').style.disply = 'block';
+                    document.querySelector('.bookLeftBnt').style.display = 'block';
                 } else {
                     // book
-                    document.querySelector('.bookLeftBnt').style.disply = 'block';
+
+                    document.querySelector('.bookLeftBnt').style.display = 'block';
                     document.querySelector('.bookRightBnt').style.display = 'block';
                 }
             };
@@ -353,24 +356,23 @@
             let contextPath = document.getElementById('contextPath').value;
             
             // string -> number change
-            let currentPageNumber = parseInt(document.getElementById('book_currentPage').value);
+            let bookPageNumber = parseInt(document.getElementById('book_currentPage').value);
 
-            if(currentPageNumber === 1) {
+            if(bookPageNumber === 1) {
                 document.querySelector('.bookLeftBnt').style.display = 'none';
-            }
+            };
 
             document.querySelector('.bookLeftBnt').addEventListener('click', function() {
-                let pageDown = --currentPageNumber;
+                let pageDown = --bookPageNumber;
                 bookPagenationCondition(pageDown);
                 createBookComponent(contextPath, pageDown, querySearch);
             });
             
             document.querySelector('.bookRightBnt').addEventListener('click', function() {
-                let pageUp = ++currentPageNumber;
+                let pageUp = ++bookPageNumber;
                 bookPagenationCondition(pageUp);
                 createBookComponent(contextPath, pageUp, querySearch);
             });
-            
         };
 
         //------------------------------------------------------------------------
