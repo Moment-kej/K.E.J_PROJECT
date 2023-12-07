@@ -67,16 +67,16 @@
 		 WHERE category LIKE CONCAT('%',#{category},'%')
 		 </if>
 	     <if test="searchType == 'boTitCon'">
-	     WHERE (category LIKE CONCAT('%','102','%') AND (title LIKE CONCAT('%',#{searchName},'%') OR content LIKE CONCAT ('%',#{searchName},'%')))
+	     WHERE (category LIKE CONCAT('%',#{category},'%') AND (title LIKE CONCAT('%',#{searchName},'%') OR content LIKE CONCAT ('%',#{searchName},'%')))
 	     </if>
 	     <if test="searchType == 'boardTitle'">
-	     WHERE (category LIKE CONCAT('%','102','%') AND title LIKE CONCAT('%',#{searchName},'%'))
+	     WHERE (category LIKE CONCAT('%',#{category},'%') AND title LIKE CONCAT('%',#{searchName},'%'))
 	     </if>
 	     <if test="searchType == 'boardContent'">
-	     WHERE (category LIKE CONCAT('%','102','%') AND b.id LIKE CONCAT ('%',#{searchName},'%'))
+	     WHERE (category LIKE CONCAT('%',#{category},'%') AND b.id LIKE CONCAT ('%',#{searchName},'%'))
 	     </if>
 	     <if test="searchType == 'replyContent'">
-	     WHERE (category LIKE CONCAT('%','102','%') AND reply_content LIKE CONCAT ('%',#{searchName},'%'))
+	     WHERE (category LIKE CONCAT('%',#{category},'%') AND reply_content LIKE CONCAT ('%',#{searchName},'%'))
 	     </if>
 		   AND code = #{code}
 		   AND yn = 0

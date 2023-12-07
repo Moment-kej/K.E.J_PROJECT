@@ -46,7 +46,7 @@
                                 <!-- 한번에 보여줄 개수 정하기 -->
                                 <form action="1" class="minisrch_form" name="actionForm" >
                                     <fieldset>
-                                        <select id="handleAmount" onchange="Change(1, ${criteria.category})">
+                                        <select id="handleAmount">
                                             <option value="10" ${pageVO.amount == 10 ? 'selected' : ''}>10개씩</option>
                                             <option value="20" ${pageVO.amount == 20 ? 'selected' : ''}>20개씩</option>
                                             <option value="30" ${pageVO.amount == 30 ? 'selected' : ''}>30개씩</option>

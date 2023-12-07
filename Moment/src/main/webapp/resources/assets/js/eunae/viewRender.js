@@ -281,12 +281,12 @@ export const renderPosts = (page, category, searchType, searchName) => {
     let amount = $('#criteriaAmount').val();
     let code = $('#criteriaCode').val();
 
-    const dataForm = {page : page , amount : amount, category : category, code : code, searchType : searchType, searchName : searchName};
+    // const dataForm = {page : page , amount : amount, category : category, code : code, searchType : searchType, searchName : searchName};
     
     $.ajax({
-        url: contextPath + '/board/temp',
+        url: contextPath + '/board/temp?page=' + page + '&amount=' + amount + '&category=' + category + '&code=' + code + '&searchType=' + searchType + '&searchName=' + searchName ,
         method: 'GET',
-        data : dataForm,
+        // data : dataForm,
         dataType: 'json',
         success: function(posts) {
             if(posts == 0 || posts == ''){
@@ -316,19 +316,19 @@ export const renderPosts = (page, category, searchType, searchName) => {
 export const search = () => {
     document.getElementById('searchBnt').addEventListener('click', () => {
         contentContainer.innerHTML = '';    // 게시글 div 초기화
+        // let page = document.getElementById('criteriaPage').value;
         let contextPath = document.getElementById('contextPath').value;
         let amount = document.getElementById('criteriaAmount').value;
-        let category = document.getElementById('boardCategory').value;
-        let code = document.getElementById('criteriaCode').value;
+        // let category = document.getElementById('boardCategory').value;
+        // let code = document.getElementById('criteriaCode').value;
         let searchType = document.getElementById('searchType').value;
         let searchName = document.getElementById('searchName').value;
-        // 이건 pageVO에 total 값을 못 준다
-        renderPosts('1', category, searchType, searchName);
+        let listType = document.getElementById('criteriaListType').value;
+
+        // renderPosts('1', category, searchType, searchName);
 
         // total 값이 제대로 나오지 않는다.
-        // location.href = contextPath + '/board/10?page=1&amount' + amount
-        // + '&category=' + category + '&code=' + code 
-        // + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
+        location.href = contextPath + '/board/10?page=1&amount=' + amount + '&category=0&listType=' + listType + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
     });
 };
 

@@ -2,6 +2,7 @@ import { renderPosts } from "./viewRender.js";
 
 const contextPath = document.getElementById('contextPath').value;
 const criteriaCode = document.getElementById('criteriaCode').value;
+const contentContainer = document.getElementById('contentListTest');
 
 // 글쓰기 버튼 클릭 이벤트
 export const writingBntEvent = () => {
@@ -19,9 +20,11 @@ export const writingBntEvent = () => {
 const Change = (category) => {
     let searchType = document.getElementById('searchType').value;
     let searchName = document.getElementById('searchName').value;
+    let listType = document.getElementById('criteriaListType').value;
     
-    renderPosts('1', category, searchType, searchName);
-    location.href = contextPath + "/board/" + criteriaCode + '?category=' + category;
+    // renderPosts('1', category, searchType, searchName);
+    location.href = contextPath + "/board/" + criteriaCode + '?page=1' + '&category=' + category
+    + '&listType=' + listType +'&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
 };
 
 // a tag 읽어와서 Change 함수를 통해 category에 맞게 board list 반영
@@ -42,8 +45,11 @@ export const Change_valueNull = () => {
     let searchType = document.getElementById('searchType').value;
     let searchName = document.getElementById('searchName').value;
     let amount = document.getElementById('handleAmount').value;
+    let listType = document.getElementById('criteriaListType').value;
 
-    renderPosts('1', category, searchType, searchName);
-    location.href = contextPath + "/board/" + criteriaCode + "?amount=" + amount;
+    // contentContainer.innerHTML = '';
+    // renderPosts('1', category, searchType, searchName);
+    location.href = contextPath + "/board/" + criteriaCode + "?amount=" + amount + '&category=' + category
+                + '&listType=' + listType +'&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
 };
 
