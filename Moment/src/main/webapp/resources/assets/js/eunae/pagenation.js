@@ -1,3 +1,5 @@
+import { renderPosts } from "./viewRender.js";
+
 const contextPath = document.getElementById('contextPath').value;
 const code = document.getElementById('criteriaCode').value;
 
@@ -19,34 +21,36 @@ export const pagenation = (listType) => {
         let pageStart_v    = document.getElementById('pageVOStart').value;
         let pageEnd_v      = document.getElementById('pageVOEnd').value;
         let pagerealEnd_v  = document.getElementById('pageVORealEnd').value;
-        // 게시글 목록 개수 읽어옴
-        let nowPaging      = document.querySelector('#handleAmount option:checked');
-        let selectedValue  = nowPaging.value;
+        // 검색 타입과 값
+        let searchType = document.getElementById('searchType').value;
+        let searchName = document.getElementById('searchName').value;
         // <<, <, >, >> a tag에 href 속성 추가
-        allListView.setAttribute('href',
-                                    contextPath + '/board/' + code + '?page=1&amount=' + selectedValue +
-                                    '&category=0' +
-                                    '&listType=' + listType);
-        pageNumberOne.setAttribute('href',
-                                    contextPath + '/board/' + code + '?page=1&amount=' + selectedValue +
-                                    '&category=' + 0 +
-                                    '&listType=' + listType);
-        pageRealEnd.setAttribute('href',
-                                    contextPath + '/board/' + code + '?page=' + pagerealEnd_v +
-                                    '&amount=' + selectedValue +
-                                    '&category=' + category +
-                                    '&listType=' + listType);
+
+        allListView.addEventListener('click', () => {
+            renderPosts('1', '0', searchType, searchName);
+            allListView.setAttribute('href', contextPath + '/board/' + code + '?category=0');
+        });
+
+        pageNumberOne.addEventListener('click', () => {
+            renderPosts('1', category, searchType, searchName);
+            pageNumberOne.setAttribute('href', contextPath + '/board/' + code + '?page=1');
+        });
+
+        pageRealEnd.addEventListener('click', () => {
+            renderPosts(pagerealEnd_v, category, searchType, searchName);
+            pageRealEnd.setAttribute('href', contextPath + '/board/' + code + '?page=' + pagerealEnd_v );
+        });
+        
         if(pageStart_v != false && pageEnd_v != false ) {
-            pageStart.setAttribute('href', 
-                                        contextPath + '/board/' + code + '?page=' + pageStart_v +
-                                            '&amount=' + selectedValue +
-                                            '&category=' + category +
-                                            '&listType=' + listType);
-            pageNext.setAttribute('href', 
-                                        contextPath + '/board/' + code + '?page=' + pageEnd_v +
-                                            '&amount=' + selectedValue +
-                                            '&category=' + category +
-                                            '&listType=' + listType);
+            pageStart.addEventListener('click', () => {
+                renderPosts(pageStart_v, category, searchType, searchName);
+                pageStart.setAttribute('href', contextPath + '/board/' + code + '?page=' + pageStart_v);
+            });
+
+            pageNext.addEventListener('click', () => {
+                renderPosts(pageEnd_v, category, searchType, searchName);
+                pageNext.setAttribute('href', contextPath + '/board/' + code + '?page=' + pageEnd_v);
+            });
         }
     } else {
         // 맨 끝 페이지가 0이면 <<, >> display none
@@ -60,17 +64,22 @@ export const pagenationNumber = (listType) => {
     document.querySelectorAll('.pageNumber').forEach((anchor, index) => {
         // anchor -> 빈값
         let category    = document.getElementById('criteriaCategory').value;
-        let pagenum     = document.getElementById('criteriaPage').value;
-        let nowPaging   = document.querySelector('#handleAmount option:checked');
-        let selectedValue = nowPaging.value;
-        let listType    = document.getElementById('criteriaListType').value;
         let pageNum     = index + 1 ;
+        let searchType = document.getElementById('searchType').value;
+        let searchName = document.getElementById('searchName').value;
         
+        // 각 숫자에 id 부여
         anchor.setAttribute('id', 'pageNumber_' + pageNum);
-        let pageNumHref = contextPath + '/board/' + code + '?page=' + pageNum 
-                        + '&amount=' + selectedValue 
-                        + '&category=' + category
-                        + '&listType=' + listType;
-        anchor.setAttribute('href', pageNumHref);
+        
+        // 클릭 이벤트 추가
+        anchor.addEventListener('click', () => {
+            // 클릭된 페이지 번호 가져오기
+            let clickedPage = pageNum;
+            renderPosts(clickedPage, category, searchType, searchName);
+            // URL 변경 및 CSS 설정
+            let pageNumHref = contextPath + '/board/' + code + '?page=' + pageNum;
+            anchor.setAttribute('href', pageNumHref);
+        });
+
     });
 }

@@ -11,6 +11,9 @@ public class Criteria {
 	private int category;		// 카테고리
 	private String listType;	// 게시글타입
 	private int code;			// 10, 20, 30
+	
+	private String searchType;	// 검색타입
+	private String searchName;	// 검색값
 
 	public Criteria() {
 		this.page = 1;
@@ -18,6 +21,8 @@ public class Criteria {
 		this.category = 0;
 		this.listType = "";
 		this.code = 0;
+		this.searchType = "";
+		this.searchName = "";
 	}
 
 	public Criteria(int page, int amout, int catagory) {

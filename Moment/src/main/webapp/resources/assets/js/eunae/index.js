@@ -1,5 +1,5 @@
 import { writingBntEvent, menuCategoryEvent, Change_valueNull } from "./pageLinkChange.js";
-import { boardListFormChang, initCategory, initPage } from "./viewRender.js";
+import { boardListFormChang, initCategory, initPage, search } from "./viewRender.js";
 
 // ------pageLinkChange.js------
 // select tag option:checked onChang Event
@@ -17,3 +17,5 @@ boardListFormChang();
 initCategory();
 // class="pageNumber" -> board pagenation font color change
 initPage();
+// id="searchBnt" -> searchType and searchName
+search();
