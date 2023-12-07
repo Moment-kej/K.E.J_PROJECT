@@ -11,54 +11,75 @@
 				SELECT b.board_no
 				     , code
 				     , category
-				     , writer
+				     , b.id
 				     , title
 				     , b.content
 				     , b.write_dt
 				     , view
-				     , ( SELECT  count(*) as cnt
+				     , ( SELECT COUNT(*) AS cnt
 					       FROM REPLY c
 					      WHERE 1=1
 					        AND b.board_no = c.board_no
 					     	AND c.yn = 0
 					      GROUP BY c.board_no) AS "reply_count" 
 				  FROM board b
-				  LEFT OUTER JOIN ( SELECT board_no, GROUP_CONCAT(content order by content SEPARATOR ',') as content 
+				  LEFT OUTER JOIN ( SELECT board_no, GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS reply_content
 				                      FROM reply
 				                     WHERE (yn = 0 OR yn IS NULL)
-				                      AND (re_reply_yn = 0 OR re_reply_yn IS NULL)
-				                    GROUP BY board_no
+				                       AND (re_reply_yn = 0 OR re_reply_yn IS NULL)
+				                     GROUP BY board_no
 				                   ) r
 				    ON b.board_no = r.board_no
-				 WHERE 1=1 
-		           AND code = #{code}
-		           AND b.yn = 0
-				   <if test="category != null">
-				   AND category LIKE CONCAT('%',#{category},'%')
-				   </if>
-				   <choose>
-					   	<when test="category == null and category == ''">
-					   		AND category LIKE '%%'
-					   	</when>
-				   </choose>
+				 <if test="searchType == '' or searchType == null">
+				 WHERE category LIKE CONCAT('%',#{category},'%')
+				 </if>
+			     <if test="searchType == 'boTitCon'">
+			     WHERE (category LIKE CONCAT('%',#{category},'%') AND (title LIKE CONCAT('%',#{searchName},'%') OR content LIKE CONCAT ('%',#{searchName},'%')))
+			     </if>
+			     <if test="searchType == 'boardTitle'">
+			     WHERE (category LIKE CONCAT('%',#{category},'%') AND title LIKE CONCAT('%',#{searchName},'%'))
+			     </if>
+			     <if test="searchType == 'boardContent'">
+			     WHERE (category LIKE CONCAT('%',#{category},'%') AND b.id LIKE CONCAT ('%',#{searchName},'%'))
+			     </if>
+			     <if test="searchType == 'replyContent'">
+			     WHERE (category LIKE CONCAT('%',#{category},'%') AND reply_content LIKE CONCAT ('%',#{searchName},'%'))
+			     </if>
+				   AND code = #{code}
+				   AND yn = 0
 			 ) a
 		ORDER BY 1
   		LIMIT #{pageStart}, #{amount}
 	</select>
 	
 	<select id="pagecount" resultType="int">
-		 SELECT count(*)
-		   FROM board
-		  WHERE code = #{code}
-		    AND yn = 0
-		    <if test="category != null">
-		   	AND category LIKE CONCAT('%',#{category},'%')
-		    </if>
-		   <choose>
-			   	<when test="category == null and category == ''">
-			   		AND category LIKE '%%'
-			   	</when>
-		   </choose>
+		 SELECT COUNT(*)
+		  FROM board b
+		  LEFT JOIN ( SELECT board_no
+		  						 , GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS "reply_content" 
+		                      FROM reply
+		                     WHERE (yn = 0 OR yn IS NULL)
+		                      AND (re_reply_yn = 0 OR re_reply_yn IS NULL)
+		                    GROUP BY board_no
+		                   ) r
+		    ON b.board_no = r.board_no
+		 <if test="searchType == '' or searchType == null">
+		 WHERE category LIKE CONCAT('%',#{category},'%')
+		 </if>
+	     <if test="searchType == 'boTitCon'">
+	     WHERE (category LIKE CONCAT('%','102','%') AND (title LIKE CONCAT('%',#{searchName},'%') OR content LIKE CONCAT ('%',#{searchName},'%')))
+	     </if>
+	     <if test="searchType == 'boardTitle'">
+	     WHERE (category LIKE CONCAT('%','102','%') AND title LIKE CONCAT('%',#{searchName},'%'))
+	     </if>
+	     <if test="searchType == 'boardContent'">
+	     WHERE (category LIKE CONCAT('%','102','%') AND b.id LIKE CONCAT ('%',#{searchName},'%'))
+	     </if>
+	     <if test="searchType == 'replyContent'">
+	     WHERE (category LIKE CONCAT('%','102','%') AND reply_content LIKE CONCAT ('%',#{searchName},'%'))
+	     </if>
+		   AND code = #{code}
+		   AND yn = 0
 	</select>
 
 

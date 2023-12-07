@@ -106,16 +106,15 @@ fieldset {border : none !important;}
 }
 
 .postType {
-    float: left;
-    position: relative;
-    width: 180px;
-    height: 304px;
-    margin-left: 12px;
+    display: inline-flex;
+    padding: 5px 0;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 .postAlbumType {
     border: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding: 10px;
+    /* margin-bottom: 10px; */
+    padding: 5px;
     border-radius: 8px;
 }
 /* 앨범형 스타일 */
@@ -189,7 +188,7 @@ fieldset {border : none !important;}
 .cardsType {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
 }
 .cardsPStyle {
     display: -webkit-box;

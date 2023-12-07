@@ -42,6 +42,7 @@ public class BoardController {
 		//페이지네이션
 		int total = service.pagecount(cri);
 		PageVO pageVO = new PageVO(cri, total);
+		System.out.println(total);
 		model.addAttribute("pageVO", pageVO);
 		return "dressBoard/boardDressPage";
 	}

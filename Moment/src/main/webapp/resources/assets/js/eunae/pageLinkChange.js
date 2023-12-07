@@ -1,12 +1,14 @@
+import { renderPosts } from "./viewRender.js";
+
 const contextPath = document.getElementById('contextPath').value;
+const criteriaCode = document.getElementById('criteriaCode').value;
 
 // 글쓰기 버튼 클릭 이벤트
 export const writingBntEvent = () => {
     const writingBnt = document.getElementById('boardInsertBnt');
     if(writingBnt) {
         writingBnt.addEventListener('click', () => {
-            let writingLink = contextPath + '/board/10/1';
-            window.location.href = writingLink;     // 현재 창으로 링크 열기
+            window.location.href = contextPath + '/board/10/1'; // 현재 창으로 링크 열기
         });
     } else {
         console.error('Element with id writingBnt not found');
@@ -15,13 +17,11 @@ export const writingBntEvent = () => {
 
 // 카테고리를 변경할 때 마다 URL 변경하기
 const Change = (category) => {
-    let contextPath = document.getElementById('contextPath').value;
-    let criteriaCode = document.getElementById('criteriaCode').value;
-    let listType = document.getElementById('criteriaListType').value;
-    let nowPaging_el   = document.querySelector('#handleAmount option:checked');
-    let nowPaging = nowPaging_el.value;
+    let searchType = document.getElementById('searchType').value;
+    let searchName = document.getElementById('searchName').value;
     
-    location.href = contextPath + "/board/" + criteriaCode + "?page=1&amount="+nowPaging+"&category=" + category + "&listType=" + listType;
+    renderPosts('1', category, searchType, searchName);
+    location.href = contextPath + "/board/" + criteriaCode + '?category=' + category;
 };
 
 // a tag 읽어와서 Change 함수를 통해 category에 맞게 board list 반영
@@ -38,13 +38,12 @@ export const menuCategoryEvent = () => {
 
 // 게시글 목록개수 변경할 때 마다 URL 변경하기
 export const Change_valueNull = () => {
-    let contextPath = document.getElementById('contextPath').value;
-    let criteriaCode = document.getElementById('criteriaCode').value;
-    let listType = document.getElementById('criteriaListType').value;
     let category = document.getElementById('criteriaCategory').value;
-    let nowPaging_el   = document.querySelector('#handleAmount option:checked');
-    let nowPaging = nowPaging_el.value;
+    let searchType = document.getElementById('searchType').value;
+    let searchName = document.getElementById('searchName').value;
+    let amount = document.getElementById('handleAmount').value;
 
-    location.href = contextPath + "/board/" + criteriaCode + "?page=1&amount="+nowPaging+"&category=" + category + "&listType=" + listType;
+    renderPosts('1', category, searchType, searchName);
+    location.href = contextPath + "/board/" + criteriaCode + "?amount=" + amount;
 };
 

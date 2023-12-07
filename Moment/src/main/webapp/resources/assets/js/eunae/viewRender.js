@@ -2,7 +2,7 @@ import { pagenation, pagenationNumber } from "./pagenation.js";
 
 const contentContainer = document.getElementById('contentListTest');
 const contextPath = document.getElementById('contextPath').value;
-let currentView = 'albumType'; // 기본적으로 앨범형으로 시작
+let currentView = 'cardsType'; // 기본적으로 앨범형으로 시작
 let criteriaListType = document.getElementById('criteriaListType').value;
 
 //시간포맷
@@ -47,7 +47,6 @@ const createTable = (posts) => {
         const headers = ['번호', '제목', '작성자', '작성일', '조회수'];
         headers.forEach(headerText => {
             const th = document.createElement('th');
-            // th.style.border = '1px solid #ddd';
             th.textContent = headerText;
             tr.appendChild(th);
         });
@@ -60,13 +59,10 @@ const createTable = (posts) => {
         posts.forEach(post => {
             let replyCount = post.replyCount;
             const row = document.createElement('tr');
-            const data = [post.boardNo, post.title, post.writer, formatTimestamp(post.writeDt), post.view];
+            const data = [post.boardNo, post.title, post.id, formatTimestamp(post.writeDt), post.view];
 
             data.forEach((cellText, index) => {
                 const td = document.createElement('td');
-                // td.style.border = '1px solid #ddd';
-                // td.style.padding = '8px';
-                // td.style.textAlign = 'left';
                 if (index === 1) { // 제목 열인 경우
                     const titleA = document.createElement('a');
                     titleA.setAttribute('href','#');
@@ -95,13 +91,13 @@ const createPostElement = (post) => {
     let boardContent = post.content;                    // 게시글 내용
     let boardContentEx = '글내용놔둘곳';                   // 게시글 내용 대타
     let boardImg = post.Img;                            // 이미지
-    let boardWriter = post.writer;                      // 닉네임
+    let boardWriter = post.id;                          // 닉네임
     let boardWriteDt = formatTimestamp(post.writeDt);   // 시간
     let boardView = post.view;                          // 조회수
     let boardReplyCount = post.replyCount;              // 댓글개수
 
     switch (currentView) {
-        case 'albumType':
+        case 'cardsType':
             //카드형에 적용되어있는 css 클래스 삭제
             postElement.classList.remove('postType');
             postElement.classList.add('postAlbumType');
@@ -201,7 +197,7 @@ const createPostElement = (post) => {
 
             break;
 
-        case 'cardsType':
+        case 'albumType':
             let cardsTypeDiv = document.createElement('div');
             cardsTypeDiv.className = 'cardType';
             /* 이미지
@@ -280,14 +276,12 @@ const renderPostsContent = (posts) => {
     };
 };
 
-const renderPosts = () => {
+export const renderPosts = (page, category, searchType, searchName) => {
     // Ajax로 서버에서 데이터 가져오기
-    let page = $('#criteriaPage').val();
     let amount = $('#criteriaAmount').val();
-    let category = $('#criteriaCategory').val();
     let code = $('#criteriaCode').val();
 
-    const dataForm = {page : page , amount : amount, category : category, code : code};
+    const dataForm = {page : page , amount : amount, category : category, code : code, searchType : searchType, searchName : searchName};
     
     $.ajax({
         url: contextPath + '/board/temp',
@@ -295,7 +289,22 @@ const renderPosts = () => {
         data : dataForm,
         dataType: 'json',
         success: function(posts) {
-            renderPostsContent(posts);
+            if(posts == 0 || posts == ''){
+                let containerInDiv = document.createElement('div');
+                containerInDiv.className = 'contentNotData';
+
+                let containerInInDiv = document.createElement('div');
+                containerInInDiv.classList.add('d-flex','justify-content-center','inner-div');
+
+                let containerInInDivH3 = document.createElement('h3');
+                containerInInDivH3.innerText = '조회할 게시글이 없습니다.';
+
+                containerInInDiv.append(containerInInDivH3);
+                containerInDiv.append(containerInInDiv);
+                contentContainer.append(containerInDiv);
+            } else {
+                renderPostsContent(posts);
+            }
         },
         error: function(error) {
             console.error('데이터를 가져오는 중 에러가 발생했습니다.', error);
@@ -303,14 +312,60 @@ const renderPosts = () => {
     });
 };
 
+// 검색버튼
+export const search = () => {
+    document.getElementById('searchBnt').addEventListener('click', () => {
+        contentContainer.innerHTML = '';    // 게시글 div 초기화
+        let contextPath = document.getElementById('contextPath').value;
+        let amount = document.getElementById('criteriaAmount').value;
+        let category = document.getElementById('boardCategory').value;
+        let code = document.getElementById('criteriaCode').value;
+        let searchType = document.getElementById('searchType').value;
+        let searchName = document.getElementById('searchName').value;
+        // 이건 pageVO에 total 값을 못 준다
+        renderPosts('1', category, searchType, searchName);
+
+        // total 값이 제대로 나오지 않는다.
+        // location.href = contextPath + '/board/10?page=1&amount' + amount
+        // + '&category=' + category + '&code=' + code 
+        // + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
+    });
+};
+
+// 페이지 로딩 시 검색어 설정
+const setPageValues = () => {
+    let searchNameInput = document.getElementById('searchName');
+    // 현재 URL의 쿼리 문자열을 파싱하여 URLSearchParams 객체를 생성
+    // window.location.search는 현재 URL의 쿼리 문자열을 나타냅니다.
+    let urlParams = new URLSearchParams(window.location.search);
+    //URLSearchParams 객체에서 'searchName'이라는 파라미터의 값을 가져온다. 이는 검색어를 가져온다.
+    let searchName = urlParams.get('searchName');
+
+    // URL에서 검색어가 있을 경우, 입력란에 설정
+    // 검색어가 URL에 존재하는 경우에만 아래의 코드 블록을 실행
+    if (searchName !== null) {
+        // URL에서 가져온 검색어를 디코딩한 후 검색 입력란에 설정한다.
+        // decodeURIComponent 함수 : URL 인코딩된 문자열을 디코딩하는 함수
+        // URL에서는 일반적으로 한글이나 특수 문자 등을 안전하게 전달하기 위해 인코딩
+        searchNameInput.value = decodeURIComponent(searchName);
+    }
+};
+
+// 페이지 로딩 시 호출
+setPageValues();
+
 const showPosts = (view) => {
     let listTypeValue = document.getElementById('criteriaListType');
+    let page = document.getElementById('criteriaPage').value;
+    let category = document.getElementById('criteriaCategory').value;
+    let searchType = document.getElementById('searchType').value;
+    let searchName = document.getElementById('searchName').value;
 
     currentView = view;
     listTypeValue.value = view;
     pagenation(view);
     pagenationNumber(view);
-    renderPosts();
+    renderPosts(page, category, searchType, searchName);
 };
 
 if(criteriaListType == ''){
@@ -325,22 +380,59 @@ if(criteriaListType == ''){
 
 // 게시글 양식에 맞춰 렌더링
 export const boardListFormChang = () => {
-    var boardListFormChang = document.querySelectorAll('.boardListFormChangeBtn');
+    let boardListFormChang = document.querySelectorAll('.boardListFormChangeBtn');
+
     boardListFormChang.forEach( function(link) {
         link.addEventListener('click', function() {
             // 클릭한 요소의 ID 값을 가져온다.
-            var clickedId = link.id;
+            let clickedId = link.id;
             showPosts(clickedId);
+            resetIcons();           //모든 아이콘 원래대로 돌림
+
+            let typeElement = document.querySelector('.boardType[data-type="' + clickedId + '"]');
+            let contextPath = document.getElementById('contextPath').value;
+
+            if(clickedId) {
+                contentContainer.innerHTML = '';
+                let dataTypeAttribute = typeElement.getAttribute('data-type');
+
+                if (dataTypeAttribute == 'listType') {
+                    typeElement.setAttribute('src', contextPath + '/assets/icon/sortListSelected.svg');
+                } else if (dataTypeAttribute == 'albumType') {
+                    typeElement.setAttribute('src', contextPath + '/assets/icon/sortAlbumSelected.svg');
+                } else if (dataTypeAttribute == 'cardsType') {
+                    typeElement.setAttribute('src', contextPath + '/assets/icon/sortCardSelected.svg');
+                }
+            }
         });
     });
+
+    // 모든 아이콘을 원래대로 돌리는 함수
+    function resetIcons() {
+        var allIcons = document.querySelectorAll('.boardType');
+        var contextPath = document.getElementById('contextPath').value;
+
+        allIcons.forEach(function (icon) {
+            contentContainer.innerHTML = '';
+            var dataTypeAttribute = icon.getAttribute('data-type');
+
+            if (dataTypeAttribute === 'listType') {
+                icon.setAttribute('src', contextPath + '/assets/icon/sortList.svg');
+            } else if (dataTypeAttribute === 'albumType') {
+                icon.setAttribute('src', contextPath + '/assets/icon/sortAlbum.svg');
+            } else if (dataTypeAttribute === 'cardsType') {
+                icon.setAttribute('src', contextPath + '/assets/icon/sortCard.svg');
+            }
+        });
+    }
 };
 
 // 선택된 카테고리 색상 변경
 export const initCategory = () => {
-    var category = document.getElementById('criteriaCategory').value;
+    let category = document.getElementById('criteriaCategory').value;
     if (category) {
         // URL에서 추출한 카테고리에 해당하는 요소에 선택 클래스 추가
-        var categoryElement = document.querySelector('.menuCategoryATag[data-category="' + category + '"]');
+        let categoryElement = document.querySelector('.menuCategoryATag[data-category="' + category + '"]');
         if (categoryElement) {
             categoryElement.classList.add('selected');
         }
@@ -349,10 +441,10 @@ export const initCategory = () => {
 
 // 선택된 페이지 색상 변경
 export const initPage = () => {
-    var category = document.getElementById('criteriaPage').value;
+    let category = document.getElementById('criteriaPage').value;
     if (category) {
         // URL에서 추출한 카테고리에 해당하는 요소에 선택 클래스 추가
-        var categoryElement = document.querySelector('.pageNumber[data-page="' + category + '"]');
+        let categoryElement = document.querySelector('.pageNumber[data-page="' + category + '"]');
         if (categoryElement) {
             categoryElement.classList.add('selected');
         }

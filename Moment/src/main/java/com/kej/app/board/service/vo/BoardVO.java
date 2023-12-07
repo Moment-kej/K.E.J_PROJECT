@@ -10,7 +10,7 @@ public class BoardVO {
 	private int boardNo;
 	private int code;
 	private int category;
-	private String writer;
+	private String id;
 	private String title;
 	private String  content;
 	// https://donggu1105.tistory.com/122
