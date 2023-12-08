@@ -312,26 +312,6 @@ export const renderPosts = (page, category, searchType, searchName) => {
     });
 };
 
-// 검색버튼
-export const search = () => {
-    document.getElementById('searchBnt').addEventListener('click', () => {
-        contentContainer.innerHTML = '';    // 게시글 div 초기화
-        // let page = document.getElementById('criteriaPage').value;
-        let contextPath = document.getElementById('contextPath').value;
-        let amount = document.getElementById('criteriaAmount').value;
-        // let category = document.getElementById('boardCategory').value;
-        // let code = document.getElementById('criteriaCode').value;
-        let searchType = document.getElementById('searchType').value;
-        let searchName = document.getElementById('searchName').value;
-        let listType = document.getElementById('criteriaListType').value;
-
-        // renderPosts('1', category, searchType, searchName);
-
-        // total 값이 제대로 나오지 않는다.
-        location.href = contextPath + '/board/10?page=1&amount=' + amount + '&category=0&listType=' + listType + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
-    });
-};
-
 // 페이지 로딩 시 검색어 설정
 const setPageValues = () => {
     let searchNameInput = document.getElementById('searchName');

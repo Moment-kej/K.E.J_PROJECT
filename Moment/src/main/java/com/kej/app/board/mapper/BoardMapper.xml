@@ -3,8 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kej.app.board.mapper.BoardMapper">
-	<!-- 옷 게시판 전체 목록 -->
-	<!-- 페이징+목록개수  https://badstorage.tistory.com/13 -->
+	<!-- board all list -->
+	<!-- 페이징+목록개수+게시글타입+검색기능 -->
+	<!-- reference : https://badstorage.tistory.com/13 -->
 	<select id="dressBoradList" resultType="BoardVO">
 		SELECT *
 			FROM (
@@ -52,6 +53,7 @@
   		LIMIT #{pageStart}, #{amount}
 	</select>
 	
+	<!-- board all list count -->
 	<select id="pagecount" resultType="int">
 		 SELECT COUNT(*)
 		  FROM board b
@@ -82,9 +84,13 @@
 		   AND yn = 0
 	</select>
 
-
-
-
+	<!--  board insert -->
+	<insert id="boardInsert" parameterType="BoardVO">
+	INSERT INTO BOARD
+		(board_no, code, category, id, title, content, write_dt, view, yn)
+	ALUES
+		(nextval('BOARD_SEQ'), #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 0)
+	</insert>
 
 
 

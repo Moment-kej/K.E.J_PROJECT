@@ -64,7 +64,7 @@
                             <button type="button" class="btn btn-inverse-success btn-md" id="boardInsertBnt">글쓰기</button>
                         </div>
                         <!--확인용 div-->
-                        <div>
+                        <div id="dataCheck" style="display: none;">
                             <p>확인용 >> ${criteria}</p>
                             <input type="hidden" name="page"        id="criteriaPage" value="${criteria.page}">
                             <input type="hidden" name="amount"      id="criteriaAmount" value="${criteria.amount}">
@@ -74,7 +74,7 @@
                             <input type="hidden" name="pageStart"   id="pageVOStart" value="${pageVO.start-1}">
                             <input type="hidden" name="pageEnd"     id="pageVOEnd" value="${pageVO.end+1}">
                             <input type="hidden" name="pagerealEnd" id="pageVORealEnd" value="${pageVO.realEnd}">
-                            <input type="text" name="pageTotal"     id="pageVOTotal" value="${pageVO.total}">
+                            <input type="hidden" name="pageTotal"     id="pageVOTotal" value="${pageVO.total}">
                             <input type="hidden" name="contextPath" id="contextPath" value="${pageContext.request.contextPath}">
                         </div>
                         <!-- pagination -->

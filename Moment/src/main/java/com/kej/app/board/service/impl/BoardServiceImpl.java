@@ -27,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override								// board insert
 	public int boardInsert(BoardVO vo) {
-		return 0;
+		return bMapper.boardInsert(vo);
 	}
 	// eunae ---------------------------------------------
 
