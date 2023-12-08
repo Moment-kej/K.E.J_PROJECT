@@ -89,7 +89,7 @@
 	INSERT INTO BOARD
 		(board_no, code, category, id, title, content, write_dt, view, yn)
 	ALUES
-		(nextval('BOARD_SEQ'), #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 0)
+		(nextval('BOARD_SEQ'), #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 1)
 	</insert>
 
 

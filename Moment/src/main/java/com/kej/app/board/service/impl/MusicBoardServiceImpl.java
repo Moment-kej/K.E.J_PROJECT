@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kej.app.board.mapper.MusicBoardMapper;
 import com.kej.app.board.service.MusicBoardService;
 import com.kej.app.board.service.vo.BoardVO;
+import com.kej.app.board.service.vo.Criteria;
 
 @Service
 public class MusicBoardServiceImpl implements MusicBoardService {
@@ -16,9 +17,9 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 	
 	// Music 게시판 목록 조회	
 	@Override
-	public List<BoardVO> musicBoardAllList() {
+	public List<BoardVO> musicBoardAllList(Criteria cri) {
 		
-		return mapper.musicBoardAllList();
+		return mapper.musicBoardAllList(cri);
 	}
 
 }
