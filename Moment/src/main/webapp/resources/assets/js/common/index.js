@@ -40,4 +40,32 @@ export const Ajax = (URL, method, params, callBack) => {
             break;
         }
     }
+};
+
+// 은애 - 지선생과 함께 만든 ajax function ... 만드는 중
+export const ajaxRequest = (url, method, data=undefined, successCallback) => {
+    const hasSuccessCallback = $.isFunction(successCallback);
+
+    const ajaxOptions = {
+        url: url,
+        type: method,
+
+        contentType : "application/json; charset=utf-8",
+        success: function(response) {
+            // 성공 콜백 호출
+            if (hasSuccessCallback) {
+                successCallback(response);
+            }
+        },
+        error: function(error) {
+            console.error('오류발생!' + error);
+        }
+    };
+
+    // method가 'POST'인 경우에만 data를 설정
+    if (method.toUpperCase() === 'POST') {
+        ajaxOptions.data = data;
+    }
+
+    $.ajax(ajaxOptions);
 }
