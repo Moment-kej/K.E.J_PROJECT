@@ -26,8 +26,8 @@
 				  FROM board b
 				  LEFT OUTER JOIN ( SELECT board_no, GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS reply_content
 				                      FROM reply
-				                     WHERE (yn = 0 OR yn IS NULL)
-				                       AND (re_reply_yn = 0 OR re_reply_yn IS NULL)
+				                     WHERE (yn = 1 OR yn IS NULL)
+				                       AND (re_reply_yn = 1 OR re_reply_yn IS NULL)
 				                     GROUP BY board_no
 				                   ) r
 				    ON b.board_no = r.board_no
@@ -47,7 +47,7 @@
 			     WHERE (category LIKE CONCAT('%',#{category},'%') AND reply_content LIKE CONCAT ('%',#{searchName},'%'))
 			     </if>
 				   AND code = #{code}
-				   AND yn = 0
+				   AND yn = 1
 			 ) a
 		ORDER BY 1
   		LIMIT #{pageStart}, #{amount}
@@ -60,8 +60,8 @@
 		  LEFT JOIN ( SELECT board_no
 		  						 , GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS "reply_content" 
 		                      FROM reply
-		                     WHERE (yn = 0 OR yn IS NULL)
-		                      AND (re_reply_yn = 0 OR re_reply_yn IS NULL)
+		                     WHERE (yn = 1 OR yn IS NULL)
+		                      AND (re_reply_yn = 1 OR re_reply_yn IS NULL)
 		                    GROUP BY board_no
 		                   ) r
 		    ON b.board_no = r.board_no
@@ -81,7 +81,7 @@
 	     WHERE (category LIKE CONCAT('%',#{category},'%') AND reply_content LIKE CONCAT ('%',#{searchName},'%'))
 	     </if>
 		   AND code = #{code}
-		   AND yn = 0
+		   AND yn = 1
 	</select>
 
 	<!--  board insert -->
@@ -95,7 +95,34 @@
 
 
 
-
+	<!-- 전체조회 -->
+	<select id="artBoardList" resultType="BoardVO"> 
+		SELECT BOARD_NO
+			 , ID
+			 , TITLE
+			 , CONTENT 
+			 , WRITE_DT
+			 , VIEW
+			 ,(SELECT COUNT(REPLY_NO)
+			 	  FROM REPLY R
+			 	 WHERE 1=1
+			 	   AND R.YN = 1
+			 	   AND B.BOARD_NO = R.BOARD_NO) REPLY_COUNT
+		FROM  BOARD B 
+		WHERE 1=1
+		  AND YN = 1
+		  AND CODE = #{code}
+	    LIMIT #{pageStart}, #{amount}
+	</select>
+	
+	<!-- 페이징을 하기 위해서 총 게시글의 개수 -->
+	<select id="artPagecount" resultType="BoardVO">
+		 SELECT COUNT(BOARD_NO)
+		   FROM BOARD
+		  WHERE 1=1
+		  	AND CODE = #{code}
+		  	AND YN = 1
+	</select>
 
 
 

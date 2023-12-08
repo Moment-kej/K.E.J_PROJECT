@@ -112,13 +112,13 @@ public class BoardController {
 	public String boardArtPage(Model model, Criteria cri) throws Exception {
 		
 		//cri vo에 code 값을 10으로 준 것
-		cri.setCode(10);
+		cri.setCode(30);
 		
 		//공통코드
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
 		
-		//목록
-		List<BoardVO> list = service.dressBoradList(cri);
+		//목록 Ajax로 대신 사용
+		List<BoardVO> list = service.artBoardList(cri);
 		model.addAttribute("list", list);
 
 		
@@ -126,7 +126,15 @@ public class BoardController {
 		int total = service.pagecount(cri);
 		PageVO pageVO = new PageVO(cri, total);
 		model.addAttribute("pageVO", pageVO);
-		return "artBoard/boardArtsPage";
+		
+		return "artBoard/boardArtPage";
+	}
+	
+	// Ajax Get Method
+	@RequestMapping(value="/artTemp", method = {RequestMethod.GET})
+	@ResponseBody
+	public List<BoardVO> artGetPosts(Criteria cri){
+		return service.artBoardList(cri);
 	}
 	
 	//아트게시판 상세 조회

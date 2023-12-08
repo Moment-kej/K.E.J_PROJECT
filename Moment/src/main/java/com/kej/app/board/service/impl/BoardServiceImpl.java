@@ -31,6 +31,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 	// eunae ---------------------------------------------
 
+	
+	// soomin ----------------------------------------------------	
+	@Override
+	public List<BoardVO> artBoardList(Criteria cri) {
+		return bMapper.artBoardList(cri);
+	}
+
+	@Override
+	public int artPagecount(Criteria cri) {
+		return bMapper.artPagecount(cri);
+	}
+
 
 
 

@@ -15,6 +15,13 @@ public interface BoardService {
 	
 	
 	
+	public List<BoardVO> artBoardList(Criteria cri);
+	public int artPagecount(Criteria cri);
+	
+	
+	
+	
+	
 	
 	
 	

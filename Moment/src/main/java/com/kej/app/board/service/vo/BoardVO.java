@@ -21,4 +21,5 @@ public class BoardVO {
 	
 	//댓글
 	private int replyCount;
+	private int replyNo;
 }
