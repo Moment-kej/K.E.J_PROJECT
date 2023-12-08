@@ -6,6 +6,22 @@
   	
   	<!-- 전체 목록 조회 -->
   	<select id="musicBoardAllList" resultType="BoardVO">
-  		SELECT * FROM board;
+  		SELECT b.BOARD_NO
+		     , id
+		     , title 
+		     , write_dt  
+		     , view
+		     , code
+		     , (SELECT count(*)
+		  		  FROM reply r
+		  		 WHERE yn = 1
+		  		   AND b.board_no = r.board_no
+				   AND r.yn = 1
+		  	   ) AS reply_count
+	     FROM board b
+	    WHERE b.yn = 1
+	      AND code = #{code}
   	</select>
+  	
+  	
   </mapper>
