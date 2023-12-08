@@ -281,12 +281,12 @@ export const renderPosts = (page, category, searchType, searchName) => {
     let amount = $('#criteriaAmount').val();
     let code = $('#criteriaCode').val();
 
-    const dataForm = {page : page , amount : amount, category : category, code : code, searchType : searchType, searchName : searchName};
+    // const dataForm = {page : page , amount : amount, category : category, code : code, searchType : searchType, searchName : searchName};
     
     $.ajax({
-        url: contextPath + '/board/temp',
+        url: contextPath + '/board/temp?page=' + page + '&amount=' + amount + '&category=' + category + '&code=' + code + '&searchType=' + searchType + '&searchName=' + searchName ,
         method: 'GET',
-        data : dataForm,
+        // data : dataForm,
         dataType: 'json',
         success: function(posts) {
             if(posts == 0 || posts == ''){
@@ -309,26 +309,6 @@ export const renderPosts = (page, category, searchType, searchName) => {
         error: function(error) {
             console.error('데이터를 가져오는 중 에러가 발생했습니다.', error);
         }
-    });
-};
-
-// 검색버튼
-export const search = () => {
-    document.getElementById('searchBnt').addEventListener('click', () => {
-        contentContainer.innerHTML = '';    // 게시글 div 초기화
-        let contextPath = document.getElementById('contextPath').value;
-        let amount = document.getElementById('criteriaAmount').value;
-        let category = document.getElementById('boardCategory').value;
-        let code = document.getElementById('criteriaCode').value;
-        let searchType = document.getElementById('searchType').value;
-        let searchName = document.getElementById('searchName').value;
-        // 이건 pageVO에 total 값을 못 준다
-        renderPosts('1', category, searchType, searchName);
-
-        // total 값이 제대로 나오지 않는다.
-        // location.href = contextPath + '/board/10?page=1&amount' + amount
-        // + '&category=' + category + '&code=' + code 
-        // + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
     });
 };
 

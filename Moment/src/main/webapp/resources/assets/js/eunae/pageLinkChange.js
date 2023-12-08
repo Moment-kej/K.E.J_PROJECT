@@ -1,7 +1,6 @@
-import { renderPosts } from "./viewRender.js";
-
 const contextPath = document.getElementById('contextPath').value;
 const criteriaCode = document.getElementById('criteriaCode').value;
+const contentContainer = document.getElementById('contentListTest');
 
 // 글쓰기 버튼 클릭 이벤트
 export const writingBntEvent = () => {
@@ -19,9 +18,10 @@ export const writingBntEvent = () => {
 const Change = (category) => {
     let searchType = document.getElementById('searchType').value;
     let searchName = document.getElementById('searchName').value;
+    let listType = document.getElementById('criteriaListType').value;
     
-    renderPosts('1', category, searchType, searchName);
-    location.href = contextPath + "/board/" + criteriaCode + '?category=' + category;
+    location.href = contextPath + "/board/" + criteriaCode + '?page=1' + '&category=' + category
+    + '&listType=' + listType +'&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
 };
 
 // a tag 읽어와서 Change 함수를 통해 category에 맞게 board list 반영
@@ -42,8 +42,27 @@ export const Change_valueNull = () => {
     let searchType = document.getElementById('searchType').value;
     let searchName = document.getElementById('searchName').value;
     let amount = document.getElementById('handleAmount').value;
+    let listType = document.getElementById('criteriaListType').value;
 
-    renderPosts('1', category, searchType, searchName);
-    location.href = contextPath + "/board/" + criteriaCode + "?amount=" + amount;
+    location.href = contextPath + "/board/" + criteriaCode + "?amount=" + amount + '&category=' + category
+                + '&listType=' + listType +'&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
 };
 
+
+// 검색버튼
+export const search = () => {
+    document.getElementById('searchBnt').addEventListener('click', () => {
+        contentContainer.innerHTML = '';    // 게시글 div 초기화
+        // let page = document.getElementById('criteriaPage').value;
+        let contextPath = document.getElementById('contextPath').value;
+        let amount = document.getElementById('criteriaAmount').value;
+        // let category = document.getElementById('boardCategory').value;
+        // let code = document.getElementById('criteriaCode').value;
+        let searchType = document.getElementById('searchType').value;
+        let searchName = document.getElementById('searchName').value;
+        let listType = document.getElementById('criteriaListType').value;
+
+        // total 값이 제대로 나오지 않는다.
+        location.href = contextPath + '/board/10?page=1&amount=' + amount + '&category=0&listType=' + listType + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
+    });
+};

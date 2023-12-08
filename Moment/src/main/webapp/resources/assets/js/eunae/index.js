@@ -1,5 +1,5 @@
-import { writingBntEvent, menuCategoryEvent, Change_valueNull } from "./pageLinkChange.js";
-import { boardListFormChang, initCategory, initPage, search } from "./viewRender.js";
+import { writingBntEvent, menuCategoryEvent, Change_valueNull, search } from "./pageLinkChange.js";
+import { boardListFormChang, initCategory, initPage } from "./viewRender.js";
 
 // ------pageLinkChange.js------
 // select tag option:checked onChang Event
