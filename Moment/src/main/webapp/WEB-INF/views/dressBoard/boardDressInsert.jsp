@@ -10,6 +10,13 @@
     line-height: 1.4rem;
     vertical-align: top;
   }
+  .ck-editor__editable[role="textbox"] {
+    min-height: 300px;
+  }
+  .ck-content .image {
+    max-width: 80%;
+    margin: 20px auto;
+  }
 </style>
   <div class="main-panel">
     <div class="content-wrapper">
@@ -22,7 +29,7 @@
                     <form class="forms-sample" method="post">
                       <div class="form-group">
                         <label for="writer">작성자</label>
-                        <input type="text" name="writer" id="writer" placeholder="작성자 적으삼" value="작성자"  class="form-control">
+                        <input type="text" name="id" id="writer" placeholder="작성자 적으삼" value="작성자"  class="form-control">
                       </div>
                       <div class="form-group">
                         <label for="title">제목</label>
@@ -52,7 +59,11 @@
                       </div>
                       <!-- 게시글 작성 장소 -->
                       <div class="form-group">
-                        <textarea name=content id=content rows="4" class="form-control" placeholder="내용을 입력해주세요!"></textarea>
+                        <div id="editor"></div>
+                      </div>
+                      <div>
+                          <hr>
+                          <button onclick="showData()">담긴 데이터 보기(debug)</button>
                       </div>
                       <!-- 게시글 등록 또는 뒤로가기 (임시저장 없음 알림창 띄우기) -->
                       <button type="submit" class="mr-2" id="submintBtn" >등록</button>
@@ -65,11 +76,31 @@
         </div>
     </div>
 </div>
+<script src="${pageContext.request.contextPath}/assets/js/ckeditor/ckaditorSuperBuild.js"></script>
 <script>
-      // CKEditor
-      ClassicEditor.create( document.querySelector('#content'), {
-        language: "ko"
-      });
+      // const boardInsertAjax = () => {
+      //   // #{code}, #{category}, #{id}, #{title}, #{content}
+      //   let dataForm = {code : code.value,
+      //                   category : category.value,
+      //                   id : id.value,
+      //                   title : title.value,
+      //                   content : editor.getData()};
+
+      //   $.ajax({
+      //           url: "/moment/board/boardInsertSave",
+      //           method: "POST",
+      //           async: false,
+      //           dataType: "JSON",
+      //           data: dataForm,
+      //           success: function (data) {
+      //               console.log(data);
+      //           },
+      //           error: function (reject) {
+      //               console.error(reject);
+      //               alert('오류');
+      //           },
+      //       });
+      // }
 
       // 대분류 카테고리에 맞게 중분류 카테고리가 노출되는 함수
       const cateogryChange = () => {
@@ -99,10 +130,16 @@
           // 만약 카테고리나 제목, 글 내용을 적어둔게 있다면 알림창 띄우고 뒤로가기 진행하기
           window.history.back();
         });
-      }
+      };
+
+      // ckeditor 담긴 값 보기 onclick event
+      const showData = () => {
+        let data = editor.getData();
+        console.log(data);
+      };
 
       backBnt();          // 뒤로가기 버튼 클릭 이벤트
-      cateogryChange();
+      cateogryChange();   // 대분류 카테고리에 맞게 중분류 카테고리가 노출되는 함수
 
 </script>
 
