@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kej.app.board.service.BoardService;
+import com.kej.app.board.service.MusicBoardService;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
 import com.kej.app.board.service.vo.PageVO;
@@ -23,6 +24,7 @@ import com.kej.app.common.service.CommonService;
 public class BoardController {
 	@Autowired BoardService service;
 	@Autowired CommonService cservice;
+	@Autowired MusicBoardService musicService;
 	
 	//https://jadestone.tistory.com/101 == 페이징/진행중
 	@GetMapping("/10")
@@ -185,12 +187,20 @@ public class BoardController {
     
     //Music 전체조회 Page
     @GetMapping("/20")
-    public String MusicAllListPage(Model model) {
+    public String musicAllListPage(Model model) {
     	
     	return "musicBoard/boardMusicAllListPage";
     }
+    
+    // Ajax Get Method 
+ 	@RequestMapping(value="/music", method = {RequestMethod.GET})
+ 	@ResponseBody
+ 	public List<BoardVO> musicAllList () {
+ 		
+ 		return musicService.musicBoardAllList();
+ 	}
         
-    // Music 디테일 Page
+    // Music Detail Page
 	@GetMapping("/20_1")
 	public String BoardDetail(Model model) {
 		

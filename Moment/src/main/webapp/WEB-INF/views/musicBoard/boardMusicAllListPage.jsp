@@ -61,36 +61,20 @@
                         <!-- pagination -->
                         <div class="pagination d-flex justify-content-center">
                             <!-- 5. 맨 처음으로 -->
-                            <a id="pageNumberOne" class="firstpage pbtn">
-                                &laquo;&laquo;
-                            </a>
+                            <a id="pageNumberOne" class="firstpage pbtn">&laquo;&laquo;</a>
                             
                             <!-- 3.이전페이지네이션 -->
-                            <a id="pageStart" class="prevpage pbtn">
-                                &laquo;
-                            </a>
+                            <a id="pageStart" class="prevpage pbtn">&laquo;</a>
                             
                             <!-- 1.페이지네이션 -->
                             
-                            <a class="pageNumber">
-                                <span class="pagenum">1</span>
-                            </a>
-                            <a class="pageNumber">
-                                <span class="pagenum">2</span>
-                            </a>
-                            <a class="pageNumber">
-                                <span class="pagenum">3</span>
-                            </a>
-                            <a class="pageNumber">
-                                <span class="pagenum">4</span>
-                            </a>
-                            <a class="pageNumber">
-                                <span class="pagenum">5</span>
-                            </a>
+                            <a class="pageNumber"><span class="pagenum">1</span></a>
+                            <a class="pageNumber"><span class="pagenum">2</span></a>
+                            <a class="pageNumber"><span class="pagenum">3</span></a>
+                            <a class="pageNumber"><span class="pagenum">4</span></a>
+                            <a class="pageNumber"><span class="pagenum">5</span></a>
                             <!-- 2.다음페이지네이션 -->
-                            <a id="pageNext" class="nextpage pbtn">
-                                &raquo;
-                            </a>
+                            <a id="pageNext" class="nextpage pbtn">&raquo;</a>
                             
                             <!-- 4. 맨 마지막으로 -->
                             <a id="pageRealEnd" class="lastpage pbtn">&raquo;&raquo;</a>
@@ -124,3 +108,4 @@
         </div>
     </div>
 </div>
+<script type="module" src="${pageContext.request.contextPath}/assets/js/music/musicBoardAllList.js"></script>

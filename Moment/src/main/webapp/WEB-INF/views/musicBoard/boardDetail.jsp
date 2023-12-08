@@ -72,7 +72,7 @@
                         <div>
                           <div class="d-flex justify-content-start align-items-center">
                             <div class="replyUserImgBox">
-                              <img class="mx-auto" src="images/faces/face3.jpg" alt="프로필 사진">
+                              <img class="mx-auto" src="${pageContext.request.contextPath}/assets/images/faces/face3.jpg" alt="프로필 사진">
                             </div>
                             <div class="replyInfoBox ml-2">
                               <div>
@@ -118,7 +118,7 @@
                         <div>
                           <div class="d-flex justify-content-start align-items-center">
                             <div class="replyUserImgBox">
-                              <img class="mx-auto" src="images/faces/face1.jpg" alt="프로필 사진">
+                              <img class="mx-auto" src="${pageContext.request.contextPath}/assets/images/faces/face1.jpg" alt="프로필 사진">
                             </div>
                             <div class="replyInfoBox ml-2">
                               <div>
