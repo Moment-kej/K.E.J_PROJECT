@@ -15,10 +15,11 @@
                             <div class="d-flex justify-content-center menuCategoryDiv">
                                 <ul class="menuCategory p-0">
                                     <li><a class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
-                                    <li><a class="menuCategoryATag">k-pop</a></li>
-                                    <li><a class="menuCategoryATag">k-pop</a></li>
-                                    <li><a class="menuCategoryATag">k-pop</a></li>
-                                    <li><a class="menuCategoryATag">k-pop</a></li>
+                                    <c:forEach var="list" items="${code.CA}">
+                                        <c:if test="${list.commonDetailEx eq '음악 카테고리'}">
+                                            <li><a class="menuCategoryATag">${list.commonDetailName}</a></li>
+                                        </c:if>
+                                    </c:forEach>
                                 </ul>
                             </div>
                         </div>
@@ -48,7 +49,7 @@
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
                         <div class="contentNotData">
                             <div class="d-flex justify-content-center inner-div">
-                                <h3> 데이터가 없을시 "조회할 게시글이 없습니다." 라는 문구가 나오게 하</h3>
+                                <h3> 데이터가 없을시 "조회할 게시글이 없습니다." 라는 문구가 나오게 하기</h3>
                             </div>
                         </div>
                         <div>
@@ -67,7 +68,6 @@
                             <a id="pageStart" class="prevpage pbtn">&laquo;</a>
                             
                             <!-- 1.페이지네이션 -->
-                            
                             <a class="pageNumber"><span class="pagenum">1</span></a>
                             <a class="pageNumber"><span class="pagenum">2</span></a>
                             <a class="pageNumber"><span class="pagenum">3</span></a>
@@ -82,7 +82,7 @@
                         <!-- search div -->
                         <div class="col-lg-12 pt-5">
                             <div class="d-flex justify-content-center grid-margin">
-                                <div style="display: flex;">
+                                <div class="d-flex">
                                     <select name="category" id="boardCategory">
                                         <option value="0">카테고리</option>
                                         <option value="케이팝">케입팝</option>

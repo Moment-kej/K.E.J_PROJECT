@@ -189,15 +189,17 @@ public class BoardController {
     @GetMapping("/20")
     public String musicAllListPage(Model model) {
     	
+    	model.addAttribute("code", cservice.getCodes("CA"));
+    	System.out.println("sfsdfdsfdsfdsfsdfsdfsdfsdfdsfdsfsdfsdfdsfsadafsadfsdfsfsdfsasfsdfsdfsdfs" + model.addAttribute("code", cservice.getCodes("CA")));
     	return "musicBoard/boardMusicAllListPage";
     }
     
     // Ajax Get Method 
  	@RequestMapping(value="/music", method = {RequestMethod.GET})
  	@ResponseBody
- 	public List<BoardVO> musicAllList () {
+ 	public List<BoardVO> musicAllList (Criteria cri) {
  		
- 		return musicService.musicBoardAllList();
+ 		return musicService.musicBoardAllList(cri);
  	}
         
     // Music Detail Page

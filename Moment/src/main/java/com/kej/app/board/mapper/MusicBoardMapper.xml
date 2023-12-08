@@ -20,7 +20,7 @@
 		  	   ) AS reply_count
 	     FROM board b
 	    WHERE b.yn = 1
-	      AND code = 20
+	      AND code = #{code}
   	</select>
   	
   	
