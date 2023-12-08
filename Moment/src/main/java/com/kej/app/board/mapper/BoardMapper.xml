@@ -26,8 +26,8 @@
 				  FROM board b
 				  LEFT OUTER JOIN ( SELECT board_no, GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS reply_content
 				                      FROM reply
-				                     WHERE (yn = 0 OR yn IS NULL)
-				                       AND (re_reply_yn = 0 OR re_reply_yn IS NULL)
+				                     WHERE (yn = 1 OR yn IS NULL)
+				                       AND (re_reply_yn = 1 OR re_reply_yn IS NULL)
 				                     GROUP BY board_no
 				                   ) r
 				    ON b.board_no = r.board_no
@@ -47,7 +47,7 @@
 			     WHERE (category LIKE CONCAT('%',#{category},'%') AND reply_content LIKE CONCAT ('%',#{searchName},'%'))
 			     </if>
 				   AND code = #{code}
-				   AND yn = 0
+				   AND yn = 1
 			 ) a
 		ORDER BY 1
   		LIMIT #{pageStart}, #{amount}
@@ -58,11 +58,11 @@
 		 SELECT COUNT(*)
 		  FROM board b
 		  LEFT JOIN ( SELECT board_no
-		  						 , GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS "reply_content" 
-		                      FROM reply
-		                     WHERE (yn = 0 OR yn IS NULL)
-		                      AND (re_reply_yn = 0 OR re_reply_yn IS NULL)
-		                    GROUP BY board_no
+  						   , GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS "reply_content" 
+                        FROM reply
+                       WHERE (yn = 0 OR yn IS NULL)
+                         AND (re_reply_yn = 1 OR re_reply_yn IS NULL)
+                       GROUP BY board_no
 		                   ) r
 		    ON b.board_no = r.board_no
 		 <if test="searchType == '' or searchType == null">
@@ -81,7 +81,7 @@
 	     WHERE (category LIKE CONCAT('%',#{category},'%') AND reply_content LIKE CONCAT ('%',#{searchName},'%'))
 	     </if>
 		   AND code = #{code}
-		   AND yn = 0
+		   AND yn = 1
 	</select>
 
 	<!--  board insert -->
@@ -89,7 +89,7 @@
 	INSERT INTO BOARD
 		(board_no, code, category, id, title, content, write_dt, view, yn)
 	ALUES
-		(nextval('BOARD_SEQ'), #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 0)
+		(nextval('BOARD_SEQ'), #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 1)
 	</insert>
 
 

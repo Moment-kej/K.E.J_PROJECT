@@ -113,7 +113,7 @@
                         <!-- search div -->
                         <div class="col-lg-12 pt-5">
                             <div class="d-flex justify-content-center grid-margin">
-                                <div style="display: flex;">
+                                <div class="d-flex">
                                     <select name="category" id="boardCategory">
                                         <option value="0">카테고리</option>
                                         <c:forEach var="coDetailList" items="${code.CA}">

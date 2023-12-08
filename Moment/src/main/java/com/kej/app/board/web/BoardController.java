@@ -1,6 +1,8 @@
 package com.kej.app.board.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,6 +85,19 @@ public class BoardController {
 		
 		
 		return "dressBoard/boardDressUpdate";
+	}
+	
+	@GetMapping("/test")
+	public String test() {
+		return "ｃｏｍｍ/test";
+	}
+	
+	@ResponseBody
+	@GetMapping("/test2")
+	public Map<String, Object> test2() {
+		Map<String, Object> testMap = new HashMap<String, Object>();
+		testMap.put("test", "test");
+		return testMap;
 	}
 	
 	
