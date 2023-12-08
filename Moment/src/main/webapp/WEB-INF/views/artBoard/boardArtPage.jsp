@@ -15,10 +15,13 @@
                             <div class="d-flex justify-content-center menuCategoryDiv">
                                 <ul class="menuCategory p-0">
                                     <li><a class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
-                                    <li><a class="menuCategoryATag">k-pop</a></li>
-                                    <li><a class="menuCategoryATag">k-pop</a></li>
-                                    <li><a class="menuCategoryATag">k-pop</a></li>
-                                    <li><a class="menuCategoryATag">k-pop</a></li>
+                                    <li><a class="menuCategoryATag">회화</a></li>
+                                    <li><a class="menuCategoryATag">조각</a></li>
+                                    <li><a class="menuCategoryATag">공예</a></li>
+                                    <li><a class="menuCategoryATag">건축</a></li>
+                                    <li><a class="menuCategoryATag">디자인</a></li>
+                                    <li><a class="menuCategoryATag">판화</a></li>
+                                    <li><a class="menuCategoryATag">소묘</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -46,13 +49,10 @@
                         <div style="clear:both"></div>
 
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
+                        <div id="contentListTest">
                         <div class="contentNotData">
-                            <div class="d-flex justify-content-center inner-div">
-                                <h3> 데이터가 없을시 "조회할 게시글이 없습니다." 라는 문구가 나오게 하기</h3>
+                            <div class="d-flex justify-content-center inner-div" id="contentListTest"><!-- js로 렌더링 하는곳 -->
                             </div>
-                        </div>
-                        <div>
-                            <div id="contentListTest"></div><!-- js로 렌더링 하는곳 -->
                         </div>
                         <!--글쓰기 버튼-->
                         <div class="writingBntDiv">
@@ -95,6 +95,10 @@
                             <!-- 4. 맨 마지막으로 -->
                             <a id="pageRealEnd" class="lastpage pbtn">&raquo;&raquo;</a>
                         </div><!-- pagination end -->
+                        <div>
+                        	<p>확인용 >> ${criteria}</p> <!-- ajax에 보낼 데이터 -->
+                        	<p>확인용 >> ${list}</p> <!-- ajax로 보냈을때 가져오는 데이터 -->
+                        </div>
                         <!-- search div -->
                         <div class="col-lg-12 pt-5">
                             <div class="d-flex justify-content-center grid-margin">
@@ -127,3 +131,30 @@
         </div>
     </div>
 </div>
+<script>
+/* 	function readAllList(){
+		let str = ``;
+		let dataForm
+		
+		$ajax({
+			url: "/moment/board/artTemp",
+			type: "GET"
+			data: data,
+			dataType: json,
+			success: function(data){
+				$("#contentListTest").empty();
+			
+				if(data != null){
+					str = ``;
+				}else{
+					srt = `<h3>"조회할 게시글이 없습니다."</h3>`
+				}
+				$("#contentListTest").append();
+			}
+		})
+	} */
+	
+	/* window.onload = function(){
+		readAllList();
+	} */
+</script>
