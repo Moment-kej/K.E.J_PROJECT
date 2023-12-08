@@ -7,7 +7,7 @@ export const Ajax = (URL, method, params, callBack) => {
         type: method,
         async: hasCallback,
         contentType : "application/json; charset=utf-8",
-        dataType: "json",
+        dataType : "json",
         data: params
     }
     
@@ -43,29 +43,31 @@ export const Ajax = (URL, method, params, callBack) => {
 };
 
 // 은애 - 지선생과 함께 만든 ajax function ... 만드는 중
-export const ajaxRequest = (url, method, data=undefined, successCallback) => {
-    const hasSuccessCallback = $.isFunction(successCallback);
+export const ajaxRequest = (url, method, data, successCallback) => {
+
+    const hasSuccessCallback = $.isFunction(successCallback) ? true : false;
+    const datas = data ? data : {};
 
     const ajaxOptions = {
         url: url,
         type: method,
-
+        data : datas,
+        dataType : "json",                // 서버로부터 받을 데이터의 타입을 지정하는 것
         contentType : "application/json; charset=utf-8",
-        success: function(response) {
-            // 성공 콜백 호출
-            if (hasSuccessCallback) {
-                successCallback(response);
-            }
-        },
         error: function(error) {
             console.error('오류발생!' + error);
         }
     };
+    
+    // success 함수
+    if(hasSuccessCallback) ajaxOptions.success = successCallback;
 
-    // method가 'POST'인 경우에만 data를 설정
-    if (method.toUpperCase() === 'POST') {
-        ajaxOptions.data = data;
-    }
+    // 'POST' 메서드이면서 데이터가 존재하는 경우에만 contentType을 설정
+    if (method.toUpperCase() === 'POST' && data) {
+        ajaxOptions.contentType = "application/json; charset=utf-8";    // 클라이언트가 서버로 데이터를 전송할 때의 타입을 지정하는 것
+        data = JSON.stringify(data);
+    };
 
+    console.log(ajaxOptions);
     $.ajax(ajaxOptions);
-}
+};
