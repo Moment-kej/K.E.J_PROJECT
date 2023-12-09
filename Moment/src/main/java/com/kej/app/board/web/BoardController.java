@@ -91,16 +91,20 @@ public class BoardController {
 	
 	@GetMapping("/test")
 	public String test() {
-		return "ｃｏｍｍ/test";
+		return "comm/test";
 	}
 	
-	@ResponseBody
 	@GetMapping("/test2")
+	@ResponseBody
 	public Map<String, Object> test2() {
 		Map<String, Object> testMap = new HashMap<String, Object>();
 		testMap.put("test", "test");
+		testMap.put("test1", "test1");
+		testMap.put("test2", "test2");
 		return testMap;
 	}
+	
+	
 	
 	
 	

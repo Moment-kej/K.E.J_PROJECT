@@ -56,8 +56,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
         
     <!-- CK Editor -->
-	<script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/translations/ko.js"></script>
-	<script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/super-build/ckeditor.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/super-build/translations/ko.js"></script>
 </head>
 
 <body>
