@@ -42,9 +42,8 @@ export const Ajax = (URL, method, params, callBack) => {
     }
 };
 
-// 은애 - 지선생과 함께 만든 ajax function ... 만드는 중
+// 은애 - 지선생과 함께 만든 ajax function ... 만드는 중. 본인 외 사용X
 export const ajaxRequest = (url, method, data, successCallback) => {
-
     const hasSuccessCallback = $.isFunction(successCallback) ? true : false;
     const datas = data ? data : {};
 
@@ -53,7 +52,6 @@ export const ajaxRequest = (url, method, data, successCallback) => {
         type: method,
         data : datas,
         dataType : "json",                // 서버로부터 받을 데이터의 타입을 지정하는 것
-        contentType : "application/json; charset=utf-8",
         error: function(error) {
             console.error('오류발생!' + error);
         }
@@ -65,7 +63,7 @@ export const ajaxRequest = (url, method, data, successCallback) => {
     // 'POST' 메서드이면서 데이터가 존재하는 경우에만 contentType을 설정
     if (method.toUpperCase() === 'POST' && data) {
         ajaxOptions.contentType = "application/json; charset=utf-8";    // 클라이언트가 서버로 데이터를 전송할 때의 타입을 지정하는 것
-        data = JSON.stringify(data);
+        datas = JSON.stringify(datas);
     };
 
     console.log(ajaxOptions);
