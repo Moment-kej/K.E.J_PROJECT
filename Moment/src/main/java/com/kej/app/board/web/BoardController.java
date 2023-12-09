@@ -217,7 +217,6 @@ public class BoardController {
     public String musicAllListPage(Model model) {
     	
     	model.addAttribute("code", cservice.getCodes("CA"));
-    	System.out.println("sfsdfdsfdsfdsfsdfsdfsdfsdfdsfdsfsdfsdfdsfsadafsadfsdfsfsdfsasfsdfsdfsdfs" + model.addAttribute("code", cservice.getCodes("CA")));
     	return "musicBoard/boardMusicAllListPage";
     }
     

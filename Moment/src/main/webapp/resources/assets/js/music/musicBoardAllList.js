@@ -17,19 +17,18 @@ const firstSegment = "/" + currentPath.split('/')[1];
 //          //    title: name + '상품이 추가 되었습니다.',
 //          // });
 //       },
-   
 //       error:function(error) {
 //          console.log("에러", error);
-//          // Swal.fire({
-//          //    icon: 'error',
-//          //    title: 'Oops...',
-//          //    text: '서버요청 실패',
-//          // });
+//          Swal.fire({
+//             icon: 'error',
+//             title: 'Oops...',
+//             text: '서버요청 실패',
+//          });
 //       }
 //    });
 // };
 
-// Ajax("/app/board/music", "get", () => {})
+// Ajax(firstSegment + "/board/music", "get", () => {})
 
 $.ajax({
    url : firstSegment + "/board/music",
@@ -38,18 +37,16 @@ $.ajax({
    dataType : 'json',
    success : function(result){
       console.log("성공", result);
-      // Swal.fire({
-      //    icon: 'success',
-      //    title: name + '상품이 추가 되었습니다.',
-      // });
+
+      
    },
 
    error:function(error) {
       console.log("에러", error);
-      // Swal.fire({
-      //    icon: 'error',
-      //    title: 'Oops...',
-      //    text: '서버요청 실패',
-      // });
+      Swal.fire({
+         icon: 'error',
+         title: 'Oops...',
+         text: '서버요청 실패',
+      });
    }
 });
