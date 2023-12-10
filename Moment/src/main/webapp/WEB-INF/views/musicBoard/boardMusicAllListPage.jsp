@@ -5,6 +5,12 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
+
+            <style>
+                .displyNone {
+                    display: none;
+                }
+            </style>
             <!--게시글 전체 목록 장소-->
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
@@ -27,8 +33,8 @@
                         <div class="boardListForm">
                             <div class="boardListFormBtn">
                                 <a id="albumType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortCard.svg" alt="sort_card"></a>
-                                <a id="cardsType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortAlbum.svg" alt="sort_card"></a>
-                                <a id="listType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortList.svg" alt="sort_card"></a>
+                                <a id="cardsType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortAlbum.svg" alt="sort_album"></a>
+                                <a id="listType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortList.svg" alt="sort_list"></a>
                             </div>
                             <div class="listSizeSelect">
                                 <!-- 한번에 보여줄 개수 정하기 -->
@@ -44,10 +50,43 @@
                                 </form>
                             </div>
                         </div>
-                        <div style="clear:both"></div>
+                        <div id="boardList" style="width: 100%; clear:both;">
+                            <!-- <table class="board_list_tbl">
+                                <caption>게시판 리스트입니다.</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="td_board">번호</th>
+                                        <th scope="col" class="td_title">제목</th>
+                                        <th scope="col" class="td_id">작성자</th>
+                                        <th scope="col" class="td_write_dt">작성일</th>
+                                        <th scope="col" class="td_view">조회수</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="article_list">
+                                    <tr class="">
+                                        <td scope="row" class="td_board_no">
+                                            <div class="board_no">BOARD_NO</div>
+                                        </td>
+                                        <td scope="row" class="td_title">
+                                            <span class="title">TITLE</span>
+                                            <span class="reply_count">2</span>
+                                        </td>
+                                        <td scope="row" class="td_id">
+                                            <span class="write_id">ID</span>
+                                        </td>
+                                        <td scope="row" class="td_write_dt">
+                                            <span class="write_dt">WRITE_DT</span>
+                                        </td>
+                                        <td scope="row" class="td_view">
+                                            <span class="view">VIEW</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
+                        </div>
 
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
-                        <div class="contentNotData">
+                        <div class="contentNotData displyNone">
                             <div class="d-flex justify-content-center inner-div">
                                 <h3> 데이터가 없을시 "조회할 게시글이 없습니다." 라는 문구가 나오게 하기</h3>
                             </div>

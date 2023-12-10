@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="14.003" height="16.033" viewBox="0 0 14.003 16.033">
    <g id="그룹_37" data-name="그룹 37" transform="translate(-308.03 -232.573)">
-      <path id="패스_46" data-name="패스 46" d="M0,0H13V15.033H0Z" transform="translate(308.53 233.073)" fill="none" stroke="#818080" stroke-linejoin="round" stroke-width="1"/>
+      <path id="패스_46" data-name="패스 46" d="M0,0H13V15.033H0Z" transform="translate(308.53 233.073)" fill="none" stroke="#818080" stroke-linejoin="none" stroke-width="1"/>
       <g id="그룹_33" data-name="그룹 33">
          <rect id="사각형_15" data-name="사각형 15" width="7.999" height="2" rx="0.5" transform="translate(311.035 235.601)" fill="#818080"/>
          <rect id="사각형_16" data-name="사각형 16" width="7.999" height="2" rx="0.5" transform="translate(311.035 239.602)" fill="#818080"/>

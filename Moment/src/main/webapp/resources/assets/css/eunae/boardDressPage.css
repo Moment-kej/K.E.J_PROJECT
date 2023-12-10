@@ -29,19 +29,33 @@ fieldset {border : none !important;}
     border-radius: 5px;
 }
 .boardListForm {
-    float: right;
+	margin: 20px 0px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
 .boardListFormBtn {
-    display: inline-block;
     margin-right: 10px;
 }
-.boardListFormBtn a i {
-    color: #797979;
-    font-size: small;
-    margin-right: 5px;
+.boardListFormBtn a {
+    
+    width: 20px;
+    height: 20px;
 }
-.listSizeSelect {
-    display: inline-block;
+.boardListFormBtn a img {
+	margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+#handleAmount {
+    box-sizing: border-box;
+    width: 80px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-right: 2px;
+    padding: 3px;
+    font-size: 12px;
 }
 .writingBntDiv {
     float: right;
