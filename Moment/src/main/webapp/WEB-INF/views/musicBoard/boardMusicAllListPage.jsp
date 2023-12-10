@@ -50,39 +50,39 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="boardList" style="width: 100%; clear:both;">
-                            <!-- <table class="board_list_tbl">
-                                <caption>게시판 리스트입니다.</caption>
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="td_board">번호</th>
-                                        <th scope="col" class="td_title">제목</th>
-                                        <th scope="col" class="td_id">작성자</th>
-                                        <th scope="col" class="td_write_dt">작성일</th>
-                                        <th scope="col" class="td_view">조회수</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="article_list">
-                                    <tr class="">
-                                        <td scope="row" class="td_board_no">
-                                            <div class="board_no">BOARD_NO</div>
-                                        </td>
-                                        <td scope="row" class="td_title">
-                                            <span class="title">TITLE</span>
-                                            <span class="reply_count">2</span>
-                                        </td>
-                                        <td scope="row" class="td_id">
-                                            <span class="write_id">ID</span>
-                                        </td>
-                                        <td scope="row" class="td_write_dt">
-                                            <span class="write_dt">WRITE_DT</span>
-                                        </td>
-                                        <td scope="row" class="td_view">
-                                            <span class="view">VIEW</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
+                        <div id="boardList">
+                            <!-- <ul id="boardSortCardType">
+                                <li>
+                                    <div class="cardTypeArea d-flex justify-content-between align-items-center">
+                                        <div class="con_top">
+                                            <div class="title_area">
+                                                <a href="#" class=""><span class="">TITLE</span></a>
+                                            </div>
+                                            <div class="info_area">
+                                                <div class="user_info d-flex justify-content-start align-items-center">
+                                                    <div class="write_dt">
+                                                        <span>USER_ID</span>
+                                                    </div>
+                                                    <div class="write_dt">
+                                                        <span class="date">2023.12.09.</span>
+                                                    </div>
+                                                    <div>
+                                                        <span>조회</span>
+                                                        <span>5</span>
+                                                    </div>
+                                                    <div>
+                                                        <i class="fa-regular fa-comment-dots"></i>
+                                                        <span>10</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="movie-img">
+                                            <a href="#"><img src="#" alt="썸네일 이미지"></a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul> -->
                         </div>
 
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
