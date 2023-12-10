@@ -25,7 +25,7 @@
                   <div class="contentWidthSetting">
                     <h4 class="card-title">게시판 등록 페이지</h4>
                     <!-- 게시판 등록 form -->
-                    <form class="forms-sample" method="post">
+                    <form class="forms-sample" name="boardForm" id="boardForm">
                       <div class="form-group">
                         <label for="writer">작성자</label>
                         <input type="text" name="id" id="writer" placeholder="작성자 적으삼" value="작성자"  class="form-control">
@@ -58,7 +58,7 @@
                       </div>
                       <!-- 게시글 작성 장소 -->
                       <div class="form-group">
-                        <div id="editor"></div>
+                        <div id="editor" name="content"></div>
                       </div>
                       <div class="mb-2 mt-2">
                           <hr>

@@ -83,13 +83,17 @@
 		   AND code = #{code}
 		   AND yn = 1
 	</select>
+	
 
 	<!--  board insert -->
 	<insert id="boardInsert" parameterType="BoardVO">
+	<selectKey keyProperty="boardNo" resultType="java.lang.Integer" order="BEFORE">
+		SELECT nextval('BOARD_SEQ')
+	</selectKey>
 	INSERT INTO BOARD
 		(board_no, code, category, id, title, content, write_dt, view, yn)
 	ALUES
-		(nextval('BOARD_SEQ'), #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 1)
+		(#{boardNo, jdbcType=INTEGER, javaType=Integer}, #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 1)
 	</insert>
 
 
