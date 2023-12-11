@@ -65,11 +65,14 @@ public class BoardController {
 		return "dressBoard/boardDressInsert";
 	}
 	
-	@PostMapping("10/1")
-	public int boardInsertSave(@ModelAttribute BoardVO vo) {
+	@PostMapping("/10/1")
+	@ResponseBody
+	public int boardInsertSave(BoardVO vo) {
 		// @ModelAttribute
 		// HTTP 요청 매개변수를 BoardVO 객체의 필드에 자동으로 매핑.
 		// BoardVO 객체의 필드 이름과 HTTP 요청 파라미터의 이름이 일치해야 함.
+		
+		System.out.println(service.boardInsert(vo));
 		return service.boardInsert(vo); 
 	}
 	

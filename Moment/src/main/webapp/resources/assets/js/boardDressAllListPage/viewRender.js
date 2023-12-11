@@ -1,25 +1,10 @@
 import { pagenation, pagenationNumber } from "./pagenation.js";
+import { formatTimestamp } from "../common/common.js";
 
 const contentContainer = document.getElementById('contentListTest');
 const contextPath = document.getElementById('contextPath').value;
 let currentView = 'cardsType'; // 기본적으로 앨범형으로 시작
 let criteriaListType = document.getElementById('criteriaListType').value;
-
-//시간포맷
-const formatTimestamp = (timestamp) => {
-    // 밀리초로 표현된 시간 데이터를 Date 객체로 변환
-    const date    = new Date(timestamp);
-    // 날짜 및 시간 정보 추출
-    const year    = date.getFullYear();
-    const month   = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
-    const day     = String(date.getDate()).padStart(2, '0');
-    const hours   = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    // 포맷에 맞게 문자열 반환
-    const formattedDate = year + '.' + month + '.' + day + ' ' + hours + ':' + minutes;
-
-    return formattedDate;
-};
 
 // 리스트형 렌더링
 const createTable = (posts) => {

@@ -1,4 +1,5 @@
-import { firstContextPath } from "../common/common.js";
+import { firstContextPath, ajaxRequest } from "../common/common.js";
+import { getData } from "../ckeditor/ckaditorSuperBuild.js"
 
 const firstPath = firstContextPath();   // '/moment' 가져오기
 
@@ -23,7 +24,6 @@ const cateogryChange = () => {
         });
     });
 };
-
 // 뒤로가기 버튼
 const goAllListBnt = () => {
     document.getElementById('goAllListBnt').addEventListener('click', ()=> {
@@ -35,3 +35,44 @@ const goAllListBnt = () => {
 
 goAllListBnt();      // 목록으로 버튼 클릭 이벤트
 cateogryChange();   // 대분류 카테고리에 맞게 중분류 카테고리가 노출되는 함수
+//--AJAX--------------------------------------------------------------------
+// 선택한 폼 엘리먼트의 데이터를 URL-encoded된 문자열로 직렬화
+// const dataForm = $('#boardForm').serialize();
+
+function getSelectedValue(mySelect) {
+    // select 요소를 가져옴
+    var selectElement = document.getElementById(mySelect);
+
+    // 선택된 옵션의 값(value)을 가져옴
+    var selectedValue = selectElement.value;
+
+    // 선택된 옵션의 텍스트 내용을 가져옴
+    var selectedText = selectElement.options[selectElement.selectedIndex].text;
+
+    // 결과를 콘솔에 출력
+    console.log("Selected Value:", selectedValue);
+    console.log("Selected Text:", selectedText);
+};
+
+let code = getSelectedValue('mainCategory');
+let category = getSelectedValue('subCategory');
+
+const dataForm = {
+    id: document.getElementById('writer').value,
+    title: document.getElementById('title').value,
+    code: code,
+    category: category,
+    content: getData()
+};
+
+const callback = (data) => {
+    console.log(data);
+};
+
+// board Insert button click event
+document.getElementById('boardInsertBtn').addEventListener('click', () => {
+    // url, method, data, successCallback
+    // ajaxRequest(firstPath + '/board/10/1', 'POST', dataForm, callback); // 아직 안돌려봄
+    console.log(dataForm);
+});
+//--AJAX END--------------------------------------------------------------------

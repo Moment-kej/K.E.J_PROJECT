@@ -1,6 +1,3 @@
-import { firstContextPath, ajaxRequest } from "../common/common.js";
-
-const firstPath = firstContextPath();   // '/moment' 가져오기
 let editor;
 
 // CKEditor
@@ -163,7 +160,7 @@ const ckeditorBuild = () => {
         .catch( error => {
             console.error( error );
         });
-}
+};
 ckeditorBuild();
 
 // ckeditor 담긴 값 보기 onclick event
@@ -175,16 +172,6 @@ const ckeditorTest = () => {
 };
 ckeditorTest();
 
-const dataForm = {    code : code.value,
-                    category : category.value,
-                    id : id.value,
-                    title : title.value,
-                    content : editor.getData()
-                };
-
-const callback = (data) => {
-    console.log(data);
-}
-
-// url, method, data, successCallback
-ajaxRequest(firstPath + '/board/10/1', 'POST', dataForm, callback); // 아직 안돌려봄
+export const getData = () => {
+    return editor.getData();
+};
