@@ -10,17 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kej.app.board.service.BoardService;
 import com.kej.app.board.service.MusicBoardService;
-import com.kej.app.board.service.impl.BoardServiceImpl;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
 import com.kej.app.board.service.vo.PageVO;
+import com.kej.app.board.service.vo.ReplyVO;
 import com.kej.app.common.service.CommonService;
 
 @Controller
@@ -79,11 +81,17 @@ public class BoardController {
 	}
 	
 	// dress detail page
-	@GetMapping("/10_1")
-	public String boardDressDetail() {
-		
+	@GetMapping("/all/{boardNo}")
+	public String boardDressDetail(Model model, @PathVariable("boardNo") int boardNo) {
+		model.addAttribute("dress", service.boardDressDetail(boardNo));
 		
 		return "dressBoard/boardDressDetail";
+	}
+	
+	@RequestMapping(value = "/replyList", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ReplyVO> replyList(@RequestParam int boardNo) {
+		return service.replyList(boardNo);
 	}
 	
 	// dress update page

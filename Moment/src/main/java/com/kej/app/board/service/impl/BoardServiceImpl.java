@@ -12,6 +12,7 @@ import com.kej.app.board.mapper.BoardMapper;
 import com.kej.app.board.service.BoardService;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
+import com.kej.app.board.service.vo.ReplyVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -35,6 +36,16 @@ public class BoardServiceImpl implements BoardService {
 //		logger.info("serviceImpl insert >> " + vo);
 		return bMapper.boardInsert(vo);
 	}
+	
+	@Override
+	public BoardVO boardDressDetail(int BoardNo) {
+		return bMapper.boardDressDetail(BoardNo);
+	}
+	
+	@Override
+	public List<ReplyVO> replyList(int boardNo) {
+		return bMapper.replyList(boardNo);
+	}
 	// eunae ---------------------------------------------
 
 	
@@ -48,6 +59,8 @@ public class BoardServiceImpl implements BoardService {
 	public int artPagecount(Criteria cri) {
 		return bMapper.artPagecount(cri);
 	}
+
+
 
 
 

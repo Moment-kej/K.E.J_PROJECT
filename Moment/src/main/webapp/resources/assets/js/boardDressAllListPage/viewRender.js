@@ -69,7 +69,7 @@ const createTable = (posts) => {
                 const td = document.createElement('td');
                 if (index === 1) { // 제목 열인 경우
                     const titleA = document.createElement('a');
-                    titleA.setAttribute('href','#');
+                    titleA.setAttribute('href', contextPath + '/board/all/' + boardNo);
                     titleA.innerHTML = cellText +
                                         ' <span style="color:red;">[' + replyCount +  ']</span>';
                     td.appendChild(titleA);
@@ -92,6 +92,7 @@ const createPostElement = (post) => {
     postElement.className = 'postType';
     const extractedContent = extractContent(post);
 
+    let boardNo = post.boardNo;
     let boardTitle = post.title;                  // 제목
     let boardContentEx = '글내용놔둘곳';           // 게시글 내용 대타
     let boardImg = extractedContent.thumbnail;   // 게시글 이미지
@@ -133,7 +134,7 @@ const createPostElement = (post) => {
 
             let albumTypeDiv_1_1_1 = document.createElement('div');
             albumTypeDiv_1_1_1.className = 'tit_area';
-            albumTypeDiv_1_1_1.innerHTML = '<a href="#">' + boardTitle +'</a>';
+            albumTypeDiv_1_1_1.innerHTML = '<a href="' + (contextPath + '/board/all/' + boardNo) +  '">' + boardTitle +'</a>';
             albumTypeDiv_1_1.appendChild(albumTypeDiv_1_1_1);
 
             albumTypeDiv_1_1.innerHTML += '<a href="#">' + boardContent + '</a>'
@@ -217,7 +218,7 @@ const createPostElement = (post) => {
             */
             //이미지
             let cardsImgAtag = document.createElement('a');
-            cardsImgAtag.setAttribute('href', '#');
+            cardsImgAtag.setAttribute('href', contextPath + '/board/all/' + boardNo);
 
             let cardsImg = document.createElement('img');
             cardsImg.className = 'albumTypeImg';
