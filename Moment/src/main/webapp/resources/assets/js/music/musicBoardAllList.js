@@ -1,25 +1,6 @@
 import { firstContextPath, formatTimestamp } from '../common/common.js';
 
-// ======================================================================
-$.ajax({
-   url : firstContextPath + "/board/music",
-   method : "GET",
-   data :{ code : 20 },
-   dataType : 'json',
-   success : (data) => {
-      createSortListTypeComponent(data);
-      createSortCardTypeComponent(data);
-   },
-   error:(error) => {
-      Swal.fire({
-         icon: 'error',
-         title: 'Oops...',
-         text: '서버요청 실패',
-      });
-   }
-});
-
-// ======================================================================
+// =====================================================================================
 /**
  * Element를 만들고 append하는 함수
  * 
@@ -42,7 +23,7 @@ const createAndAppendElement = (parent, elementType, attributes = {}, content = 
 
    return element;
 };
-
+// =====================================================================================
 // 게시글 List형태
 const createSortListTypeComponent = (data) => {
    const table = createAndAppendElement(document.body, 'table', { class: 'boardSortListType container mx-auto' });
@@ -76,16 +57,13 @@ const createSortListTypeComponent = (data) => {
    const boardListContainer = document.getElementById("boardList");
    boardListContainer.appendChild(table);
 }
-
+// =====================================================================================
 const createSortCardTypeComponent = (data) => {
    // 부모 요소 찾기
    const boardListFind = document.getElementById("boardList");
    const boardSortCardType = createAndAppendElement(boardListFind, 'ul', { id : 'boardSortCardType'});
 
-   data.map((item) => {
-      console.log(item);
-
-      
+   data.map((item) => { 
       // createAndAppendElement 함수를 사용하여 새로운 리스트 아이템 생성 및 추가
       const newListItem = createAndAppendElement(boardSortCardType, 'li');
 
@@ -93,16 +71,16 @@ const createSortCardTypeComponent = (data) => {
       const cardTypeArea = createAndAppendElement(newListItem, 'div', { class: 'cardTypeArea d-flex justify-content-between align-items-center' });
       const conTop = createAndAppendElement(cardTypeArea, 'div', { class: 'con_top' });
       const titleArea = createAndAppendElement(conTop, 'div', { class: 'title_area' });
-      createAndAppendElement(titleArea, 'a', { href: '#', class: '' }, '<span class="">TITLE</span>');
+      createAndAppendElement(titleArea, 'a', { href: '#', class: '' }, '<span class="">' + item.title + '</span>');
 
       const infoArea = createAndAppendElement(conTop, 'div', { class: 'info_area' });
       const userInfo = createAndAppendElement(infoArea, 'div', { class: 'user_info d-flex justify-content-start align-items-center' });
-      createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span>USER_ID</span>');
-      createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span class="date">2023.12.09.</span>');
-      createAndAppendElement(userInfo, 'div', {}, '<span>조회</span><span>5</span>');
+      createAndAppendElement(userInfo, 'div', { class: 'write_id' }, '<span>'+ item.id +'</span>');
+      createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span class="date">' + item.write_dt + '</span>');
+      createAndAppendElement(userInfo, 'div', { class: 'view'}, '<span>조회</span><span>' + item.view + '</span>');
       const commentDiv = createAndAppendElement(userInfo, 'div', {});
       createAndAppendElement(commentDiv, 'i', { class: 'fa-regular fa-comment-dots' });
-      createAndAppendElement(commentDiv, 'span', {}, '10');
+      createAndAppendElement(commentDiv, 'span', {class: 'reply_count'}, item.replyCount);
 
       const movieImg = createAndAppendElement(cardTypeArea, 'div', { class: 'movie-img' });
       const imgLink = createAndAppendElement(movieImg, 'a', { href: '#' });
@@ -111,3 +89,76 @@ const createSortCardTypeComponent = (data) => {
 
    boardListFind.appendChild(boardSortCardType);
 }
+
+// ======================================================================
+const showContent = (viewType) => {
+   $.ajax({
+      url : firstContextPath + "/board/music-data",
+      method : "GET",
+      data :{ code : 20 },
+      contentType: "application/json", // 클라이언트 -> 서버로 전송할 데이터 타입
+      dataType : "json", // 서버 -> 클라이언트로 받을 때 데이터 타입',
+      success : (data) => {
+         clearContent();
+         if(viewType == "cardType") {
+            createSortCardTypeComponent(data);
+         }
+         if(viewType == "albumType") {
+            Swal.fire({
+               icon: 'warning',
+               title: '준비중',
+               text: '준비중',
+            });
+         } 
+         if(viewType == "listType") {
+            createSortListTypeComponent(data);
+         }
+      },
+      error:(error) => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "통신 실패" + error
+         });
+      }
+   });
+}
+
+const clearContent = () => {
+   const parentElement = document.getElementById("boardList")
+   while (parentElement.firstChild) { // 
+      parentElement.removeChild(parentElement.firstChild);
+   };
+}
+
+let currentViewType = "listType"
+const viewTypeBtn = () => {
+   showContent(currentViewType);
+   document.getElementById("cardType").addEventListener("click", () => {
+      showContent("cardType");
+   });
+
+   document.getElementById("albumType").addEventListener("click", () => {
+      showContent("albumType")
+   });
+
+   document.getElementById("listType").addEventListener("click", () => {
+      showContent("listType")
+   });
+}
+
+const listSizeSelect = () => {
+   $("#handleAmount").on('change', (e) => {
+      let listSizeValue = e.target.value.toString();
+      console.log(listSizeValue);
+   });
+   // $("select[id=handleAmount]").on("change" => {
+   //    console.log($(this).val()); //value값 가져오기
+   //    console.log($("select[name=location] option:selected").text()); //text값 가져오기
+   // });
+}
+
+$( document ).ready(function() {
+   viewTypeBtn();
+   listSizeSelect();
+});
