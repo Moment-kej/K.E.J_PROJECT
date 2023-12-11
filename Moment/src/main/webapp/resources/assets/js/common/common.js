@@ -1,13 +1,7 @@
 // import { Ajax, ajaxRequest } from "./ajaxTest.js";
 
-export const firstContextPath = () => {
-    // http://localhost:8080/app/board/20 -> /app/board/20 이것만 추출하는 함수
-    const currentPath = window.location.pathname;
-    // /app/board/20 -> /app 부분만 추출 -> /app 형태로 만들어주기
-    const firstSegment = "/" + currentPath.split('/')[1];
-    
-    return firstSegment;
-};
+// http://localhost:8080/app/board/20 -> /app 이것만 추출해서 /app/ 형태로 만듦 
+export const firstContextPath = "/" + window.location.pathname.split("/")[1];
 
 export const getUrlParam = (paramName) => {
     // 현재 페이지 URL의 쿼리 문자열을 가져옴

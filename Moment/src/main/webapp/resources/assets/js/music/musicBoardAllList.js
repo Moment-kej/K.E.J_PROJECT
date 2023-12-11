@@ -1,32 +1,13 @@
-import { firstContextPath } from '../common/common.js';
-
-const firstPath = firstContextPath();
-
-// ======================================================================
-//시간포맷
-const formatTimestamp = (timestamp) => {
-   // 밀리초로 표현된 시간 데이터를 Date 객체로 변환
-   const date    = new Date(timestamp);
-   // 날짜 및 시간 정보 추출
-   const year    = date.getFullYear();
-   const month   = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
-   const day     = String(date.getDate()).padStart(2, '0');
-   const hours   = String(date.getHours()).padStart(2, '0');
-   const minutes = String(date.getMinutes()).padStart(2, '0');
-   // 포맷에 맞게 문자열 반환
-   const formattedDate = year + '.' + month + '.' + day + ' ' + hours + ':' + minutes;
-
-   return formattedDate;
-};
+import { firstContextPath, formatTimestamp } from '../common/common.js';
 
 // ======================================================================
 $.ajax({
-   url : firstPath + "/board/music",
+   url : firstContextPath + "/board/music",
    method : "GET",
    data :{ code : 20 },
    dataType : 'json',
    success : (data) => {
-      //createSortListTypeComponent(data);
+      createSortListTypeComponent(data);
       createSortCardTypeComponent(data);
    },
    error:(error) => {
@@ -79,7 +60,7 @@ const createSortListTypeComponent = (data) => {
    });
 
    const tbody = createAndAppendElement(table, 'tbody', { id: 'article_list' });
-   data.map((item) => { 
+   data.map((item) => {
       item.writeDt = formatTimestamp(item.writeDt);
       const trBody = createAndAppendElement(tbody, 'tr');
 
@@ -100,31 +81,33 @@ const createSortCardTypeComponent = (data) => {
    // 부모 요소 찾기
    const boardListFind = document.getElementById("boardList");
    const boardSortCardType = createAndAppendElement(boardListFind, 'ul', { id : 'boardSortCardType'});
-   // createAndAppendElement 함수를 사용하여 새로운 리스트 아이템 생성 및 추가
-   const newListItem = createAndAppendElement(boardSortCardType, 'li');
 
-   // 새로운 리스트 아이템 내부에 포함될 요소들 생성 및 추가
-   const cardTypeArea = createAndAppendElement(newListItem, 'div', { class: 'cardTypeArea d-flex justify-content-between align-items-center' });
-   const conTop = createAndAppendElement(cardTypeArea, 'div', { class: 'con_top' });
-   const titleArea = createAndAppendElement(conTop, 'div', { class: 'title_area' });
-   createAndAppendElement(titleArea, 'a', { href: '#', class: '' }, '<span class="">TITLE</span>');
+   data.map((item) => {
+      console.log(item);
 
-   const infoArea = createAndAppendElement(conTop, 'div', { class: 'info_area' });
-   const userInfo = createAndAppendElement(infoArea, 'div', { class: 'user_info d-flex justify-content-start align-items-center' });
-   createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span>USER_ID</span>');
-   createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span class="date">2023.12.09.</span>');
-   createAndAppendElement(userInfo, 'div', {}, '<span>조회</span><span>5</span>');
-   const commentDiv = createAndAppendElement(userInfo, 'div', {});
-   createAndAppendElement(commentDiv, 'i', { class: 'fa-regular fa-comment-dots' });
-   createAndAppendElement(commentDiv, 'span', {}, '10');
+      
+      // createAndAppendElement 함수를 사용하여 새로운 리스트 아이템 생성 및 추가
+      const newListItem = createAndAppendElement(boardSortCardType, 'li');
 
-   const movieImg = createAndAppendElement(cardTypeArea, 'div', { class: 'movie-img' });
-   const imgLink = createAndAppendElement(movieImg, 'a', { href: '#' });
-   createAndAppendElement(imgLink, 'img', { src: '#', alt: '썸네일 이미지' });
+      // 새로운 리스트 아이템 내부에 포함될 요소들 생성 및 추가
+      const cardTypeArea = createAndAppendElement(newListItem, 'div', { class: 'cardTypeArea d-flex justify-content-between align-items-center' });
+      const conTop = createAndAppendElement(cardTypeArea, 'div', { class: 'con_top' });
+      const titleArea = createAndAppendElement(conTop, 'div', { class: 'title_area' });
+      createAndAppendElement(titleArea, 'a', { href: '#', class: '' }, '<span class="">TITLE</span>');
 
-   boardListContainer.appendChild(boardSortCardType);
+      const infoArea = createAndAppendElement(conTop, 'div', { class: 'info_area' });
+      const userInfo = createAndAppendElement(infoArea, 'div', { class: 'user_info d-flex justify-content-start align-items-center' });
+      createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span>USER_ID</span>');
+      createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span class="date">2023.12.09.</span>');
+      createAndAppendElement(userInfo, 'div', {}, '<span>조회</span><span>5</span>');
+      const commentDiv = createAndAppendElement(userInfo, 'div', {});
+      createAndAppendElement(commentDiv, 'i', { class: 'fa-regular fa-comment-dots' });
+      createAndAppendElement(commentDiv, 'span', {}, '10');
 
-   // 새로운 리스트 아이템이 추가된 후의 HTML 출력
-   console.log(boardSortCardType.innerHTML);
+      const movieImg = createAndAppendElement(cardTypeArea, 'div', { class: 'movie-img' });
+      const imgLink = createAndAppendElement(movieImg, 'a', { href: '#' });
+      createAndAppendElement(imgLink, 'img', { src: '#', alt: '썸네일 이미지' });
+   });
 
+   boardListFind.appendChild(boardSortCardType);
 }
