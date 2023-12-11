@@ -48,8 +48,8 @@
 			     </if>
 				   AND code = #{code}
 				   AND yn = 1
+				 ORDER BY 1 DESC
 			 ) a
-		ORDER BY 1
   		LIMIT #{pageStart}, #{amount}
 	</select>
 	
@@ -92,7 +92,7 @@
 	</selectKey>
 	INSERT INTO BOARD
 		(board_no, code, category, id, title, content, write_dt, view, yn)
-	ALUES
+	VALUES
 		(#{boardNo, jdbcType=INTEGER, javaType=Integer}, #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 1)
 	</insert>
 

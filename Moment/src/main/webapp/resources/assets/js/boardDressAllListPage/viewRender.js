@@ -6,6 +6,25 @@ const contextPath = document.getElementById('contextPath').value;
 let currentView = 'cardsType'; // 기본적으로 앨범형으로 시작
 let criteriaListType = document.getElementById('criteriaListType').value;
 
+// 이미지와 단락을 추출하는 함수
+function extractContent(data) {
+    let parser = new DOMParser();
+    let content = parser.parseFromString(data.content, 'text/html');
+
+    // 이미지는 첫 번째 이미지만 가져오기
+    let firstImg = content.querySelector('figure.image img');
+    let firstImgSrcHtml = firstImg ? firstImg.getAttribute('src') : '';
+
+    // 단락은 모든 내용 가져오기
+    let previewText = Array.from(content.querySelectorAll('p')).map(p => p.textContent).join(' ');
+    let previewHtml = previewText ? '<p>' + previewText + '</p>' : '';
+
+    return {
+        thumbnail: firstImgSrcHtml || '<p>이미지 없음</p>',
+        preview: previewHtml || '<p>내용 없음</p>'
+    };
+}
+
 // 리스트형 렌더링
 const createTable = (posts) => {
     let listTypeDiv = document.createElement('div');
@@ -71,11 +90,13 @@ const createTable = (posts) => {
 const createPostElement = (post) => {
     const postElement = document.createElement('div');
     postElement.className = 'postType';
+    const extractedContent = extractContent(post);
 
-    let boardTitle = post.title;                        // 제목
-    let boardContent = post.content;                    // 게시글 내용
-    let boardContentEx = '글내용놔둘곳';                   // 게시글 내용 대타
-    let boardImg = post.Img;                            // 이미지
+    let boardTitle = post.title;                  // 제목
+    let boardContentEx = '글내용놔둘곳';           // 게시글 내용 대타
+    let boardImg = extractedContent.thumbnail;   // 게시글 이미지
+    let boardContent = extractedContent.preview; // 게시글 내용
+
     let boardWriter = post.id;                          // 닉네임
     let boardWriteDt = formatTimestamp(post.writeDt);   // 시간
     let boardView = post.view;                          // 조회수
@@ -115,7 +136,7 @@ const createPostElement = (post) => {
             albumTypeDiv_1_1_1.innerHTML = '<a href="#">' + boardTitle +'</a>';
             albumTypeDiv_1_1.appendChild(albumTypeDiv_1_1_1);
 
-            albumTypeDiv_1_1.innerHTML += '<a href="#">' + boardContentEx + '</a>'
+            albumTypeDiv_1_1.innerHTML += '<a href="#">' + boardContent + '</a>'
             // con = con + con_top
             albumTypeDiv_1.appendChild(albumTypeDiv_1_1);
             
@@ -158,15 +179,19 @@ const createPostElement = (post) => {
             // <a><a/>
             let albumTypeDiv_2_1 = document.createElement('a');
             albumTypeDiv_2_1.setAttribute('href', '#');
-
-            // <a><img/></a>
-            let albumTypeDiv_2_1_1 = document.createElement('img');
-            albumTypeDiv_2_1_1.setAttribute('src', contextPath + '/assets/images/스크린샷 2023-09-06 163745.png');
-            albumTypeDiv_2_1_1.setAttribute('alt', boardTitle);
-            albumTypeDiv_2_1_1.setAttribute('width', 120);
-            albumTypeDiv_2_1_1.setAttribute('height', 120);
+            if(boardImg === '<p>이미지 없음</p>') {
+                albumTypeDiv_2.style.opacity = '0';
+                albumTypeDiv_2_1.removeAttribute('href');
+            } else {
+                // <a><img/></a>
+                let albumTypeDiv_2_1_1 = document.createElement('img');
+                albumTypeDiv_2_1_1.setAttribute('src', boardImg);
+                albumTypeDiv_2_1_1.setAttribute('alt', boardTitle);
+                albumTypeDiv_2_1_1.setAttribute('width', 120);
+                albumTypeDiv_2_1_1.setAttribute('height', 120);
+                albumTypeDiv_2_1.appendChild(albumTypeDiv_2_1_1);
+            }
             
-            albumTypeDiv_2_1.appendChild(albumTypeDiv_2_1_1);
             albumTypeDiv_2.appendChild(albumTypeDiv_2_1);
 
             // card_area = card_area + con(con_top + con_bottom) + movie-img
@@ -184,18 +209,27 @@ const createPostElement = (post) => {
 
         case 'albumType':
             let cardsTypeDiv = document.createElement('div');
-            cardsTypeDiv.className = 'cardType';
+            cardsTypeDiv.classList.add('cardType', 'mr-3');
             /* 이미지
                 제목
                 작성자
                 시간/조회수
             */
             //이미지
+            let cardsImgAtag = document.createElement('a');
+            cardsImgAtag.setAttribute('href', '#');
+
             let cardsImg = document.createElement('img');
-            cardsImg.className = 'boardListImg';
-            cardsImg.setAttribute('src' , contextPath + '/assets/images/스크린샷 2023-09-06 163745.png');
-            cardsImg.setAttribute('alt', boardTitle);
-            cardsTypeDiv.appendChild(cardsImg);
+            cardsImg.className = 'albumTypeImg';
+            if(boardImg === '<p>이미지 없음</p>') {
+                cardsImg.setAttribute('src', contextPath + '/assets/images/noImages.png');
+            } else {
+                // <a><img/></a>
+                cardsImg.setAttribute('src', boardImg);
+                cardsImg.setAttribute('alt', boardTitle);
+            }
+            cardsImgAtag.appendChild(cardsImg);
+            cardsTypeDiv.appendChild(cardsImgAtag);
             
             //제목
             let cardsP = document.createElement('p');

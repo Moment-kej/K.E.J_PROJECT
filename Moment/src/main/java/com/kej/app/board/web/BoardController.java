@@ -4,18 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kej.app.board.service.BoardService;
 import com.kej.app.board.service.MusicBoardService;
+import com.kej.app.board.service.impl.BoardServiceImpl;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
 import com.kej.app.board.service.vo.PageVO;
@@ -27,6 +29,8 @@ public class BoardController {
 	@Autowired BoardService service;
 	@Autowired CommonService cservice;
 	@Autowired MusicBoardService musicService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	//https://jadestone.tistory.com/101 == 페이징/진행중
 	@GetMapping("/10")
@@ -51,7 +55,7 @@ public class BoardController {
 	}
 	
 	// Ajax Get Method 
-	@RequestMapping(value="/temp", method = {RequestMethod.GET})
+	@RequestMapping(value="/temp", method = RequestMethod.GET)
 	@ResponseBody
 	public List<BoardVO> getPosts(Criteria cri){
 		return service.dressBoradList(cri);
@@ -65,14 +69,12 @@ public class BoardController {
 		return "dressBoard/boardDressInsert";
 	}
 	
-	@PostMapping("/10/1")
+	// dress insert ajax
+	@RequestMapping(value = "/10/1", method = RequestMethod.POST)
 	@ResponseBody
-	public int boardInsertSave(BoardVO vo) {
-		// @ModelAttribute
-		// HTTP 요청 매개변수를 BoardVO 객체의 필드에 자동으로 매핑.
-		// BoardVO 객체의 필드 이름과 HTTP 요청 파라미터의 이름이 일치해야 함.
+	public int boardInsertSave(@RequestBody BoardVO vo) {
+//		logger.info("boardController insert >> " + vo);
 		
-		System.out.println(service.boardInsert(vo));
 		return service.boardInsert(vo); 
 	}
 	

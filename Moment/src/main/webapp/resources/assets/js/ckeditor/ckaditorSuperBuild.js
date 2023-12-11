@@ -170,7 +170,7 @@ const ckeditorTest = () => {
         console.log(data);
     })
 };
-ckeditorTest();
+// ckeditorTest();
 
 export const getData = () => {
     return editor.getData();
