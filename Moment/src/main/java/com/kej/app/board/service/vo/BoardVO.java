@@ -22,4 +22,7 @@ public class BoardVO {
 	//댓글
 	private int replyCount;
 	private int replyNo;
+	
+	//좋아요
+	private int likeCount;
 }

@@ -24,12 +24,34 @@ const cateogryChange = () => {
         });
     });
 };
-// 뒤로가기 버튼
+// 목록으로 버튼
+// 만약 기재한 내용이나 선택한 옵션이 있다면 알림창 띄우고 전체 게시판으로 이동
 const goAllListBnt = () => {
     document.getElementById('goAllListBnt').addEventListener('click', ()=> {
-        console.log("목록으로 클릭!!");
-        // 만약 카테고리나 제목, 글 내용을 적어둔게 있다면 알림창 띄우고 뒤로가기 진행하기
-        location.href = firstPath + '/board/10';
+        let id = document.getElementById('writer').value;
+        let title = document.getElementById('title').value;
+        let code = document.getElementById('mainCategory').value;
+        let category = document.getElementById('subCategory').value;
+        let ckeditor = getData();
+
+        if(id.trim() !== '' || title.trim() !== '' || code.trim() !== '0' || category.trim() !== '0' || ckeditor.trim() !== '' || ckeditor !== '') {
+            Swal.fire({
+                title: "기재한 내용이 있습니다",
+                text: "내용이 저장되지 않습니다. 목록으로 돌아가시겠습니까?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "예",
+                cancelButtonText: "아니요"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = firstPath + '/board/10';
+                }
+            });
+        } else {
+            location.href = firstPath + '/board/10';
+        }
     });
 };
 
@@ -39,40 +61,79 @@ cateogryChange();   // 대분류 카테고리에 맞게 중분류 카테고리�
 // 선택한 폼 엘리먼트의 데이터를 URL-encoded된 문자열로 직렬화
 // const dataForm = $('#boardForm').serialize();
 
-function getSelectedValue(mySelect) {
-    // select 요소를 가져옴
-    var selectElement = document.getElementById(mySelect);
-
-    // 선택된 옵션의 값(value)을 가져옴
-    var selectedValue = selectElement.value;
-
-    // 선택된 옵션의 텍스트 내용을 가져옴
-    var selectedText = selectElement.options[selectElement.selectedIndex].text;
-
-    // 결과를 콘솔에 출력
-    console.log("Selected Value:", selectedValue);
-    console.log("Selected Text:", selectedText);
-};
-
-let code = getSelectedValue('mainCategory');
-let category = getSelectedValue('subCategory');
-
-const dataForm = {
-    id: document.getElementById('writer').value,
-    title: document.getElementById('title').value,
-    code: code,
-    category: category,
-    content: getData()
-};
-
-const callback = (data) => {
-    console.log(data);
-};
-
 // board Insert button click event
 document.getElementById('boardInsertBtn').addEventListener('click', () => {
-    // url, method, data, successCallback
-    // ajaxRequest(firstPath + '/board/10/1', 'POST', dataForm, callback); // 아직 안돌려봄
-    console.log(dataForm);
+    let id = document.getElementById('writer').value;
+    let title = document.getElementById('title').value;
+    let code = document.getElementById('mainCategory').value;
+    let category = document.getElementById('subCategory').value;
+    let ckeditor = getData();
+
+    if(id.trim() === '') {
+        Swal.fire({
+            icon: "warning",
+            title: "작성자를 입력해주세요",
+            didClose: function () {
+                document.getElementById('writer').focus();
+                return false; // 제출 취소
+            }
+        });
+    } else if(title.trim() === '') {
+        Swal.fire({
+            icon: "warning",
+            title: "제목을 입력해주세요",
+            didClose: function () {
+                document.getElementById('title').focus();
+                return false; // 제출 취소
+            }
+        });
+    } else if(code === '0') {
+        Swal.fire({
+            icon: "warning",
+            title: "대분류를 선택해주세요",
+            didClose: function () {
+                document.getElementById('mainCategory').focus();
+                return false; // 제출 취소
+            }
+        });
+    } else if(category === '0') {
+        Swal.fire({
+            icon: "warning",
+            title: "중분류를 선택해주세요",
+            didClose: function () {
+                document.getElementById('subCategory').focus();
+                return false; // 제출 취소
+            }
+        });
+    } else if(ckeditor.trim() === '') {
+        Swal.fire({
+            icon: "warning",
+            title: "게시글 내용을 입력해주세요",
+            didClose: function () {
+                return false; // 제출 취소
+            }
+        });
+    } else {
+        const dataForm = JSON.stringify({
+            id: id,
+            title: title,
+            code: code,
+            category: category,
+            content: ckeditor
+        });
+        
+        const callback = (data) => {
+            Swal.fire({
+                icon: "success",
+                title: "게시글 등록이 완료되었습니다",
+                didClose: function () {
+                    location.href = firstPath + '/board/10';
+                }
+            });
+        };
+
+        // url, method, data, successCallback
+        ajaxRequest(firstPath + '/board/10/1', 'POST', dataForm, callback); // AJAX POST 성공
+    }
 });
 //--AJAX END--------------------------------------------------------------------
