@@ -100,6 +100,11 @@
                         	<input type="hidden" name="category" id="criteriaCategory" value="${criteria.category}" />
                         	<input type="hidden" name="listType" id="criteriaListType" value="${criteria.listType}" />
                         	<input type="hidden" name="code" id="criteriaCode" value="30" />
+                        	<input type="hidden" name="pageStart"   id="pageVOStart" value="${pageVO.start-1}" />
+                            <input type="hidden" name="pageEnd"     id="pageVOEnd" value="${pageVO.end+1}" />
+                            <input type="hidden" name="pagerealEnd" id="pageVORealEnd" value="${pageVO.realEnd}" />
+                            <input type="hidden" name="pageTotal"     id="pageVOTotal" value="${pageVO.total}" />
+                            <input type="hidden" name="contextPath" id="contextPath" value="${pageContext.request.contextPath}" />
                         	<p>확인용 >> ${list}</p> <!-- ajax로 보냈을때 가져오는 데이터 -->
                         </div>
                         <!-- search div -->
@@ -151,13 +156,14 @@
 			data: data,
 			dataType: "json",
 			success: function(data){
-				$("#contentListTest").empty();
+				console.log(data);
+				/* $("#contentListTest").empty();
 				
 				$.each(data, function(index, item) {
 				if(data != null){
 					str = ` <div class="contentNotData">
 		                        <div class="d-flex justify-content-center inner-div" id="contentListTest"><!-- js로 렌더링 하는곳 -->
-		                        	`+item.index+`
+		                        	`+item.boardNo+`
 		                        </div>
 		                    </div>`;
 				}else{
@@ -167,9 +173,9 @@
 		                        </div>
 		                    </div>`;
 					}
-				}
+				} */
 			  }
-				$("#contentListTest").append(str);
+				/* $("#contentListTest").append(str); */
 			}
 		})
 	} 
