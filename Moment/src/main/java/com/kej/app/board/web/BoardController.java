@@ -9,8 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -226,7 +229,7 @@ public class BoardController {
     
     
     //Music 전체조회 Page
-    @GetMapping("/20")
+    @GetMapping("/music")
     public String musicAllListPage(Model model) {
     	
     	model.addAttribute("code", cservice.getCodes("CA"));
@@ -234,7 +237,7 @@ public class BoardController {
     }
     
     // Ajax Get Method 
- 	@RequestMapping(value="/music", method = {RequestMethod.GET})
+ 	@RequestMapping(value="/music-data", method = {RequestMethod.GET})
  	@ResponseBody
  	public List<BoardVO> musicAllList (Criteria cri) {
  		
@@ -242,25 +245,35 @@ public class BoardController {
  	}
         
     // Music Detail Page
-	@GetMapping("/20_1")
-	public String BoardDetail(Model model) {
+	@GetMapping("/music/{boardNo}")
+	public String BoardDetail(Model model, @PathVariable ("boardNo") int boardNo) {
 		
 		return "musicBoard/boardDetail";
 	}
 	
 	// Music insert page
-	@GetMapping("/20/1")
+	@PostMapping("/music")
+	@ResponseBody
 	public String boardMusicInsert() {
 		
 		return "musicBoard/boardInsert";
 	}
 	
 	// Music update page
-	@GetMapping("/20/3")
-	public String boardMusicUpdate() {
+	@PutMapping("/music/{boardNo}")
+	@ResponseBody
+	public String boardMusicUpdate(@PathVariable ("boardNo") int boardNo) {
+		
 		return "musicBoard/boardUpdate";
 	}
     
+	// Music delete page
+	@DeleteMapping("/music/{boardNo}")
+	@ResponseBody
+	public String boardMusicDelete(@PathVariable ("boardNo") int boardNo) {
+		
+		return "musicBoard/boardUpdate";
+	}
     
     
     

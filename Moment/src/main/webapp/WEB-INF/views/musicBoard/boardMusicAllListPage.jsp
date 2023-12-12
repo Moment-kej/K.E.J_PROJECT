@@ -32,8 +32,8 @@
                         <!-- 게시글 보기 양식 정하는 장소 -->
                         <div class="boardListForm">
                             <div class="boardListFormBtn">
-                                <a id="albumType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortCard.svg" alt="sort_card"></a>
-                                <a id="cardsType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortAlbum.svg" alt="sort_album"></a>
+                                <a id="cardType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortCard.svg" alt="sort_card"></a>
+                                <a id="albumType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortAlbum.svg" alt="sort_album"></a>
                                 <a id="listType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortList.svg" alt="sort_list"></a>
                             </div>
                             <div class="listSizeSelect">
@@ -50,40 +50,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="boardList">
-                            <!-- <ul id="boardSortCardType">
-                                <li>
-                                    <div class="cardTypeArea d-flex justify-content-between align-items-center">
-                                        <div class="con_top">
-                                            <div class="title_area">
-                                                <a href="#" class=""><span class="">TITLE</span></a>
-                                            </div>
-                                            <div class="info_area">
-                                                <div class="user_info d-flex justify-content-start align-items-center">
-                                                    <div class="write_dt">
-                                                        <span>USER_ID</span>
-                                                    </div>
-                                                    <div class="write_dt">
-                                                        <span class="date">2023.12.09.</span>
-                                                    </div>
-                                                    <div>
-                                                        <span>조회</span>
-                                                        <span>5</span>
-                                                    </div>
-                                                    <div>
-                                                        <i class="fa-regular fa-comment-dots"></i>
-                                                        <span>10</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="movie-img">
-                                            <a href="#"><img src="#" alt="썸네일 이미지"></a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul> -->
-                        </div>
+                        <div id="boardList"></div>
 
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
                         <div class="contentNotData displyNone">
