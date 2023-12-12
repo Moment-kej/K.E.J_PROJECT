@@ -49,9 +49,12 @@
                         <div style="clear:both"></div>
 
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
-                        <div id="contentListTest">
-	                       
-	                    </div>    
+                        <div class="contentNotData">
+		                        <div class="d-flex justify-content-center inner-div" id="contentListTest"><!-- js로 렌더링 하는곳 -->
+		                        	 <div id="contentListTest"></div>
+		                        </div>
+		                    </div>
+                           
                         <!--글쓰기 버튼-->
                         <div class="writingBntDiv">
                             <button type="button" class="btn btn-inverse-success btn-md" id="writingBnt">글쓰기</button>
@@ -100,11 +103,6 @@
                         	<input type="hidden" name="category" id="criteriaCategory" value="${criteria.category}" />
                         	<input type="hidden" name="listType" id="criteriaListType" value="${criteria.listType}" />
                         	<input type="hidden" name="code" id="criteriaCode" value="30" />
-                        	<input type="hidden" name="pageStart"   id="pageVOStart" value="${pageVO.start-1}" />
-                            <input type="hidden" name="pageEnd"     id="pageVOEnd" value="${pageVO.end+1}" />
-                            <input type="hidden" name="pagerealEnd" id="pageVORealEnd" value="${pageVO.realEnd}" />
-                            <input type="hidden" name="pageTotal"     id="pageVOTotal" value="${pageVO.total}" />
-                            <input type="hidden" name="contextPath" id="contextPath" value="${pageContext.request.contextPath}" />
                         	<p>확인용 >> ${list}</p> <!-- ajax로 보냈을때 가져오는 데이터 -->
                         </div>
                         <!-- search div -->
@@ -148,39 +146,30 @@
 				category:$('#criteriaCategory').val(),
 				listType:$('#criteriaListType').val(),
 				code:$('#criteriaCode').val()
-						};
+					}; 
+		console.log("최재영");
 		
-		$.ajax({
+		 $.ajax({
 			url: "/moment/board/artTemp",
 			type: "GET",
 			data: data,
 			dataType: "json",
 			success: function(data){
 				console.log(data);
-				/* $("#contentListTest").empty();
+				$("#contentListTest").empty();
 				
 				$.each(data, function(index, item) {
 				if(data != null){
-					str = ` <div class="contentNotData">
-		                        <div class="d-flex justify-content-center inner-div" id="contentListTest"><!-- js로 렌더링 하는곳 -->
-		                        	`+item.boardNo+`
-		                        </div>
-		                    </div>`;
+					str += ` `+item.boardNo+``+item.id+``+item.content+``+item.title+``+item.view+``+item.replyCount+` `;
 				}else{
-					str = ` <div class="contentNotData">
-		                        <div class="d-flex justify-content-center inner-div" id="contentListTest"><!-- js로 렌더링 하는곳 -->
-		                       		<h3>"조회할 게시글이 없습니다."</h3>
-		                        </div>
-		                    </div>`;
-					}
-				} */
-			  }
-				/* $("#contentListTest").append(str); */
+					str = ` <h3>"조회할 게시글이 없습니다."</h3> `;
+				 }
+			    })
+				 $("#contentListTest").append(str);
+				
 			}
-		})
-	} 
+		}) 
+	}
 	
-	window.onload = function(){
-		readAllList();
-	} 
+	readAllList();
 </script>
