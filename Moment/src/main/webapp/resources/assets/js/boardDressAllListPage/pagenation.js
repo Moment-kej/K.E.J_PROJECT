@@ -1,7 +1,6 @@
 import { renderPosts } from "./viewRender.js";
 
 const contextPath = document.getElementById('contextPath').value;
-const code = document.getElementById('criteriaCode').value;
 
 export const pagenation = (listType) => {
     // 페이지네이션 <<, <, >, >> , 전체보기
@@ -30,22 +29,22 @@ export const pagenation = (listType) => {
         // <<, <, >, >> a tag에 href 속성 추가
         allListView.addEventListener('click', () => {
             console.log('click');
-            // renderPosts('1', '0', searchType, searchName);
-            allListView.setAttribute('href', contextPath + '/board/' + code + '?page=1&amount=' + amount + '&category=' + category
+            // renderPosts('1', '0', searchType, searchName); + category
+            allListView.setAttribute('href', contextPath + '/board/dress?page=1&amount=' + amount + '&category=0' 
                                             + '&listType=' + listType + '&searchType=' + encodeURIComponent(searchType)
                                             + '&searchName=' + encodeURIComponent(searchName));
         });
 
         pageNumberOne.addEventListener('click', () => {
             // renderPosts('1', category, searchType, searchName);
-            pageNumberOne.setAttribute('href', contextPath + '/board/' + code + '?page=1&amount=' + amount + '&category=' + category
+            pageNumberOne.setAttribute('href', contextPath + '/board/dress?page=1&amount=' + amount + '&category=' + category
                                                 + '&listType=' + listType + '&searchType=' + encodeURIComponent(searchType)
                                                 + '&searchName=' + encodeURIComponent(searchName));
         });
 
         pageRealEnd.addEventListener('click', () => {
             // renderPosts(pagerealEnd_v, category, searchType, searchName);
-            pageRealEnd.setAttribute('href', contextPath + '/board/' + code + '?page=' + pagerealEnd_v 
+            pageRealEnd.setAttribute('href', contextPath + '/board/dress?page=' + pagerealEnd_v 
                                                 + '&amount=' + amount + '&category=' + category
                                                 + '&listType=' + listType + '&searchType=' + encodeURIComponent(searchType)
                                                 + '&searchName=' + encodeURIComponent(searchName));
@@ -54,7 +53,7 @@ export const pagenation = (listType) => {
         if(pageStart_v != false && pageEnd_v != false ) {
             pageStart.addEventListener('click', () => {
                 // renderPosts(pageStart_v, category, searchType, searchName);
-                pageStart.setAttribute('href', contextPath + '/board/' + code + '?page=' + pageStart_v
+                pageStart.setAttribute('href', contextPath + '/board/dress?page=' + pageStart_v
                                                 + '&amount=' + amount + '&category=' + category
                                                 + '&listType=' + listType + '&searchType=' + encodeURIComponent(searchType)
                                                 + '&searchName=' + encodeURIComponent(searchName));
@@ -62,7 +61,7 @@ export const pagenation = (listType) => {
 
             pageNext.addEventListener('click', () => {
                 // renderPosts(pageEnd_v, category, searchType, searchName);
-                pageNext.setAttribute('href', contextPath + '/board/' + code + '?page=' + pageEnd_v
+                pageNext.setAttribute('href', contextPath + '/board/dress?page=' + pageEnd_v
                                                 + '&amount=' + amount + '&category=' + category
                                                 + '&listType=' + listType + '&searchType=' + encodeURIComponent(searchType)
                                                 + '&searchName=' + encodeURIComponent(searchName));
@@ -95,7 +94,7 @@ export const pagenationNumber = (listType) => {
             let clickedPage = pageNum;
             // renderPosts(clickedPage, category, searchType, searchName);
             // URL 변경 및 CSS 설정
-            let pageNumHref = contextPath + '/board/' + code + '?page=' + pageNum +  '&amount=' + amount + '&category=' + category
+            let pageNumHref = contextPath + '/board/dress?page=' + pageNum +  '&amount=' + amount + '&category=' + category
                             + '&listType=' + listType + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
             anchor.setAttribute('href', pageNumHref);
         });

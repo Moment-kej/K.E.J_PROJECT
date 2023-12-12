@@ -70,11 +70,10 @@
                             <input type="hidden" name="amount"      id="criteriaAmount" value="${criteria.amount}">
                             <input type="hidden" name="category"    id="criteriaCategory" value="${criteria.category}">
                             <input type="hidden" name="listType"    id="criteriaListType" value="${criteria.listType}">
-                            <input type="hidden" name ="code"       id="criteriaCode" value="10">
                             <input type="hidden" name="pageStart"   id="pageVOStart" value="${pageVO.start-1}">
                             <input type="hidden" name="pageEnd"     id="pageVOEnd" value="${pageVO.end+1}">
                             <input type="hidden" name="pagerealEnd" id="pageVORealEnd" value="${pageVO.realEnd}">
-                            <input type="hidden" name="pageTotal"     id="pageVOTotal" value="${pageVO.total}">
+                            <input type="hidden" name="pageTotal"   id="pageVOTotal" value="${pageVO.total}">
                             <input type="hidden" name="contextPath" id="contextPath" value="${pageContext.request.contextPath}">
                         </div>
                         <!-- pagination -->

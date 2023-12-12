@@ -58,12 +58,12 @@
 		 SELECT COUNT(*)
 		  FROM board b
 		  LEFT JOIN ( SELECT board_no
-		  						 , GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS "reply_content" 
-		                      FROM reply
-		                     WHERE (yn = 1 OR yn IS NULL)
-		                      AND (re_reply_yn = 1 OR re_reply_yn IS NULL)
-		                    GROUP BY board_no
-		                   ) r
+  						   , GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS "reply_content" 
+                        FROM reply
+                       WHERE (yn = 1 OR yn IS NULL)
+                         AND (re_reply_yn = 1 OR re_reply_yn IS NULL)
+                       GROUP BY board_no
+		             ) r
 		    ON b.board_no = r.board_no
 		 <if test="searchType == '' or searchType == null">
 		 WHERE category LIKE CONCAT('%',#{category},'%')
@@ -138,6 +138,107 @@
 		   AND board_no = #{boardNo}
 		 ORDER BY reply_no DESC
 	</select>
+	
+	<!-- board view count -->
+	<update id="dressBoardViewCount" parameterType="int">
+		UPDATE board
+		   SET view = (view + 1)
+		 WHERE board_no = ${boardNo}
+	</update>
+	 <!-- 다음글 > -->
+	 <select id="selectBoardsAfter" resultType="BoardVO">
+		 SELECT b.board_no
+		      , b.id
+		      , title
+		      , b.write_dt
+		      , view
+		      , COALESCE((SELECT COUNT(*) AS cnt
+					        FROM REPLY c
+					       WHERE 1=1
+					         AND b.board_no = c.board_no
+					       	 AND c.yn = 1
+					       GROUP BY c.board_no), 0) AS "reply_count" 
+		  FROM board b
+		 WHERE b.board_no &gt; #{boardNo}
+		   AND code = 10
+		   AND category = #{category}
+		   AND yn = 1
+		 ORDER BY 1 ASC
+		 LIMIT 4
+	 </select>
+	 <!-- 현재글 -->
+	 <select id="selectBoardAt" resultType="BoardVO">
+		SELECT b.board_no
+		     , b.id
+		     , title
+		     , b.write_dt
+		     , view
+		     , COALESCE((SELECT COUNT(*) AS cnt
+					       FROM REPLY c
+					      WHERE 1=1
+					        AND b.board_no = c.board_no
+					     	AND c.yn = 1
+					      GROUP BY c.board_no), 0) AS "reply_count" 
+		  FROM board b
+		 WHERE b.board_no = #{boardNo}
+		   AND code = 10
+		   AND category = #{category}
+		   AND yn = 1
+	 </select>
+	 <!-- 이전글 < -->
+	 <select id="selectBoardsBefore" resultType="BoardVO">
+		SELECT b.board_no
+		     , b.id
+		     , title
+		     , b.write_dt
+		     , view
+		     , COALESCE((SELECT COUNT(*) AS cnt
+					       FROM REPLY c
+					      WHERE 1=1
+					        AND b.board_no = c.board_no
+					     	AND c.yn = 1
+					      GROUP BY c.board_no), 0) AS "reply_count" 
+		  FROM board b
+		 WHERE b.board_no &lt; #{boardNo}
+		   AND code = 10
+		   AND category = #{category}
+		   AND yn = 1
+		 ORDER BY 1 DESC
+		 LIMIT 4
+	  </select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	<!-- eunae end -->
 

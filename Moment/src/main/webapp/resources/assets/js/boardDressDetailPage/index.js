@@ -1,6 +1,6 @@
 import { firstContextPath, ajaxRequest, formatTimestamp } from "../common/common.js";
 //--url pathname 추출------------------------------------
-const firstPath = firstContextPath();   // '/moment' 가져오기
+const firstPath = firstContextPath;   // '/moment' 가져오기
 // url board number 추출
 const boardNumber = () => {
     let pathname = window.location.pathname;
@@ -11,15 +11,14 @@ const boardNumber = () => {
         //parseInt 함수가 문자열을 10진수로 변환하도록 지정
         boardNumber = parseInt(lastNumber, 10);
     };
-
     return boardNumber;
 }
 //--url pathname 추출 end---------------------------------
 
 // --a tag------------------------------------------------
 // 목록으로 a tag href 속성 설정
-document.getElementById('goAllList').setAttribute('href', firstPath + '/board/10');
-document.getElementById('dressAllList').setAttribute('href', firstPath + '/board/10');
+document.getElementById('goAllList').setAttribute('href', firstPath + '/board/dress');
+document.getElementById('dressAllList').setAttribute('href', firstPath + '/board/dress');
 
 // 댓글작성 a tag click event
 const replyWriterBnt = (replyNo) => {
@@ -38,17 +37,17 @@ const pageUpAndDown = () => {
         } else {
             document.getElementById('pageUp').classList.remove('noUpPage');
             // 이전글
-            document.getElementById('pageUp').setAttribute('href', (firstPath + '/board/all/' + (boardNumber + 1)));
+            document.getElementById('pageUp').setAttribute('href', (firstPath + '/board/dress/all/' + parseInt(boardNumber() + 1, 10)));
         }
         // 다음글
-        document.getElementById('pageDown').setAttribute('href', (firstPath + '/board/all/' + (boardNumber - 1)));
+        document.getElementById('pageDown').setAttribute('href', (firstPath + '/board/dress/all/' + parseInt(boardNumber() - 1, 10)));
     }
 
     let data = {page : 1, amount : 1, code: 10, category: 0};
 
-    ajaxRequest(firstPath + '/board/temp', 'GET', data, callback);
+    ajaxRequest(firstPath + '/board/dress/all', 'GET', data, callback);
 };
-pageUpAndDown();
+
 // --a tag end------------------------------------------------
 
 // 댓글 textarea 글자수 표기 및 제한
@@ -68,7 +67,7 @@ const replyTextarea = () => {
         writeCount.textContent = inputText.length;
     });
 };
-replyTextarea();
+
 
 // 대댓글 textarea 글자수 표기 및 제한
 const replySectionTwoTextarea = (replyNo) => {
@@ -88,6 +87,7 @@ const replySectionTwoTextarea = (replyNo) => {
     });
 };
 
+// reply render
 const replyRender = (post) => {
     // 댓글 컨테이너
     const replySection = document.getElementById('replySection');
@@ -234,7 +234,7 @@ const replyRender = (post) => {
     })
 };
 
-// 댓글 ajax
+// reply ajax
 const replyList = () => {
     // formatTimestamp -> 시간포맷
     let data = {boardNo : boardNumber()}
@@ -250,6 +250,95 @@ const replyList = () => {
         })
     }
     
-    ajaxRequest(firstPath + '/board/replyList', 'GET', data, callback);
+    ajaxRequest(firstPath + '/board/dress/replyList', 'GET', data, callback);
 };
-replyList();
+
+// 관련글 랜더링
+const relatedListRender = (posts) => {
+    // 댓글 컨테이너
+    const relatedArticleTab = document.querySelector('.relatedArticleTab');
+    
+    relatedArticleTab.innerHTML = '';    // 관련 게시글 목록 초기화
+    
+    //related list view render
+    posts.forEach((post) => {
+        const ul = document.createElement('ul');
+        ul.className = 'pl-1';
+
+        const li = document.createElement('li');
+        li.classList.add('d-flex','justify-content-between','align-items-center');
+
+        const div_1 = document.createElement('div');
+        div_1.classList.add('tit_area','d-flex','justify-content-start','align-items-center');
+
+        const a = document.createElement('a');
+        a.className = 'titleATag';
+        a.setAttribute('href', firstPath + '/board/dress/all/' + post.boardNo);
+        a.setAttribute('data-title', post.boardNo);
+        a.innerText = post.title;
+
+        const div_1_span = document.createElement('span');
+        div_1_span.classList.add('ml-1','textColor','count');
+        div_1_span.innerText = '[' + post.replyCount + ']';
+
+        div_1.appendChild(a);
+        div_1.appendChild(div_1_span);    // div_1 최종
+
+        const div_2 = document.createElement('div');
+        div_2.className = 'member_area';
+
+        const div_2_span = document.createElement('span');
+        div_2_span.classList.add('text-right','textColorGray');
+        div_2_span.innerText = post.id;
+
+        div_2.appendChild(div_2_span);    // div_2 최종
+
+        const div_3 = document.createElement('div');
+        div_3.className = 'date_area';
+
+        const div_3_span = document.createElement('span');
+        div_3_span.classList.add('text-right','textColorGray');
+        div_3_span.innerText = formatTimestamp(post.writeDt);
+
+        div_3.appendChild(div_3_span);   // div_3 최종
+
+        li.appendChild(div_1);
+        li.appendChild(div_2);
+        li.appendChild(div_3);
+
+        ul.append(li);
+
+        relatedArticleTab.append(ul);
+    });
+};
+
+const RelatedAt = () => {
+    let boardNumer = boardNumber();
+    if(boardNumer) {
+        let titleElement = document.querySelector('.titleATag[data-title="' + boardNumer + '"]');
+        const ul = titleElement.closest("ul");
+        if(titleElement) {
+            // titleElement.classList.add('selected');
+            ul.classList.add('selected');
+        }
+    }
+}
+// 관련글 ajax
+const boardRelatedPosts = () => {
+    let categoryElement = document.querySelector('.title > span');
+    let category = parseInt(categoryElement.id);
+    let data = {boardNo : boardNumber(), category : category};
+    let callback = (data) => {
+        relatedListRender(data);
+        RelatedAt();
+    }
+    ajaxRequest(firstPath + '/board/dress/boardRelatedPosts', 'GET', data, callback);
+}
+
+// 함수 호출
+window.onload = () => {
+    pageUpAndDown();
+    replyTextarea();
+    replyList();
+    boardRelatedPosts();
+}
