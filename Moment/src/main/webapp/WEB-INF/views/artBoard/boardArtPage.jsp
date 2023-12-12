@@ -50,10 +50,8 @@
 
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
                         <div id="contentListTest">
-                        <div class="contentNotData">
-                            <div class="d-flex justify-content-center inner-div" id="contentListTest"><!-- js로 렌더링 하는곳 -->
-                            </div>
-                        </div>
+	                       
+	                    </div>    
                         <!--글쓰기 버튼-->
                         <div class="writingBntDiv">
                             <button type="button" class="btn btn-inverse-success btn-md" id="writingBnt">글쓰기</button>
@@ -97,6 +95,11 @@
                         </div><!-- pagination end -->
                         <div>
                         	<p>확인용 >> ${criteria}</p> <!-- ajax에 보낼 데이터 -->
+                        	<input type="hidden" name="page" id="criteriaPage" value="${criteria.page}" />
+                        	<input type="hidden" name="amount" id="criteriaAmount" value="${criteria.amount}" />
+                        	<input type="hidden" name="category" id="criteriaCategory" value="${criteria.category}" />
+                        	<input type="hidden" name="listType" id="criteriaListType" value="${criteria.listType}" />
+                        	<input type="hidden" name="code" id="criteriaCode" value="30" />
                         	<p>확인용 >> ${list}</p> <!-- ajax로 보냈을때 가져오는 데이터 -->
                         </div>
                         <!-- search div -->
@@ -132,29 +135,46 @@
     </div>
 </div>
 <script>
-/* 	function readAllList(){
+ 	function readAllList(){
 		let str = ``;
-		let dataForm
+		let data = {
+				page:$('#criteriaPage').val(),
+				amount:$('#criteriaAmount').val(),
+				category:$('#criteriaCategory').val(),
+				listType:$('#criteriaListType').val(),
+				code:$('#criteriaCode').val()
+						};
 		
-		$ajax({
+		$.ajax({
 			url: "/moment/board/artTemp",
-			type: "GET"
+			type: "GET",
 			data: data,
-			dataType: json,
+			dataType: "json",
 			success: function(data){
 				$("#contentListTest").empty();
-			
+				
+				$.each(data, function(index, item) {
 				if(data != null){
-					str = ``;
+					str = ` <div class="contentNotData">
+		                        <div class="d-flex justify-content-center inner-div" id="contentListTest"><!-- js로 렌더링 하는곳 -->
+		                        	`+item.index+`
+		                        </div>
+		                    </div>`;
 				}else{
-					srt = `<h3>"조회할 게시글이 없습니다."</h3>`
+					str = ` <div class="contentNotData">
+		                        <div class="d-flex justify-content-center inner-div" id="contentListTest"><!-- js로 렌더링 하는곳 -->
+		                       		<h3>"조회할 게시글이 없습니다."</h3>
+		                        </div>
+		                    </div>`;
+					}
 				}
-				$("#contentListTest").append();
+			  }
+				$("#contentListTest").append(str);
 			}
 		})
-	} */
+	} 
 	
-	/* window.onload = function(){
+	window.onload = function(){
 		readAllList();
-	} */
+	} 
 </script>
