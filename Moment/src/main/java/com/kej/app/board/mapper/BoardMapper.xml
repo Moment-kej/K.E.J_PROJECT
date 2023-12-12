@@ -21,7 +21,7 @@
 					       FROM REPLY c
 					      WHERE 1=1
 					        AND b.board_no = c.board_no
-					     	AND c.yn = 0
+					     	AND c.yn = 1
 					      GROUP BY c.board_no) AS "reply_count" 
 				  FROM board b
 				  LEFT OUTER JOIN ( SELECT board_no, GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS reply_content
@@ -48,8 +48,8 @@
 			     </if>
 				   AND code = #{code}
 				   AND yn = 1
+				 ORDER BY 1 DESC
 			 ) a
-		ORDER BY 1
   		LIMIT #{pageStart}, #{amount}
 	</select>
 	
@@ -87,17 +87,59 @@
 
 	<!--  board insert -->
 	<insert id="boardInsert" parameterType="BoardVO">
-	<selectKey keyProperty="boardNo" resultType="java.lang.Integer" order="BEFORE">
-		SELECT nextval('BOARD_SEQ')
-	</selectKey>
-	INSERT INTO BOARD
-		(board_no, code, category, id, title, content, write_dt, view, yn)
-	ALUES
-		(#{boardNo, jdbcType=INTEGER, javaType=Integer}, #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 1)
+		<selectKey keyProperty="boardNo" resultType="java.lang.Integer" order="BEFORE">
+			SELECT nextval('BOARD_SEQ')
+		</selectKey>
+		INSERT INTO BOARD
+			(board_no, code, category, id, title, content, write_dt, view, yn)
+		VALUES
+			(#{boardNo, jdbcType=INTEGER, javaType=Integer}, #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 1)
 	</insert>
 
+	<!-- board detail -->
+	<select id="boardDressDetail" resultType="BoardVO">
+		SELECT b.board_no
+			 , id
+			 , content
+			 , code
+			 , category
+			 , title
+			 , write_dt
+			 , view
+			 , COALESCE(( SELECT COUNT(*) AS cnt
+					        FROM REPLY c
+					       WHERE 1=1
+					         AND b.board_no = c.board_no
+					         AND c.yn = 1
+					       GROUP BY c.board_no),0) AS "reply_count"
+		     , COALESCE(( SELECT COUNT(*) AS like_cnt
+					        FROM board_like l
+					       WHERE 1=1
+					         AND b.board_no = l.board_no),0) AS "like_count"
+		  FROM board b
+		 WHERE 1=1
+		   AND b.board_no = #{boardNo}
+	</select>
+	
+	<select id="replyList" resultType="ReplyVO">
+		SELECT reply_no
+			 , board_no
+		     , id
+		     , content
+		     , write_dt
+		     , update_dt
+		     , re_reply_content
+		     , re_reply_write_dt
+		     , re_reply_update_dt
+		     , yn
+		     , re_reply_yn
+		  FROM reply
+		 WHERE 1=1
+		   AND board_no = #{boardNo}
+		 ORDER BY reply_no DESC
+	</select>
 
-
+	<!-- eunae end -->
 
 	<!-- 전체조회 -->
 	<select id="artBoardList" resultType="BoardVO"> 

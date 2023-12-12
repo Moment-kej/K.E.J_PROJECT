@@ -25,7 +25,7 @@
                   <div class="contentWidthSetting">
                     <h4 class="card-title">게시판 등록 페이지</h4>
                     <!-- 게시판 등록 form -->
-                    <form class="forms-sample" name="boardForm" id="boardForm">
+                    <form class="forms-sample">
                       <div class="form-group">
                         <label for="writer">작성자</label>
                         <input type="text" name="id" id="writer" placeholder="작성자 적으삼" value="작성자"  class="form-control">
@@ -60,12 +60,12 @@
                       <div class="form-group">
                         <div id="editor" name="content"></div>
                       </div>
-                      <div class="mb-2 mt-2">
+                      <!-- <div class="mb-2 mt-2">
                           <hr>
                           <button type="button" id="ckeditorTest">담긴 데이터 보기(debug)</button>
                           <hr>
-                      </div>
-                      <div class="d-flex justify-content-center">
+                      </div> -->
+                      <div class="d-flex justify-content-center mt-2">
                         <!-- 게시글 등록 또는 게시글 목록으로 (임시저장 없음 알림창 띄우기) -->
                         <button type="button" class="btn btn-outline-success btn-fw mr-2 btn-lg" id="boardInsertBtn" >등록</button>
                         <button type="button" class="btn btn-outline-secondary btn-fw btn-lg" id="goAllListBnt">목록으로</button>
