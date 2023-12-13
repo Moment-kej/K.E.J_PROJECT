@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
-    .tit_area a {
-        color: black;
+    .titleATag {
+        color: #676767;
         font-weight: 400;
     }
     .noUpPage {
@@ -19,10 +19,12 @@
     .hidden {
         display: none;
     }
-    .selected {
+    .selected, .selected a {
+        color: black;
         background-color: #ebeef8;
-        font-weight: bold;
+        font-weight: bold !important;
     }
+
 </style>
 <div class="main-panel">
     <div class="content-wrapper">
