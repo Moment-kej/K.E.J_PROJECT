@@ -158,7 +158,7 @@
 		WHERE 1=1
 		  AND YN = 1
 		  AND CODE = #{code}
-	    LIMIT #{pageStart}, #{amount}
+	    <!-- LIMIT #{pageStart}, #{amount} -->
 	</select>
 	
 	<!-- 페이징을 하기 위해서 총 게시글의 개수 -->
