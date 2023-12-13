@@ -209,18 +209,23 @@
 	  
 	  <!-- 게시글 수정 -->
 	  <update id="dressBoardUpdate" parameterType="BoardVO">
-		  UPDATE board
-		     SET code = #{code}
-		  	   , category = #{category}
-			   , title = #{title}
-			   , content = #{content}
-			   , yn = #{yn}
-		   WHERE board_no = #{boardNo}
-		     AND id = #{id}
+		UPDATE board
+		   SET code = #{code}
+		  	 , category = #{category}
+			 , title = #{title}
+			 , content = #{content}
+			 , yn = #{yn}
+		 WHERE board_no = #{boardNo}
+		   AND id = #{id}
 	  </update>
 	
-	
-	
+	  <update id="dressBoardDelete" parameterType="BoardVO">
+	  	UPDATE board
+	       SET yn = #{yn}
+	     WHERE board_no = #{boardNo}
+	       AND id = #{id}
+	  </update>
+	  
 	
 	
 	

@@ -17,7 +17,7 @@ public interface BoardService {
 	public int dressBoardViewCount(int boardNo);
 	public List<BoardVO> getCombinedBoardList(BoardListVO vo);
 	public int dressBoardUpdate(BoardVO vo);
-	
+	public int dressBoardDelete(BoardVO vo);
 	
 	
 	

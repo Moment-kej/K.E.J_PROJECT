@@ -57,6 +57,44 @@ const boardManagemantBnt = () => {
 }
 // --a tag end------------------------------------------------
 
+// board delete ajax
+const boardDelAtax = () => {
+    document.getElementById('delete').addEventListener('click', () => {
+        const data = JSON.stringify({
+            boardNo: String(boardNumber()),
+            yn: 0,
+            id: document.querySelector('.userID').textContent
+        });
+
+        const callback = () => {
+            Swal.fire({
+                title: "게시글을 삭제하시겠습니까?",
+                text: "삭제 시 되돌릴 수 없습니다.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "예",
+                cancelButtonText: "아니요"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "게시글 삭제가 완료되었습니다.",
+                        didClose: function () {
+                            location.href = firstPath + '/board/dress';
+                        }
+                    });
+                }
+            });
+        };
+
+        ajaxRequest(firstPath + '/board/dress/del', 'POST', data, callback);
+    });
+};
+boardDelAtax();
+
+// ------------------------------------------------------------
 // 댓글 textarea 글자수 표기 및 제한
 const replyTextarea = () => {
     let textarea = document.getElementById('replyTextrea');
@@ -92,7 +130,7 @@ const replySectionTwoTextarea = (replyNo) => {
         writeCount.textContent = inputText.length;
     });
 };
-
+// ------------------------------------------------------------
 // reply render
 const replyRender = (post) => {
     // 댓글 컨테이너
@@ -259,6 +297,7 @@ const replyList = () => {
     ajaxRequest(firstPath + '/board/dress/replyList', 'GET', data, callback);
 };
 
+// ------------------------------------------------------------
 // 관련글 랜더링
 const relatedListRender = (posts) => {
     // 댓글 컨테이너
@@ -343,7 +382,7 @@ const boardRelatedPosts = () => {
     }
     ajaxRequest(firstPath + '/board/dress/boardRelatedPosts', 'GET', data, callback);
 }
-
+// ------------------------------------------------------------
 // 함수 호출
 window.onload = () => {
     boardManagemantBnt();       // security로 id 들고오면 수정 해야 함.

@@ -23,7 +23,8 @@ public interface BoardMapper {
 	public List<BoardVO> selectBoardsBefore(BoardListVO vo);
 	//boardUpdate
 	public int dressBoardUpdate(BoardVO vo);
-	
+	//boardDelete
+	public int dressBoardDelete(BoardVO vo);
 	
 	public List<BoardVO> artBoardList(Criteria cri);
 	public int artPagecount(Criteria cri);

@@ -43,8 +43,7 @@
                             </div>
                             <!-- 게시글 작성 장소 -->
                             <div class="form-group">
-                                <div id="editor" name="content">
-                                </div>
+                                <div id="editor" name="content"></div>
                             </div>
                             <div class="d-flex justify-content-center mt-2">
                                 <button type="button" class="btn btn-outline-success btn-fw mr-2 btn-lg" id="boardModlfyBtn" >수정하기</button>

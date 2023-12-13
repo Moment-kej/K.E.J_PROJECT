@@ -136,6 +136,10 @@ public class BoardServiceImpl implements BoardService {
 		return bMapper.dressBoardUpdate(vo);
 	}
 	
+	@Override
+	public int dressBoardDelete(BoardVO vo) {
+		return bMapper.dressBoardDelete(vo);
+	}
 	// eunae ---------------------------------------------
 
 	
@@ -149,6 +153,7 @@ public class BoardServiceImpl implements BoardService {
 	public int artPagecount(Criteria cri) {
 		return bMapper.artPagecount(cri);
 	}
+
 
 
 

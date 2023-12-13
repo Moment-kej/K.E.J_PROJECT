@@ -160,6 +160,12 @@ public class BoardController {
 	public int boardDressModAjax(@RequestBody BoardVO vo) {
 		return service.dressBoardUpdate(vo);
 	}
+	// 게시글 삭제 (AJAX)
+	@RequestMapping(value = "/dress/del", method = RequestMethod.POST)
+	@ResponseBody
+	public int boardDressDelAjax(@RequestBody BoardVO vo) {
+		return service.dressBoardDelete(vo);
+	}
 	
 
 	
