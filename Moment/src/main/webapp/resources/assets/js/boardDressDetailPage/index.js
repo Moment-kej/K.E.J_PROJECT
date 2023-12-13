@@ -198,10 +198,6 @@ const replyRender = (post) => {
         commentWirterBtnBox.appendChild(replyWriterBtn);
         replyInnerSection.appendChild(commentWirterBtnBox);
 
-        // 수평선 생성
-        // const hrElement = document.createElement('hr');
-        // replyInnerSection.appendChild(hrElement);
-
         // 대댓글 부분----------------------------------------------
         const replyWriterContainer = document.createElement('div');
         replyWriterContainer.classList.add('pl-4', 'hidden', 'mb-4', 'hrStyle');
@@ -220,9 +216,7 @@ const replyRender = (post) => {
         const slashSpan = document.createElement('span');
         const writeTotalSpan = document.createElement('span');
         const registerBoxDiv = document.createElement('div');
-        // const cancelButton = document.createElement('a');
         const submitButton = document.createElement('a');
-        // const hr = document.createElement('hr');
 
         // 각 요소에 클래스 추가
         innerDiv1.classList.add('commentWriter');
@@ -237,7 +231,6 @@ const replyRender = (post) => {
         slashSpan.classList.add('fontSizeSmall');
         writeTotalSpan.classList.add('fontSizeSmall', 'comment_box_write_total');
         registerBoxDiv.classList.add('register_box');
-        // cancelButton.classList.add('button');
         submitButton.classList.add('button');
 
         // 텍스트 내용 추가
@@ -245,7 +238,6 @@ const replyRender = (post) => {
         countNumStrong.textContent = '0';
         slashSpan.textContent = '/';
         writeTotalSpan.textContent = '100';
-        // cancelButton.textContent = '취소';
         submitButton.textContent = '등록';
 
         // 구조에 맞게 요소들을 조합
@@ -256,7 +248,6 @@ const replyRender = (post) => {
         commentAttachDiv.appendChild(commentBoxWriteCountDiv);
         commentAttachDiv.appendChild(registerBoxDiv);
 
-        // registerBoxDiv.appendChild(cancelButton);
         registerBoxDiv.appendChild(submitButton);
 
         commentInboxDiv.appendChild(commentInboxNameSpan);
@@ -266,7 +257,6 @@ const replyRender = (post) => {
         commentWriterDiv.appendChild(commentAttachDiv);
 
         innerDiv2.appendChild(commentWriterDiv);
-        // innerDiv2.appendChild(hr);
 
         innerDiv1.appendChild(innerDiv2);
 
@@ -365,7 +355,6 @@ const RelatedAt = () => {
         let titleElement = document.querySelector('.titleATag[data-title="' + boardNumer + '"]');
         const li = titleElement.closest("li");
         if(titleElement) {
-            // titleElement.classList.add('selected');
             li.classList.add('selected');
         }
     }
