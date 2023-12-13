@@ -146,6 +146,16 @@ public class BoardServiceImpl implements BoardService {
 		return bMapper.artPagecount(cri);
 	}
 
+	@Override
+	public List<BoardVO> artBoardCard(Criteria cri) {
+		return bMapper.artBoardCard(cri);
+	}
+
+	@Override
+	public List<BoardVO> artBoardAlbum(Criteria cri) {
+		return bMapper.artBoardAlbum(cri);
+	}
+
 
 
 

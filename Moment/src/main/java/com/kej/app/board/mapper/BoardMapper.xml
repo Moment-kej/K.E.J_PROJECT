@@ -242,7 +242,7 @@
 
 	<!-- eunae end -->
 
-	<!-- 전체조회 -->
+	<!-- 전체조회(리스트 타입) -->
 	<select id="artBoardList" resultType="BoardVO"> 
 		SELECT BOARD_NO
 			 , ID
@@ -260,6 +260,12 @@
 		  AND YN = 1
 		  AND CODE = #{code}
 	    <!-- LIMIT #{pageStart}, #{amount} -->
+	</select>
+	<!-- 전체조회(카드 타입) -->
+	<select id="artBoardCard" resultType="BoardVO"> 
+	</select>
+	<!-- 전체조회(앨범 타입) -->
+	<select id="artBoardAlbum" resultType="BoardVO"> 
 	</select>
 	
 	<!-- 페이징을 하기 위해서 총 게시글의 개수 -->

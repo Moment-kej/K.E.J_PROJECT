@@ -25,7 +25,9 @@ public interface BoardMapper {
 	
 	
 	
-	public List<BoardVO> artBoardList(Criteria cri);
+	public List<BoardVO> artBoardList(Criteria cri); // 리스트 타입
+	public List<BoardVO> artBoardCard(Criteria cri); // 카드 타입
+	public List<BoardVO> artBoardAlbum(Criteria cri); // 앨범 타입
 	public int artPagecount(Criteria cri);
 	
 	
