@@ -13,6 +13,8 @@
     }
     .hrStyle {
         border-bottom-style : inset;
+        border-bottom-color: #E2E4F0;
+        border-bottom-width: thin;
     }
     .hidden {
         display: none;
@@ -39,7 +41,7 @@
 
             <!-- Detail Content -->
             <div class="contentBox">
-                <div class="cntnHeaderBox">
+                <div class="cntnHeaderBox hrStyle mb-3">
                     <div class="headerTitleBox">
                         <a id="dressAllList">해당 게시판 목록<i class="fa-solid fa-angle-right"></i></a>
                         <h3>${dress.title}</h3>
@@ -64,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <!-- <hr> -->
                 </div>
                 <div class="contentViewer">
                     <div>

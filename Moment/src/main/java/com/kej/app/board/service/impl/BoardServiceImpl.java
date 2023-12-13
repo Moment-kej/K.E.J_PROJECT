@@ -76,7 +76,7 @@ public class BoardServiceImpl implements BoardService {
 			combinedList.addAll(after);
 			
 		} else if((before.size() == 1 || after.size() == 3) && (before.size() == 1 || after.size() == 4)) {
-			System.out.println("13 and 14");
+			System.out.println("13 or 14");
 			appendToList(combinedList, before, 1);
 			combinedList.add(at);
 			appendToList(combinedList, after, 3);
@@ -88,7 +88,7 @@ public class BoardServiceImpl implements BoardService {
 			appendToList(combinedList, after, 2);
 			
 		} else if((before.size() == 3 || after.size() == 1) && (before.size() == 4 || after.size() == 1)) {
-			System.out.println("31 and 41");
+			System.out.println("31 or 41");
 			appendToList(combinedList, before, 3);
 			combinedList.add(at);
 			appendToList(combinedList, after, 1);
@@ -98,9 +98,11 @@ public class BoardServiceImpl implements BoardService {
 			combinedList.addAll(before);
 			combinedList.add(at);
 			
-		}  else if((before.size() == 4 || after.size() == 4) && (before.size() == 3 || after.size() == 4)
-					&& (before.size() == 2 || after.size() == 4)) {
-			System.out.println("44 and 34 and 24");
+		}  else if((before.size() == 4 || after.size() == 4) || (before.size() == 3 || after.size() == 4)
+					|| (before.size() == 2 || after.size() == 4) || (before.size() == 4 || after.size() == 2)
+					|| (before.size() == 3 || after.size() == 2) || (before.size() == 2 || after.size() == 3)
+					|| (before.size() == 4 || after.size() == 3)) {
+			System.out.println("44 or 34 or 24 or 42 or 32 or 23 or 43");
 			appendToList(combinedList, before, 2);
 			combinedList.add(at);
 			appendToList(combinedList, after, 2);

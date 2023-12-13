@@ -259,11 +259,12 @@ const relatedListRender = (posts) => {
     const relatedArticleTab = document.querySelector('.relatedArticleTab');
     
     relatedArticleTab.innerHTML = '';    // 관련 게시글 목록 초기화
+
+    const ul = document.createElement('ul');
+    ul.className = 'pl-1';
     
     //related list view render
     posts.forEach((post) => {
-        const ul = document.createElement('ul');
-        ul.className = 'pl-1';
 
         const li = document.createElement('li');
         li.classList.add('d-flex','justify-content-between','align-items-center');
@@ -307,19 +308,19 @@ const relatedListRender = (posts) => {
         li.appendChild(div_3);
 
         ul.append(li);
-
-        relatedArticleTab.append(ul);
     });
+
+    relatedArticleTab.append(ul);
 };
 
 const RelatedAt = () => {
     let boardNumer = boardNumber();
     if(boardNumer) {
         let titleElement = document.querySelector('.titleATag[data-title="' + boardNumer + '"]');
-        const ul = titleElement.closest("ul");
+        const li = titleElement.closest("li");
         if(titleElement) {
             // titleElement.classList.add('selected');
-            ul.classList.add('selected');
+            li.classList.add('selected');
         }
     }
 }
