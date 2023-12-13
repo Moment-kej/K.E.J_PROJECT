@@ -3,16 +3,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
+    .titleATag {
+        color: #676767;
+        font-weight: 400;
+    }
     .noUpPage {
         opacity: 0;
         cursor: context-menu;
     }
     .hrStyle {
         border-bottom-style : inset;
+        border-bottom-color: #E2E4F0;
+        border-bottom-width: thin;
     }
     .hidden {
         display: none;
     }
+    .selected, .selected a {
+        color: black;
+        background-color: #ebeef8;
+        font-weight: bold !important;
+    }
+
 </style>
 <div class="main-panel">
     <div class="content-wrapper">
@@ -31,7 +43,7 @@
 
             <!-- Detail Content -->
             <div class="contentBox">
-                <div class="cntnHeaderBox">
+                <div class="cntnHeaderBox hrStyle mb-3">
                     <div class="headerTitleBox">
                         <a id="dressAllList">해당 게시판 목록<i class="fa-solid fa-angle-right"></i></a>
                         <h3>${dress.title}</h3>
@@ -46,13 +58,17 @@
                                     <span class="userID">${dress.id}</span>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <span class="date">${dress.writeDt}</span>
-                                    <span class="view">조회<span class="viewCount">${dress.view}</span></span>
+                                    <span class="date"><fmt:formatDate value="${dress.writeDt}" pattern="yy/MM/dd HH:mm:ss (EE)"/></span>
+                                    <span class="view">조회
+                                        <span class="viewCount">
+                                            ${dress.view}
+                                        </span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <!-- <hr> -->
                 </div>
                 <div class="contentViewer">
                     <div>
@@ -164,76 +180,26 @@
                 </div> <!-- Detail Reply End -->
             </div> <!-- Detail Content End -->
 
-            <!-- 관련 게시글? 추천 게시글? -->
+            <!-- 카테고리 관련글 보기 -->
             <div class="related_list_article">
-                <h2>
-                <strong class="title"> '<span class="inner">Music</span>' </strong>
-                <span class="text">게시판 글</span>
-                </h2>
-                <div class="relatedArticleTab">
-                <ul class="pl-1">
-                    <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                        <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                        <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                        <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                        <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                    </li>
-                    <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                        <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                        <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                        <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                        <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                    </li>
-                    <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                        <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                        <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                        <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                        <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                    </li>
-                    <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                        <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                        <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                        <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                        <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                    </li>
-                    <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                        <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                        <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                        <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                        <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                    </li>
-                </ul>
+                <div id="related_list_info">
+                    <h2>
+                        <c:if test="${dress.code == 10}">
+                        <strong class="title">' 옷 >
+                            <c:forEach var="item" items="${code.CA}">
+                            <c:if test="${item.commonDetailCd == dress.category}">
+                                <span class="inner categoryNumber" id="${item.commonDetailCd}">
+                                    ${item.commonDetailName}
+                                </span>' 
+                            </c:if>
+                            </c:forEach>
+                        </strong>
+                        </c:if>
+                        <span class="text">게시판 글</span>
+                    </h2>
                 </div>
+                <!--관련글 랜더링 장소-->
+                <div class="relatedArticleTab"></div>
             </div>
             </div>
         </div>

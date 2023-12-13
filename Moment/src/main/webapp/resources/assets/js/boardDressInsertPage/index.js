@@ -1,7 +1,7 @@
 import { firstContextPath, ajaxRequest } from "../common/common.js";
 import { getData } from "../ckeditor/ckaditorSuperBuild.js"
 
-const firstPath = firstContextPath();   // '/moment' 가져오기
+const firstPath = firstContextPath;   // '/moment' 가져오기
 
 // 대분류 카테고리에 맞게 중분류 카테고리가 노출되는 함수
 const cateogryChange = () => {
@@ -46,11 +46,11 @@ const goAllListBnt = () => {
                 cancelButtonText: "아니요"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    location.href = firstPath + '/board/10';
+                    location.href = firstPath + '/board/dress';
                 }
             });
         } else {
-            location.href = firstPath + '/board/10';
+            location.href = firstPath + '/board/dress';
         }
     });
 };
@@ -127,13 +127,13 @@ document.getElementById('boardInsertBtn').addEventListener('click', () => {
                 icon: "success",
                 title: "게시글 등록이 완료되었습니다",
                 didClose: function () {
-                    location.href = firstPath + '/board/10';
+                    location.href = firstPath + '/board/dress';
                 }
             });
         };
 
         // url, method, data, successCallback
-        ajaxRequest(firstPath + '/board/10/1', 'POST', dataForm, callback); // AJAX POST 성공
+        ajaxRequest(firstPath + '/board/dress/insert', 'POST', dataForm, callback); // AJAX POST 성공
     }
 });
 //--AJAX END--------------------------------------------------------------------

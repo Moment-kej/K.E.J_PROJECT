@@ -1,5 +1,4 @@
 const contextPath = document.getElementById('contextPath').value;
-const criteriaCode = document.getElementById('criteriaCode').value;
 const contentContainer = document.getElementById('contentListTest');
 
 // 글쓰기 버튼 클릭 이벤트
@@ -7,7 +6,7 @@ export const writingBntEvent = () => {
     const writingBnt = document.getElementById('boardInsertBnt');
     if(writingBnt) {
         writingBnt.addEventListener('click', () => {
-            window.location.href = contextPath + '/board/10/1'; // 현재 창으로 링크 열기
+            window.location.href = contextPath + '/board/dress/write'; // 현재 창으로 링크 열기
         });
     } else {
         console.error('Element with id writingBnt not found');
@@ -20,7 +19,7 @@ const Change = (category) => {
     let searchName = document.getElementById('searchName').value;
     let listType = document.getElementById('criteriaListType').value;
     
-    location.href = contextPath + "/board/" + criteriaCode + '?page=1' + '&category=' + category
+    location.href = contextPath + '/board/dress?page=1&category=' + category
     + '&listType=' + listType +'&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
 };
 
@@ -44,7 +43,7 @@ export const Change_valueNull = () => {
     let amount = document.getElementById('handleAmount').value;
     let listType = document.getElementById('criteriaListType').value;
 
-    location.href = contextPath + "/board/" + criteriaCode + "?amount=" + amount + '&category=' + category
+    location.href = contextPath + "/board/dress?amount=" + amount + '&category=' + category
                 + '&listType=' + listType +'&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
 };
 
@@ -63,6 +62,6 @@ export const search = () => {
         let listType = document.getElementById('criteriaListType').value;
 
         // total 값이 제대로 나오지 않는다.
-        location.href = contextPath + '/board/10?page=1&amount=' + amount + '&category=0&listType=' + listType + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
+        location.href = contextPath + '/board/dress?page=1&amount=' + amount + '&category=0&listType=' + listType + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
     });
 };
