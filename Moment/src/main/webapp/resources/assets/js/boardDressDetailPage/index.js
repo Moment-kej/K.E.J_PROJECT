@@ -1,24 +1,16 @@
-import { firstContextPath, ajaxRequest, formatTimestamp } from "../common/common.js";
+import { firstContextPath, ajaxRequest, formatTimestamp, boardNumber } from "../common/common.js";
+
 //--url pathname 추출------------------------------------
 const firstPath = firstContextPath;   // '/moment' 가져오기
-// url board number 추출
-const boardNumber = () => {
-    let pathname = window.location.pathname;
-    let match = pathname.match(/\/(\d+)$/);
-    let boardNumber;
-    if (match) {
-        var lastNumber = match[1];
-        //parseInt 함수가 문자열을 10진수로 변환하도록 지정
-        boardNumber = parseInt(lastNumber, 10);
-    };
-    return boardNumber;
-}
-//--url pathname 추출 end---------------------------------
 
 // --a tag------------------------------------------------
-// 목록으로 a tag href 속성 설정
-document.getElementById('goAllList').setAttribute('href', firstPath + '/board/dress');
-document.getElementById('dressAllList').setAttribute('href', firstPath + '/board/dress');
+// 목록으로 a tag href 설정
+document.getElementById('goAllList').addEventListener('click', () => {
+    location.href = firstPath + '/board/dress';
+})
+document.getElementById('dressAllList').addEventListener('click', () => {
+    location.href = firstPath + '/board/dress';
+})
 
 // 댓글작성 a tag click event
 const replyWriterBnt = (replyNo) => {
@@ -29,7 +21,7 @@ const replyWriterBnt = (replyNo) => {
     })
 }
 
-// 이전글, 다음글 a tag href setAttribute
+// 이전글, 다음글 a tag href
 const pageUpAndDown = () => {
     const callback = (data) => {
         if(parseInt(data[0].boardNo, 10) === boardNumber()) {
@@ -37,10 +29,14 @@ const pageUpAndDown = () => {
         } else {
             document.getElementById('pageUp').classList.remove('noUpPage');
             // 이전글
-            document.getElementById('pageUp').setAttribute('href', (firstPath + '/board/dress/all/' + parseInt(boardNumber() + 1, 10)));
+            document.getElementById('pageUp').addEventListener('click', () => {
+                location.href = (firstPath + '/board/dress/all/' + parseInt(boardNumber() + 1, 10));
+            });
         }
         // 다음글
-        document.getElementById('pageDown').setAttribute('href', (firstPath + '/board/dress/all/' + parseInt(boardNumber() - 1, 10)));
+        document.getElementById('pageDown').addEventListener('click', () => {
+            location.href = (firstPath + '/board/dress/all/' + parseInt(boardNumber() - 1, 10));
+        })
     }
 
     let data = {page : 1, amount : 1, code: 10, category: 0};
@@ -48,6 +44,17 @@ const pageUpAndDown = () => {
     ajaxRequest(firstPath + '/board/dress/all', 'GET', data, callback);
 };
 
+// 수정 또는 삭제 a tag href
+const boardManagemantBnt = () => {
+    let boadrWriter = document.querySelector('.userID').textContent;
+    // 작성자와 매개변수로 들어갈 userId가 동일하면 버튼 활성화 시키기 !! 아직 못함
+    console.log(boadrWriter);
+
+    // 수정 페이지로 이동
+    document.getElementById('modify').addEventListener('click', () => {
+        location.href = firstContextPath + '/board/dress/modify/' + boardNumber();
+    })
+}
 // --a tag end------------------------------------------------
 
 // 댓글 textarea 글자수 표기 및 제한
@@ -67,7 +74,6 @@ const replyTextarea = () => {
         writeCount.textContent = inputText.length;
     });
 };
-
 
 // 대댓글 textarea 글자수 표기 및 제한
 const replySectionTwoTextarea = (replyNo) => {
@@ -313,6 +319,7 @@ const relatedListRender = (posts) => {
     relatedArticleTab.append(ul);
 };
 
+// 관련글 랜더링 된 장소에서 현재 게시글 표시하기
 const RelatedAt = () => {
     let boardNumer = boardNumber();
     if(boardNumer) {
@@ -324,6 +331,7 @@ const RelatedAt = () => {
         }
     }
 }
+
 // 관련글 ajax
 const boardRelatedPosts = () => {
     let categoryElement = document.querySelector('.title > span');
@@ -338,6 +346,7 @@ const boardRelatedPosts = () => {
 
 // 함수 호출
 window.onload = () => {
+    boardManagemantBnt();       // security로 id 들고오면 수정 해야 함.
     pageUpAndDown();
     replyTextarea();
     replyList();

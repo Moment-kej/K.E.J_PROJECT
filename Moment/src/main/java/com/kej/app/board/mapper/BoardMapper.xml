@@ -206,7 +206,18 @@
 		 ORDER BY 1 DESC
 		 LIMIT 4
 	  </select>
-	
+	  
+	  <!-- 게시글 수정 -->
+	  <update id="dressBoardUpdate" parameterType="BoardVO">
+		  UPDATE board
+		     SET code = #{code}
+		  	   , category = #{category}
+			   , title = #{title}
+			   , content = #{content}
+			   , yn = #{yn}
+		   WHERE board_no = #{boardNo}
+		     AND id = #{id}
+	  </update>
 	
 	
 	

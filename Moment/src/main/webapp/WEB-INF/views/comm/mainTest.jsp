@@ -206,10 +206,14 @@
 
                 let inside_div = document.createElement('div');
 
+                let title_div = document.createElement('div');
+                title_div.className = 'titleDiv';
+
                 let title_p = document.createElement('p');
                 title_p.classList = 'bookTitle';
                 title_p.innerHTML = '<b>' + item.title + '</b>';
-                inside_div.appendChild(title_p);
+                title_div.appendChild(title_p);
+                inside_div.appendChild(title_div);
 
                 let content_p = document.createElement('p');
                 content_p.innerText = '가격: ' + formatMoney(item.discount) + ' 원';

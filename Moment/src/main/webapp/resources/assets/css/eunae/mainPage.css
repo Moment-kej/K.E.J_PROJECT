@@ -2,11 +2,13 @@
 #newsList {
     width: 100%;
 }
-.bookTitle {
-    white-space: nowrap;
+.titleDiv {
+    width: 100%;
+    height: 1.6em;
     overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 320px;
+}
+.bookTitle {
+    margin: 0;
 }
 /* news list style */
 .button-container {

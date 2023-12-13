@@ -37,7 +37,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override								// board insert
 	@Transactional
 	public int boardInsert(BoardVO vo) {
-//		logger.info("serviceImpl insert >> " + vo);
 		return bMapper.boardInsert(vo);
 	}
 	
@@ -132,6 +131,11 @@ public class BoardServiceImpl implements BoardService {
 	    destination.addAll(source.subList(0, actualCount));
 	}
 
+	@Override
+	public int dressBoardUpdate(BoardVO vo) {
+		return bMapper.dressBoardUpdate(vo);
+	}
+	
 	// eunae ---------------------------------------------
 
 	
@@ -145,6 +149,7 @@ public class BoardServiceImpl implements BoardService {
 	public int artPagecount(Criteria cri) {
 		return bMapper.artPagecount(cri);
 	}
+
 
 
 
