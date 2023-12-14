@@ -79,12 +79,10 @@ public class BoardController {
 		return "dressBoard/boardDressInsert";
 	}
 	
-	// dress insert ajax
+	// dress insert (AJAX)
 	@RequestMapping(value = "/dress/insert", method = RequestMethod.POST)
 	@ResponseBody
 	public int boardInsertSave(@RequestBody BoardVO vo) {
-//		logger.info("boardController insert >> " + vo);
-		
 		return service.boardInsert(vo); 
 	}
 	
@@ -112,8 +110,7 @@ public class BoardController {
 				oldCookie.setValue(oldCookie.getValue() + "_[" + boardNo + "]");
 				oldCookie.setPath("/");
 				oldCookie.setMaxAge(60*60*24);	// 쿠키 시간
-				res.addCookie(oldCookie);											// 경로, 쿠키유지 시간을 추가하여 response에 oldCookie 를 전달
-//				System.out.println("id 값이 없을 때");
+				res.addCookie(oldCookie);
 				view.setView(count);
 			}
 		} else {								// oldCookie가 null일 때
@@ -121,22 +118,22 @@ public class BoardController {
 			Cookie newCookie = new Cookie("postView", "[" + boardNo + "]");			// postView라는 이름으로 쿠키를 만들고 거기에 게시물 id 값을 괄호로 감싸 추가
 			newCookie.setPath("/");
 			newCookie.setMaxAge(60*60*24);		// 쿠키 시간
-			res.addCookie(newCookie);												// 경로, 쿠키유지 시간을 추가하여 response에 oldCookie 를 전달
-//			System.out.println("id 값이 있을 때");
+			res.addCookie(newCookie);
 		}
 		model.addAttribute("dress", view);
+		model.addAttribute("code", cservice.getCodes("CO","CA"));
 		
 		return "dressBoard/boardDressDetail";
 	}
 	
-	// dress detail reply list ajax
+	// dress detail reply list (AJAX)
 	@RequestMapping(value = "/dress/replyList", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ReplyVO> replyList(@RequestParam int boardNo) {
 		return service.replyList(boardNo);
 	}
 	
-	// 게시글 관련글 보기
+	// 게시글 관련글 보기 (AJAX)
 	@RequestMapping(value = "/dress/boardRelatedPosts", method = RequestMethod.GET)
 	@ResponseBody
 	public List<BoardVO> boardRelatedPosts(BoardListVO vo) {
@@ -144,27 +141,33 @@ public class BoardController {
 	}
 	
 	// dress update page
-	@GetMapping("/dress/update")
-	public String boardDressUpdate() {
-		
+	@GetMapping("/dress/modify/{boardNo}")
+	public String boardDressUpdate(Model model, @PathVariable("boardNo") int boardNo) {
+		// 게시글 단건조회
+		model.addAttribute("code", cservice.getCodes("CO","CA"));
 		
 		return "dressBoard/boardDressUpdate";
 	}
-	
-	@GetMapping("/test")
-	public String test() {
-		return "comm/test";
-	}
-	
-	@GetMapping("/test2")
+	// 게시글 번호 기준 게시글 정보 가져오기 (AJAX)
+	@RequestMapping(value = "/dress/modContent", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> test2() {
-		Map<String, Object> testMap = new HashMap<String, Object>();
-		testMap.put("test", "test");
-		testMap.put("test1", "test1");
-		testMap.put("test2", "test2");
-		return testMap;
+	public BoardVO boardDressUpdate(int boardNo) {
+		return service.boardDressDetail(boardNo);
 	}
+	// 게시글 수정 (AJAX)
+	@RequestMapping(value = "/dress/mod", method = RequestMethod.POST)
+	@ResponseBody
+	public int boardDressModAjax(@RequestBody BoardVO vo) {
+		return service.dressBoardUpdate(vo);
+	}
+	// 게시글 삭제 (AJAX)
+	@RequestMapping(value = "/dress/del", method = RequestMethod.POST)
+	@ResponseBody
+	public int boardDressDelAjax(@RequestBody BoardVO vo) {
+		return service.dressBoardDelete(vo);
+	}
+	
+
 	
 	
 	
@@ -363,9 +366,19 @@ public class BoardController {
     
     
     
-    
-    
-    
-    
+//	@GetMapping("/test")
+//	public String test() {
+//		return "comm/test";
+//	}
+//	
+//	@GetMapping("/test2")
+//	@ResponseBody
+//	public Map<String, Object> test2() {
+//		Map<String, Object> testMap = new HashMap<String, Object>();
+//		testMap.put("test", "test");
+//		testMap.put("test1", "test1");
+//		testMap.put("test2", "test2");
+//		return testMap;
+//	}
     
 }

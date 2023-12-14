@@ -38,6 +38,19 @@ export const formatTimestamp = (timestamp) => {
     return formattedDate;
 };
 
+// url board number 추출
+export const boardNumber = () => {
+    let pathname = window.location.pathname;
+    let match = pathname.match(/\/(\d+)$/);
+    let boardNumber;
+    if (match) {
+        var lastNumber = match[1];
+        //parseInt 함수가 문자열을 10진수로 변환하도록 지정
+        boardNumber = parseInt(lastNumber, 10);
+    };
+    return boardNumber;
+}
+
 // 사용방법 : 데이터를 성공적으로 들고 왔을 때 실행해야 하는 것들을 담으면 됨
 // const callback = (data) => {
 //     console.log(data);
@@ -61,13 +74,13 @@ export const ajaxRequest = (url, method, data, successCallback) => {
         url: url,
         type: method,
         data : datas,
-        dataType : "json",                                  // 서버로부터 받을 데이터의 타입을 지정하는 것
+        dataType : "json", // 서버로부터 받을 데이터의 타입을 지정하는 것
         error: function(error) {
             console.error('오류발생!' + error);
         }
     };
     
-    // success 함수ㄴ
+    // success 함수
     if(hasSuccessCallback) ajaxOptions.success = successCallback;
 
     // 'POST' 메서드이면서 데이터가 존재하는 경우에만 contentType을 설정

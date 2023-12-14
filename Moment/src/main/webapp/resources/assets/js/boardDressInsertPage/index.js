@@ -13,17 +13,25 @@ const cateogryChange = () => {
     mainCategorySelect.addEventListener('change', function() {
         let mainCategoryValue = mainCategorySelect.value;                       // 메인 카테고리 value
         let subCategoryOptions = subCategorySelect.querySelectorAll('option');  // subCategory에 해당되는 option들 가져오기
+
+        // 대분류 선택 시, 중분류 value를 0으로 바꾸기 
+        if(mainCategoryValue === '0') {
+            subCategorySelect.value = '0';
+        }
+        
         // subCategory option을 반복해서 value 값추출
         subCategoryOptions.forEach(function(option) {
             let optionValueSubStr = option.value.substring(0,2);    // option value 값 앞 숫자 2개만 가져온다
             if(mainCategoryValue == optionValueSubStr) {            // 메인 값과 서브 앞 숫자 2개의 값이 같으면
-            option.style.display = 'block';                       // 서브 옵션 태그를 활성화
+                option.style.display = 'block';                       // 서브 옵션 태그를 활성화
             } else {
-            option.style.display = 'none';                         // 같지 않으면 서브 옵션 태그를 비활성화
+                option.style.display = 'none';                         // 같지 않으면 서브 옵션 태그를 비활성화
             }
         });
     });
 };
+cateogryChange();   // 대분류 카테고리에 맞게 중분류 카테고리가 노출되는 함수
+
 // 목록으로 버튼
 // 만약 기재한 내용이나 선택한 옵션이 있다면 알림창 띄우고 전체 게시판으로 이동
 const goAllListBnt = () => {
@@ -54,9 +62,7 @@ const goAllListBnt = () => {
         }
     });
 };
-
 goAllListBnt();      // 목록으로 버튼 클릭 이벤트
-cateogryChange();   // 대분류 카테고리에 맞게 중분류 카테고리가 노출되는 함수
 //--AJAX--------------------------------------------------------------------
 // 선택한 폼 엘리먼트의 데이터를 URL-encoded된 문자열로 직렬화
 // const dataForm = $('#boardForm').serialize();
@@ -131,7 +137,6 @@ document.getElementById('boardInsertBtn').addEventListener('click', () => {
                 }
             });
         };
-
         // url, method, data, successCallback
         ajaxRequest(firstPath + '/board/dress/insert', 'POST', dataForm, callback); // AJAX POST 성공
     }

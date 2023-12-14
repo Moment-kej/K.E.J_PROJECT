@@ -307,7 +307,6 @@ export const renderPosts = (page, category, searchType, searchName) => {
         // data : dataForm,
         dataType: 'json',
         success: function(posts) {
-            console.log(posts);
             if(posts == 0 || posts == ''){
                 let containerInDiv = document.createElement('div');
                 containerInDiv.className = 'contentNotData';

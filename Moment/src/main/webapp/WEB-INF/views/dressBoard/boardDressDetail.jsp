@@ -24,7 +24,21 @@
         background-color: #ebeef8;
         font-weight: bold !important;
     }
-
+    .topBtn-board-management a{
+        float: left;
+        width: 50px;
+        height: 35px;
+        margin: 7px;
+        line-height: 32px;
+        color: #222f4e;
+        font-size: 12px;
+        font-weight: 700;
+        text-align: center;
+        border: 1px solid #d4dfe9;
+        border-radius: 5px;
+        background-color: #d4dfe9;
+        transition: 0.5s;
+    }
 </style>
 <div class="main-panel">
     <div class="content-wrapper">
@@ -34,10 +48,16 @@
         <div class="container-fluid">
             <div class="mx-auto">
             <!-- Top Button -->
-            <div class="topBtn d-flex align-content-between">
-                <a id="pageUp"><i class="fa-solid fa-angle-up"></i>이전글</a>
-                <a id="pageDown"><i class="fa-solid fa-angle-down"></i>다음글</a>
-                <a id="goAllList">목록</a>
+            <div class="containal">
+                <div class="mb-2 topBtn-board-management board-management">
+                    <a href="#" id="modify">수정</a>
+                    <a href="#" id="delete">삭제</a>
+                </div>
+                <div class="topBtn">
+                    <a href="#" id="pageUp"><i class="fa-solid fa-angle-up"></i>이전글</a>
+                    <a href="#" id="pageDown"><i class="fa-solid fa-angle-down"></i>다음글</a>
+                    <a href="#" id="goAllList">목록</a>
+                </div>
             </div>
             <!-- Top Button End -->
 

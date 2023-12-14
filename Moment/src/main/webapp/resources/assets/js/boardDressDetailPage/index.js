@@ -1,24 +1,16 @@
-import { firstContextPath, ajaxRequest, formatTimestamp } from "../common/common.js";
+import { firstContextPath, ajaxRequest, formatTimestamp, boardNumber } from "../common/common.js";
+
 //--url pathname 추출------------------------------------
 const firstPath = firstContextPath;   // '/moment' 가져오기
-// url board number 추출
-const boardNumber = () => {
-    let pathname = window.location.pathname;
-    let match = pathname.match(/\/(\d+)$/);
-    let boardNumber;
-    if (match) {
-        var lastNumber = match[1];
-        //parseInt 함수가 문자열을 10진수로 변환하도록 지정
-        boardNumber = parseInt(lastNumber, 10);
-    };
-    return boardNumber;
-}
-//--url pathname 추출 end---------------------------------
 
 // --a tag------------------------------------------------
-// 목록으로 a tag href 속성 설정
-document.getElementById('goAllList').setAttribute('href', firstPath + '/board/dress');
-document.getElementById('dressAllList').setAttribute('href', firstPath + '/board/dress');
+// 목록으로 a tag href 설정
+document.getElementById('goAllList').addEventListener('click', () => {
+    location.href = firstPath + '/board/dress';
+})
+document.getElementById('dressAllList').addEventListener('click', () => {
+    location.href = firstPath + '/board/dress';
+})
 
 // 댓글작성 a tag click event
 const replyWriterBnt = (replyNo) => {
@@ -29,7 +21,7 @@ const replyWriterBnt = (replyNo) => {
     })
 }
 
-// 이전글, 다음글 a tag href setAttribute
+// 이전글, 다음글 a tag href
 const pageUpAndDown = () => {
     const callback = (data) => {
         if(parseInt(data[0].boardNo, 10) === boardNumber()) {
@@ -37,10 +29,14 @@ const pageUpAndDown = () => {
         } else {
             document.getElementById('pageUp').classList.remove('noUpPage');
             // 이전글
-            document.getElementById('pageUp').setAttribute('href', (firstPath + '/board/dress/all/' + parseInt(boardNumber() + 1, 10)));
+            document.getElementById('pageUp').addEventListener('click', () => {
+                location.href = (firstPath + '/board/dress/all/' + parseInt(boardNumber() + 1, 10));
+            });
         }
         // 다음글
-        document.getElementById('pageDown').setAttribute('href', (firstPath + '/board/dress/all/' + parseInt(boardNumber() - 1, 10)));
+        document.getElementById('pageDown').addEventListener('click', () => {
+            location.href = (firstPath + '/board/dress/all/' + parseInt(boardNumber() - 1, 10));
+        })
     }
 
     let data = {page : 1, amount : 1, code: 10, category: 0};
@@ -48,8 +44,57 @@ const pageUpAndDown = () => {
     ajaxRequest(firstPath + '/board/dress/all', 'GET', data, callback);
 };
 
+// 수정 또는 삭제 a tag href
+const boardManagemantBnt = () => {
+    let boadrWriter = document.querySelector('.userID').textContent;
+    // 작성자와 매개변수로 들어갈 userId가 동일하면 버튼 활성화 시키기 !! 아직 못함
+    console.log(boadrWriter);
+
+    // 수정 페이지로 이동
+    document.getElementById('modify').addEventListener('click', () => {
+        location.href = firstContextPath + '/board/dress/modify/' + boardNumber();
+    })
+}
 // --a tag end------------------------------------------------
 
+// board delete ajax
+const boardDelAtax = () => {
+    document.getElementById('delete').addEventListener('click', () => {
+        const data = JSON.stringify({
+            boardNo: String(boardNumber()),
+            yn: 0,
+            id: document.querySelector('.userID').textContent
+        });
+
+        const callback = () => {
+            Swal.fire({
+                title: "게시글을 삭제하시겠습니까?",
+                text: "삭제 시 되돌릴 수 없습니다.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "예",
+                cancelButtonText: "아니요"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "게시글 삭제가 완료되었습니다.",
+                        didClose: function () {
+                            location.href = firstPath + '/board/dress';
+                        }
+                    });
+                }
+            });
+        };
+
+        ajaxRequest(firstPath + '/board/dress/del', 'POST', data, callback);
+    });
+};
+boardDelAtax();
+
+// ------------------------------------------------------------
 // 댓글 textarea 글자수 표기 및 제한
 const replyTextarea = () => {
     let textarea = document.getElementById('replyTextrea');
@@ -68,7 +113,6 @@ const replyTextarea = () => {
     });
 };
 
-
 // 대댓글 textarea 글자수 표기 및 제한
 const replySectionTwoTextarea = (replyNo) => {
     let textarea = document.getElementById('replySectionTwoTextarea_' + replyNo);
@@ -86,7 +130,7 @@ const replySectionTwoTextarea = (replyNo) => {
         writeCount.textContent = inputText.length;
     });
 };
-
+// ------------------------------------------------------------
 // reply render
 const replyRender = (post) => {
     // 댓글 컨테이너
@@ -154,10 +198,6 @@ const replyRender = (post) => {
         commentWirterBtnBox.appendChild(replyWriterBtn);
         replyInnerSection.appendChild(commentWirterBtnBox);
 
-        // 수평선 생성
-        // const hrElement = document.createElement('hr');
-        // replyInnerSection.appendChild(hrElement);
-
         // 대댓글 부분----------------------------------------------
         const replyWriterContainer = document.createElement('div');
         replyWriterContainer.classList.add('pl-4', 'hidden', 'mb-4', 'hrStyle');
@@ -176,9 +216,7 @@ const replyRender = (post) => {
         const slashSpan = document.createElement('span');
         const writeTotalSpan = document.createElement('span');
         const registerBoxDiv = document.createElement('div');
-        // const cancelButton = document.createElement('a');
         const submitButton = document.createElement('a');
-        // const hr = document.createElement('hr');
 
         // 각 요소에 클래스 추가
         innerDiv1.classList.add('commentWriter');
@@ -193,7 +231,6 @@ const replyRender = (post) => {
         slashSpan.classList.add('fontSizeSmall');
         writeTotalSpan.classList.add('fontSizeSmall', 'comment_box_write_total');
         registerBoxDiv.classList.add('register_box');
-        // cancelButton.classList.add('button');
         submitButton.classList.add('button');
 
         // 텍스트 내용 추가
@@ -201,7 +238,6 @@ const replyRender = (post) => {
         countNumStrong.textContent = '0';
         slashSpan.textContent = '/';
         writeTotalSpan.textContent = '100';
-        // cancelButton.textContent = '취소';
         submitButton.textContent = '등록';
 
         // 구조에 맞게 요소들을 조합
@@ -212,7 +248,6 @@ const replyRender = (post) => {
         commentAttachDiv.appendChild(commentBoxWriteCountDiv);
         commentAttachDiv.appendChild(registerBoxDiv);
 
-        // registerBoxDiv.appendChild(cancelButton);
         registerBoxDiv.appendChild(submitButton);
 
         commentInboxDiv.appendChild(commentInboxNameSpan);
@@ -222,7 +257,6 @@ const replyRender = (post) => {
         commentWriterDiv.appendChild(commentAttachDiv);
 
         innerDiv2.appendChild(commentWriterDiv);
-        // innerDiv2.appendChild(hr);
 
         innerDiv1.appendChild(innerDiv2);
 
@@ -253,6 +287,7 @@ const replyList = () => {
     ajaxRequest(firstPath + '/board/dress/replyList', 'GET', data, callback);
 };
 
+// ------------------------------------------------------------
 // 관련글 랜더링
 const relatedListRender = (posts) => {
     // 댓글 컨테이너
@@ -313,17 +348,18 @@ const relatedListRender = (posts) => {
     relatedArticleTab.append(ul);
 };
 
+// 관련글 랜더링 된 장소에서 현재 게시글 표시하기
 const RelatedAt = () => {
     let boardNumer = boardNumber();
     if(boardNumer) {
         let titleElement = document.querySelector('.titleATag[data-title="' + boardNumer + '"]');
         const li = titleElement.closest("li");
         if(titleElement) {
-            // titleElement.classList.add('selected');
             li.classList.add('selected');
         }
     }
 }
+
 // 관련글 ajax
 const boardRelatedPosts = () => {
     let categoryElement = document.querySelector('.title > span');
@@ -335,9 +371,10 @@ const boardRelatedPosts = () => {
     }
     ajaxRequest(firstPath + '/board/dress/boardRelatedPosts', 'GET', data, callback);
 }
-
+// ------------------------------------------------------------
 // 함수 호출
 window.onload = () => {
+    boardManagemantBnt();       // security로 id 들고오면 수정 해야 함.
     pageUpAndDown();
     replyTextarea();
     replyList();

@@ -17,13 +17,14 @@ public interface BoardMapper {
 	public BoardVO boardDressDetail(int BoardNo);	// 게시글
 	public List<ReplyVO> replyList(int boardNo);	// 댓글리스트(대댓글X)
 	public int dressBoardViewCount(int boardNo);	// 게시글 조회수
-	//Before,After 2개씩 나오는거 test
+	//Before,After 확인완료
 	public List<BoardVO> selectBoardsAfter(BoardListVO vo);
 	public BoardVO selectBoardAt(BoardListVO vo);
 	public List<BoardVO> selectBoardsBefore(BoardListVO vo);
-
-	
-	
+	//boardUpdate
+	public int dressBoardUpdate(BoardVO vo);
+	//boardDelete
+	public int dressBoardDelete(BoardVO vo);
 	
 	public List<BoardVO> artBoardList(Criteria cri);
 	public int artPagecount(Criteria cri);

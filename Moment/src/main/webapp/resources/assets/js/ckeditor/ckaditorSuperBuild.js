@@ -175,3 +175,7 @@ const ckeditorTest = () => {
 export const getData = () => {
     return editor.getData();
 };
+
+export const setData = (content) => {
+    return editor.setData(content);
+}
