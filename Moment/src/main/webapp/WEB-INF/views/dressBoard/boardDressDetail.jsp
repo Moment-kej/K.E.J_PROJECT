@@ -16,6 +16,11 @@
         border-bottom-color: #E2E4F0;
         border-bottom-width: thin;
     }
+    .hrStyleChildReply {
+        border-top-style : inset;
+        border-top-color: #ffffff4f;
+        border-top-width: thin;
+    }
     .hidden {
         display: none;
     }
@@ -109,80 +114,13 @@
                 <!-- Detail Reply -->
                 <div class="commentBox">
                     <ul class="p-1">
-                        <!-- 댓글 -->
-                        <li id="replySection">
-                            <!--<div class="replyInnerSecion">
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <div class="replyUserImgBox">
-                                        <img class="mx-auto" src="${pageContext.request.contextPath}/assets/images/faces/face3.jpg" alt="프로필 사진">
-                                    </div>
-                                    <div class="replyInfoBox ml-2">
-                                        <div>
-                                            <span class="replyInfoID">UserID</span>
-                                            <span class="replyInfoDate">2023.11.26. 18:14</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="commentContent">
-                                    <span>여기 고민해봐야할 듯<br> 1. 엔터가 먹힐까? 엔터가 누르면 br태그가 들어가야하나..? <br>그리고 구분할 때 hr tag를 사용했는데 규칙 못찾았음..</span>
-                                </div>
-                                <div class="commentWirterBtnBox">
-                                    <a class="replyWriterBnt">답글작성</a>
-                                </div>
-                                <hr>
-                            </div>
-                            <div class="pl-4 hidden" id="replyWriterContainal">
-                                <div>
-                                    <div class="commentWriter">
-                                        <div class="comment_inbox">
-                                            <span class="comment_inbox_name">똥심</span>
-                                            <textarea placeholder="댓글을 남겨보세요 (여기는 버튼 누르면 나타나는 거임)"></textarea>
-                                        </div>
-                                        <div class="comment_attach d-flex justify-content-between align-items-center">
-                                            <div class="comment_box_write_count">
-                                                <strong class="fontSizeSmall comment_box_count_num">0</strong>
-                                                <span class="fontSizeSmall">/</span>
-                                                <span class="fontSizeSmall comment_box_write_total">500</span>
-                                            </div>
-                                            <div class="register_box">
-                                                <a href="#" class="button">취소</a>
-                                                <a href="#" class="button">등록</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>-->
-                        </li>
-
-                        <!-- 대댓글 -->
-                        <!-- <li class="pl-4">
-                            <div>
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <div class="replyUserImgBox">
-                                        <img class="mx-auto" src="${pageContext.request.contextPath}/assets/images/faces/face1.jpg" alt="프로필 사진">
-                                    </div>
-                                    <div class="replyInfoBox ml-2">
-                                        <div>
-                                            <span class="replyInfoID">UserID</span>
-                                            <span class="replyInfoDate">2023.11.26. 18:14</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="commentContent">
-                                    <span>여기 고민해봐야할 듯<br> 여기는 대댓글인데 대댓글이면 왼쪽에 살짝 안쪽으로 들어가야하는데 이걸 어떻게 해야할까..? 답글쓰기 작성 폼 처럼 안쪽으로 들어가야하는디... 쩝... <br>해결방법 <br>1.대댓글 폼일때는 li tag에 class="pl-3" 이걸 붙여주자!!</span>
-                                </div>
-                                <div class="commentWirterBtnBox">
-                                <a href="#">답글작성</a>
-                                </div>
-                            </div>
-                        </li> -->
-                        <!-- 대댓글 End -->
+                        <li id="replySection"></li>     <!-- 댓글, 대댓글, 댓글작성란 장소 -->
                     </ul>
+
                     <!-- 원댓글 작성 폼 -->
                     <div class="commentWriter">
                         <div class="comment_inbox">
-                            <span class="comment_inbox_name">똥심</span>
+                            <span class="comment_inbox_name" id="replyWriter">등록확인</span>
                             <textarea id="replyTextrea" placeholder="댓글을 남겨보세요"></textarea>
                         </div>
                         <div class="comment_attach d-flex justify-content-between align-items-center">
@@ -192,8 +130,7 @@
                                 <span class="fontSizeSmall comment_box_write_total">100</span>
                             </div>
                             <div class="register_box">
-                                <!-- <a class="button">취소</a> -->
-                                <a type="button" class="button">등록</a>
+                                <a type="button" class="button" id="replyInsertBnt">등록</a>
                             </div>
                         </div>
                     </div><!-- 원댓글 작성 폼 End -->
@@ -218,9 +155,8 @@
                         <span class="text">게시판 글</span>
                     </h2>
                 </div>
-                <!--관련글 랜더링 장소-->
-                <div class="relatedArticleTab"></div>
-            </div>
+                <div class="relatedArticleTab"></div>   <!--관련글 랜더링 장소-->
+            </div>  <!-- 카테고리 관련글 보기 End -->
             </div>
         </div>
         </div>

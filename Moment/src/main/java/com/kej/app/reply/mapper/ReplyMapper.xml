@@ -3,23 +3,70 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kej.app.reply.mapper.ReplyMapper">
-
+	<!-- dress detail page -->
+	<!-- 댓글 조회 -->
 	<select id="replyList" resultType="ReplyVO">
 		SELECT reply_no
-			 , board_no
+		     , board_no
+		     , group_no
+		     , group_layer
 		     , id
 		     , content
 		     , write_dt
 		     , update_dt
-		     , re_reply_content
-		     , re_reply_write_dt
-		     , re_reply_update_dt
-		     , yn
-		     , re_reply_yn
+		     , yn 
 		  FROM reply
 		 WHERE 1=1
 		   AND board_no = #{boardNo}
+		   AND group_layer = #{groupLayer}
+		   AND yn = 1
 		 ORDER BY reply_no DESC
 	</select>
+	
+	<select id="childReplyList" resultType="ReplyVO">
+		SELECT reply_no
+		     , board_no
+		     , group_no
+		     , group_layer
+		     , id
+		     , content
+		     , write_dt
+		     , update_dt
+		     , yn 
+		  FROM reply
+		 WHERE 1=1
+		   AND group_no = #{groupNo}
+		   AND group_layer = #{groupLayer}
+		   AND yn = 1
+		 ORDER BY reply_no
+	</select>
+	
+	<insert id="replyInsert" parameterType="ReplyVO">
+		<selectKey keyProperty="replyNo" resultType="java.lang.Integer" order="BEFORE">
+			SELECT nextval('REPLY_SEQ')
+		</selectKey>
+		INSERT INTO reply
+			( reply_no
+			, board_no
+			, group_no
+		    , group_layer
+		    , id
+		    , content
+		    , write_dt
+		    , yn)
+		VALUES
+			( #{replyNo}
+			, #{boardNo}
+			, #{groupNo}
+			, #{groupLayer}
+			, #{id}
+			, #{content}
+			, now()
+			, 1)
+	</insert>
+	
+	
+	
+	<!-- dress detail page end -->
 
 </mapper>

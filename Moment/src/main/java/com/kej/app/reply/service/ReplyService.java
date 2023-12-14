@@ -5,5 +5,6 @@ import java.util.List;
 import com.kej.app.reply.service.vo.ReplyVO;
 
 public interface ReplyService {
-	public List<ReplyVO> replyList(int boardNo);
+	public List<ReplyVO> replyList(ReplyVO vo);
+	public int replyInsert(ReplyVO vo);
 }

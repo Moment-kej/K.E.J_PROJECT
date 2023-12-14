@@ -26,8 +26,7 @@
 				  FROM board b
 				  LEFT OUTER JOIN ( SELECT board_no, GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS reply_content
 				                      FROM reply
-				                     WHERE (yn = 1 OR yn IS NULL)
-				                       AND (re_reply_yn = 1 OR re_reply_yn IS NULL)
+				                     WHERE yn = 1
 				                     GROUP BY board_no
 				                   ) r
 				    ON b.board_no = r.board_no
@@ -60,8 +59,7 @@
 		  LEFT JOIN ( SELECT board_no
   						   , GROUP_CONCAT(content ORDER BY content SEPARATOR ',') AS "reply_content" 
                         FROM reply
-                       WHERE (yn = 1 OR yn IS NULL)
-                         AND (re_reply_yn = 1 OR re_reply_yn IS NULL)
+                       WHERE yn = 1
                        GROUP BY board_no
 		             ) r
 		    ON b.board_no = r.board_no
