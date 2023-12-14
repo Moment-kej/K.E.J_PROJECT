@@ -144,6 +144,7 @@ public class BoardServiceImpl implements BoardService {
 
 	
 	// soomin ----------------------------------------------------	
+	// 전체조회
 	@Override
 	public List<BoardVO> artBoardList(Criteria cri) {
 		return bMapper.artBoardList(cri);
@@ -154,14 +155,10 @@ public class BoardServiceImpl implements BoardService {
 		return bMapper.artPagecount(cri);
 	}
 
+	// 상세조회
 	@Override
-	public List<BoardVO> artBoardCard(Criteria cri) {
-		return bMapper.artBoardCard(cri);
-	}
-
-	@Override
-	public List<BoardVO> artBoardAlbum(Criteria cri) {
-		return bMapper.artBoardAlbum(cri);
+	public BoardVO boardArtDetail(int BoardNo) {
+		return bMapper.boardArtDetail(BoardNo);
 	}
 
 

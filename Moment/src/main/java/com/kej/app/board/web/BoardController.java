@@ -223,20 +223,6 @@ public class BoardController {
 		return service.artBoardList(cri);
 	}
 	
-	// Ajax Get Method CardType
-	@RequestMapping(value="/artCard", method = {RequestMethod.GET})
-	@ResponseBody
-	public List<BoardVO> artGetCard(Criteria cri){
-		return service.artBoardCard(cri);
-	}
-	
-	// Ajax Get Method AlbumType
-	@RequestMapping(value="/artAlbum", method = {RequestMethod.GET})
-	@ResponseBody
-	public List<BoardVO> artGetAlbum(Criteria cri){
-		return service.artBoardAlbum(cri);
-	}
-	
 	//아트게시판 상세 조회
 	@GetMapping("/art/boardNo")
 	public String BoardArtDetail(Model model) {
@@ -246,7 +232,8 @@ public class BoardController {
 	
 	//아트게시판 등록_조회
 	@GetMapping("/art/write")
-	public String BoardArtInsert(Model model) {
+	public String BoardArtInsert(Model model, BoardVO board) {
+		model.addAttribute("board", board);
 		
 		return "artBoard/boardArtInsert";
 	}
