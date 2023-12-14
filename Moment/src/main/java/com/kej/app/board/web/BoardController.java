@@ -291,7 +291,7 @@ public class BoardController {
  	}
         
     // Music Detail Page
-	@GetMapping("/music/{boardNo}")
+	@PostMapping("/music/{boardNo}")
 	public String BoardDetail(Model model, @PathVariable ("boardNo") int boardNo) {
 		
 		return "musicBoard/boardDetail";
