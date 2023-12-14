@@ -194,7 +194,7 @@ public class BoardController {
 	
 	
 	//아트게시판 전체 조회
-	@GetMapping("/30")
+	@GetMapping("/art")
 	public String boardArtPage(Model model, Criteria cri) throws Exception {
 		
 		//cri vo에 code 값을 10으로 준 것
@@ -238,21 +238,21 @@ public class BoardController {
 	}
 	
 	//아트게시판 상세 조회
-	@GetMapping("/30_1")
+	@GetMapping("/art/boardNo")
 	public String BoardArtDetail(Model model) {
 		
 		return "artBoard/boardArtDetail";
 	}
 	
 	//아트게시판 등록_조회
-	@GetMapping("/30/1")
+	@GetMapping("/art/write")
 	public String BoardArtInsert(Model model) {
 		
 		return "artBoard/boardArtInsert";
 	}
 
 	//아트게시판 수정_조회
-	@GetMapping("/30/3")
+	@GetMapping("/art/boardNo/modify")
 	public String BoardArtUpdate(Model model) {
 		
 		return "artBoard/boardArtUpdate";
