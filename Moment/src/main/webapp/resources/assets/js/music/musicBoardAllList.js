@@ -48,12 +48,14 @@ const createSortListTypeComponent = (data) => {
 
       for (const key of columnMapping.rowDataKeys) {
          const tdContent = '<span class="' + key + '">' + item[key] + '</span>';
-         createAndAppendElement(trBody, 'td', { scope: 'row', class: 'td_' + key + ' ' + item.boardNo }, tdContent);
+         const tdTitleArea = createAndAppendElement(trBody, 'td', { scope: 'row', class: 'td_' + key + ' ' + item.boardNo }, tdContent);
+         if(document.getElementsByClassName("td_title")[0]) {
+            createAndAppendElement(tdTitleArea, 'a', { href: '/app/board/music/' + item.boardNo });
+         }
       }
       
       const titleElement = document.getElementsByClassName("td_title " + item.boardNo)[0];
-      const LinkElement = createAndAppendElement(titleElement, 'a', { href: '/app/board/music/' + item.boardNo });
-      createAndAppendElement(LinkElement, 'span', { class: 'reply_count'}, ' [' + item.replyCount + ']');
+      createAndAppendElement(titleElement, 'span', { class: 'reply_count'}, ' [' + item.replyCount + ']');
    });
 
    boardListContainer.appendChild(table);
@@ -101,18 +103,18 @@ const createSortAlbumTypeComponent = (data) => {
 
       const imgArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeImgArea' });
       const aLinkElement = createAndAppendElement(imgArea, 'a', { href: '/app/board/music/' + item.boardNo });
-      const imgElement = createAndAppendElement(aLinkElement, 'img', { class: 'albumTypeImg', src: '/app/assets/images/noImages.png' });
+      createAndAppendElement(aLinkElement, 'img', { class: 'albumTypeImg', src: '/app/assets/images/noImages.png' });
 
       const titleArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeTitleArea' });
-      const titleSpan = createAndAppendElement(titleArea, 'span', { class: 'title' }, item.title);
+      createAndAppendElement(titleArea, 'span', { class: 'title' }, item.title);
 
       const idArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeIDArea' });
-      const idSpan = createAndAppendElement(idArea, 'span', { class: 'writeID' }, item.id);
+      createAndAppendElement(idArea, 'span', { class: 'writeID' }, item.id);
 
       const infoArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeInfoArea d-flex justify-content-start align-items-center' });
 
-      const dateSpan = createAndAppendElement(infoArea, 'span', { class: 'writeDt' }, dateFormat);
-      const viewSpan = createAndAppendElement(infoArea, 'span', { class: 'view' }, ' ⦁ 조회 ' + item.view);
+      createAndAppendElement(infoArea, 'span', { class: 'writeDt' }, dateFormat);
+      createAndAppendElement(infoArea, 'span', { class: 'view' }, ' ⦁ 조회 ' + item.view);
 
    });
 }
