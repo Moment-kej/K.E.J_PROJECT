@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kej.app.reply.mapper.ReplyMapper">
+
+	<select id="replyList" resultType="ReplyVO">
+		SELECT reply_no
+			 , board_no
+		     , id
+		     , content
+		     , write_dt
+		     , update_dt
+		     , re_reply_content
+		     , re_reply_write_dt
+		     , re_reply_update_dt
+		     , yn
+		     , re_reply_yn
+		  FROM reply
+		 WHERE 1=1
+		   AND board_no = #{boardNo}
+		 ORDER BY reply_no DESC
+	</select>
+
+</mapper>

@@ -121,24 +121,6 @@
 		   AND b.board_no = #{boardNo}
 	</select>
 	
-	<select id="replyList" resultType="ReplyVO">
-		SELECT reply_no
-			 , board_no
-		     , id
-		     , content
-		     , write_dt
-		     , update_dt
-		     , re_reply_content
-		     , re_reply_write_dt
-		     , re_reply_update_dt
-		     , yn
-		     , re_reply_yn
-		  FROM reply
-		 WHERE 1=1
-		   AND board_no = #{boardNo}
-		 ORDER BY reply_no DESC
-	</select>
-	
 	<!-- board view count -->
 	<update id="dressBoardViewCount" parameterType="int">
 		UPDATE board

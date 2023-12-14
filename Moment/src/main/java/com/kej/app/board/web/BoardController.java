@@ -1,8 +1,6 @@
 package com.kej.app.board.web;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kej.app.board.service.BoardService;
@@ -30,7 +27,6 @@ import com.kej.app.board.service.vo.BoardListVO;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
 import com.kej.app.board.service.vo.PageVO;
-import com.kej.app.board.service.vo.ReplyVO;
 import com.kej.app.common.service.CommonService;
 
 @Controller
@@ -124,13 +120,6 @@ public class BoardController {
 		model.addAttribute("code", cservice.getCodes("CO","CA"));
 		
 		return "dressBoard/boardDressDetail";
-	}
-	
-	// dress detail reply list (AJAX)
-	@RequestMapping(value = "/dress/replyList", method = RequestMethod.GET)
-	@ResponseBody
-	public List<ReplyVO> replyList(@RequestParam int boardNo) {
-		return service.replyList(boardNo);
 	}
 	
 	// 게시글 관련글 보기 (AJAX)

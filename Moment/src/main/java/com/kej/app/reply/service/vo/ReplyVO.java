@@ -1,4 +1,4 @@
-package com.kej.app.board.service.vo;
+package com.kej.app.reply.service.vo;
 
 import java.sql.Timestamp;
 

@@ -284,7 +284,7 @@ const replyList = () => {
         })
     }
     
-    ajaxRequest(firstPath + '/board/dress/replyList', 'GET', data, callback);
+    ajaxRequest(firstPath + '/reply/dress/replyList', 'GET', data, callback);
 };
 
 // ------------------------------------------------------------

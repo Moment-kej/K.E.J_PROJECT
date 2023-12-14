@@ -16,7 +16,7 @@ import com.kej.app.board.service.BoardService;
 import com.kej.app.board.service.vo.BoardListVO;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
-import com.kej.app.board.service.vo.ReplyVO;
+import com.kej.app.reply.service.vo.ReplyVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -43,11 +43,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardVO boardDressDetail(int BoardNo) {
 		return bMapper.boardDressDetail(BoardNo);
-	}
-	
-	@Override
-	public List<ReplyVO> replyList(int boardNo) {
-		return bMapper.replyList(boardNo);
 	}
 	
 	@Override
