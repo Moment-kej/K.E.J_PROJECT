@@ -47,14 +47,9 @@
                             </div>
                         </div>
                         <div style="clear:both"></div>
-
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
+                        <div id="contentList"></div>
                         <div class="contentNotData">
-		                        <div class="d-flex justify-content-center inner-div" id="contentListTest"><!-- js로 렌더링 하는곳 -->
-		                        	 <div id="contentListTest"></div>
-		                        </div>
-		                    </div>
-                           
                         <!--글쓰기 버튼-->
                         <div class="writingBntDiv">
                             <button type="button" class="btn btn-inverse-success btn-md" id="writingBnt">글쓰기</button>
@@ -97,13 +92,13 @@
                             <a id="pageRealEnd" class="lastpage pbtn">&raquo;&raquo;</a>
                         </div><!-- pagination end -->
                         <div>
-                        	<p>확인용 >> ${criteria}</p> <!-- ajax에 보낼 데이터 -->
+                        	<!-- <p>확인용 >> ${criteria}</p>  ajax에 보낼 데이터 -->
                         	<input type="hidden" name="page" id="criteriaPage" value="${criteria.page}" />
                         	<input type="hidden" name="amount" id="criteriaAmount" value="${criteria.amount}" />
                         	<input type="hidden" name="category" id="criteriaCategory" value="${criteria.category}" />
                         	<input type="hidden" name="listType" id="criteriaListType" value="${criteria.listType}" />
                         	<input type="hidden" name="code" id="criteriaCode" value="30" />
-                        	<p>확인용 >> ${list}</p> <!-- ajax로 보냈을때 가져오는 데이터 -->
+                        	 <!-- <p>확인용 >> ${list}</p>  ajax로 보냈을때 가져오는 데이터 -->
                         </div>
                         <!-- search div -->
                         <div class="col-lg-12 pt-5">
@@ -138,38 +133,187 @@
     </div>
 </div>
 <script>
- 	function readAllList(){
-		let str = ``;
-		let data = {
-				page:$('#criteriaPage').val(),
-				amount:$('#criteriaAmount').val(),
-				category:$('#criteriaCategory').val(),
-				listType:$('#criteriaListType').val(),
-				code:$('#criteriaCode').val()
-					}; 
-		console.log("최재영");
-		
+let str1 = ``;
+let str2 = ``;
+let str3= `` ;
+let data = {
+		page:$('#criteriaPage').val(),
+		amount:$('#criteriaAmount').val(),
+		category:$('#criteriaCategory').val(),
+		listType:$('#criteriaListType').val(),
+		code:$('#criteriaCode').val()
+			};  
+/* 리스트 타입 호출 */
+ 	function listType(){
+			 $.ajax({
+				url: "/moment/board/artList",
+				type: "GET",
+				data: data,
+				dataType: "json",
+				success: function(data){
+					console.log(data);
+					$("#contentList").empty();
+					str1 = `<div>
+								<div class="listType">
+									<table class="table table-bordered" id="boardList">
+										<colgroup><col style="width: 10%;">
+											<col style="width: 35%;">
+											<col style="width: 20%;">
+											<col style="width: 20%;">
+											<col style="width: 15%;">
+										</colgroup>
+									<thead>
+										<tr class="text-center">
+											<th>번호</th>
+											<th>제목</th>
+											<th>작성자</th>
+											<th>작성일</th>
+											<th>조회수</th>
+										</tr>
+									</thead>
+									<tbody>`
+							str3 =	`</tbody>
+									</table>  
+								</div>
+						</div>`;
+					$.each(data, function(index, item) {
+					    if (data != null) {
+					        str2 += `<tr>
+					                    <td>` + item.boardNo + `</td>
+					                    <td>
+					                        <a href="/moment/board/dress/all/35">` + item.title + ` 
+					                            <span style="color:red;">[` + item.replyCount + `]</span>
+					                        </a>
+					                    </td>
+					                    <td>` + item.id + `</td>
+					                    <td>` + item.writeDt + `</td>
+					                    <td>` + item.view + `</td>
+					                </tr>`;
+					    } else {
+					        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
+					    }
+					});
+	
+					$("#contentList").append(str1 + str2 + str3);
+					
+				}
+			}) 
+		}
+
+/* 카드 타입 호출 */
+function cardType(){
 		 $.ajax({
-			url: "/moment/board/artTemp",
+			url: "/moment/board/artCard",
 			type: "GET",
 			data: data,
 			dataType: "json",
 			success: function(data){
 				console.log(data);
-				$("#contentListTest").empty();
-				
+				$("#contentList").empty();
+				str1 = `<div>
+							<div class="listType">
+								<table class="table table-bordered" id="boardList">
+									<colgroup><col style="width: 10%;">
+										<col style="width: 35%;">
+										<col style="width: 20%;">
+										<col style="width: 20%;">
+										<col style="width: 15%;">
+									</colgroup>
+								<thead>
+									<tr class="text-center">
+										<th>번호</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>작성일</th>
+										<th>조회수</th>
+									</tr>
+								</thead>
+								<tbody>`
+						str3 =	`</tbody>
+								</table>  
+							</div>
+					</div>`;
 				$.each(data, function(index, item) {
-				if(data != null){
-					str += ` `+item.boardNo+``+item.id+``+item.content+``+item.title+``+item.view+``+item.replyCount+` `;
-				}else{
-					str = ` <h3>"조회할 게시글이 없습니다."</h3> `;
-				 }
-			    })
-				 $("#contentListTest").append(str);
+				    if (data != null) {
+				        str2 += `<tr>
+				                    <td>` + item.boardNo + `</td>
+				                    <td>
+				                        <a href="/moment/board/dress/all/35">` + item.title + ` 
+				                            <span style="color:red;">[` + item.replyCount + `]</span>
+				                        </a>
+				                    </td>
+				                    <td>` + item.id + `</td>
+				                    <td>` + item.writeDt + `</td>
+				                    <td>` + item.view + `</td>
+				                </tr>`;
+				    } else {
+				        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
+				    }
+				});
+
+				$("#contentList").append(str1 + str2 + str3);
 				
 			}
 		}) 
 	}
+
+/* 앨범 타입 호출 */
+function albumType(){
+		 $.ajax({
+			url: "/moment/board/artAlbum",
+			type: "GET",
+			data: data,
+			dataType: "json",
+			success: function(data){
+				console.log(data);
+				$("#contentList").empty();
+				str1 = `<div>
+							<div class="listType">
+								<table class="table table-bordered" id="boardList">
+									<colgroup><col style="width: 10%;">
+										<col style="width: 35%;">
+										<col style="width: 20%;">
+										<col style="width: 20%;">
+										<col style="width: 15%;">
+									</colgroup>
+								<thead>
+									<tr class="text-center">
+										<th>번호</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>작성일</th>
+										<th>조회수</th>
+									</tr>
+								</thead>
+								<tbody>`
+						str3 =	`</tbody>
+								</table>  
+							</div>
+					</div>`;
+				$.each(data, function(index, item) {
+				    if (data != null) {
+				        str2 += `<tr>
+				                    <td>` + item.boardNo + `</td>
+				                    <td>
+				                        <a href="/moment/board/dress/all/35">` + item.title + ` 
+				                            <span style="color:red;">[` + item.replyCount + `]</span>
+				                        </a>
+				                    </td>
+				                    <td>` + item.id + `</td>
+				                    <td>` + item.writeDt + `</td>
+				                    <td>` + item.view + `</td>
+				                </tr>`;
+				    } else {
+				        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
+				    }
+				});
+
+				$("#contentList").append(str1 + str2 + str3);
+				
+			}
+		}) 
+	} 
+
 	
-	readAllList();
+	listType();
 </script>

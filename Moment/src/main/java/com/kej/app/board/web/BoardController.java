@@ -216,11 +216,25 @@ public class BoardController {
 		return "artBoard/boardArtPage";
 	}
 	
-	// Ajax Get Method
-	@RequestMapping(value="/artTemp", method = {RequestMethod.GET})
+	// Ajax Get Method ListType
+	@RequestMapping(value="/artList", method = {RequestMethod.GET})
 	@ResponseBody
-	public List<BoardVO> artGetPosts(Criteria cri){
+	public List<BoardVO> artGetList(Criteria cri){
 		return service.artBoardList(cri);
+	}
+	
+	// Ajax Get Method CardType
+	@RequestMapping(value="/artCard", method = {RequestMethod.GET})
+	@ResponseBody
+	public List<BoardVO> artGetCard(Criteria cri){
+		return service.artBoardCard(cri);
+	}
+	
+	// Ajax Get Method AlbumType
+	@RequestMapping(value="/artAlbum", method = {RequestMethod.GET})
+	@ResponseBody
+	public List<BoardVO> artGetAlbum(Criteria cri){
+		return service.artBoardAlbum(cri);
 	}
 	
 	//아트게시판 상세 조회
