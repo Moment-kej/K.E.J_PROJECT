@@ -24,6 +24,7 @@ const createAndAppendElement = (parent, elementType, attributes = {}, content = 
    return element;
 };
 // =====================================================================================
+const boardListContainer = document.getElementById("boardList");
 // 게시글 List형태
 const createSortListTypeComponent = (data) => {
    const table = createAndAppendElement(document.body, 'table', { class: 'boardSortListType container mx-auto' });
@@ -54,16 +55,15 @@ const createSortListTypeComponent = (data) => {
       createAndAppendElement(titleElement, 'span', { class: 'reply_count'}, ' [' + item.replyCount + ']');
    });
 
-   const boardListContainer = document.getElementById("boardList");
    boardListContainer.appendChild(table);
 }
 // =====================================================================================
+// 게시글 Card 형태
 const createSortCardTypeComponent = (data) => {
-   // 부모 요소 찾기
-   const boardListFind = document.getElementById("boardList");
-   const boardSortCardType = createAndAppendElement(boardListFind, 'ul', { id : 'boardSortCardType'});
+   const boardSortCardType = createAndAppendElement(boardListContainer, 'ul', { id : 'boardSortCardType'});
 
    data.map((item) => { 
+      const dateFormat = formatTimestamp(item.writeDt);
       // createAndAppendElement 함수를 사용하여 새로운 리스트 아이템 생성 및 추가
       const newListItem = createAndAppendElement(boardSortCardType, 'li');
 
@@ -76,7 +76,7 @@ const createSortCardTypeComponent = (data) => {
       const infoArea = createAndAppendElement(conTop, 'div', { class: 'info_area' });
       const userInfo = createAndAppendElement(infoArea, 'div', { class: 'user_info d-flex justify-content-start align-items-center' });
       createAndAppendElement(userInfo, 'div', { class: 'write_id' }, '<span>'+ item.id +'</span>');
-      createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span class="date">' + item.write_dt + '</span>');
+      createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span class="date">' + dateFormat + '</span>');
       createAndAppendElement(userInfo, 'div', { class: 'view'}, '<span>조회</span><span>' + item.view + '</span>');
       const commentDiv = createAndAppendElement(userInfo, 'div', {});
       createAndAppendElement(commentDiv, 'i', { class: 'fa-regular fa-comment-dots' });
@@ -87,8 +87,35 @@ const createSortCardTypeComponent = (data) => {
       createAndAppendElement(imgLink, 'img', { src: '#', alt: '썸네일 이미지' });
    });
 
-   boardListFind.appendChild(boardSortCardType);
+   boardListContainer.appendChild(boardSortCardType);
 }
+// =====================================================================================
+// 게시글 Album 형태
+const createSortAlbumTypeComponent = (data) => {
+   console.log("10개만 나타나게하는 방법", data.slice(0, 10))
+   const albumTypeArea = createAndAppendElement(boardListContainer, 'div', { class: 'albumType'} );
+   data.map((item) => {
+      const dateFormat = formatTimestamp(item.writeDt);
+      const postTypeArea = createAndAppendElement(albumTypeArea, 'div', { class: 'postType'} );
+      const cardTypeArea = createAndAppendElement(postTypeArea, 'div', { class: 'cardType mr-3'} )
+
+      const imgArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeImgArea' });
+      const aLinkElement = createAndAppendElement(imgArea, 'a', { href: '/app/board/dress/all/' + item.boardNo });
+      const imgElement = createAndAppendElement(aLinkElement, 'img', { class: 'albumTypeImg', src: '/app/assets/images/noImages.png' });
+
+      const titleArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeTitleArea' });
+      const titleSpan = createAndAppendElement(titleArea, 'span', { class: 'title' }, item.title);
+
+      const idArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeIDArea' });
+      const idSpan = createAndAppendElement(idArea, 'span', { class: 'writeID' }, item.id);
+
+      const infoArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeInfoArea d-flex justify-content-start align-items-center' });
+
+      const dateSpan = createAndAppendElement(infoArea, 'span', { class: 'writeDt' }, dateFormat);
+      const viewSpan = createAndAppendElement(infoArea, 'span', { class: 'view' }, ' ⦁ 조회 ' + item.view);
+
+   });
+}  
 
 // ======================================================================
 const showContent = (viewType) => {
@@ -104,11 +131,7 @@ const showContent = (viewType) => {
             createSortCardTypeComponent(data);
          }
          if(viewType == "albumType") {
-            Swal.fire({
-               icon: 'warning',
-               title: '준비중',
-               text: '준비중',
-            });
+            createSortAlbumTypeComponent(data);
          } 
          if(viewType == "listType") {
             createSortListTypeComponent(data);
@@ -147,18 +170,15 @@ const viewTypeBtn = () => {
    });
 }
 
+let listSizeValue;
 const listSizeSelect = () => {
    $("#handleAmount").on('change', (e) => {
       let listSizeValue = e.target.value.toString();
       console.log(listSizeValue);
    });
-   // $("select[id=handleAmount]").on("change" => {
-   //    console.log($(this).val()); //value값 가져오기
-   //    console.log($("select[name=location] option:selected").text()); //text값 가져오기
-   // });
 }
 
-$( document ).ready(function() {
+$().ready(function() {
    viewTypeBtn();
    listSizeSelect();
 });
