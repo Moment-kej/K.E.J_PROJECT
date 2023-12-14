@@ -23,7 +23,7 @@
                                     <li><a class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
                                     <c:forEach var="list" items="${code.CA}">
                                         <c:if test="${list.commonDetailEx eq '음악 카테고리'}">
-                                            <li><a class="menuCategoryATag">${list.commonDetailName}</a></li>
+                                            <li><a class="menuCategoryATag" data-value="${list.commonDetailCd}">${list.commonDetailName}</a></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -91,10 +91,10 @@
                                 <div class="d-flex">
                                     <select name="category" id="boardCategory">
                                         <option value="0">카테고리</option>
-                                        <option value="케이팝">케입팝</option>
-                                        <option value="국악">국악</option>
-                                        <option value="발라드">발라드</option>
-                                        <option value="팝송">팝송</option>
+                                        <option value="200">케입팝</option>
+                                        <option value="201">국악</option>
+                                        <option value="202">발라드</option>
+                                        <option value="203">팝송</option>
                                     </select>
                                     <select name="searchType" id="searchType">
                                         <option value="">게시글 + 댓글</option>

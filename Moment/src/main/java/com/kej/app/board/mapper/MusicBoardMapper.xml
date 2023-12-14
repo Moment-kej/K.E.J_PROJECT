@@ -21,6 +21,8 @@
 	     FROM board b
 	    WHERE b.yn = 1
 	      AND code = #{code}
+	      AND category LIKE CONCAT('%', #{category}, '%')
+	    LIMIT #{amount}
   	</select>
   	
   	

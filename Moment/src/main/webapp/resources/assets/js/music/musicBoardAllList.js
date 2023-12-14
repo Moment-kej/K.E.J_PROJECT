@@ -50,9 +50,10 @@ const createSortListTypeComponent = (data) => {
          const tdContent = '<span class="' + key + '">' + item[key] + '</span>';
          createAndAppendElement(trBody, 'td', { scope: 'row', class: 'td_' + key + ' ' + item.boardNo }, tdContent);
       }
-
+      
       const titleElement = document.getElementsByClassName("td_title " + item.boardNo)[0];
-      createAndAppendElement(titleElement, 'span', { class: 'reply_count'}, ' [' + item.replyCount + ']');
+      const LinkElement = createAndAppendElement(titleElement, 'a', { href: '/app/board/music/' + item.boardNo });
+      createAndAppendElement(LinkElement, 'span', { class: 'reply_count'}, ' [' + item.replyCount + ']');
    });
 
    boardListContainer.appendChild(table);
@@ -71,7 +72,7 @@ const createSortCardTypeComponent = (data) => {
       const cardTypeArea = createAndAppendElement(newListItem, 'div', { class: 'cardTypeArea d-flex justify-content-between align-items-center' });
       const conTop = createAndAppendElement(cardTypeArea, 'div', { class: 'con_top' });
       const titleArea = createAndAppendElement(conTop, 'div', { class: 'title_area' });
-      createAndAppendElement(titleArea, 'a', { href: '#', class: '' }, '<span class="">' + item.title + '</span>');
+      createAndAppendElement(titleArea, 'a', { href: '/app/board/music/' + item.boardNo, class: 'title' }, '<span class="">' + item.title + '</span>');
 
       const infoArea = createAndAppendElement(conTop, 'div', { class: 'info_area' });
       const userInfo = createAndAppendElement(infoArea, 'div', { class: 'user_info d-flex justify-content-start align-items-center' });
@@ -92,7 +93,6 @@ const createSortCardTypeComponent = (data) => {
 // =====================================================================================
 // 게시글 Album 형태
 const createSortAlbumTypeComponent = (data) => {
-   console.log("10개만 나타나게하는 방법", data.slice(0, 10))
    const albumTypeArea = createAndAppendElement(boardListContainer, 'div', { class: 'albumType'} );
    data.map((item) => {
       const dateFormat = formatTimestamp(item.writeDt);
@@ -100,7 +100,7 @@ const createSortAlbumTypeComponent = (data) => {
       const cardTypeArea = createAndAppendElement(postTypeArea, 'div', { class: 'cardType mr-3'} )
 
       const imgArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeImgArea' });
-      const aLinkElement = createAndAppendElement(imgArea, 'a', { href: '/app/board/dress/all/' + item.boardNo });
+      const aLinkElement = createAndAppendElement(imgArea, 'a', { href: '/app/board/music/' + item.boardNo });
       const imgElement = createAndAppendElement(aLinkElement, 'img', { class: 'albumTypeImg', src: '/app/assets/images/noImages.png' });
 
       const titleArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeTitleArea' });
@@ -115,18 +115,22 @@ const createSortAlbumTypeComponent = (data) => {
       const viewSpan = createAndAppendElement(infoArea, 'span', { class: 'view' }, ' ⦁ 조회 ' + item.view);
 
    });
-}  
+}
 
 // ======================================================================
-const showContent = (viewType) => {
+const showContent = (viewType, amount, category) => {
    $.ajax({
       url : firstContextPath + "/board/music-data",
       method : "GET",
-      data :{ code : 20 },
+      data :{ code: 20, amount: amount, listType: viewType, category: category },
       contentType: "application/json", // 클라이언트 -> 서버로 전송할 데이터 타입
       dataType : "json", // 서버 -> 클라이언트로 받을 때 데이터 타입',
       success : (data) => {
          clearContent();
+         //console.log("Ajax의 viewType과 amount", viewType + "/" + amount)
+         currentViewType = viewType
+         amount = amount;
+         category = category;
          if(viewType == "cardType") {
             createSortCardTypeComponent(data);
          }
@@ -147,6 +151,7 @@ const showContent = (viewType) => {
    });
 }
 
+// =====================================================================================
 const clearContent = () => {
    const parentElement = document.getElementById("boardList")
    while (parentElement.firstChild) { // 
@@ -154,31 +159,40 @@ const clearContent = () => {
    };
 }
 
-let currentViewType = "listType"
-const viewTypeBtn = () => {
-   showContent(currentViewType);
+// =====================================================================================
+let currentViewType = "listType"; // 카드형, 앨범형, 리스트형 
+let category = 0; // 국악, 발라드, k-pop 등
+let amount = 10; // 게시글 몇개씩 보여줄건지?
+const init = () => {
    document.getElementById("cardType").addEventListener("click", () => {
-      showContent("cardType");
+      showContent("cardType", amount, category);
    });
 
    document.getElementById("albumType").addEventListener("click", () => {
-      showContent("albumType")
+      showContent("albumType", amount, category);
    });
 
    document.getElementById("listType").addEventListener("click", () => {
-      showContent("listType")
+      showContent("listType", amount, category);
    });
+
+   $("#handleAmount").on("change", (e) => {
+      amount = e.target.value;
+      showContent(currentViewType, amount, category);
+   });
+
+   $(".menuCategoryATag").on("click", (e) => {
+      category = e.target.getAttribute("data-value");
+      if(category == null || category == undefined) {
+         category = 0
+      }
+      showContent(currentViewType, amount, category);
+   });
+
+   showContent(currentViewType, amount, category);
 }
 
-let listSizeValue;
-const listSizeSelect = () => {
-   $("#handleAmount").on('change', (e) => {
-      let listSizeValue = e.target.value.toString();
-      console.log(listSizeValue);
-   });
-}
-
+// =====================================================================================
 $().ready(function() {
-   viewTypeBtn();
-   listSizeSelect();
+   init();
 });

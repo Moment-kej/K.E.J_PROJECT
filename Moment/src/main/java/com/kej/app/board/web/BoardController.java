@@ -304,6 +304,7 @@ public class BoardController {
  	@ResponseBody
  	public List<BoardVO> musicAllList (Criteria cri) {
  		
+ 		System.out.println("cricricricricricricricricricricricricricricricricricricricricricricricricricri" + cri);
  		return musicService.musicBoardAllList(cri);
  	}
         
