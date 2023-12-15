@@ -86,7 +86,7 @@
                                     <span class="date"><fmt:formatDate value="${dress.writeDt}" pattern="yy/MM/dd HH:mm:ss (EE)"/></span>
                                     <span class="view">조회
                                         <span class="viewCount">
-                                            ${dress.view}
+                                            ${dress.viewCount}
                                         </span>
                                     </span>
                                 </div>
