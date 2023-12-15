@@ -239,7 +239,6 @@ const ChildreplyRender = (post, containal) => {
 
     // 문자열로 변환
     childCommentHTML = document.querySelector(containal).outerHTML;
-    console.log(childCommentHTML);
 
     // 부모 댓글에 대한 자식 댓글을 원본 댓글에 추가
     let parentCommentContainer = document.getElementById('originalComment_' + post.groupNo);
@@ -267,6 +266,10 @@ const replyRender = (post) => {
         const replyInnerSection = document.createElement('div');
         replyInnerSection.classList.add('replyInnerSecion', 'hrStyle', 'pb-4', 'mb-2',);
         replyInnerSection.id = 'originalComment_' + item.replyNo;
+
+        // 부모댓글 감쌀 div 생성
+        const parentReplyContainal = document.createElement('div');
+        parentReplyContainal.className = 'parentReplyContainal';
 
         // 사용자 정보 부분 생성
         const userContainer = document.createElement('div');
@@ -300,28 +303,55 @@ const replyRender = (post) => {
 
         infoContainer.appendChild(replyInfoID);
         infoContainer.appendChild(replyInfoDate);
+
         replyInfoBox.appendChild(infoContainer);
 
         userContainer.appendChild(replyInfoBox);
-        replyInnerSection.appendChild(userContainer);
+        parentReplyContainal.appendChild(userContainer);
+        // replyInnerSection.appendChild(userContainer);
 
+        // 부모댓글 수정, 삭제 버튼
+        const bntContainer = document.createElement('div');
+        bntContainer.className = 'commentBtnBox';
+
+        const modifyButton = document.createElement('button');
+        modifyButton.id = 'modifyBtnBox';
+        const modifyButton_i = document.createElement('i');
+        modifyButton_i.classList.add('fa-solid','fa-pen-to-square');
+        modifyButton.appendChild(modifyButton_i);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.id = 'deleteBtnBox';
+        const deleteButton_i = document.createElement('i');
+        deleteButton_i.classList.add('fa-soild','fa-trash');
+        deleteButton.appendChild(deleteButton_i);
+
+        bntContainer.appendChild(modifyButton);
+        bntContainer.appendChild(deleteButton);
+
+        parentReplyContainal.appendChild(bntContainer);
+        
         // 댓글 내용 부분 생성
         const commentContent = document.createElement('div');
         commentContent.classList.add('commentContent');
         commentContent.innerHTML = '<span>' + item.content +'</span>';
-        replyInnerSection.appendChild(commentContent);
-
+        parentReplyContainal.appendChild(commentContent);
+        // replyInnerSection.appendChild(commentContent);
+        
         // 답글 작성 버튼 부분 생성
         const commentWirterBtnBox = document.createElement('div');
         commentWirterBtnBox.classList.add('commentWirterBtnBox');
-
+        
         const replyWriterBtn = document.createElement('a');
         replyWriterBtn.id = 'replyWriterBnt_' + item.replyNo;
         replyWriterBtn.textContent = '답글작성';
         replyWriterBtn.style.cursor = 'pointer';
-
+        
         commentWirterBtnBox.appendChild(replyWriterBtn);
-        replyInnerSection.appendChild(commentWirterBtnBox);
+        parentReplyContainal.appendChild(commentWirterBtnBox);
+        // replyInnerSection.appendChild(commentWirterBtnBox);
+        
+        replyInnerSection.appendChild(parentReplyContainal);
 
         // 대댓글 작성 부분------------------------------------------
         const replyWriterContainer = document.createElement('div');
@@ -334,56 +364,63 @@ const replyRender = (post) => {
         childReplyContent.classList.add('childReplyContainal', 'pl-4', 'mt-3');
         childReplyContent.id = 'child_reply_' + item.replyNo;
 
-        // div추가
         const childReplyinnerContainal = document.createElement('div');
         childReplyinnerContainal.classList.add('childReplyinnerContainal');
 
         childReplyContent.appendChild(childReplyinnerContainal);
 
-        // 내부 요소 생성
         const innerDiv1 = document.createElement('div');
-        const innerDiv2 = document.createElement('div');
-        const commentWriterDiv = document.createElement('div');
-        const commentInboxDiv = document.createElement('div');
-        const commentInboxNameSpan = document.createElement('span');
-        const textarea = document.createElement('textarea');
-        const commentAttachDiv = document.createElement('div');
-        const commentBoxWriteCountDiv = document.createElement('div');
-        const countNumStrong = document.createElement('strong');
-        const slashSpan = document.createElement('span');
-        const writeTotalSpan = document.createElement('span');
-        const registerBoxDiv = document.createElement('div');
-        const submitButton = document.createElement('a');
-
-        // 각 요소에 클래스 추가
         innerDiv1.classList.add('commentWriter');
+
+        const innerDiv2 = document.createElement('div');
+
+        const commentWriterDiv = document.createElement('div');
+
+        const commentInboxDiv = document.createElement('div');
         commentInboxDiv.classList.add('comment_inbox');
+
+        const commentInboxNameSpan = document.createElement('span');
         commentInboxNameSpan.classList.add('comment_inbox_name');
+
+        const textarea = document.createElement('textarea');
         textarea.setAttribute('placeholder', '댓글을 남겨보세요');
         textarea.id = 'replySectionTwoTextarea_' + item.replyNo;
+
+        const commentAttachDiv = document.createElement('div');
         commentAttachDiv.classList.add('comment_attach', 'd-flex', 'justify-content-between', 'align-items-center');
+
+        const commentBoxWriteCountDiv = document.createElement('div');
         commentBoxWriteCountDiv.classList.add('comment_box_write_count');
+
+        const countNumStrong = document.createElement('strong');
         countNumStrong.classList.add('fontSizeSmall', 'comment_box_count_num');
         countNumStrong.id = 'writeCount_' + item.replyNo;
-        slashSpan.classList.add('fontSizeSmall');
-        writeTotalSpan.classList.add('fontSizeSmall', 'comment_box_write_total');
-        registerBoxDiv.classList.add('register_box');
-        submitButton.classList.add('button');
-
-        // 텍스트 내용 추가
-        commentInboxNameSpan.textContent = '똥심';
         countNumStrong.textContent = '0';
+        
+        const slashSpan = document.createElement('span');
+        slashSpan.classList.add('fontSizeSmall');
         slashSpan.textContent = '/';
-        writeTotalSpan.textContent = '100';
-        submitButton.textContent = '등록';
 
-        // 구조에 맞게 요소들을 조합
+        const writeTotalSpan = document.createElement('span');
+        writeTotalSpan.classList.add('fontSizeSmall', 'comment_box_write_total');
+        writeTotalSpan.textContent = '100';
+        
         commentBoxWriteCountDiv.appendChild(countNumStrong);
         commentBoxWriteCountDiv.appendChild(slashSpan);
         commentBoxWriteCountDiv.appendChild(writeTotalSpan);
-
         commentAttachDiv.appendChild(commentBoxWriteCountDiv);
+
+        const registerBoxDiv = document.createElement('div');
+        registerBoxDiv.classList.add('register_box');
+        
         commentAttachDiv.appendChild(registerBoxDiv);
+        
+        const submitButton = document.createElement('a');
+        submitButton.classList.add('button');
+        submitButton.textContent = '등록';
+        
+        // 텍스트 내용 추가
+        commentInboxNameSpan.textContent = '똥심';
 
         registerBoxDiv.appendChild(submitButton);
 
@@ -484,7 +521,7 @@ const relatedListRender = (posts) => {
         div_3.className = 'date_area';
 
         const div_3_span = document.createElement('span');
-        div_3_span.classList.add('text-right','textColorGray');
+        div_3_span.classList.add('text-right','textColorGray','pr-2');
         div_3_span.innerText = formatTimestamp(post.writeDt);
 
         div_3.appendChild(div_3_span);   // div_3 최종

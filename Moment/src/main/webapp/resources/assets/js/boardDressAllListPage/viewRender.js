@@ -63,7 +63,7 @@ const createTable = (posts) => {
         posts.forEach(post => {
             let replyCount = post.replyCount;
             const row = document.createElement('tr');
-            const data = [post.boardNo, post.title, post.id, formatTimestamp(post.writeDt), post.view];
+            const data = [post.boardNo, post.title, post.id, formatTimestamp(post.writeDt), post.viewCount];
 
             data.forEach((cellText, index) => {
                 const td = document.createElement('td');
@@ -99,7 +99,7 @@ const createPostElement = (post) => {
 
     let boardWriter = post.id;                          // 닉네임
     let boardWriteDt = formatTimestamp(post.writeDt);   // 시간
-    let boardView = post.view;                          // 조회수
+    let boardView = post.viewCount;                     // 조회수
     let boardReplyCount = post.replyCount;              // 댓글개수
 
     switch (currentView) {

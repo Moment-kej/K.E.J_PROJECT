@@ -107,7 +107,7 @@ public class BoardController {
 				oldCookie.setPath("/");
 				oldCookie.setMaxAge(60*60*24);	// 쿠키 시간
 				res.addCookie(oldCookie);
-				view.setView(count);
+				view.setViewCount(count);
 			}
 		} else {								// oldCookie가 null일 때
 			service.dressBoardViewCount(boardNo);									// 조회수 올리는 메소드 호출

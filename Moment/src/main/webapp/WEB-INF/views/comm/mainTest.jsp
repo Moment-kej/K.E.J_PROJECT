@@ -11,15 +11,32 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title">추천도서</p>
-                            <!-- book category -->
-                            <div class="newsCategoryChange mb-2">
-                                <a onclick="createBookComponent('/moment', 1, 'all')" id="allLink" class="categoryLink">전체</a>
-                                <c:forEach var="cBoardlist" items="${code.CO}">
-                                <a onclick="createBookComponent('/moment', 1, '${cBoardlist.commonDetailName}')" class="categoryLink">${cBoardlist.commonDetailName}</a>
-                                </c:forEach>
-                            </div>  <!-- book category end -->
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                                <!-- Navbar content -->
+                                <div class="container-fluid">
+                                    <button class="navbar-toggler category-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                            <li class="nav-item">
+                                                <a onclick="createBookComponent('${pageContext.request.contextPath}', 1, 'all')" id="allLink" class="categoryLink nav-link" aria-current="page">전체</a>
+                                            </li>
+                                            <c:forEach var="cBoardlist" items="${code.CO}">
+                                            <li class="nav-item">
+                                                <a onclick="createBookComponent('${pageContext.request.contextPath}', 1, '${cBoardlist.commonDetailName}')" class="categoryLink nav-link">${cBoardlist.commonDetailName}</a>
+                                            </li>
+                                            </c:forEach>
+                                        </ul>
+                                    <form class="d-flex">
+                                        <input class="form-control me-2" type="search" placeholder="입력해주세요" aria-label="Search" id="bookSerachName">
+                                        <button class="btn btn-outline-success" type="button" id="bookSerachBnt">Search</button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </nav>
                             <!-- book list rendering -->
-                            <ul class="icon-data-list mt-5" id="bookList"></ul>
+                            <ul class="icon-data-list mt-2" id="bookList"></ul>
                             <!-- book list rendering -->
 
                             <div class="d-flex justify-content-center inner-div">
@@ -33,16 +50,34 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title">뉴스<b>100</b></p>
-                            <!-- news category -->
-                            <div class="newsCategoryChange mb-2">
-                                <a onclick="createNewsComponent('/moment', 1, 'all')" id="allLink" class="categoryLink">전체</a>
-                                <c:forEach var="cBoardlist" items="${code.CO}">
-                                <a onclick="createNewsComponent('/moment', 1, '${cBoardlist.commonDetailName}')" class="categoryLink">${cBoardlist.commonDetailName}</a>
-                                </c:forEach>
-                            </div>  <!-- news category end -->
+
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                                <!-- Navbar content -->
+                                <div class="container-fluid">
+                                    <button class="navbar-toggler category-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                            <li class="nav-item">
+                                                <a onclick="createNewsComponent('/moment', 1, 'all')" id="allLink" class="categoryLink nav-link" aria-current="page">전체</a>
+                                            </li>
+                                            <c:forEach var="cBoardlist" items="${code.CO}">
+                                            <li class="nav-item">
+                                                <a onclick="createNewsComponent('/moment', 1, '${cBoardlist.commonDetailName}')" class="categoryLink nav-link">${cBoardlist.commonDetailName}</a>
+                                            </li>
+                                            </c:forEach>
+                                        </ul>
+                                    <form class="d-flex">
+                                        <input class="form-control me-2" type="search" placeholder="입력해주세요" aria-label="Search" id="newsSerachName">
+                                        <button class="btn btn-outline-success" type="button" id="newsSerachBnt">Search</button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </nav>
 
                             <!-- news list rendering -->
-                            <ul class="icon-data-list" id="newsList"></ul>
+                            <ul class="icon-data-list mt-2" id="newsList"></ul>
                             <!-- news list rendering -->
 
                             <!-- pagenation -->
@@ -65,6 +100,29 @@
                                     <input type="hidden" id="book_currentPage" value="1">
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 stretch-card grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">최신 게시글</p>
+                            <!-- new board rendering -->
+                            <div id="newBoardList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 stretch-card grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                        <div>
+                            <p class="card-title">인기 게시글</p>
+                        <!-- top board rendering -->
+                        </div id="topBoardList"></div>
                         </div>
                     </div>
                 </div>
@@ -182,6 +240,25 @@
                 }
             });
         };
+
+        const bookSearch = () => {
+            document.getElementById('bookSerachBnt').addEventListener('click', () => {
+                let query = document.getElementById('bookSerachName').value;
+                
+                $.ajax({
+                    url: '/moment/naverBook?page=1&query=' + query,
+                    method : 'GET',
+                    dataType : 'json',
+                    success: (data) => {
+                        bookListRender(data);
+                    },
+                    error: (err) => {
+                        console.error('naver_book >>> 오류', err);
+                    }
+                });
+            })
+        };
+        bookSearch();
         
         // 책 리스트 랜더링
         const bookListRender = (data) => {
@@ -232,6 +309,45 @@
             });
         };
 
+        const newsListRender = (data) => {
+            document.querySelector("#newsList").innerHTML = '';
+
+            data.map((item) => {
+                const liTag = document.createElement("li");
+
+                const parentDiv = document.createElement("div");
+                parentDiv.className = "d-flex";
+
+                const childDiv = document.createElement("div");
+
+                const titlePTag = document.createElement("p");
+                titlePTag.classList.add("text-info", "mb-1");
+                
+                const aTag = document.createElement("a");
+                aTag.href = item.link;
+                aTag.target = "_blank";
+                
+                const textBoldTag = document.createElement("b");
+                textBoldTag.innerHTML = item.title;
+                aTag.appendChild(textBoldTag);
+                titlePTag.appendChild(aTag);
+                
+                const descriptionPTag = document.createElement("p");
+                descriptionPTag.className = "mb-0";
+                descriptionPTag.innerHTML = item.description
+                
+                const smallTag = document.createElement("small");
+                smallTag.innerText = formatTimestamp(item.pubDate);
+
+                childDiv.append(titlePTag);
+                childDiv.append(descriptionPTag);
+                childDiv.append(smallTag);
+                parentDiv.append(childDiv);
+                liTag.append(parentDiv);
+                document.querySelector("#newsList").append(liTag);
+            });
+        }
+
         const createNewsComponent = (contextPath, currentPageNumber, querySearch) => {
             const newsList = document.querySelector("#newsList");
             newsList.textContent = "";
@@ -240,46 +356,33 @@
                 method : 'GET',
                 dataType : 'json',
                 success: (data) => {
-                    data.map((item) => {
-                        const liTag = document.createElement("li");
-
-                        const parentDiv = document.createElement("div");
-                        parentDiv.className = "d-flex";
-
-                        const childDiv = document.createElement("div");
-
-                        const titlePTag = document.createElement("p");
-                        titlePTag.classList.add("text-info", "mb-1");
-                        
-                        const aTag = document.createElement("a");
-                        aTag.href = item.link;
-                        aTag.target = "_blank";
-                        
-                        const textBoldTag = document.createElement("b");
-                        textBoldTag.innerText = item.title;
-                        aTag.appendChild(textBoldTag);
-                        titlePTag.appendChild(aTag);
-                        
-                        const descriptionPTag = document.createElement("p");
-                        descriptionPTag.className = "mb-0";
-                        descriptionPTag.innerHTML = item.description
-                        
-                        const smallTag = document.createElement("small");
-                        smallTag.innerText = formatTimestamp(item.pubDate);
-
-                        childDiv.append(titlePTag);
-                        childDiv.append(descriptionPTag);
-                        childDiv.append(smallTag);
-                        parentDiv.append(childDiv);
-                        liTag.append(parentDiv);
-                        document.querySelector("#newsList").append(liTag);
-                    });
+                    newsListRender(data);
                 },
                 error: (err) => {
                     console.error(err);
                 }
             });
         };
+
+        
+        const newsSearch = () => {
+            document.getElementById('newsSerachBnt').addEventListener('click', () => {
+                let query = document.getElementById('newsSerachName').value;
+                
+                $.ajax({
+                    url: '/moment/naverNews?page=1&query=' + query,
+                    method : 'GET',
+                    dataType : 'json',
+                    success: (data) => {
+                        newsListRender(data);
+                    },
+                    error: (err) => {
+                        console.error('naverNews >>> 오류', err);
+                    }
+                });
+            })
+        };
+        newsSearch();
         //------------------------------------------------------------------------
         // news pagenation 조건
         const newsPagenationCondition = (currentPageNumber) => {
@@ -414,7 +517,7 @@
             let contextPath = document.getElementById('contextPath').value;
             bookPageChangeBnt();
             newsPageChangeBnt();
-            createBookComponent(contextPath, 1, "IT");
-            createNewsComponent(contextPath, 1, "IT");
+            createBookComponent(contextPath, 1, "all");
+            createNewsComponent(contextPath, 1, "all");
         };
     </script>
