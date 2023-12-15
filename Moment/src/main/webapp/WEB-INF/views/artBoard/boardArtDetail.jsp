@@ -20,7 +20,7 @@
                   <div class="cntnHeaderBox">
                     <div class="headerTitleBox">
                       <a href="#">해당 게시판 목록<i class="fa-solid fa-angle-right"></i></a>
-                      <h3>게시글 Title</h3>
+                      <h3>${boardDetail.get('TITLE')}</h3>
                     </div>
                     <div class="writerInfoBox">
                       <div class="d-flex justify-content-start align-items-center ">
@@ -29,11 +29,11 @@
                         </div>
                         <div class="writerInfo">
                           <div class="writerInfoID">
-                            <span class="userID">사용자ID</span>
+                            <span class="userID">${boardDetail.get('BOARD_ID')}</span>
                           </div>
                           <div class="d-flex justify-content-center align-items-center">
-                            <span class="date">2023.11.29 16:0:00</span>
-                            <span class="view">조회<span class="viewCount">5</span></span>
+                            <span class="date">${boardDetail.get('BOARD_WRITE_DT')}</span>
+                            <span class="view">조회<span class="viewCount">${boardDetail.get('VIEW_COUNT')}</span></span>
                           </div>
                         </div>
                       </div>
@@ -41,25 +41,16 @@
                     <hr>
                   </div>
                   <div class="contentViewer">
-                    게시글 본문 </br>
-                    게시글 본문 </br>
-                    게시글 본문 </br>
-                    게시글 본문 </br>
-                    게시글 본문 </br>
-                    게시글 본문 </br>
-                    게시글 본문 </br>
-                    게시글 본문 </br>
-                    게시글 본문 </br>
-                    게시글 본문 </br>
+                    ${boardDetail.get('BOARD_CONTENT')}
                   </div>
                   <div class="replyBox d-flex justify-content-start align-items-center">
                     <div class="likeBox d-flex justify-content-start align-items-center">
                       <span class="like"><i class="fa-regular fa-face-kiss-wink-heart"></i>좋아요</span>
-                      <span class="likeCount">10</span>
+                      <span class="likeCount">${boardDetail.get('LIKE_COUNT')}</span>
                     </div>
                     <div class="replyCountBox d-flex justify-content-start align-items-center">
                       <span class="reply"><i class="fa-regular fa-comment-dots"></i>댓글</span>
-                      <span class="replyCount">1</span>
+                      <span class="replyCount">${boardDetail.get('REPLY_COUNT')}</span>
                     </div>
                   </div>
                   <hr>
@@ -76,13 +67,13 @@
                             </div>
                             <div class="replyInfoBox ml-2">
                               <div>
-                                <span class="replyInfoID">UserID</span>
-                                <span class="replyInfoDate">2023.11.26. 18:14</span>
+                                <span class="replyInfoID">${boardDetail.get('ID')}</span>
+                                <span class="replyInfoDate">${boardDetail.get('RE_REPLY_WRITE_DT')}</span>
                               </div>
                             </div>
                           </div>
                           <div class="commentContent">
-                            <span>여기 고민해봐야할 듯<br> 1. 엔터가 먹힐까? 엔터가 누르면 br태그가 들어가야하나..? <br>그리고 구분할 때 hr tag를 사용했는데 규칙 못찾았음..</span>
+                            <span>${boardDetail.get('RE_REPLY_CONTENT')}</span>
                           </div>
                           <div class="commentWirterBtnBox">
                             <a href="#">답글작성</a>

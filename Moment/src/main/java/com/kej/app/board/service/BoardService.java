@@ -1,6 +1,7 @@
 package com.kej.app.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kej.app.board.service.vo.BoardListVO;
 import com.kej.app.board.service.vo.BoardVO;
@@ -23,7 +24,7 @@ public interface BoardService {
 	
 	public List<BoardVO> artBoardList(Criteria cri); // 전체조회(모든타입)
 	public int artPagecount(Criteria cri);
-	public BoardVO boardArtDetail(int BoardNo); // 상세 조회
+	public Map<String, Object> boardArtDetail(int BoardNo); // 상세 조회
 	
 	
 	
