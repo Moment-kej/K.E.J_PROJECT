@@ -173,10 +173,10 @@ const replySectionTwoTextarea = (replyNo) => {
 };
 // ------------------------------------------------------------
 // child reply render
-const ChildreplyRender = (post) => {
-    const childReplycontent = document.querySelector('.childReplyList');
+const ChildreplyRender = (post, containal) => {
+    // const childReplycontent = document.querySelector('.childReplyList');
 
-    childReplycontent.innerHTML = '';
+    document.querySelector(containal).innerHTML = '';
 
     const outContainer = document.createElement("div");
     outContainer.classList.add('mb-2','pb-3','pt-3', 'hrStyleChildReply');
@@ -235,15 +235,16 @@ const ChildreplyRender = (post) => {
     let childCommentHTML = '';
 
     // 엘리먼트들을 조립하여 문자열 '형태'로 만듦
-    childReplycontent.append(outContainer);
+    document.querySelector(containal).appendChild(outContainer);
 
     // 문자열로 변환
-    childCommentHTML = childReplycontent.outerHTML;
+    childCommentHTML = document.querySelector(containal).outerHTML;
+    console.log(childCommentHTML);
 
     // 부모 댓글에 대한 자식 댓글을 원본 댓글에 추가
     let parentCommentContainer = document.getElementById('originalComment_' + post.groupNo);
     if (parentCommentContainer) {
-        let childCommentsContainer = parentCommentContainer.querySelector(".childReplyList");
+        let childCommentsContainer = parentCommentContainer.querySelector(".childReplyinnerContainal");
         if (childCommentsContainer) {
             // 자식 댓글 컨테이너에 자식 댓글 HTML 추가
             // insertAdjacentHTML : 문자열 형태의 HTML을 받아서 처리
@@ -330,8 +331,14 @@ const replyRender = (post) => {
         
         // 대댓글 목록----------------------------------------------
         const childReplyContent = document.createElement('div');
-        childReplyContent.classList.add('childReplyList', 'pl-4', 'mt-3');
+        childReplyContent.classList.add('childReplyContainal', 'pl-4', 'mt-3');
         childReplyContent.id = 'child_reply_' + item.replyNo;
+
+        // div추가
+        const childReplyinnerContainal = document.createElement('div');
+        childReplyinnerContainal.classList.add('childReplyinnerContainal');
+
+        childReplyContent.appendChild(childReplyinnerContainal);
 
         // 내부 요소 생성
         const innerDiv1 = document.createElement('div');
@@ -415,14 +422,14 @@ const replyList = () => {
 
             if(child.length === 0) {        // 자식 댓글이 존재하지 않을 때
                 let removeElement = document.getElementById('child_reply_' + item.replyNo);
-                removeElement.classList.remove('childReplyList');
+                removeElement.style.display = 'none';
             } else {                        // 자식 댓글이 존재할 때
                 // 자식 댓글 리스트 랜더링하기
                 child.forEach(child_item => {
                 // 부모 댓글 번호와 자식 댓글의 group_no가 동일하면
                 if(replyNo == child_item.groupNo) {
                     // 자식 댓글 랜더링 함수 호출
-                        ChildreplyRender(child_item);
+                        ChildreplyRender(child_item, '.childReplyinnerContainal');
                     }
                 });
             }
