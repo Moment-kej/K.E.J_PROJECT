@@ -88,11 +88,11 @@
                             </div>
                           </div><!-- 은애언니, 수민 여기 부분 수정 (div 태그 닫기)-->
                           <div class="commentBtnBox"><!-- 은애언니, 수민 수정이랑 삭제 버튼! (commentBtnBox이 div안에 내용까지 통채로 넣기!)-->
-                            <button id="modifyBtnBox">
-                              <i id="commentModifyBtn" class="fa-solid fa-pen-to-square"></i>
+                            <button class="modifyBtnBox">
+                              <i class="fa-solid fa-pen-to-square commentModifyBtn"></i>
                             </button>
-                            <button id="deleteBtnBox">
-                              <i id="commentDelBtn" class="fa-solid fa-trash"></i>
+                            <button class="deleteBtnBox">
+                              <i class="fa-solid fa-trash commentDelBtn"></i>
                             </button>
                           </div><!-- 은애언니, 수민 수정이랑 삭제 버튼! (commentBtnBox이 div안에 내용까지 통채로 넣기!)-->
                         </div>
@@ -120,8 +120,8 @@
                               <span class="fontSizeSmall comment_box_write_total">500</span>
                             </div>
                             <div class="register_box">
-                              <button href="#" class="button">취소</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
-                              <button href="#" class="button">등록</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
+                              <button class="button">취소</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
+                              <button class="button">등록</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
                             </div>
                           </div>
                         </div>
@@ -164,8 +164,8 @@
                         <span class="fontSizeSmall comment_box_write_total">500</span>
                       </div>
                       <div class="register_box">
-                        <button href="#" class="button">취소</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
-                        <button href="#" class="button">등록</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
+                        <button class="button">취소</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
+                        <button class="button">등록</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
                       </div>
                     </div>
                   </div><!-- 원댓글 작성 폼 End -->

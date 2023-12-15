@@ -5,12 +5,6 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
-
-            <style>
-                .displyNone {
-                    display: none;
-                }
-            </style>
             <!--게시글 전체 목록 장소-->
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
@@ -32,9 +26,9 @@
                         <!-- 게시글 보기 양식 정하는 장소 -->
                         <div class="boardListForm">
                             <div class="boardListFormBtn">
-                                <a id="cardType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortCard.svg" alt="sort_card"></a>
-                                <a id="albumType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortAlbum.svg" alt="sort_album"></a>
-                                <a id="listType" class="boardListFormChangeBtn"><img src="${pageContext.request.contextPath}/assets/icon/sortList.svg" alt="sort_list"></a>
+                                <a id="cardType" class="boardListFormChangeBtn"><img id="sortCard" src="${pageContext.request.contextPath}/assets/icon/sortCard.svg" alt="sort_card"></a>
+                                <a id="albumType" class="boardListFormChangeBtn"><img id="sortAlbum" src="${pageContext.request.contextPath}/assets/icon/sortAlbum.svg" alt="sort_album"></a>
+                                <a id="listType" class="boardListFormChangeBtn"><img id="sortList" src="${pageContext.request.contextPath}/assets/icon/sortList.svg" alt="sort_list"></a>
                             </div>
                             <div class="listSizeSelect">
                                 <!-- 한번에 보여줄 개수 정하기 -->

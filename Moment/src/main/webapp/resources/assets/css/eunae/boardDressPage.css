@@ -134,6 +134,7 @@ fieldset {border : none !important;}
     border-radius: 8px;
 }
 /* 앨범형 스타일 */
+
 .postAlbumType > li {
     /* display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -142,16 +143,19 @@ fieldset {border : none !important;}
     padding: 16px 0;
     display: block;
 }
+
 .card_area {
     display: table;
     position: relative;
     width: 100%;
     table-layout: fixed;
 }
+
 .con {
     display: table-cell;
     position: relative;
 }
+
 .con_top > a:nth-child(2) {
     color: #3f3f3f !important;
     max-height: 44px;
@@ -161,11 +165,13 @@ fieldset {border : none !important;}
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
 .tit_area {
     margin-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
 }
+
 .con_bottom {
     display: flex;
     position: absolute;
@@ -174,14 +180,17 @@ fieldset {border : none !important;}
     width: 100%;
     padding-top: 35px;
 }
+
 .date_num {
     float: left;
     color: #999;
     margin-left: 10px;
 }
+
 .date_num > span {
     margin-right: 10px;
 }
+
 .movie-img {
     display: table-cell;
     position: relative;
@@ -190,6 +199,7 @@ fieldset {border : none !important;}
     /* padding-left: 35px; */
     vertical-align: top;
 }
+
 .movie-img a:before {
     position: absolute;
     top: 0;
@@ -200,6 +210,7 @@ fieldset {border : none !important;}
     content: '';
     box-sizing: border-box;
 }
+
 /* 카드형 스타일 */
 .cardsType {
     display: flex;
