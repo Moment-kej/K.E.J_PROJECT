@@ -23,6 +23,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/css/vendor.bundle.base.css">
 	<!-- boardAllList Page -->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/eunae/boardDressPage.css"/>
+	<!-- Board Music All List Page -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/music/boardMusicAllListPage.css"/>
 	<!-- boardDetail -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardDetail/boardDetail.css">
 	<!-- boardInsert -->
