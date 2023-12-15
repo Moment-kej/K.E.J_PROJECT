@@ -178,6 +178,12 @@
 								</table>  
 							</div>
 					</div>`;
+					}else if(viewType == "albumType"){
+						str1 = `<div class = "cardsType" >`
+						str3 = `</div class = "cardsType" >`
+					}else if(viewType == "cardsType"){
+						str1 = ``
+						srt3 = ``
 					}
 					
 					$.each(data, function(index, item) {
@@ -198,6 +204,57 @@
 						    } else {
 						        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
 						    }
+						}else if(viewType == "albumType"){
+							 if (data != null) {
+							        str2 += `<div class="postAlbumType">
+							        	<ui>
+							    		<li>
+							    			<div class="card_area">
+							    				<div class="con">
+							    					<div class="con_top">
+							    						<div class="tit_area">
+							    							<a href="/moment/board/dress/all/35">`+item.title+`</a>
+							    						</div>
+							    							<p>`+item.content+`</p>
+							    					</div>
+							    					<div class="con_bottom">
+							    						<div class="user_info">`+item.id+`</div>
+							    						<div class="date_num">
+							    							<span>`+item.writeDt+`</span>
+							    							<span>조회 `+item.view+`</span>
+							    							<span>댓글 `+item.replyCount+`</span>
+							    						</div>
+							    					</div>
+							    				</div>
+							    				<div class="movie-img" style="opacity: 0;">
+							    					<a>
+							    					</a>
+							    				</div>
+							    			</div>
+							    		</li>
+							    	</ui>
+							    </div>`;
+							    } else {
+							        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
+							    }
+						}else if(viewType == "cardsType"){
+							 if (data != null) {
+							        str2 += `<div class="postType">
+							        	<div class="cardType mr-3">
+							    		<a href="/moment/board/dress/all/35">
+							    			<img class="albumTypeImg" src="/moment/assets/images/noImages.png">
+							    		</a>
+							    		<p class="cardsPStyle">`+item.title+`</p>
+							    		<p>`+item.id+`</p>
+							    		<p style="font-size: 11px;">
+							    			<span>`+item.writeDt+`</span>
+							    			<span> ⦁ 조회 `+item.view+`</span>
+							    		</p>
+							    	</div>
+							    </div>`;
+							    } else {
+							        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
+							    }
 						}
 					});
 	
@@ -210,17 +267,17 @@
 	viewType();
 	// 리스트 타입
 	$("#listType").on("click", function(e) {
-		e.preventDefault();// 버튼 submit
+		e.preventDefault();// 새로고침 방지
 		viewType("listType");
 	});
 	// 카드 타입
 	$("#cardsType").on("click", function(e) {
-		e.preventDefault();// 버튼 submit
-		viewType("listType");
+		e.preventDefault();
+		viewType("cardsType");
 	});
 	// 앨범 타입
 	$("#albumType").on("click", function(e) {
-		e.preventDefault();// 버튼 submit
-		viewType("listType");
+		e.preventDefault();
+		viewType("albumType");
 	});
 </script>
