@@ -245,7 +245,7 @@
 			 , TITLE
 			 , CONTENT 
 			 , WRITE_DT
-			 , view
+			 , VIEW_COUNT
 			 ,(SELECT COUNT(REPLY_NO)
 			 	  FROM REPLY R
 			 	 WHERE 1=1
@@ -268,8 +268,36 @@
 	</select>
 
 	<!-- 상세조회 -->
-	<select id="boardArtDetail" resultType="BoardVO">
-		
+	<select id="boardArtDetail" resultType="map">
+		SELECT B.TITLE
+			 , B.ID AS BOARD_ID
+			 , B.WRITE_DT AS BOARD_WRITE_DT
+			 , B.VIEW_COUNT
+			 , B.CONTENT AS BOARD_CONTENT
+			 , COUNT(L.ID) AS LIKE_COUNT
+			 , COUNT(R.REPLY_NO) AS REPLY_COUNT
+			 , R.CONTENT 
+			 , R.ID 
+			 , R.WRITE_DT 
+			 , R.RE_REPLY_WRITE_DT 
+			 , R.RE_REPLY_CONTENT
+		  FROM BOARD B
+		  JOIN BOARD_LIKE L
+		    ON B.BOARD_NO = L.BOARD_NO
+		  JOIN REPLY R
+		    ON B.BOARD_NO = R.BOARD_NO
+		 WHERE R.YN = 1
+		   AND B.BOARD_NO = 3000
+		 GROUP BY B.TITLE
+			 , B.ID
+			 , B.WRITE_DT
+			 , B.VIEW_COUNT
+			 , B.CONTENT
+			 , R.CONTENT
+			 , R.ID 
+			 , R.WRITE_DT 
+			 , R.RE_REPLY_WRITE_DT
+			 , R.RE_REPLY_CONTENT
 	</select>
 
 

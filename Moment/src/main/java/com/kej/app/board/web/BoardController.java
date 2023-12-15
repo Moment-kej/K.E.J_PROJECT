@@ -1,6 +1,7 @@
 package com.kej.app.board.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -214,8 +215,11 @@ public class BoardController {
 	
 	//아트게시판 상세 조회
 	@GetMapping("/art/boardNo")
-	public String BoardArtDetail(Model model) {
+	public String BoardArtDetail(Model model, BoardVO boardVO) {
+		Map<String, Object> boardDetail = service.boardArtDetail(boardVO.getBoardNo()); // vo를 답글과 게시판 두개를 써야함으로 map형태로 바꿔주기
+		System.out.println("boardDetail" + boardDetail);
 		
+		model.addAttribute("boardDetail", boardDetail);
 		return "artBoard/boardArtDetail";
 	}
 	
@@ -275,12 +279,17 @@ public class BoardController {
     	return "musicBoard/boardMusicAllListPage";
     }
     
+    @GetMapping("/music/detail")
+    public String musicDetailPage(Model model) {
+    	
+    	return "musicBoard/boardDetail";
+    }
+    
     // Ajax Get Method 
  	@RequestMapping(value="/music-data", method = {RequestMethod.GET})
  	@ResponseBody
  	public List<BoardVO> musicAllList (Criteria cri) {
  		
- 		System.out.println("cricricricricricricricricricricricricricricricricricricricricricricricricricri" + cri);
  		return musicService.musicBoardAllList(cri);
  	}
         

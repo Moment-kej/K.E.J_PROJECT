@@ -3,7 +3,11 @@ hr {
 }
 
 a {
-   text-decoration: none !important;
+   text-decoration: none;
+}
+
+button {
+   all: unset;
 }
 
 .fontSizeSmall {
@@ -33,14 +37,11 @@ a {
 }
 
 /* Top Button */
-.topBtn {
-   display: block;
-   float: right;
+.topBtnBox  {
    margin-bottom: 20px;
 }
 
-.topBtn a {
-   display: inline-block;
+#modify, #delete {
    width: 70px;
    height: 35px;
    margin: 7px;
@@ -55,18 +56,40 @@ a {
    transition: 0.5s;
 }
 
-.topBtn a:last-child {
-   width: 50px;
-}
-
-.topBtn a:hover {
+#modify:hover, #delete:hover {
    color: #fff;
    border: 1px solid #222f4e;
    background-color: #222f4e;
    transition: 0.5s;
 }
 
-.topBtn a i {
+.rightBtnBox button {
+   width: 70px;
+   height: 35px;
+   margin: 7px;
+   line-height: 32px;
+   color: #222f4e;
+   font-size: 12px;
+   font-weight: 700;
+   text-align: center;
+   border: 1px solid #d4dfe9;
+   border-radius: 5px;
+   background-color: #d4dfe9;
+   transition: 0.5s;
+}
+
+.rightBtnBox button:last-child {
+   width: 50px;
+}
+
+.rightBtnBox button:hover {
+   color: #fff;
+   border: 1px solid #222f4e;
+   background-color: #222f4e;
+   transition: 0.5s;
+}
+
+.rightBtnBox button i {
    margin-right: 3px;
 } /* Top Button End */
 
@@ -206,6 +229,16 @@ a {
    font-weight: 500;
    color: #6a737e;
    display: block;
+}
+
+#modifyBtnBox, #deleteBtnBox {
+   all: unset !important;
+}
+
+.commentBox .commentBtnBox #commentModifyBtn, #commentDelBtn {
+   font-size: 15px;
+   margin-left: 13px;
+   color: #afafaf;
 }
 
 .commentBox .commentContent {
