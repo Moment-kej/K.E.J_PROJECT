@@ -7,4 +7,5 @@ import com.kej.app.reply.service.vo.ReplyVO;
 public interface ReplyService {
 	public List<ReplyVO> replyList(ReplyVO vo);
 	public int replyInsert(ReplyVO vo);
+	public int replyModify(ReplyVO vo);
 }

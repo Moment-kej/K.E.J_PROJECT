@@ -120,10 +120,10 @@
 	</select>
 	
 	<!-- board view count -->
-	<update id="dressBoardview_countCount" parameterType="int">
+	<update id="dressBoardViewCount" parameterType="int">
 		UPDATE board
 		   SET view_count = (view_count + 1)
-		 WHERE board_no = ${boardNo}
+		 WHERE board_no = #{boardNo}
 	</update>
 	 <!-- 다음글 > -->
 	 <select id="selectBoardsAfter" resultType="BoardVO">

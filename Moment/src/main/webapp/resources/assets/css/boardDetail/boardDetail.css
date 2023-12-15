@@ -38,11 +38,11 @@ button {
 
 /* Top Button */
 .topBtnBox  {
-   margin-bottom: 20px;
+   margin-bottom: 7px;
 }
 
 #modify, #delete {
-   width: 70px;
+   width: 50px;
    height: 35px;
    margin: 7px;
    line-height: 32px;
@@ -231,11 +231,11 @@ button {
    display: block;
 }
 
-#modifyBtnBox, #deleteBtnBox {
+.modifyBtnBox, .deleteBtnBox {
    all: unset !important;
 }
 
-.commentBox .commentBtnBox #commentModifyBtn, #commentDelBtn {
+.commentBox .commentBtnBox .commentModifyBtn, .commentDelBtn {
    font-size: 15px;
    margin-left: 13px;
    color: #afafaf;

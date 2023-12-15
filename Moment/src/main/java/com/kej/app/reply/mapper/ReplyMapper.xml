@@ -65,7 +65,12 @@
 			, 1)
 	</insert>
 	
-	
+	<update id="replyUpdate" parameterType="ReplyVO">
+		UPDATE reply
+		   SET CONTENT = #{content}
+		     , UPDATE_DT = now()
+		 WHERE reply_no = #{replyNo}
+	</update>
 	
 	<!-- dress detail page end -->
 
