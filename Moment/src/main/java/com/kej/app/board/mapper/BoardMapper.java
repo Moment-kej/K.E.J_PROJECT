@@ -1,11 +1,11 @@
 package com.kej.app.board.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kej.app.board.service.vo.BoardListVO;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
-import com.kej.app.reply.service.vo.ReplyVO;
 
 public interface BoardMapper {
 	//boardAllList
@@ -27,7 +27,7 @@ public interface BoardMapper {
 	
 	public List<BoardVO> artBoardList(Criteria cri); // 전체조회(타입3개)
 	public int artPagecount(Criteria cri);
-	public BoardVO boardArtDetail(int BoardVO); // 상세조회
+	public Map<String,Object> boardArtDetail(int BoardVO); // 상세조회
 	
 	
 	

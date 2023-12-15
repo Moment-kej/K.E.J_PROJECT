@@ -199,7 +199,7 @@
 						                    </td>
 						                    <td>` + item.id + `</td>
 						                    <td>` + item.writeDt + `</td>
-						                    <td>` + item.view + `</td>
+						                    <td>` + item.viewCount + `</td>
 						                </tr>`;
 						    } else {
 						        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
@@ -221,7 +221,7 @@
 							    						<div class="user_info">`+item.id+`</div>
 							    						<div class="date_num">
 							    							<span>`+item.writeDt+`</span>
-							    							<span>조회 `+item.view+`</span>
+							    							<span>조회 `+item.viewCount+`</span>
 							    							<span>댓글 `+item.replyCount+`</span>
 							    						</div>
 							    					</div>
@@ -248,7 +248,7 @@
 							    		<p>`+item.id+`</p>
 							    		<p style="font-size: 11px;">
 							    			<span>`+item.writeDt+`</span>
-							    			<span> ⦁ 조회 `+item.view+`</span>
+							    			<span> ⦁ 조회 `+item.viewCount+`</span>
 							    		</p>
 							    	</div>
 							    </div>`;
