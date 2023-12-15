@@ -16,7 +16,7 @@ public class BoardVO {
 	// https://donggu1105.tistory.com/122
 	// Timestamp : mysql 데이터타입 'DATETIME'을 읽을 때 사용하는 java 데이터 타입 
 	private Timestamp writeDt;
-	private int view;
+	private int viewCount;
 	private int yn;
 	
 	//댓글

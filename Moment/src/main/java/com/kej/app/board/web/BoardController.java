@@ -107,7 +107,7 @@ public class BoardController {
 				oldCookie.setPath("/");
 				oldCookie.setMaxAge(60*60*24);	// 쿠키 시간
 				res.addCookie(oldCookie);
-				view.setView(count);
+				view.setViewCount(count);
 			}
 		} else {								// oldCookie가 null일 때
 			service.dressBoardViewCount(boardNo);									// 조회수 올리는 메소드 호출
@@ -275,12 +275,17 @@ public class BoardController {
     	return "musicBoard/boardMusicAllListPage";
     }
     
+    @GetMapping("/music/detail")
+    public String musicDetailPage(Model model) {
+    	
+    	return "musicBoard/boardDetail";
+    }
+    
     // Ajax Get Method 
  	@RequestMapping(value="/music-data", method = {RequestMethod.GET})
  	@ResponseBody
  	public List<BoardVO> musicAllList (Criteria cri) {
  		
- 		System.out.println("cricricricricricricricricricricricricricricricricricricricricricricricricricri" + cri);
  		return musicService.musicBoardAllList(cri);
  	}
         
