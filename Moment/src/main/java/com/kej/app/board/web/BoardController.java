@@ -183,7 +183,7 @@ public class BoardController {
 	
 	
 	//아트게시판 전체 조회
-	@GetMapping("/30")
+	@GetMapping("/art")
 	public String boardArtPage(Model model, Criteria cri) throws Exception {
 		
 		//cri vo에 code 값을 10으로 준 것
@@ -212,36 +212,23 @@ public class BoardController {
 		return service.artBoardList(cri);
 	}
 	
-	// Ajax Get Method CardType
-	@RequestMapping(value="/artCard", method = {RequestMethod.GET})
-	@ResponseBody
-	public List<BoardVO> artGetCard(Criteria cri){
-		return service.artBoardCard(cri);
-	}
-	
-	// Ajax Get Method AlbumType
-	@RequestMapping(value="/artAlbum", method = {RequestMethod.GET})
-	@ResponseBody
-	public List<BoardVO> artGetAlbum(Criteria cri){
-		return service.artBoardAlbum(cri);
-	}
-	
 	//아트게시판 상세 조회
-	@GetMapping("/30_1")
+	@GetMapping("/art/boardNo")
 	public String BoardArtDetail(Model model) {
 		
 		return "artBoard/boardArtDetail";
 	}
 	
 	//아트게시판 등록_조회
-	@GetMapping("/30/1")
-	public String BoardArtInsert(Model model) {
+	@GetMapping("/art/write")
+	public String BoardArtInsert(Model model, BoardVO board) {
+		model.addAttribute("board", board);
 		
 		return "artBoard/boardArtInsert";
 	}
 
 	//아트게시판 수정_조회
-	@GetMapping("/30/3")
+	@GetMapping("/art/boardNo/modify")
 	public String BoardArtUpdate(Model model) {
 		
 		return "artBoard/boardArtUpdate";

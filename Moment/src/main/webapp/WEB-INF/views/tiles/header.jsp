@@ -297,7 +297,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/30">Art</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/art">Art</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/dress">Dress</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/board/music">Music</a></li>
               </ul>

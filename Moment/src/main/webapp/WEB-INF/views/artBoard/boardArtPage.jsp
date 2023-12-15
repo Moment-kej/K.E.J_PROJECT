@@ -133,18 +133,18 @@
     </div>
 </div>
 <script>
-let str1 = ``;
-let str2 = ``;
-let str3= `` ;
-let data = {
-		page:$('#criteriaPage').val(),
-		amount:$('#criteriaAmount').val(),
-		category:$('#criteriaCategory').val(),
-		listType:$('#criteriaListType').val(),
-		code:$('#criteriaCode').val()
-			};  
-/* 리스트 타입 호출 */
- 	function listType(){
+/* 리스트, 카드, 앨범 타입 호출 */
+ 	function viewType(viewType){
+ 		let str1 = ``;
+ 		let str2 = ``;
+ 		let str3= `` ;
+ 		let data = {
+ 				page:$('#criteriaPage').val(),
+ 				amount:$('#criteriaAmount').val(),
+ 				category:$('#criteriaCategory').val(),
+ 				listType:$('#criteriaListType').val(),
+ 				code:$('#criteriaCode').val()
+ 					}; 
 			 $.ajax({
 				url: "/moment/board/artList",
 				type: "GET",
@@ -153,45 +153,52 @@ let data = {
 				success: function(data){
 					console.log(data);
 					$("#contentList").empty();
-					str1 = `<div>
-								<div class="listType">
-									<table class="table table-bordered" id="boardList">
-										<colgroup><col style="width: 10%;">
-											<col style="width: 35%;">
-											<col style="width: 20%;">
-											<col style="width: 20%;">
-											<col style="width: 15%;">
-										</colgroup>
-									<thead>
-										<tr class="text-center">
-											<th>번호</th>
-											<th>제목</th>
-											<th>작성자</th>
-											<th>작성일</th>
-											<th>조회수</th>
-										</tr>
-									</thead>
-									<tbody>`
-							str3 =	`</tbody>
-									</table>  
-								</div>
-						</div>`;
+					// 리스트 타입일 때 나오도록
+					if(viewType == "listType" || viewType == null){
+						str1 = `<div>
+							<div class="listType">
+								<table class="table table-bordered" id="boardList">
+									<colgroup><col style="width: 10%;">
+										<col style="width: 35%;">
+										<col style="width: 20%;">
+										<col style="width: 20%;">
+										<col style="width: 15%;">
+									</colgroup>
+								<thead>
+									<tr class="text-center">
+										<th>번호</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>작성일</th>
+										<th>조회수</th>
+									</tr>
+								</thead>
+								<tbody>`
+						str3 =	`</tbody>
+								</table>  
+							</div>
+					</div>`;
+					}
+					
 					$.each(data, function(index, item) {
-					    if (data != null) {
-					        str2 += `<tr>
-					                    <td>` + item.boardNo + `</td>
-					                    <td>
-					                        <a href="/moment/board/dress/all/35">` + item.title + ` 
-					                            <span style="color:red;">[` + item.replyCount + `]</span>
-					                        </a>
-					                    </td>
-					                    <td>` + item.id + `</td>
-					                    <td>` + item.writeDt + `</td>
-					                    <td>` + item.view + `</td>
-					                </tr>`;
-					    } else {
-					        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
-					    }
+						// 리스트 타입일 떄 
+						if(viewType == "listType" || viewType == null){
+						    if (data != null) {
+						        str2 += `<tr>
+						                    <td>` + item.boardNo + `</td>
+						                    <td>
+						                        <a href="/moment/board/dress/all/35">` + item.title + ` 
+						                            <span style="color:red;">[` + item.replyCount + `]</span>
+						                        </a>
+						                    </td>
+						                    <td>` + item.id + `</td>
+						                    <td>` + item.writeDt + `</td>
+						                    <td>` + item.view + `</td>
+						                </tr>`;
+						    } else {
+						        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
+						    }
+						}
 					});
 	
 					$("#contentList").append(str1 + str2 + str3);
@@ -200,120 +207,20 @@ let data = {
 			}) 
 		}
 
-/* 카드 타입 호출 */
-function cardType(){
-		 $.ajax({
-			url: "/moment/board/artCard",
-			type: "GET",
-			data: data,
-			dataType: "json",
-			success: function(data){
-				console.log(data);
-				$("#contentList").empty();
-				str1 = `<div>
-							<div class="listType">
-								<table class="table table-bordered" id="boardList">
-									<colgroup><col style="width: 10%;">
-										<col style="width: 35%;">
-										<col style="width: 20%;">
-										<col style="width: 20%;">
-										<col style="width: 15%;">
-									</colgroup>
-								<thead>
-									<tr class="text-center">
-										<th>번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>작성일</th>
-										<th>조회수</th>
-									</tr>
-								</thead>
-								<tbody>`
-						str3 =	`</tbody>
-								</table>  
-							</div>
-					</div>`;
-				$.each(data, function(index, item) {
-				    if (data != null) {
-				        str2 += `<tr>
-				                    <td>` + item.boardNo + `</td>
-				                    <td>
-				                        <a href="/moment/board/dress/all/35">` + item.title + ` 
-				                            <span style="color:red;">[` + item.replyCount + `]</span>
-				                        </a>
-				                    </td>
-				                    <td>` + item.id + `</td>
-				                    <td>` + item.writeDt + `</td>
-				                    <td>` + item.view + `</td>
-				                </tr>`;
-				    } else {
-				        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
-				    }
-				});
-
-				$("#contentList").append(str1 + str2 + str3);
-				
-			}
-		}) 
-	}
-
-/* 앨범 타입 호출 */
-function albumType(){
-		 $.ajax({
-			url: "/moment/board/artAlbum",
-			type: "GET",
-			data: data,
-			dataType: "json",
-			success: function(data){
-				console.log(data);
-				$("#contentList").empty();
-				str1 = `<div>
-							<div class="listType">
-								<table class="table table-bordered" id="boardList">
-									<colgroup><col style="width: 10%;">
-										<col style="width: 35%;">
-										<col style="width: 20%;">
-										<col style="width: 20%;">
-										<col style="width: 15%;">
-									</colgroup>
-								<thead>
-									<tr class="text-center">
-										<th>번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>작성일</th>
-										<th>조회수</th>
-									</tr>
-								</thead>
-								<tbody>`
-						str3 =	`</tbody>
-								</table>  
-							</div>
-					</div>`;
-				$.each(data, function(index, item) {
-				    if (data != null) {
-				        str2 += `<tr>
-				                    <td>` + item.boardNo + `</td>
-				                    <td>
-				                        <a href="/moment/board/dress/all/35">` + item.title + ` 
-				                            <span style="color:red;">[` + item.replyCount + `]</span>
-				                        </a>
-				                    </td>
-				                    <td>` + item.id + `</td>
-				                    <td>` + item.writeDt + `</td>
-				                    <td>` + item.view + `</td>
-				                </tr>`;
-				    } else {
-				        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
-				    }
-				});
-
-				$("#contentList").append(str1 + str2 + str3);
-				
-			}
-		}) 
-	} 
-
-	
-	listType();
+	viewType();
+	// 리스트 타입
+	$("#listType").on("click", function(e) {
+		e.preventDefault();// 버튼 submit
+		viewType("listType");
+	});
+	// 카드 타입
+	$("#cardsType").on("click", function(e) {
+		e.preventDefault();// 버튼 submit
+		viewType("listType");
+	});
+	// 앨범 타입
+	$("#albumType").on("click", function(e) {
+		e.preventDefault();// 버튼 submit
+		viewType("listType");
+	});
 </script>

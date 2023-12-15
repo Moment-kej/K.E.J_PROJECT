@@ -25,10 +25,9 @@ public interface BoardMapper {
 	//boardDelete
 	public int dressBoardDelete(BoardVO vo);
 	
-	public List<BoardVO> artBoardList(Criteria cri); // 리스트 타입
-	public List<BoardVO> artBoardCard(Criteria cri); // 카드 타입
-	public List<BoardVO> artBoardAlbum(Criteria cri); // 앨범 타입
+	public List<BoardVO> artBoardList(Criteria cri); // 전체조회(타입3개)
 	public int artPagecount(Criteria cri);
+	public BoardVO boardArtDetail(int BoardVO); // 상세조회
 	
 	
 	
