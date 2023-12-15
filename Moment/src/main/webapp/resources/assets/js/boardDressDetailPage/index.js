@@ -92,7 +92,48 @@ const boardDelAtax = () => {
         ajaxRequest(firstPath + '/board/dress/del', 'POST', data, callback);
     });
 };
+
+// reply insert ajax
+const parentReplyInsertAjax = () => {
+    document.getElementById('replyInsertBnt').addEventListener('click', () => {
+        let id = document.getElementById('replyWriter').textContent;
+        let boardNo = boardNumber();
+        let content = document.getElementById('replyTextrea').value;
+
+        const data = JSON.stringify({
+            boardNo: boardNo,
+            groupNo: 0,
+            groupLayer: 0,
+            id: id,
+            content: content,
+        });
+        const callback = () => {
+            document.getElementById('replyTextrea').value = '';     // 값 초기화
+            replyList();
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "댓글 등록이 완료하였습니다.",
+                showConfirmButton: false,
+                timer: 1500
+            })
+        };
+
+        if(content.trim() === '') {
+            Swal.fire({
+                icon: "warning",
+                title: "게시글 내용을 입력해주세요",
+                didClose: function () {
+                    return false; // 제출 취소
+                }
+            });
+        } else {
+            ajaxRequest(firstPath + '/reply/dress/in', 'POST', data, callback);
+        }
+    });
+}
 boardDelAtax();
+parentReplyInsertAjax();
 
 // ------------------------------------------------------------
 // 댓글 textarea 글자수 표기 및 제한
@@ -131,6 +172,88 @@ const replySectionTwoTextarea = (replyNo) => {
     });
 };
 // ------------------------------------------------------------
+// child reply render
+const ChildreplyRender = (post) => {
+    const childReplycontent = document.querySelector('.childReplyList');
+
+    childReplycontent.innerHTML = '';
+
+    const outContainer = document.createElement("div");
+    outContainer.classList.add('mb-2','pb-3','pt-3', 'hrStyleChildReply');
+
+    const commentContainer = document.createElement("div");
+    commentContainer.classList.add('d-flex', 'justify-content-start', 'align-items-center');
+
+    const userImgBox = document.createElement("div");
+    userImgBox.className = "replyUserImgBox";
+    const img = document.createElement("img");
+    img.className = "mx-auto";
+    img.setAttribute('src', firstPath + '/assets/images/faces/face1.jpg');
+    img.setAttribute('alt', '프로필 사진');
+    userImgBox.appendChild(img);
+
+    const infoBox = document.createElement("div");
+    infoBox.classList.add('replyInfoBox', 'ml-2');
+
+    const infoDiv = document.createElement("div");
+
+    const userIDSpan = document.createElement("span");
+    userIDSpan.className = "replyInfoID";
+    userIDSpan.textContent = post.id;
+    infoDiv.appendChild(userIDSpan);
+
+    const dateSpan = document.createElement("span");
+    dateSpan.className = "replyInfoDate";
+    dateSpan.textContent = formatTimestamp(post.writeDt);
+    infoDiv.appendChild(dateSpan);
+
+    infoBox.appendChild(infoDiv);
+
+    const contentDiv = document.createElement("div");
+    contentDiv.className = "commentContent";
+    const contentSpan = document.createElement("span");
+    contentSpan.innerHTML = post.content;
+    contentDiv.appendChild(contentSpan);
+
+    const btnBox = document.createElement("div");
+    btnBox.className = "commentWirterBtnBox";
+    const replyLink = document.createElement("a");
+    replyLink.href = "#";
+    replyLink.textContent = "답글작성";
+    btnBox.appendChild(replyLink);
+
+    // 생성한 엘리먼트들을 컨테이너에 추가
+    commentContainer.appendChild(userImgBox);
+    commentContainer.appendChild(infoBox);
+    
+    // createElement와 appendChild은 문자열이 아닌 HTML 엘리먼트.
+    outContainer.appendChild(commentContainer);
+    outContainer.appendChild(contentDiv);
+    outContainer.appendChild(btnBox);
+
+    // 문자열로 변환시킬 변수 초기화
+    let childCommentHTML = '';
+
+    // 엘리먼트들을 조립하여 문자열 '형태'로 만듦
+    childReplycontent.append(outContainer);
+
+    // 문자열로 변환
+    childCommentHTML = childReplycontent.outerHTML;
+
+    // 부모 댓글에 대한 자식 댓글을 원본 댓글에 추가
+    let parentCommentContainer = document.getElementById('originalComment_' + post.groupNo);
+    if (parentCommentContainer) {
+        let childCommentsContainer = parentCommentContainer.querySelector(".childReplyList");
+        if (childCommentsContainer) {
+            // 자식 댓글 컨테이너에 자식 댓글 HTML 추가
+            // insertAdjacentHTML : 문자열 형태의 HTML을 받아서 처리
+            // 문자열로 안하면 리스트 2개 이상은 [object HTMLDivElement][object HTMLDivElement] 뜸
+            // 문자열이 아닌 HTML 엘리먼트가 포함되어 그렇다고 함.
+            childCommentsContainer.insertAdjacentHTML("beforeend", childCommentHTML);
+        }
+    }
+};
+
 // reply render
 const replyRender = (post) => {
     // 댓글 컨테이너
@@ -141,7 +264,8 @@ const replyRender = (post) => {
     //reply view render
     post.forEach((item) => {
         const replyInnerSection = document.createElement('div');
-        replyInnerSection.classList.add('replyInnerSecion', 'hrStyle', 'pb-4', 'mb-2');
+        replyInnerSection.classList.add('replyInnerSecion', 'hrStyle', 'pb-4', 'mb-2',);
+        replyInnerSection.id = 'originalComment_' + item.replyNo;
 
         // 사용자 정보 부분 생성
         const userContainer = document.createElement('div');
@@ -180,7 +304,7 @@ const replyRender = (post) => {
         userContainer.appendChild(replyInfoBox);
         replyInnerSection.appendChild(userContainer);
 
-         // 댓글 내용 부분 생성
+        // 댓글 내용 부분 생성
         const commentContent = document.createElement('div');
         commentContent.classList.add('commentContent');
         commentContent.innerHTML = '<span>' + item.content +'</span>';
@@ -198,10 +322,16 @@ const replyRender = (post) => {
         commentWirterBtnBox.appendChild(replyWriterBtn);
         replyInnerSection.appendChild(commentWirterBtnBox);
 
-        // 대댓글 부분----------------------------------------------
+        // 대댓글 작성 부분------------------------------------------
         const replyWriterContainer = document.createElement('div');
         replyWriterContainer.classList.add('pl-4', 'hidden', 'mb-4', 'hrStyle');
         replyWriterContainer.id = 'replyWriterContainal_' + item.replyNo;
+
+        
+        // 대댓글 목록----------------------------------------------
+        const childReplyContent = document.createElement('div');
+        childReplyContent.classList.add('childReplyList', 'pl-4', 'mt-3');
+        childReplyContent.id = 'child_reply_' + item.replyNo;
 
         // 내부 요소 생성
         const innerDiv1 = document.createElement('div');
@@ -265,26 +395,40 @@ const replyRender = (post) => {
         // 생성한 댓글 섹션을 컨테이너에 추가
         replySection.appendChild(replyInnerSection);
         replySection.appendChild(replyWriterContainer);
-    })
+        replyInnerSection.appendChild(childReplyContent);
+    });
 };
 
-// reply ajax
+// reply and child reply ajax
 const replyList = () => {
-    // formatTimestamp -> 시간포맷
-    let data = {boardNo : boardNumber()}
-
+    let data = {boardNo : boardNumber()};
     let callback = (data) => {
-        replyRender(data);
+        replyRender(data);      // 부모 댓글 랜더링, 자식 댓글 랜더링 할 div 생성
 
-        // 댓글번호로 대댓글 div toggle 생성, 대댓글 글자수 표기 및 제한
+        // 서버에서 가져오는 댓글 중 자식 댓글 리스트 가져오기
         data.forEach(item => {
-            const replyNo = item.replyNo;
-            replyWriterBnt(replyNo);
-            replySectionTwoTextarea(replyNo);
-        })
-    }
-    
-    ajaxRequest(firstPath + '/board/dress/replyList', 'GET', data, callback);
+            const replyNo = item.replyNo;       // 댓글 번호
+            const child = item.childReplyList;  // 자식 댓글 리스트
+
+            replyWriterBnt(replyNo);            // 댓글 작성란 토글 이벤트
+            replySectionTwoTextarea(replyNo);   // 대댓글  작성란 글자수 표기 및 제한
+
+            if(child.length === 0) {        // 자식 댓글이 존재하지 않을 때
+                let removeElement = document.getElementById('child_reply_' + item.replyNo);
+                removeElement.classList.remove('childReplyList');
+            } else {                        // 자식 댓글이 존재할 때
+                // 자식 댓글 리스트 랜더링하기
+                child.forEach(child_item => {
+                // 부모 댓글 번호와 자식 댓글의 group_no가 동일하면
+                if(replyNo == child_item.groupNo) {
+                    // 자식 댓글 랜더링 함수 호출
+                        ChildreplyRender(child_item);
+                    }
+                });
+            }
+        });
+    };
+    ajaxRequest(firstPath + '/reply/dress/replyList', 'GET', data, callback);
 };
 
 // ------------------------------------------------------------
@@ -372,11 +516,14 @@ const boardRelatedPosts = () => {
     ajaxRequest(firstPath + '/board/dress/boardRelatedPosts', 'GET', data, callback);
 }
 // ------------------------------------------------------------
+
+// ajax function
+pageUpAndDown();
+boardRelatedPosts();
+replyList();
+
 // 함수 호출
 window.onload = () => {
-    boardManagemantBnt();       // security로 id 들고오면 수정 해야 함.
-    pageUpAndDown();
-    replyTextarea();
-    replyList();
-    boardRelatedPosts();
-}
+    boardManagemantBnt();   // security로 id 들고오면 수정 해야 함.
+    replyTextarea();        // 댓글 작성란 글자수 표기 및 제한
+};

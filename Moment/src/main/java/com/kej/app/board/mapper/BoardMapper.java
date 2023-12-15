@@ -5,7 +5,7 @@ import java.util.List;
 import com.kej.app.board.service.vo.BoardListVO;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
-import com.kej.app.board.service.vo.ReplyVO;
+import com.kej.app.reply.service.vo.ReplyVO;
 
 public interface BoardMapper {
 	//boardAllList
@@ -15,7 +15,6 @@ public interface BoardMapper {
 	public int boardInsert(BoardVO vo);
 	//boardDetail
 	public BoardVO boardDressDetail(int BoardNo);	// 게시글
-	public List<ReplyVO> replyList(int boardNo);	// 댓글리스트(대댓글X)
 	public int dressBoardViewCount(int boardNo);	// 게시글 조회수
 	//Before,After 확인완료
 	public List<BoardVO> selectBoardsAfter(BoardListVO vo);
