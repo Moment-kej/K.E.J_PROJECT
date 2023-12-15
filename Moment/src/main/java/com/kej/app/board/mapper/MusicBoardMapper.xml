@@ -10,7 +10,7 @@
 		     , id
 		     , title 
 		     , write_dt  
-		     , view
+		     , view_count
 		     , code
 		     , (SELECT count(*)
 		  		  FROM reply r

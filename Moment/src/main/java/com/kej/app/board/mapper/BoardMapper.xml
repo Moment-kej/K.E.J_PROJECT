@@ -16,7 +16,7 @@
 				     , title
 				     , b.content
 				     , b.write_dt
-				     , view
+				     , view_count
 				     , ( SELECT COUNT(*) AS cnt
 					       FROM REPLY c
 					      WHERE 1=1
@@ -91,7 +91,7 @@
 			SELECT nextval('BOARD_SEQ')
 		</selectKey>
 		INSERT INTO BOARD
-			(board_no, code, category, id, title, content, write_dt, view, yn)
+			(board_no, code, category, id, title, content, write_dt, view_count, yn)
 		VALUES
 			(#{boardNo, jdbcType=INTEGER, javaType=Integer}, #{code}, #{category}, #{id}, #{title}, #{content}, now(), 0, 1)
 	</insert>
@@ -105,7 +105,7 @@
 			 , category
 			 , title
 			 , write_dt
-			 , view
+			 , view_count
 			 , COALESCE(( SELECT COUNT(*) AS cnt
 					        FROM REPLY c
 					       WHERE 1=1
@@ -142,7 +142,7 @@
 	<!-- board view count -->
 	<update id="dressBoardViewCount" parameterType="int">
 		UPDATE board
-		   SET view = (view + 1)
+		   SET view_count = (view_count + 1)
 		 WHERE board_no = ${boardNo}
 	</update>
 	 <!-- 다음글 > -->
@@ -151,7 +151,7 @@
 		      , b.id
 		      , title
 		      , b.write_dt
-		      , view
+		      , view_count
 		      , COALESCE((SELECT COUNT(*) AS cnt
 					        FROM REPLY c
 					       WHERE 1=1
@@ -172,7 +172,7 @@
 		     , b.id
 		     , title
 		     , b.write_dt
-		     , view
+		     , view_count
 		     , COALESCE((SELECT COUNT(*) AS cnt
 					       FROM REPLY c
 					      WHERE 1=1
@@ -191,7 +191,7 @@
 		     , b.id
 		     , title
 		     , b.write_dt
-		     , view
+		     , view_count
 		     , COALESCE((SELECT COUNT(*) AS cnt
 					       FROM REPLY c
 					      WHERE 1=1
@@ -265,7 +265,7 @@
 			 , TITLE
 			 , CONTENT 
 			 , WRITE_DT
-			 , VIEW
+			 , VIEW_COUNT
 			 ,(SELECT COUNT(REPLY_NO)
 			 	  FROM REPLY R
 			 	 WHERE 1=1

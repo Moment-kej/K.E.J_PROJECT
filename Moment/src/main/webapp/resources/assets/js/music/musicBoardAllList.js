@@ -34,8 +34,8 @@ const createSortListTypeComponent = (data) => {
    const trHead = createAndAppendElement(thead, 'tr');
    const columnMapping = {
       headerTitles: ['번호', '제목', '작성자', '작성일', '조회수'],
-      colData: ['board', 'title', 'id', 'write_dt', 'view'],
-      rowDataKeys: ["boardNo", "title", "id", "writeDt", "view"]
+      colData: ['board', 'title', 'id', 'write_dt', 'view_count'],
+      rowDataKeys: ["boardNo", "title", "id", "writeDt", "viewCount"]
    };
    columnMapping.headerTitles.forEach((title, index) => {
       createAndAppendElement(trHead, 'th', { scope: 'col', class: 'td_' + columnMapping.colData[index] }, title);
@@ -80,7 +80,7 @@ const createSortCardTypeComponent = (data) => {
       const userInfo = createAndAppendElement(infoArea, 'div', { class: 'user_info d-flex justify-content-start align-items-center' });
       createAndAppendElement(userInfo, 'div', { class: 'write_id' }, '<span>'+ item.id +'</span>');
       createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span class="date">' + dateFormat + '</span>');
-      createAndAppendElement(userInfo, 'div', { class: 'view'}, '<span>조회</span><span>' + item.view + '</span>');
+      createAndAppendElement(userInfo, 'div', { class: 'view_count'}, '<span>조회</span><span>' + item.viewCount + '</span>');
       const commentDiv = createAndAppendElement(userInfo, 'div', {});
       createAndAppendElement(commentDiv, 'i', { class: 'fa-regular fa-comment-dots' });
       createAndAppendElement(commentDiv, 'span', {class: 'reply_count'}, item.replyCount);
@@ -114,7 +114,7 @@ const createSortAlbumTypeComponent = (data) => {
       const infoArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeInfoArea d-flex justify-content-start align-items-center' });
 
       createAndAppendElement(infoArea, 'span', { class: 'writeDt' }, dateFormat);
-      createAndAppendElement(infoArea, 'span', { class: 'view' }, ' ⦁ 조회 ' + item.view);
+      createAndAppendElement(infoArea, 'span', { class: 'viewCount' }, ' ⦁ 조회 ' + item.viewCount);
 
    });
 }
