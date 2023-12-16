@@ -38,6 +38,36 @@ export const formatTimestamp = (timestamp) => {
     return formattedDate;
 };
 
+// 시간 포맷 : yyyy.MM.dd HH:mm (EE)
+// 근데~ 오늘 날짜랑 시간 포맷의 MM.dd가 동일하면 HH:mm만 뱉도록 할거야~
+export const formatCurrentDateTime = (timestamp) => {
+    // addLeadingZero() : 주어진 숫자가 한 자리 숫자일 경우에 앞에 0을 추가하여 두 자리로 만들어주는 함수
+    var currentDate = new Date(timestamp);
+    var year = currentDate.getFullYear();
+    var month = addLeadingZero(currentDate.getMonth() + 1);
+    var day = addLeadingZero(currentDate.getDate());
+    var hours = addLeadingZero(currentDate.getHours());
+    var minutes = addLeadingZero(currentDate.getMinutes());
+    
+    // 오늘 날짜와 month, day가 같으면 'HH:mm' 형식으로 표시
+    if (isToday(currentDate)) {
+        return hours + ':' + minutes;
+    } else {
+        var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+        var dayOfWeek = daysOfWeek[currentDate.getDay()];
+        return year + '.' + month + '.' + day + ' ' + hours + ':' + minutes + ' (' + dayOfWeek + ')';
+    }
+};
+const isToday = (date) => {
+    var today = new Date();
+    return date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
+};
+// 한 자리 숫자에는 앞에 0을 추가하는 함수
+const addLeadingZero = (number) => {
+    return number < 10 ? '0' + number : number;
+};
+
+
 // url board number 추출
 export const boardNumber = () => {
     let pathname = window.location.pathname;

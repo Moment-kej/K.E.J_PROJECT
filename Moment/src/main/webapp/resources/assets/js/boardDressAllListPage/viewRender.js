@@ -1,7 +1,7 @@
 import { pagenation, pagenationNumber } from "./pagenation.js";
 import { formatTimestamp } from "../common/common.js";
 
-const contentContainer = document.getElementById('contentListTest');
+const contentContainer = document.getElementById('boardList');
 const contextPath = document.getElementById('contextPath').value;
 let currentView = 'cardsType'; // 기본적으로 앨범형으로 시작
 let criteriaListType = document.getElementById('criteriaListType').value;
@@ -31,12 +31,12 @@ const createTable = (posts) => {
     if(posts.length != 0) {
         listTypeDiv.className = 'listType';
         const table = document.createElement('table');
-        table.classList.add('table','table-bordered');
+        table.classList.add('table','table-hover', 'boardTable');
         table.id = 'boardList';
 
         // colgroup 추가
         const colgroup = document.createElement('colgroup');
-        const colWidths = ['10%', '35%', '20%', '20%', '15%'];
+        const colWidths = ['10%', '40%', '20%', '20%', '10%'];
         colWidths.forEach(width => {
             const col = document.createElement('col');
             col.style.width = width;
@@ -105,8 +105,8 @@ const createPostElement = (post) => {
     switch (currentView) {
         case 'cardsType':
             //카드형에 적용되어있는 css 클래스 삭제
-            postElement.classList.remove('postType');
-            postElement.classList.add('postAlbumType');
+            // postElement.classList.remove('postType');
+            // postElement.classList.add('postAlbumType');
             /*  전체                       -> card_area
                 제목,내용,닉넴...           -> con
                 제목,내용                  -> con_top
@@ -119,7 +119,7 @@ const createPostElement = (post) => {
             */
 
             //
-            let albumTypeUi = document.createElement('ui');
+            // let albumTypeUi = document.createElement('ui');
             let albumTypeIl = document.createElement('li');
             
             let albumTypeDiv = document.createElement('div');       //card_area
@@ -129,14 +129,20 @@ const createPostElement = (post) => {
             albumTypeDiv_1.className = 'con';
             
             let albumTypeDiv_1_1 = document.createElement('div');   //con_top
-            albumTypeDiv_1_1.className = 'con_top';
+            albumTypeDiv_1_1.classList.add('con_top','mr-3');
 
+            // 제목
             let albumTypeDiv_1_1_1 = document.createElement('div');
             albumTypeDiv_1_1_1.className = 'tit_area';
-            albumTypeDiv_1_1_1.innerHTML = '<a href="' + (contextPath + '/board/dress/all/' + boardNo) +  '">' + boardTitle +'</a>';
+            let albumTypeDiv_1_1_2 = document.createElement('a');
+            albumTypeDiv_1_1_2.setAttribute('href', contextPath + '/board/dress/all/' + boardNo);
+            let albumTypeDiv_1_1_3 = document.createElement('span');
+            albumTypeDiv_1_1_3.innerText = boardTitle;
+            albumTypeDiv_1_1_2.appendChild(albumTypeDiv_1_1_3);
+            albumTypeDiv_1_1_1.appendChild(albumTypeDiv_1_1_2);
             albumTypeDiv_1_1.appendChild(albumTypeDiv_1_1_1);
 
-            albumTypeDiv_1_1.innerHTML += '<a href="#">' + boardContent + '</a>'
+            albumTypeDiv_1_1.innerHTML += '<a href="' + contextPath + '/board/dress/all/' + boardNo + '">' + boardContent + '</a>'
             // con = con + con_top
             albumTypeDiv_1.appendChild(albumTypeDiv_1_1);
             
@@ -199,23 +205,21 @@ const createPostElement = (post) => {
             
             // li = li + card_area + con(con_top + con_bottom) + movie-img
             albumTypeIl.appendChild(albumTypeDiv);
-            // ul = ul + li + card_area + con(con_top + con_bottom) + movie-img
-            albumTypeUi.appendChild(albumTypeIl);
 
-            //최종 div 붙혀넣기
-            postElement.appendChild(albumTypeUi);
-
-            break;
+            return albumTypeIl;
+            // break;
 
         case 'albumType':
             let cardsTypeDiv = document.createElement('div');
-            cardsTypeDiv.classList.add('cardType', 'mr-3');
+            cardsTypeDiv.classList.add('cardType');
             /* 이미지
                 제목
                 작성자
                 시간/조회수
             */
             //이미지
+            const cardTypeImgArea = document.createElement('div');
+            cardTypeImgArea.className = 'cardTypeImgArea';
             let cardsImgAtag = document.createElement('a');
             cardsImgAtag.setAttribute('href', contextPath + '/board/dress/all/' + boardNo);
 
@@ -229,34 +233,44 @@ const createPostElement = (post) => {
                 cardsImg.setAttribute('alt', boardTitle);
             }
             cardsImgAtag.appendChild(cardsImg);
-            cardsTypeDiv.appendChild(cardsImgAtag);
+            cardTypeImgArea.appendChild(cardsImgAtag)
+            cardsTypeDiv.appendChild(cardTypeImgArea);
+            // cardsTypeDiv.appendChild(cardsImgAtag);
             
             //제목
-            let cardsP = document.createElement('p');
-            cardsP.innerText = boardTitle;
-            cardsP.className = 'cardsPStyle';
-            cardsTypeDiv.appendChild(cardsP);
+            const cardTypeTitleArea = document.createElement('div');
+            cardTypeTitleArea.className = 'cardTypeTitleArea';
+            let cards_span = document.createElement('span');
+            cards_span.innerText = boardTitle;
+            cards_span.className = 'album_title';
+            cardTypeTitleArea.appendChild(cards_span);
+            cardsTypeDiv.appendChild(cardTypeTitleArea);
 
             //작성자
-            let cardsWriter = document.createElement('p');
-            cardsWriter.innerText = boardWriter;
-            cardsTypeDiv.appendChild(cardsWriter);
+            const cardTypeIDArea = document.createElement('div');
+            cardTypeIDArea.className = 'cardTypeIDArea';
+            let cardsWriter_span = document.createElement('spen');
+            cardsWriter_span.className = 'writeID';
+            cardsWriter_span.innerText = boardWriter;
+            cardTypeIDArea.appendChild(cardsWriter_span);
+            cardsTypeDiv.appendChild(cardTypeIDArea);
 
-            //시간&조회수
-            let coardsDtAndView = document.createElement('p');
-            coardsDtAndView.style.fontSize = '11px';
+            //그 외 정보 전체 div
+            const cardTypeInfoArea = document.createElement('div');
+            cardTypeInfoArea.classList.add('cardTypeInfoArea', 'd-flex', 'justify-content-start', 'align-items-center');
 
             //시간
             let coardsDt = document.createElement('span');
-            coardsDt.innerText = boardWriteDt + ' ';
-            coardsDtAndView.appendChild(coardsDt);
+            coardsDt.className = 'writeDt';
+            coardsDt.innerText = boardWriteDt;
+            cardTypeInfoArea.appendChild(coardsDt);
 
             //조회수
-            let coardsView = document.createElement('span');
-            coardsView.innerText = ' ⦁ 조회 ' + boardView;
-            coardsDtAndView.appendChild(coardsView);
+            let coardsView_span = document.createElement('span');
+            coardsView_span.innerText = ' ⦁ 조회 ' + boardView;
+            cardTypeInfoArea.appendChild(coardsView_span);
 
-            cardsTypeDiv.appendChild(coardsDtAndView);
+            cardsTypeDiv.appendChild(cardTypeInfoArea);
 
             //전체 붙혀넣기
             postElement.appendChild(cardsTypeDiv);
@@ -271,6 +285,7 @@ const renderPostsContent = (posts) => {
     contentContainer.innerHTML = '';
     switch (currentView) {
         case 'albumType':
+            document.getElementById('boardList').classList.remove('border-top');
             const albumContainer = document.createElement('div');
             albumContainer.className = 'albumType';
             posts.forEach(post => {
@@ -280,7 +295,8 @@ const renderPostsContent = (posts) => {
             contentContainer.appendChild(albumContainer);
             break;
         case 'cardsType':
-            const cardsContainer = document.createElement('div');
+            document.getElementById('boardList').classList.add('border-top');
+            const cardsContainer = document.createElement('ul');
             cardsContainer.className = 'cardsType';
             posts.forEach(post => {
                 const postElement = createPostElement(post);
@@ -289,6 +305,7 @@ const renderPostsContent = (posts) => {
             contentContainer.appendChild(cardsContainer);
             break;
         case 'listType':
+            document.getElementById('boardList').classList.add('border-top');
             const table = createTable(posts);
             contentContainer.appendChild(table);
             break;
@@ -309,7 +326,7 @@ export const renderPosts = (page, category, searchType, searchName) => {
         success: function(posts) {
             if(posts == 0 || posts == ''){
                 let containerInDiv = document.createElement('div');
-                containerInDiv.className = 'contentNotData';
+                containerInDiv.classList.add('contentNotData','mt-2');
 
                 let containerInInDiv = document.createElement('div');
                 containerInInDiv.classList.add('d-flex','justify-content-center','inner-div');
@@ -378,9 +395,12 @@ if(criteriaListType == ''){
 
 // 게시글 양식에 맞춰 렌더링
 export const boardListFormChang = () => {
-    let boardListFormChang = document.querySelectorAll('.boardListFormChangeBtn');
+    const boardListFormChang = document.querySelectorAll('.boardListFormChangeBtn');
+    const defualtListType =  document.querySelector('.boardType[data-type="cardsType"]');
 
-    boardListFormChang.forEach( function(link) {
+    defualtListType.setAttribute('src', contextPath + '/assets/icon/sortCardSelected.svg');
+
+    boardListFormChang.forEach(function(link) {
         link.addEventListener('click', function() {
             // 클릭한 요소의 ID 값을 가져온다.
             let clickedId = link.id;
@@ -388,7 +408,6 @@ export const boardListFormChang = () => {
             resetIcons();           //모든 아이콘 원래대로 돌림
 
             let typeElement = document.querySelector('.boardType[data-type="' + clickedId + '"]');
-            let contextPath = document.getElementById('contextPath').value;
 
             if(clickedId) {
                 contentContainer.innerHTML = '';

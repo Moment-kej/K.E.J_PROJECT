@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kej.app.board.service.BoardService;
@@ -121,6 +122,13 @@ public class BoardController {
 		model.addAttribute("code", cservice.getCodes("CO","CA"));
 		
 		return "dressBoard/boardDressDetail";
+	}
+	
+	// 게시글 단건조회 (AJAX)
+	@RequestMapping(value="/dress/boardDetail", method= RequestMethod.GET)
+	@ResponseBody
+	public BoardVO boardDressDetail(@RequestParam("boardNo") int boardNo) {
+		return service.boardDressDetail(boardNo);
 	}
 	
 	// 게시글 관련글 보기 (AJAX)

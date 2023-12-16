@@ -1,4 +1,4 @@
-import { firstContextPath, ajaxRequest, formatTimestamp, boardNumber } from "../common/common.js";
+import { firstContextPath, ajaxRequest, formatTimestamp, boardNumber, formatCurrentDateTime } from "../common/common.js";
 
 //--url pathname 추출------------------------------------
 const firstPath = firstContextPath;   // '/moment' 가져오기
@@ -52,6 +52,25 @@ const boardManagemantBnt = () => {
     })
 }
 // --a tag end------------------------------------------------
+
+// board detail ajax
+const boardDetail = () => {
+    const data = {
+        boardNo : boardNumber()
+    }
+    const callback = (data) => {
+        console.log(data);
+        document.querySelector('.userID').textContent = data.id;                     // 아이디
+        document.querySelector('#title').textContent = data.title;                   // 제목
+        document.querySelector('#content').innerHTML = data.content;                 // 내용
+        document.querySelector('.date').textContent = formatCurrentDateTime(data.writeDt); // 등록일
+        document.querySelector('.viewCount').textContent = data.viewCount;           // 조회수
+        document.querySelector('.likeCount').textContent = data.likeCount;           // 좋아요 개수
+        document.querySelector('.replyCount').textContent = data.replyCount;         // 댓글 개수
+    }
+
+    ajaxRequest(firstPath + '/board/dress/boardDetail', 'GET', data, callback);
+};
 
 // board delete ajax
 const boardDelAtax = () => {
@@ -107,7 +126,9 @@ const parentReplyInsertAjax = () => {
         });
         const callback = () => {
             document.getElementById('replyTextrea').value = '';     // 값 초기화
-            replyList();
+            boardDetail();          // 상세조회 ajax 호출
+            replyList();            // 댓글 ajax 호출
+            boardRelatedPosts();    // 관련글 ajax 호출
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -182,6 +203,7 @@ const ChildreplyRender = (post, containal) => {
     const commentContainer = document.createElement("div");
     commentContainer.classList.add('d-flex', 'justify-content-start', 'align-items-center');
 
+    // 프로필
     const userImgBox = document.createElement("div");
     userImgBox.className = "replyUserImgBox";
     const img = document.createElement("img");
@@ -195,11 +217,13 @@ const ChildreplyRender = (post, containal) => {
 
     const infoDiv = document.createElement("div");
 
+    // 아이디
     const userIDSpan = document.createElement("span");
     userIDSpan.className = "replyInfoID";
     userIDSpan.textContent = post.id;
     infoDiv.appendChild(userIDSpan);
 
+    // 등록일
     const dateSpan = document.createElement("span");
     dateSpan.className = "replyInfoDate";
     dateSpan.textContent = formatTimestamp(post.writeDt);
@@ -207,14 +231,16 @@ const ChildreplyRender = (post, containal) => {
 
     infoBox.appendChild(infoDiv);
 
+    // 댓글 내용
     const contentDiv = document.createElement("div");
     contentDiv.className = "commentContent";
     const contentSpan = document.createElement("span");
     contentSpan.innerHTML = post.content;
     contentDiv.appendChild(contentSpan);
 
+    // 답글 작성 버튼
     const btnBox = document.createElement("div");
-    btnBox.className = "commentWirterBtnBox";
+    btnBox.classList.add("commentWirterBtnBox");
     const replyLink = document.createElement("a");
     replyLink.href = "#";
     replyLink.textContent = "답글작성";
@@ -294,14 +320,14 @@ const replyRender = (post) => {
         replyInfoBox.classList.add('replyInfoBox', 'ml-2');
 
         const infoContainer = document.createElement('div');
-
+        // 아이디
         const replyInfoID = document.createElement('span');
         replyInfoID.classList.add('replyInfoID');
         replyInfoID.textContent = item.id;
-
+        // 댓글 작성일
         const replyInfoDate = document.createElement('span');
         replyInfoDate.classList.add('replyInfoDate');
-        replyInfoDate.textContent = formatTimestamp(item.writeDt);
+        replyInfoDate.textContent = formatCurrentDateTime(item.writeDt);
 
         infoContainer.appendChild(replyInfoID);
         infoContainer.appendChild(replyInfoDate);
@@ -312,16 +338,16 @@ const replyRender = (post) => {
         userInfoContainal.appendChild(userContainer);
         parentReplyContainal.appendChild(userInfoContainal);
 
-        // 부모댓글 수정, 삭제 버튼
+        // 부모 댓글 수정, 삭제 버튼
         const bntContainer = document.createElement('div');
         bntContainer.className = 'commentBtnBox';
-
+        // 부모 댓글 수정 버튼
         const modifyButton = document.createElement('button');
         modifyButton.classList.add('modifyBtnBox');
         const modifyButton_i = document.createElement('i');
         modifyButton_i.classList.add('fa-solid','fa-pen-to-square','commentModifyBtn');
         modifyButton.appendChild(modifyButton_i);
-
+        // 부모 댓글 삭제 버튼
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('deleteBtnBox');
         const deleteButton_i = document.createElement('i');
@@ -342,7 +368,7 @@ const replyRender = (post) => {
         
         // 답글 작성 버튼 부분 생성
         const commentWirterBtnBox = document.createElement('div');
-        commentWirterBtnBox.classList.add('commentWirterBtnBox');
+        commentWirterBtnBox.classList.add('commentWirterBtnBox','mt-2');
         
         const replyWriterBtn = document.createElement('a');
         replyWriterBtn.id = 'replyWriterBnt_' + item.replyNo;
@@ -659,6 +685,7 @@ const boardRelatedPosts = () => {
 pageUpAndDown();
 boardRelatedPosts();
 replyList();
+boardDetail();
 
 // 함수 호출
 window.onload = () => {
