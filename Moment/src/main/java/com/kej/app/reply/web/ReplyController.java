@@ -31,4 +31,11 @@ public class ReplyController {
 	public int dressReplyInsert(@RequestBody ReplyVO vo) {
 		return service.replyInsert(vo);
 	}
+	
+	// dress detail -> reply update (AJAX)
+	@RequestMapping(value = "/dress/mod", method = RequestMethod.POST)
+	@ResponseBody
+	public int dressReplyUpdate(@RequestBody ReplyVO vo) {
+		return service.replyModify(vo);
+	}
 }

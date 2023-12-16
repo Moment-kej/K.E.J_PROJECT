@@ -29,20 +29,8 @@
         background-color: #ebeef8;
         font-weight: bold !important;
     }
-    .topBtn-board-management a{
-        float: left;
-        width: 50px;
-        height: 35px;
-        margin: 7px;
-        line-height: 32px;
-        color: #222f4e;
-        font-size: 12px;
-        font-weight: 700;
-        text-align: center;
-        border: 1px solid #d4dfe9;
-        border-radius: 5px;
-        background-color: #d4dfe9;
-        transition: 0.5s;
+    .modifyBtnBox, .deleteBtnBox {
+        cursor: pointer !important;
     }
 </style>
 <div class="main-panel">
@@ -53,15 +41,15 @@
         <div class="container-fluid">
             <div class="mx-auto">
             <!-- Top Button -->
-            <div class="containal">
-                <div class="mb-2 topBtn-board-management board-management">
-                    <a href="#" id="modify">수정</a>
-                    <a href="#" id="delete">삭제</a>
+            <div class="d-flex justify-content-between align-items-center topBtnBox">
+                <div class="leftBtnBox">
+                    <button id="modify">수정</button>
+                    <button id="delete">삭제</button>
                 </div>
-                <div class="topBtn">
-                    <a href="#" id="pageUp"><i class="fa-solid fa-angle-up"></i>이전글</a>
-                    <a href="#" id="pageDown"><i class="fa-solid fa-angle-down"></i>다음글</a>
-                    <a href="#" id="goAllList">목록</a>
+                <div class="rightBtnBox">
+                    <button id="pageUp"><i class="fa-solid fa-angle-up"></i>이전글</button>
+                    <button id="pageDown"><i class="fa-solid fa-angle-down"></i>다음글</button>
+                    <button id="goAllList">목록</button>
                 </div>
             </div>
             <!-- Top Button End -->
@@ -116,6 +104,25 @@
                     <ul class="p-1">
                         <li id="replySection"></li>     <!-- 댓글, 대댓글, 댓글작성란 장소 -->
                     </ul>
+
+                    <!--  -->
+                    <!-- <div class="commentWriter" style="display:none;" id="parentReplyEditForm">
+                        <div class="comment_inbox">
+                            <span class="comment_inbox_name" id="replyWriter_mod">등록확인</span>
+                            <textarea id="replyTextrea_mod" placeholder="댓글을 남겨보세요"></textarea>
+                        </div>
+                        <div class="comment_attach d-flex justify-content-between align-items-center">
+                            <div class="comment_box_write_count">
+                                <strong class="fontSizeSmall comment_box_count_num" id="writeCount">0</strong>
+                                <span class="fontSizeSmall">/</span>
+                                <span class="fontSizeSmall comment_box_write_total">100</span>
+                            </div>
+                            <div class="register_box">
+                                <a type="button" class="button" id="replymodBnt" onclick="saveEditedComment()">저장</a>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!--  -->
 
                     <!-- 원댓글 작성 폼 -->
                     <div class="commentWriter">

@@ -41,4 +41,9 @@ public class ReplyServiceImpl implements ReplyService {
 		return rMapper.replyInsert(vo);
 	}
 
+	@Override
+	public int replyModify(ReplyVO vo) {
+		return rMapper.replyUpdate(vo);
+	}
+
 }
