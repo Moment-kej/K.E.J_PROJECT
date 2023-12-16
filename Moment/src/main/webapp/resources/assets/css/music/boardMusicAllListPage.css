@@ -1,0 +1,228 @@
+.displyNone {
+   display: none;
+}
+
+/* 게시글 Card Type */
+#boardList #boardSortCardType li:first-child {
+   border-top: 1px solid #bbb;
+   padding: 15px 0px;
+}
+
+#boardList #boardSortCardType li {
+   border-bottom: 1px solid #eeeeef;
+   font-size: 13px;
+   list-style: none;
+   padding: 15px 0px;
+}
+
+#boardList #boardSortCardType .cardTypeArea {
+   width: 100%;
+   padding: 0px 5px;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .title_area {
+   cursor: pointer;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .title_area .card_title span {
+   display: block;
+   color: #222;
+   height: 25px;
+   line-height: 22px;
+   font-size: 17px;
+   font-weight: bold;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area {
+   padding-top: 55px;
+   font-size: 12px
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area .user_info{
+   margin-right: 5px;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area .user_info .write_id{
+   margin-right: 15px;
+   color: #222;
+   font-weight: 500;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area .user_info .write_dt {
+   margin-right: 15px;
+   color: #999;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area .user_info .view_count {
+   margin-right: 15px;
+   color: #999;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area .user_info .view_count span {
+   margin-right: 5px;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area .user_info .view_count span:last-child {
+   margin-right: 5px;
+   color: #222;
+   font-weight: 500;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area .user_info .reply_count_info{
+   margin-right: 15px;
+   color: #999;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area .user_info .reply_count_info i {
+   margin-right: 5px;
+}
+
+#boardList #boardSortCardType .cardTypeArea .con_top .info_area .user_info .reply_count_info .reply_count {
+   margin-right: 5px;
+   color: #222;
+   font-weight: 500;
+}
+
+/* 게시글 Album Type */
+#boardList .albumType {
+   width: 100%;
+}
+
+#boardList .albumType .postType {
+   box-sizing: border-box;
+   width: 23%;
+   height: auto;
+   margin: 0.5%;
+}
+
+#boardList .albumType .postType .cardType {
+   width: 90%;
+   padding: 0% 3%;
+}
+
+#boardList .albumType .postType .cardType .cardTypeImgArea {
+   width: 100%;
+   max-width: 100%;
+}
+
+#boardList .albumType .postType .cardType .cardTypeImgArea a {
+   display: block;
+   width: 100%;
+   margin: auto;
+}
+
+#boardList .albumType .postType .cardType .cardTypeImgArea .albumTypeImg {
+   display: block;
+   width: 200px;
+   margin: auto;
+}
+
+#boardList .albumType .postType .cardType .cardTypeTitleArea {
+   display: block;
+   color: #333;
+   font-size: 15px;
+   font-weight: bolder;
+   cursor: pointer;
+   margin-bottom: 10px;
+}
+
+#boardList .albumType .postType .cardType .cardTypeTitleArea .album_title {
+   display: block;
+   overflow: hidden;           /* 넘치는 부분을 숨김 */
+   text-overflow: ellipsis;    /* 넘치는 부분을 생략 부호로 표시 */
+   white-space: nowrap;        /* 텍스트가 한 줄로만 표시되도록 함 */
+   word-wrap: break-word;
+   word-break: break-word;
+}
+
+#boardList .albumType .postType .cardType .cardTypeIDArea {
+   display: block;
+   max-width: 100%;
+   color: #666;
+   font-size: 13px;
+   font-weight: 400;
+   cursor: pointer;
+   margin-bottom: 3px;
+}
+
+#boardList .albumType .postType .cardType .cardTypeInfoArea {
+   display: block;
+   max-width: 100%;
+   color: #666;
+   font-size: 13px;
+   font-weight: 400;
+   cursor: pointer;
+   margin-bottom: 10px;
+}
+
+
+/* 게시글 Table Type */
+#boardList {
+	margin-bottom: 10px;
+}
+
+#boardList .boardSortListType {
+   border-top: 1px solid #bbb;
+   width: 100%;
+   color: #191919;
+   box-sizing: border-box;
+   word-break: break-all;
+   text-align: center;
+}
+
+#boardList thead tr th {
+   border-bottom: 1px solid #e4e4e4;
+   color: #333;
+   height: 20px;
+   font-size: 13px;
+   font-weight: 500;
+   padding: 7px 10px;
+}
+
+#boardList #article_list tr {
+   border-bottom: 1px solid #f5f5f5;
+   font-size: 12px;
+}
+
+#boardList #article_list tr td {
+   padding: 10px 0px;
+}  
+
+#boardList #article_list .td_boardNo {
+   width: 10%;
+   color: #666;
+}
+
+#boardList #article_list .td_title {
+   width: 55%;
+   text-align: left;
+   color: #111;
+   font-size: 13px;
+   font-weight: 500;
+}
+
+#boardList #article_list .td_title .title {
+   cursor: pointer;
+   margin-right: 5px;
+}
+
+#boardList #article_list .td_title .reply_count {
+   color: #ff5656;
+   font-weight: 700;
+   font-size: 11px;
+}
+
+#boardList #article_list .td_id {
+   width: 10%;
+   color: #666;
+}
+
+#boardList #article_list .td_writeDt {
+   width: 15%;
+   color: #666;
+}
+
+#boardList #article_list .td_viewCount {
+   width: 100%;
+   color: #666;
+}

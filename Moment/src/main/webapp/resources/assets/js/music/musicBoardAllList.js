@@ -33,7 +33,7 @@ const createSortListTypeComponent = (data) => {
    const thead = createAndAppendElement(table, 'thead');
    const trHead = createAndAppendElement(thead, 'tr');
    const columnMapping = {
-      headerTitles: ['번호', '제목', '작성자', '작성일', '조회수'],
+      headerTitles: ['번호', '제목', '작성자', '작성일', '조회'],
       colData: ['board', 'title', 'id', 'write_dt', 'view_count'],
       rowDataKeys: ["boardNo", "title", "id", "writeDt", "viewCount"]
    };
@@ -48,10 +48,7 @@ const createSortListTypeComponent = (data) => {
 
       for (const key of columnMapping.rowDataKeys) {
          const tdContent = '<span class="' + key + '">' + item[key] + '</span>';
-         const tdTitleArea = createAndAppendElement(trBody, 'td', { scope: 'row', class: 'td_' + key + ' ' + item.boardNo }, tdContent);
-         if(document.getElementsByClassName("td_title")[0]) {
-            createAndAppendElement(tdTitleArea, 'a', { href: '/app/board/music/' + item.boardNo });
-         }
+         createAndAppendElement(trBody, 'td', { scope: 'row', class: 'td_' + key + ' ' + item.boardNo }, tdContent);
       }
       
       const titleElement = document.getElementsByClassName("td_title " + item.boardNo)[0];
@@ -74,14 +71,14 @@ const createSortCardTypeComponent = (data) => {
       const cardTypeArea = createAndAppendElement(newListItem, 'div', { class: 'cardTypeArea d-flex justify-content-between align-items-center' });
       const conTop = createAndAppendElement(cardTypeArea, 'div', { class: 'con_top' });
       const titleArea = createAndAppendElement(conTop, 'div', { class: 'title_area' });
-      createAndAppendElement(titleArea, 'a', { href: '/app/board/music/' + item.boardNo, class: 'title' }, '<span class="">' + item.title + '</span>');
+      createAndAppendElement(titleArea, 'a', { href: '/app/board/music/' + item.boardNo, class: 'card_title' }, '<span class="">' + item.title + '</span>');
 
       const infoArea = createAndAppendElement(conTop, 'div', { class: 'info_area' });
       const userInfo = createAndAppendElement(infoArea, 'div', { class: 'user_info d-flex justify-content-start align-items-center' });
       createAndAppendElement(userInfo, 'div', { class: 'write_id' }, '<span>'+ item.id +'</span>');
       createAndAppendElement(userInfo, 'div', { class: 'write_dt' }, '<span class="date">' + dateFormat + '</span>');
       createAndAppendElement(userInfo, 'div', { class: 'view_count'}, '<span>조회</span><span>' + item.viewCount + '</span>');
-      const commentDiv = createAndAppendElement(userInfo, 'div', {});
+      const commentDiv = createAndAppendElement(userInfo, 'div', { class: 'reply_count_info'});
       createAndAppendElement(commentDiv, 'i', { class: 'fa-regular fa-comment-dots' });
       createAndAppendElement(commentDiv, 'span', {class: 'reply_count'}, item.replyCount);
 
@@ -99,14 +96,14 @@ const createSortAlbumTypeComponent = (data) => {
    data.map((item) => {
       const dateFormat = formatTimestamp(item.writeDt);
       const postTypeArea = createAndAppendElement(albumTypeArea, 'div', { class: 'postType'} );
-      const cardTypeArea = createAndAppendElement(postTypeArea, 'div', { class: 'cardType mr-3'} )
+      const cardTypeArea = createAndAppendElement(postTypeArea, 'div', { class: 'cardType'} )
 
       const imgArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeImgArea' });
       const aLinkElement = createAndAppendElement(imgArea, 'a', { href: '/app/board/music/' + item.boardNo });
       createAndAppendElement(aLinkElement, 'img', { class: 'albumTypeImg', src: '/app/assets/images/noImages.png' });
 
       const titleArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeTitleArea' });
-      createAndAppendElement(titleArea, 'span', { class: 'title' }, item.title);
+      createAndAppendElement(titleArea, 'span', { class: 'album_title' }, item.title);
 
       const idArea = createAndAppendElement(cardTypeArea, 'div', { class: 'cardTypeIDArea' });
       createAndAppendElement(idArea, 'span', { class: 'writeID' }, item.id);
@@ -120,6 +117,9 @@ const createSortAlbumTypeComponent = (data) => {
 }
 
 // ======================================================================
+const sortCardIcon = document.getElementById("sortCard");
+const sortAlbumIcon = document.getElementById("sortAlbum")
+const sortListIcon = document.getElementById("sortList");
 const showContent = (viewType, amount, category) => {
    $.ajax({
       url : firstContextPath + "/board/music-data",
@@ -129,17 +129,25 @@ const showContent = (viewType, amount, category) => {
       dataType : "json", // 서버 -> 클라이언트로 받을 때 데이터 타입',
       success : (data) => {
          clearContent();
-         //console.log("Ajax의 viewType과 amount", viewType + "/" + amount)
          currentViewType = viewType
          amount = amount;
          category = category;
          if(viewType == "cardType") {
+            sortCardIcon.setAttribute("src", firstContextPath + "/assets/icon/sortCardSelected.svg");
+            sortAlbumIcon.setAttribute("src", firstContextPath + "/assets/icon/sortAlbum.svg");
+            sortListIcon.setAttribute("src", firstContextPath + "/assets/icon/sortList.svg");
             createSortCardTypeComponent(data);
          }
          if(viewType == "albumType") {
+            sortAlbumIcon.setAttribute("src", firstContextPath + "/assets/icon/sortAlbumSelected.svg");
+            sortCardIcon.setAttribute("src", firstContextPath + "/assets/icon/sortCard.svg");
+            sortListIcon.setAttribute("src", firstContextPath + "/assets/icon/sortList.svg");
             createSortAlbumTypeComponent(data);
          } 
          if(viewType == "listType") {
+            sortListIcon.setAttribute("src", firstContextPath + "/assets/icon/sortListSelected.svg");
+            sortCardIcon.setAttribute("src", firstContextPath + "/assets/icon/sortCard.svg");
+            sortAlbumIcon.setAttribute("src", firstContextPath + "/assets/icon/sortAlbum.svg");
             createSortListTypeComponent(data);
          }
       },
@@ -156,7 +164,7 @@ const showContent = (viewType, amount, category) => {
 // =====================================================================================
 const clearContent = () => {
    const parentElement = document.getElementById("boardList")
-   while (parentElement.firstChild) { // 
+   while (parentElement.firstChild) {
       parentElement.removeChild(parentElement.firstChild);
    };
 }
@@ -194,7 +202,19 @@ const init = () => {
    showContent(currentViewType, amount, category);
 }
 
+const clickFunction = () => {
+   document.addEventListener("click", (e) => {
+   
+      const boardNoText = Number(e.target.parentElement.previousElementSibling.firstChild.innerText);
+
+      if (e.target.tagName === 'SPAN') {
+         window.location.href = firstContextPath + "/board/music/" + boardNoText;
+      }
+   });
+}
+
 // =====================================================================================
-$().ready(function() {
+$(document).ready(function() {
    init();
+   clickFunction();
 });

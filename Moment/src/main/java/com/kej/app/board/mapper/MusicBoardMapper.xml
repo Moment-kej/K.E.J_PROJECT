@@ -22,6 +22,7 @@
 	    WHERE b.yn = 1
 	      AND code = #{code}
 	      AND category LIKE CONCAT('%', #{category}, '%')
+	    ORDER BY b.BOARD_NO ASC
 	    LIMIT #{amount}
   	</select>
   	
