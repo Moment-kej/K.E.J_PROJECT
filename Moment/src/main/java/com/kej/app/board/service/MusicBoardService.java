@@ -10,4 +10,6 @@ public interface MusicBoardService {
 	// Music 게시판 목록 조회	
 	public List<BoardVO> musicBoardAllList(Criteria cri);
 	
+	public int pagecount(Criteria cri);
+	
 }

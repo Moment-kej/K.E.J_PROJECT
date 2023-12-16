@@ -5,26 +5,39 @@
   <mapper namespace="com.kej.app.board.mapper.MusicBoardMapper">
   	
   	<!-- 전체 목록 조회 -->
+  	<!-- 페이징 -->
   	<select id="musicBoardAllList" resultType="BoardVO">
-  		SELECT b.BOARD_NO
-		     , id
-		     , title 
-		     , write_dt  
-		     , view_count
-		     , code
-		     , (SELECT count(*)
-		  		  FROM reply r
-		  		 WHERE yn = 1
-		  		   AND b.board_no = r.board_no
-				   AND r.yn = 1
-		  	   ) AS reply_count
-	     FROM board b
-	    WHERE b.yn = 1
-	      AND code = #{code}
-	      AND category LIKE CONCAT('%', #{category}, '%')
-	    ORDER BY b.BOARD_NO ASC
-	    LIMIT #{amount}
+  		SELECT *
+			FROM (
+				SELECT b.BOARD_NO
+					 , code
+					 , category
+				     , id
+				     , title
+				     , content
+				     , write_dt  
+				     , view_count
+				     , (SELECT count(*)
+				  		  FROM reply r
+				  		 WHERE yn = 1
+				  		   AND b.board_no = r.board_no
+						   AND r.yn = 1
+				  	   ) AS reply_count
+			     FROM board b
+			    WHERE b.yn = 1
+			      AND code = #{code}
+			      AND category LIKE CONCAT('%', #{category}, '%')
+			    ORDER BY b.write_dt DESC
+			 ) a
+  		LIMIT #{pageStart}, #{amount}
   	</select>
   	
+  	<!-- Board All List Count -->
+  	<select id="pagecount" resultType="int">
+  		 SELECT COUNT(*)
+		   FROM board
+		  WHERE code = 20
+		    AND yn = 1
+  	</select>
   	
   </mapper>

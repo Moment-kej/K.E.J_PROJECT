@@ -22,4 +22,10 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		return mapper.musicBoardAllList(cri);
 	}
 
+	@Override
+	public int pagecount(Criteria cri) {
+
+		return mapper.pagecount(cri);
+	}
+
 }

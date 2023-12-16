@@ -7,7 +7,7 @@ import lombok.Data;
 public class Criteria {
 	
 	private int page; 			// 페이지번호
-	private int amount; 		// 데이터개수
+	private int amount; 		// 데이터개수(10, 20, 30, 40개 씩 게시글 보여주기)
 	private int category;		// 카테고리
 	private String listType;	// 게시글타입
 	private int code;			// 10, 20, 30
