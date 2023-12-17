@@ -59,27 +59,33 @@
                         <div class="writingBntDiv">
                             <button type="button" class="btn btn-inverse-success btn-md" id="writingBnt">글쓰기</button>
                         </div>
+
                         <!-- pagination -->
+                        <p>확인용 >> ${pageVO}</p>
                         <div class="pagination d-flex justify-content-center">
                             <!-- 5. 맨 처음으로 -->
                             <a id="pageNumberOne" class="firstpage pbtn">&laquo;&laquo;</a>
                             
                             <!-- 3.이전페이지네이션 -->
-                            <a id="pageStart" class="prevpage pbtn">&laquo;</a>
+                            <c:if test="${pageVO.prev}">
+                                <a id="pageStart" class="prevpage pbtn">&laquo;</a>
+                            </c:if>
                             
                             <!-- 1.페이지네이션 -->
-                            <a class="pageNumber"><span class="pagenum">1</span></a>
-                            <a class="pageNumber"><span class="pagenum">2</span></a>
-                            <a class="pageNumber"><span class="pagenum">3</span></a>
-                            <a class="pageNumber"><span class="pagenum">4</span></a>
-                            <a class="pageNumber"><span class="pagenum">5</span></a>
+                            <c:forEach var="num" begin="${pageVO.start}" end="${pageVO.end}">
+                                <a class="pageNumber" data-page="${num}">
+                                    <span class="pagenum ${pageVO.page == num ? 'currentpage' : '' }currentpage">${num}</span>
+                                </a>
+                            </c:forEach>
+                            
                             <!-- 2.다음페이지네이션 -->
-                            <a id="pageNext" class="nextpage pbtn">&raquo;</a>
+                            <c:if test="${pageVO.next}">
+                                <a id="pageNext" class="nextpage pbtn">&raquo;</a>
+                            </c:if>
                             
                             <!-- 4. 맨 마지막으로 -->
                             <a id="pageRealEnd" class="lastpage pbtn">&raquo;&raquo;</a>
                         </div><!-- pagination end -->
-                        <!-- search div -->
                         <div class="col-lg-12 pt-5">
                             <div class="d-flex justify-content-center grid-margin">
                                 <div class="d-flex">

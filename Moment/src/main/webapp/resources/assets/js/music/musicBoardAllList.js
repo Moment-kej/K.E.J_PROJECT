@@ -129,7 +129,7 @@ const showContent = (viewType, amount, category) => {
       dataType : "json", // 서버 -> 클라이언트로 받을 때 데이터 타입',
       success : (data) => {
          clearContent();
-         currentViewType = viewType
+         currentViewType = viewType;
          amount = amount;
          category = category;
          if(viewType == "cardType") {
@@ -206,8 +206,8 @@ const clickFunction = () => {
    document.addEventListener("click", (e) => {
    
       const boardNoText = Number(e.target.parentElement.previousElementSibling.firstChild.innerText);
-
-      if (e.target.tagName === 'SPAN') {
+      console.log(e.target)
+      if (e.target.tagName === "SPAN" && e.target == "span.title") {
          window.location.href = firstContextPath + "/board/music/" + boardNoText;
       }
    });

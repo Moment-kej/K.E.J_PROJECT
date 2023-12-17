@@ -281,9 +281,16 @@ public class BoardController {
     
     //Music 전체조회 Page
     @GetMapping("/music")
-    public String musicAllListPage(Model model) {
+    public String musicAllListPage(Model model, Criteria cri) {
     	
     	model.addAttribute("code", cservice.getCodes("CA"));
+    	
+    	//페이지네이션
+		int total = service.pagecount(cri);
+		PageVO pageVO = new PageVO(cri, total);
+		model.addAttribute("pageVO", pageVO);
+		
+		System.out.println("pageVOpageVOpageVOpageVOpageVO" + pageVO);
     	return "musicBoard/boardMusicAllListPage";
     }
     
