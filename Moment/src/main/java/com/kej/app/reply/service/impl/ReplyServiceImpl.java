@@ -46,4 +46,9 @@ public class ReplyServiceImpl implements ReplyService {
 		return rMapper.replyUpdate(vo);
 	}
 
+	@Override
+	public int replyDelete(int replyNo) {
+		return rMapper.replyDelete(replyNo);
+	}
+
 }
