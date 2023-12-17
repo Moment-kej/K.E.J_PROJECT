@@ -1,5 +1,3 @@
-import { renderPosts } from "./viewRender.js";
-
 const contextPath = document.getElementById('contextPath').value;
 
 export const pagenation = (listType) => {

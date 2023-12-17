@@ -58,7 +58,7 @@
                         </div>
                         <div style="clear:both"></div>
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
-                        <div><div id="contentListTest"></div></div>
+                        <div><div id="boardList" class="border-top"></div></div>
                         <!--글쓰기 버튼-->
                         <div class="writingBntDiv">
                             <button type="button" class="btn btn-inverse-success btn-md" id="boardInsertBnt">글쓰기</button>

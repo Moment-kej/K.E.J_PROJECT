@@ -1,5 +1,5 @@
 const contextPath = document.getElementById('contextPath').value;
-const contentContainer = document.getElementById('contentListTest');
+const contentContainer = document.getElementById('boardList');
 
 // 글쓰기 버튼 클릭 이벤트
 export const writingBntEvent = () => {
@@ -18,7 +18,7 @@ const Change = (category) => {
     let searchType = document.getElementById('searchType').value;
     let searchName = document.getElementById('searchName').value;
     let listType = document.getElementById('criteriaListType').value;
-    
+
     location.href = contextPath + '/board/dress?page=1&category=' + category
     + '&listType=' + listType +'&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
 };
@@ -31,6 +31,7 @@ export const menuCategoryEvent = () => {
             // 클릭한 요소의 ID 값을 가져온다.
             var clickedId = link.id;
             Change(clickedId);
+            
         });
     });
 };

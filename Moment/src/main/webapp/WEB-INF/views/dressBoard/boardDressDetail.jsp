@@ -59,7 +59,7 @@
                 <div class="cntnHeaderBox hrStyle mb-3">
                     <div class="headerTitleBox">
                         <a id="dressAllList">해당 게시판 목록<i class="fa-solid fa-angle-right"></i></a>
-                        <h3>${dress.title}</h3>
+                        <h3 id="title"></h3>
                     </div>
                     <div class="writerInfoBox">
                         <div class="d-flex justify-content-start align-items-center ">
@@ -68,34 +68,29 @@
                             </div>
                             <div class="writerInfo">
                                 <div class="writerInfoID">
-                                    <span class="userID">${dress.id}</span>
+                                    <span class="userID"></span>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <span class="date"><fmt:formatDate value="${dress.writeDt}" pattern="yy/MM/dd HH:mm:ss (EE)"/></span>
-                                    <span class="view">조회
-                                        <span class="viewCount">
-                                            ${dress.viewCount}
-                                        </span>
-                                    </span>
+                                    <span class="date"></span>
+                                    <span class="view">조회 <span class="viewCount"></span></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <hr> -->
                 </div>
                 <div class="contentViewer">
-                    <div>
-                        ${dress.content}
-                    </div>
+                    <div id="content"></div>
                 </div>
-                <div class="replyBox d-flex justify-content-start align-items-center hrStyle pb-4 mb-2">
-                    <div class="likeBox d-flex justify-content-start align-items-center">
-                        <span class="like"><i class="fa-regular fa-face-kiss-wink-heart"></i>좋아요</span>
-                        <span class="likeCount">${dress.likeCount}</span>
-                    </div>
-                    <div class="replyCountBox d-flex justify-content-start align-items-center">
-                        <span class="reply"><i class="fa-regular fa-comment-dots"></i>댓글</span>
-                        <span class="replyCount">${dress.replyCount}</span>
+                <div id="board_state_update">
+                    <div class="replyBox d-flex justify-content-start align-items-center hrStyle pb-4 mb-2">
+                        <div class="likeBox d-flex justify-content-start align-items-center">
+                            <span class="like"><i class="fa-regular fa-face-kiss-wink-heart"></i>좋아요</span>
+                            <span class="likeCount"></span>
+                        </div>
+                        <div class="replyCountBox d-flex justify-content-start align-items-center">
+                            <span class="reply"><i class="fa-regular fa-comment-dots"></i>댓글</span>
+                            <span class="replyCount"></span>
+                        </div>
                     </div>
                 </div>
                 

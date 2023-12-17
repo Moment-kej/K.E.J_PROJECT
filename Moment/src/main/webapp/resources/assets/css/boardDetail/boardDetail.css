@@ -249,6 +249,9 @@ button {
    font-size: 13px;
    font-weight: 500;
    color: #222;
+   white-space: pre-line;
+   letter-spacing: -0.5px; /* 글자 간격 축소 */
+   
 }
 
 .commentWirterBtnBox {

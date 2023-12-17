@@ -104,12 +104,11 @@ fieldset {border : none !important;}
 
 /* 테스트용 */
 /* 공통 스타일 */
-#contentListTest a {
-    color: black !important;
+#boardList a {
+    color: black;
 }
-#contentListTest,
-.contentNotData {
-    margin-top: 20px;
+#boardList a:hover {
+    color: #3935ff;
 }
 .contentNotData {
     width: 100%;
@@ -120,12 +119,9 @@ fieldset {border : none !important;}
     line-height: 230px;
 
 }
-
 .postType {
     display: inline-flex;
     padding: 5px 0;
-    margin-left: 5px;
-    margin-right: 5px;
 }
 .postAlbumType {
     border: 1px solid #ccc;
@@ -134,7 +130,9 @@ fieldset {border : none !important;}
     border-radius: 8px;
 }
 /* 앨범형 스타일 */
-
+.albumType {
+    width: 100%;
+}
 .postAlbumType > li {
     /* display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -143,19 +141,16 @@ fieldset {border : none !important;}
     padding: 16px 0;
     display: block;
 }
-
 .card_area {
     display: table;
     position: relative;
     width: 100%;
     table-layout: fixed;
 }
-
 .con {
     display: table-cell;
     position: relative;
 }
-
 .con_top > a:nth-child(2) {
     color: #3f3f3f !important;
     max-height: 44px;
@@ -165,28 +160,26 @@ fieldset {border : none !important;}
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
-
 .tit_area {
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
+    cursor: pointer;
 }
-
 .con_bottom {
     display: flex;
     position: absolute;
     bottom: 0;
     left: 0;
+    top: 91px;
     width: 100%;
-    padding-top: 35px;
+    font-size: 12.7px;
 }
-
 .date_num {
     float: left;
     color: #999;
     margin-left: 10px;
 }
-
 .date_num > span {
     margin-right: 10px;
 }
@@ -199,7 +192,6 @@ fieldset {border : none !important;}
     /* padding-left: 35px; */
     vertical-align: top;
 }
-
 .movie-img a:before {
     position: absolute;
     top: 0;
@@ -210,16 +202,24 @@ fieldset {border : none !important;}
     content: '';
     box-sizing: border-box;
 }
-
 /* 카드형 스타일 */
+#boardList .cardsType {
+    padding-left: 0 !important;
+}
+#boardList .cardsType li {
+    padding-left: 10px;
+}
 .cardsType {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
-.cardsPStyle {
-    display: -webkit-box;
-    font-weight: bold !important;
+.cardsType li {
+    border-bottom-style: solid;
+    border-bottom-color: #DEE2E6;
+    border-bottom-width: thin;
+    padding-bottom: 5px;
+    margin-top: 5px;
 }
 .cardType {
     flex: 1 1 200px;
@@ -236,16 +236,28 @@ fieldset {border : none !important;}
 .listType li {
     margin-bottom: 10px;
 }
-/* 1열, 4열, 5열 가운데 정렬 */
+.boardTable{
+    height: 430px;
+    margin-bottom: 10px;
+}
+.boardTable > thead {
+    height: 33px;
+}
+.boardTable thead tr th {
+    vertical-align: middle;
+}
+/* 1열, 3열, 4열, 5열 가운데 정렬 */
 #boardList tbody td:nth-child(1),
+#boardList tbody td:nth-child(3),
 #boardList tbody td:nth-child(4),
 #boardList tbody td:nth-child(5) {
     text-align: center;
+    color: #666;
+    font-size: 12.7px;
 }
 .boardListFormChangeBtn {
     cursor: pointer;
 }
-
 /* 앨범형 스타일 */
 .cardType > p {
     padding-left: 5px;
