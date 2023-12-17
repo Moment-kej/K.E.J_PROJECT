@@ -1,4 +1,4 @@
-import { firstContextPath, ajaxRequest, formatTimestamp, boardNumber, formatCurrentDateTime } from "../common/common.js";
+import { firstContextPath, ajaxRequest, formatTime_hhmm, boardNumber, formatTime_hhmmss } from "../common/common.js";
 
 //--url pathname 추출------------------------------------
 const firstPath = firstContextPath;   // '/moment' 가져오기
@@ -59,11 +59,10 @@ const boardDetail = () => {
         boardNo : boardNumber()
     }
     const callback = (data) => {
-        console.log(data);
         document.querySelector('.userID').textContent = data.id;                     // 아이디
         document.querySelector('#title').textContent = data.title;                   // 제목
         document.querySelector('#content').innerHTML = data.content;                 // 내용
-        document.querySelector('.date').textContent = formatCurrentDateTime(data.writeDt); // 등록일
+        document.querySelector('.date').textContent = formatTime_hhmmss(data.writeDt); // 등록일
         document.querySelector('.viewCount').textContent = data.viewCount;           // 조회수
         document.querySelector('.likeCount').textContent = data.likeCount;           // 좋아요 개수
         document.querySelector('.replyCount').textContent = data.replyCount;         // 댓글 개수
@@ -226,7 +225,7 @@ const ChildreplyRender = (post, containal) => {
     // 등록일
     const dateSpan = document.createElement("span");
     dateSpan.className = "replyInfoDate";
-    dateSpan.textContent = formatTimestamp(post.writeDt);
+    dateSpan.textContent = formatTime_hhmm(post.writeDt);
     infoDiv.appendChild(dateSpan);
 
     infoBox.appendChild(infoDiv);
@@ -327,7 +326,7 @@ const replyRender = (post) => {
         // 댓글 작성일
         const replyInfoDate = document.createElement('span');
         replyInfoDate.classList.add('replyInfoDate');
-        replyInfoDate.textContent = formatCurrentDateTime(item.writeDt);
+        replyInfoDate.textContent = formatTime_hhmm(item.writeDt);
 
         infoContainer.appendChild(replyInfoID);
         infoContainer.appendChild(replyInfoDate);
@@ -642,7 +641,7 @@ const relatedListRender = (posts) => {
 
         const div_3_span = document.createElement('span');
         div_3_span.classList.add('text-right','textColorGray','pr-2');
-        div_3_span.innerText = formatTimestamp(post.writeDt);
+        div_3_span.innerText = formatTime_hhmm(post.writeDt);
 
         div_3.appendChild(div_3_span);   // div_3 최종
 

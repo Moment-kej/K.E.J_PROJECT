@@ -22,44 +22,49 @@ export const getUrlParam = (paramName) => {
     // });
 };
 
-//시간포맷 : yyyy.MM.dd HH:mm
-export const formatTimestamp = (timestamp) => {
+// 시간포맷 : yyyy.MM.dd HH:mm (EE)
+export const formatTime_hhmm = (timestamp) => {
     // 밀리초로 표현된 시간 데이터를 Date 객체로 변환
-    const date    = new Date(timestamp);
+    const inData    = new Date(timestamp);
     // 날짜 및 시간 정보 추출
-    const year    = date.getFullYear();
-    const month   = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
-    const day     = String(date.getDate()).padStart(2, '0');
-    const hours   = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    // 포맷에 맞게 문자열 반환
-    const formattedDate = year + '.' + month + '.' + day + ' ' + hours + ':' + minutes;
-
-    return formattedDate;
-};
-
-// 시간 포맷 : yyyy.MM.dd HH:mm (EE)
-// 근데~ 오늘 날짜랑 시간 포맷의 MM.dd가 동일하면 HH:mm만 뱉도록 할거야~
-export const formatCurrentDateTime = (timestamp) => {
-    // addLeadingZero() : 주어진 숫자가 한 자리 숫자일 경우에 앞에 0을 추가하여 두 자리로 만들어주는 함수
-    var currentDate = new Date(timestamp);
-    var year = currentDate.getFullYear();
-    var month = addLeadingZero(currentDate.getMonth() + 1);
-    var day = addLeadingZero(currentDate.getDate());
-    var hours = addLeadingZero(currentDate.getHours());
-    var minutes = addLeadingZero(currentDate.getMinutes());
-    
+    const year    = inData.getFullYear();
+    const month   = String(inData.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
+    const day     = String(inData.getDate()).padStart(2, '0');
+    const hours   = String(inData.getHours()).padStart(2, '0');
+    const minutes = String(inData.getMinutes()).padStart(2, '0');
     // 오늘 날짜와 month, day가 같으면 'HH:mm' 형식으로 표시
-    if (isToday(currentDate)) {
+    if (isToday(inData)) {
         return hours + ':' + minutes;
     } else {
-        var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-        var dayOfWeek = daysOfWeek[currentDate.getDay()];
+        const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+        const dayOfWeek = daysOfWeek[inData.getDay()];
+        // 포맷에 맞게 문자열 반환
         return year + '.' + month + '.' + day + ' ' + hours + ':' + minutes + ' (' + dayOfWeek + ')';
     }
 };
+
+// 시간포맷 : yyyy.MM.dd HH:mm:ss (EE)
+export const formatTime_hhmmss = (timestamp) => {
+    // addLeadingZero() : 주어진 숫자가 한 자리 숫자일 경우에 앞에 0을 추가하여 두 자리로 만들어주는 함수
+    const inData = new Date(timestamp);
+    const year = inData.getFullYear();
+    const month = addLeadingZero(inData.getMonth() + 1);
+    const day = addLeadingZero(inData.getDate());
+    const hours = addLeadingZero(inData.getHours());
+    const minutes = addLeadingZero(inData.getMinutes());
+    const second = addLeadingZero(inData.getSeconds());
+    
+    // 오늘 날짜와 month, day가 같으면 'HH:mm' 형식으로 표시
+    if (isToday(inData)) {
+        return hours + ':' + minutes;
+    } else {
+        const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+        const dayOfWeek = daysOfWeek[inData.getDay()];
+        return year + '.' + month + '.' + day + ' ' + hours + ':' + minutes + ':' + second + ' (' + dayOfWeek + ')';
+    }
+};
 const isToday = (date) => {
-    var today = new Date();
+    const today = new Date();
     return date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
 };
 // 한 자리 숫자에는 앞에 0을 추가하는 함수

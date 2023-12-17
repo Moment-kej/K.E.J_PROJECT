@@ -1,5 +1,5 @@
 import { pagenation, pagenationNumber } from "./pagenation.js";
-import { formatTimestamp } from "../common/common.js";
+import { formatTime_hhmm } from "../common/common.js";
 
 const contentContainer = document.getElementById('boardList');
 const contextPath = document.getElementById('contextPath').value;
@@ -63,7 +63,7 @@ const createTable = (posts) => {
         posts.forEach(post => {
             let replyCount = post.replyCount;
             const row = document.createElement('tr');
-            const data = [post.boardNo, post.title, post.id, formatTimestamp(post.writeDt), post.viewCount];
+            const data = [post.boardNo, post.title, post.id, formatTime_hhmm(post.writeDt), post.viewCount];
 
             data.forEach((cellText, index) => {
                 const td = document.createElement('td');
@@ -98,7 +98,7 @@ const createPostElement = (post) => {
     let boardContent = extractedContent.preview; // 게시글 내용
 
     let boardWriter = post.id;                          // 닉네임
-    let boardWriteDt = formatTimestamp(post.writeDt);   // 시간
+    let boardWriteDt = formatTime_hhmm(post.writeDt);   // 시간
     let boardView = post.viewCount;                     // 조회수
     let boardReplyCount = post.replyCount;              // 댓글개수
 
