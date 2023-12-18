@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,15 @@ public class ReplyController {
 	@RequestMapping(value = "/dress/mod", method = RequestMethod.POST)
 	@ResponseBody
 	public int dressReplyUpdate(@RequestBody ReplyVO vo) {
+		
+		System.out.println("확인>> " + service.replyModify(vo));
 		return service.replyModify(vo);
+	}
+	
+	// dress detail -> reply delete (AJAX) : update로 진행
+	@RequestMapping(value = "/dress/del/{replyNo}", method = RequestMethod.POST)
+	@ResponseBody
+	public int dressReplyDelete(@PathVariable("replyNo") Integer replyNo) {
+		return service.replyDelete(replyNo);
 	}
 }

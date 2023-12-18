@@ -254,6 +254,12 @@ button {
    
 }
 
+/* 삭제 부모 댓글 */
+.parentReplyContent {
+   color: gray !important;
+   font-style: italic;
+}
+
 .commentWirterBtnBox {
    margin-bottom: -10px;
    margin-left: 3px;

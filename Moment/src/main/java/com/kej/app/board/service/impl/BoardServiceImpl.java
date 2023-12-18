@@ -135,6 +135,16 @@ public class BoardServiceImpl implements BoardService {
 	public int dressBoardDelete(BoardVO vo) {
 		return bMapper.dressBoardDelete(vo);
 	}
+	
+	@Override
+	public List<BoardVO> newBoardListWithin3Days(Criteria cri) {
+		return bMapper.newBoardListWithin3Days(cri);
+	}
+	
+	@Override
+	public int newBoardCountWithin3Days(Criteria cri) {
+		return bMapper.newBoardCountWithin3Days(cri);
+	}
 	// eunae ---------------------------------------------
 
 	

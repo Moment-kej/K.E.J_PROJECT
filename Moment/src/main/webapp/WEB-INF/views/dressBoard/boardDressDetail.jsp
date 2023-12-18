@@ -43,13 +43,13 @@
             <!-- Top Button -->
             <div class="d-flex justify-content-between align-items-center topBtnBox">
                 <div class="leftBtnBox">
-                    <button id="modify">수정</button>
+                    <button id="modify" class="modify">수정</button>
                     <button id="delete">삭제</button>
                 </div>
                 <div class="rightBtnBox">
                     <button id="pageUp"><i class="fa-solid fa-angle-up"></i>이전글</button>
                     <button id="pageDown"><i class="fa-solid fa-angle-down"></i>다음글</button>
-                    <button id="goAllList">목록</button>
+                    <button id="goAllList" class="goAllList">목록</button>
                 </div>
             </div>
             <!-- Top Button End -->
@@ -137,6 +137,10 @@
                         </div>
                     </div><!-- 원댓글 작성 폼 End -->
                 </div> <!-- Detail Reply End -->
+                <div class="rightBtnBox d-flex justify-content-end">
+                    <button id="modify" class="modify">수정</button>
+                    <button id="goAllList" class="goAllList">목록</button>
+                </div>
             </div> <!-- Detail Content End -->
 
             <!-- 카테고리 관련글 보기 -->

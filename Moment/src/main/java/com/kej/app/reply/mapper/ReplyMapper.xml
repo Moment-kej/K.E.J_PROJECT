@@ -19,7 +19,6 @@
 		 WHERE 1=1
 		   AND board_no = #{boardNo}
 		   AND group_layer = #{groupLayer}
-		   AND yn = 1
 		 ORDER BY reply_no DESC
 	</select>
 	
@@ -67,8 +66,15 @@
 	
 	<update id="replyUpdate" parameterType="ReplyVO">
 		UPDATE reply
-		   SET CONTENT = #{content}
-		     , UPDATE_DT = now()
+		   SET content = #{content}
+		     , update_dt = now()
+		     , yn = 1
+		 WHERE reply_no = #{replyNo}
+	</update>
+	
+	<update id="replyDelete" parameterType="int">
+		UPDATE reply
+		   SET yn = 0
 		 WHERE reply_no = #{replyNo}
 	</update>
 	
