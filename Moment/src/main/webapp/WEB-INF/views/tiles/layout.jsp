@@ -12,16 +12,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Moment</title>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/> -->
 
 	<!-- icon render : eunae -->
 	<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
 	<!-- plugins:css -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/feather/feather.css">
+	<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/feather/feather.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/ti-icons/css/themify-icons.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/css/vendor.bundle.base.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/select.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/select.dataTables.min.css"> --%>
 	
 	<!-- boardAllList Page Css -->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/eunae/boardDressPage.css"/>
@@ -52,17 +52,17 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/ti-icons/css/themify-icons.css">
-    
+
 	<!-- w3schools -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 	<!-- SweetAlert -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"> -->
-    
+	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"> -->
+
 	<!-- Fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-        
-    <!-- CK Editor -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+	<!-- CK Editor -->
 	<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/super-build/ckeditor.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/super-build/translations/ko.js"></script>
 	
@@ -71,14 +71,12 @@
 <body>
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="content" />
-	<!-- <tiles:insertAttribute name="footer" /> --!>
 	
 	<!-- Kakao Map -->
 	<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=796cf859ad3574f6a087d7c99ef6b404&libraries=services"></script> -->
 	
 	<!-- Sweetalert -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script> -->
 	
 	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/9fc370938e.js" crossorigin="anonymous"></script>
@@ -86,8 +84,8 @@
 	<!-- plugins:js -->
 	<script src="${pageContext.request.contextPath}/assets/vendors/js/vendor.bundle.base.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/vendors/chart.js/Chart.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/dataTables.select.min.js"></script>
+	<!-- <script src="${pageContext.request.contextPath}/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/dataTables.select.min.js"></script> -->
 	<!--<script src="assets/vendors/datatables.net/jquery.dataTables.js"></script>-->
 	
 	<!-- End plugin js for this page -->
@@ -100,7 +98,7 @@
 	<!-- endinject -->
 	
 	<!-- Custom js for this page-->
-	<script src="${pageContext.request.contextPath}/assets/js/dashboard.js"></script>
+	<!-- <script src="${pageContext.request.contextPath}/assets/js/dashboard.js"></script> -->
 	<!--<script src="assets/js/Chart.roundedBarCharts.js"></script>-->
 	
 	
