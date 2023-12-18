@@ -56,36 +56,14 @@
                             <div id="contentListTest"></div><!-- js로 렌더링 하는곳 -->
                         </div>
                         <!--글쓰기 버튼-->
-                        <div class="writingBntDiv">
-                            <button type="button" class="btn btn-inverse-success btn-md" id="writingBnt">글쓰기</button>
+                        <div id="writeBtnBox">
+                            <button type="button" id="writeBnt"><i class="fa-solid fa-pen"></i>글쓰기</button>
                         </div>
 
                         <!-- pagination -->
-                        <p>확인용 >> ${pageVO}</p>
-                        <div class="pagination d-flex justify-content-center">
-                            <!-- 5. 맨 처음으로 -->
-                            <a id="pageNumberOne" class="firstpage pbtn">&laquo;&laquo;</a>
-                            
-                            <!-- 3.이전페이지네이션 -->
-                            <c:if test="${pageVO.prev}">
-                                <a id="pageStart" class="prevpage pbtn">&laquo;</a>
-                            </c:if>
-                            
-                            <!-- 1.페이지네이션 -->
-                            <c:forEach var="num" begin="${pageVO.start}" end="${pageVO.end}">
-                                <a class="pageNumber" data-page="${num}">
-                                    <span class="pagenum ${pageVO.page == num ? 'currentpage' : '' }currentpage">${num}</span>
-                                </a>
-                            </c:forEach>
-                            
-                            <!-- 2.다음페이지네이션 -->
-                            <c:if test="${pageVO.next}">
-                                <a id="pageNext" class="nextpage pbtn">&raquo;</a>
-                            </c:if>
-                            
-                            <!-- 4. 맨 마지막으로 -->
-                            <a id="pageRealEnd" class="lastpage pbtn">&raquo;&raquo;</a>
-                        </div><!-- pagination end -->
+                        <div id="pagingBox" class="pagination d-flex justify-content-center align-items-center"></div>
+                        <!-- pagination end -->
+                        <!-- search div -->
                         <div class="col-lg-12 pt-5">
                             <div class="d-flex justify-content-center grid-margin">
                                 <div class="d-flex">

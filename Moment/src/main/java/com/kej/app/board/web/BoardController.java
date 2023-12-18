@@ -299,12 +299,7 @@ public class BoardController {
     	
     	model.addAttribute("code", cservice.getCodes("CA"));
     	
-    	//페이지네이션
-		int total = service.pagecount(cri);
-		PageVO pageVO = new PageVO(cri, total);
-		model.addAttribute("pageVO", pageVO);
-		
-		System.out.println("pageVOpageVOpageVOpageVOpageVO" + pageVO);
+		// model.addAttribute("pageVO", pageVO);
     	return "musicBoard/boardMusicAllListPage";
     }
     
@@ -317,9 +312,17 @@ public class BoardController {
     // Ajax Get Method 
  	@RequestMapping(value="/music-data", method = {RequestMethod.GET})
  	@ResponseBody
- 	public List<BoardVO> musicAllList (Criteria cri) {
+ 	public Map<String, Object> musicAllList (Criteria cri) {
  		
- 		return musicService.musicBoardAllList(cri);
+ 		//페이지네이션
+		int total = service.pagecount(cri);
+		PageVO pageVO = new PageVO(cri, total);
+		
+		Map<String, Object> response = new HashMap<>();
+		response.put("data", musicService.musicBoardAllList(cri));
+		response.put("paging", pageVO);
+ 		
+ 		return response;
  	}
         
     // Music Detail Page

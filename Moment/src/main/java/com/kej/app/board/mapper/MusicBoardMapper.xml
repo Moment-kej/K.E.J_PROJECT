@@ -33,7 +33,7 @@
   	</select>
   	
   	<!-- Board All List Count -->
-  	<select id="pagecount" resultType="int">
+  	<select id="pageCount" resultType="int">
   		 SELECT COUNT(*)
 		   FROM board
 		  WHERE code = 20

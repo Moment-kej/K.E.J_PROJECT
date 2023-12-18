@@ -9,6 +9,7 @@ import com.kej.app.board.mapper.MusicBoardMapper;
 import com.kej.app.board.service.MusicBoardService;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
+import com.kej.app.board.service.vo.PageVO;
 
 @Service
 public class MusicBoardServiceImpl implements MusicBoardService {
@@ -23,9 +24,9 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 	}
 
 	@Override
-	public int pagecount(Criteria cri) {
+	public int pageCount(Criteria cri) {
 
-		return mapper.pagecount(cri);
+		return mapper.pageCount(cri);
 	}
 
 }

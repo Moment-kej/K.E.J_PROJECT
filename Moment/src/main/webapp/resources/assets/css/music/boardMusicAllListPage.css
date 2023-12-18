@@ -226,3 +226,65 @@
    width: 100%;
    color: #666;
 }
+
+/* Write Button */
+#writeBtnBox {
+   width: 100%;
+}
+
+#writeBtnBox #writeBnt {
+   box-sizing: border-box;
+   float: right;
+   width: 80px;
+   height: 40px;
+   background-color: #fff;
+   color: #3289ba;
+   border: 1px solid rgba(136, 182, 211, 0.7);
+   border-radius: 1px;
+   margin: 10px 0px;
+   padding: 5px;
+   font-size: 13px;
+   font-weight: 700;
+   text-align: center;
+   cursor: pointer;
+   transition: 0.5s;
+}
+
+#writeBtnBox #writeBnt:hover {
+   background-color: #eaf7ff;
+   transition: 0.5s;
+   text-decoration: none;
+}
+
+#writeBtnBox #writeBnt i {
+   margin-right: 10px;
+}
+
+/* paging */
+#pagingBox {
+   clear: both;
+   margin-top: 20px;
+   width: 100%;
+}
+
+#pagingBox .pbtn {
+   width: 30px;
+   height: 30px;
+   margin: 0px 5px;
+   border: 1px solid #caced1;
+   border-radius: 2px;
+   color: #fff;
+   background-color: #caced1;
+   font-size: 12px;
+   font-weight: 400;
+   text-align: center;
+   transition: 0.3;
+}
+
+#pagingBox .pbtn:hover {
+   font-size: 13px;
+   font-weight: 500;
+   background-color: #fff;
+   color: #567182;
+   transition: 0.3;
+}
