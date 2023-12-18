@@ -19,7 +19,6 @@ import com.kej.app.common.service.vo.NewsVO;
 public class CommonController {
 	@Autowired CommonService service;
 	
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		return "comm/main";
@@ -30,7 +29,7 @@ public class CommonController {
 	public String boardAllListTemp(Model model, @RequestParam(defaultValue = "1") int page,
 									@RequestParam(defaultValue = "all") String query) {
 		// 공통코드
-		model.addAttribute("code", service.getCodes("CO"));
+		model.addAttribute("code", service.getCodes("CO", "CA"));
 
         List<NewsVO> list = service.news(page, query);
         int total = service.getTotalPages(query);
@@ -58,4 +57,5 @@ public class CommonController {
 		
 		return service.books(page, query);
 	};
+
 }

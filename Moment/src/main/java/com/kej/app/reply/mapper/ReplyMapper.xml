@@ -68,6 +68,7 @@
 		UPDATE reply
 		   SET content = #{content}
 		     , update_dt = now()
+		     , yn = 1
 		 WHERE reply_no = #{replyNo}
 	</update>
 	

@@ -37,6 +37,8 @@ public class ReplyController {
 	@RequestMapping(value = "/dress/mod", method = RequestMethod.POST)
 	@ResponseBody
 	public int dressReplyUpdate(@RequestBody ReplyVO vo) {
+		
+		System.out.println("확인>> " + service.replyModify(vo));
 		return service.replyModify(vo);
 	}
 	

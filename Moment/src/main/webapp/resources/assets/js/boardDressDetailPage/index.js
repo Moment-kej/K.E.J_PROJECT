@@ -268,7 +268,7 @@ const replySectionTwoTextarea = (replyNo) => {
 // child reply render
 const ChildreplyRender = (post, containal) => {
     const outContainer = document.createElement("div");
-    outContainer.classList.add('mb-2','pb-3','pt-3', 'hrStyleChildReply');
+    outContainer.classList.add('pt-3', 'mb-4', 'hrStyleChildReply');
     outContainer.id = 'child_' + post.replyNo;
 
     const commentContainer = document.createElement("div");
@@ -304,7 +304,7 @@ const ChildreplyRender = (post, containal) => {
 
     // 댓글 내용
     const contentDiv = document.createElement("div");
-    contentDiv.className = "commentContent";
+    contentDiv.className = "replyContent";
     const contentSpan = document.createElement("span");
     contentSpan.innerHTML = post.content;
     contentDiv.appendChild(contentSpan);
@@ -336,7 +336,7 @@ const replyRender = (post) => {
     
     replySection.innerHTML = '';    // 댓글 목록 초기화
     
-    //reply view render
+    // reply view render
     post.forEach((item) => {
         const replyInnerSection = document.createElement('div');
         replyInnerSection.classList.add('replyInnerSecion', 'hrStyle', 'pb-4', 'mb-2');
@@ -390,8 +390,8 @@ const replyRender = (post) => {
         parentReplyContainal.appendChild(userInfoContainal);
 
         // 부모 댓글 수정, 삭제 버튼
-        const bntContainer = document.createElement('div');
-        bntContainer.className = 'commentBtnBox';
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'commentBtnBox';
         // 부모 댓글 수정 버튼
         const modifyButton = document.createElement('button');
         modifyButton.classList.add('modifyBtnBox');
@@ -406,24 +406,26 @@ const replyRender = (post) => {
         deleteButton_i.classList.add('fa-solid','fa-trash', 'commentDelBtn');
         deleteButton.appendChild(deleteButton_i);
 
-        bntContainer.appendChild(modifyButton);
-        bntContainer.appendChild(deleteButton);
+        btnContainer.appendChild(modifyButton);
+        btnContainer.appendChild(deleteButton);
 
-        userInfoContainal.appendChild(bntContainer);
+        userInfoContainal.appendChild(btnContainer);
         parentReplyContainal.appendChild(userInfoContainal);
         
         // 댓글 내용 부분 생성
-        const commentContent = document.createElement('div');
-        commentContent.classList.add('commentContent');
+        const replyContent = document.createElement('div');
+        replyContent.classList.add('replyContent');
         const commentContent_span = document.createElement('span');
-        if(item.yn === 0) {
+
+        if(item.yn === 0) {     // parent reply is delete
             commentContent_span.textContent = '삭제 댓글입니다.';
-            commentContent_span.className = 'parentReplyContent';
+            commentContent_span.className = 'parentReplyContent';   // parent reply content setting
+            btnContainer.style.display = 'none';    // parent reply button setting
         } else {
             commentContent_span.textContent = item.content;
         }
-        commentContent.appendChild(commentContent_span);
-        parentReplyContainal.appendChild(commentContent);
+        replyContent.appendChild(commentContent_span);
+        parentReplyContainal.appendChild(replyContent);
         
         // 답글 작성 버튼 부분 생성
         const commentWirterBtnBox = document.createElement('div');
@@ -533,8 +535,6 @@ const replyRender = (post) => {
 };
 // parent reply attribute create & parent modify button event & modify save button event
 const parentReplyAttributeCreate_and_SaveButtonAjax = () => {
-    // 이전 수정 폼을 저장할 변수
-    let existingEditForm;
     // 각 댓글에 data-reply-no 속성을 추가
     let parentReplyContainal = document.querySelectorAll('.parentReplyContainal');
     for(let i = 0 ; i < parentReplyContainal.length ; i++) {
@@ -553,10 +553,9 @@ const parentReplyAttributeCreate_and_SaveButtonAjax = () => {
 
 // parent reply 설정
 const parentReplyUpdateFormChange = (button) => {
-    // 댓글 번호 가져오기
-    let number = button.currentTarget.getAttribute("data-reply-no");
-    // 댓글 내용 가져오기
-    let commentContent = button.currentTarget.closest('.parentReplyContainal').querySelector('.commentContent span').innerText;
+    let number = button.currentTarget.getAttribute("data-reply-no");    // 댓글 순서
+    let replyWriter = button.currentTarget.closest('.parentReplyContainal').querySelector('.replyInfoID').innerText;
+    let replyContent = button.currentTarget.closest('.parentReplyContainal').querySelector('.replyContent span').innerText;
 
     // 새로운 수정 폼 생성
     let editForm = document.createElement("div");
@@ -565,8 +564,8 @@ const parentReplyUpdateFormChange = (button) => {
     editForm.style.display = "block";  // 수정 폼을 보이게 설정
 
     editForm.innerHTML = '<div class="comment_inbox"> ' +
-                            '<span class="comment_inbox_name" id="replyWriter_mod">등록확인</span>' +
-                            '<textarea id="replyTextrea_mod" placeholder="댓글을 남겨보세요">' + commentContent + '</textarea>' +
+                            '<span class="comment_inbox_name" id="replyWriter_mod">' + replyWriter + '</span>' +
+                            '<textarea id="replyTextrea_mod" placeholder="댓글을 남겨보세요">' + replyContent + '</textarea>' +
                         '</div>' +
                         '<div class="comment_attach d-flex justify-content-between align-items-center">' +
                             '<div class="register_box">' +
@@ -594,12 +593,12 @@ window.saveEditedComment = (number) => {
     // const parentReplyContent = parentReplyContainer.children[1];
     // parentReplyContent.querySelector("span").innerText = editedCommentText;
 
-    // reply update ajac
+    // reply update ajax
     const data = JSON.stringify({
         replyNo : replyNo,
         content : editedCommentText,
     });
-    const callback = () => {
+    const callback = (data) => {
         replyList();
     };
     ajaxRequest(firstPath + '/reply/dress/mod', 'POST', data, callback);

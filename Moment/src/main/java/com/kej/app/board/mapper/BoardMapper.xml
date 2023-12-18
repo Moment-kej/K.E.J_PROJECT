@@ -206,6 +206,42 @@
 	       AND id = #{id}
 	  </update>
 	  
+	  <!-- 메인페이지 최근 게시글 리스트 -->
+	  <select id="newBoardListWithin3Days" resultType="BoardVO">
+	  	SELECT BOARD_NO
+		     , CODE
+		     , CATEGORY
+		     , ID
+		     , TITLE
+		     , CONTENT
+		     , WRITE_DT
+		     , VIEW_COUNT
+		     , YN
+		     , COALESCE((SELECT COUNT(*)
+		          FROM REPLY r
+		         WHERE b.board_no = r.board_no
+		           AND yn = 1
+		       ), 0) AS "reply_count"
+		     , COALESCE((SELECT COUNT(*)
+		     			   FROM board_like l
+		     			  WHERE b.board_no = l.board_no)
+		 	   , 0) AS "like_count"
+		  FROM board b
+		 WHERE yn = 1
+		   AND code = #{code}
+		   AND b.write_dt BETWEEN DATE_ADD(NOW(), INTERVAL -3 DAY) AND NOW()
+		 ORDER BY b.board_no DESC
+	  </select>
+	  
+	  <!-- 메인페이지 최근 게시글 페이지네이션 -->
+	  <select id="newBoardCountWithin3Days" resultType="BoardVO">
+		  SELECT COUNT(*)
+		  FROM board b
+		 WHERE yn = 1
+		   AND code = #{code}
+		   AND b.write_dt BETWEEN DATE_ADD(NOW(), INTERVAL -3 DAY) AND NOW()
+	  </select>
+	  
 	
 	
 	

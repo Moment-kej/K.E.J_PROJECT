@@ -25,8 +25,8 @@ public class CommonServiceImpl implements CommonService{
 	@Autowired CommonMapper commonMapper;
 	private static String NEWS_CLIENT_ID = "uzFgU5Xq_6esU6400qi2";
 	private static String NEWS_CLIENT_SECRET = "2zYFlRC1sO";
-	private static int DISPLAY_COUNT = 10;	// 한 페이지에 보여줄 뉴스 개수
-	private static int DISPLAY_COUNT_BOOK = 8;	// 한 페이지에 보여줄 책 개수
+	private static int DISPLAY_COUNT = 9;	// 한 페이지에 보여줄 뉴스 개수
+	private static int DISPLAY_COUNT_BOOK = 10;	// 한 페이지에 보여줄 책 개수
 	
 	private static String BOOK_CLIENT_ID = "MhnHteJVoLFUSzJOxMAZ";
 	private static String BOOK_CLIENT_SECRET = "e4R7Hlzgbs"; 
