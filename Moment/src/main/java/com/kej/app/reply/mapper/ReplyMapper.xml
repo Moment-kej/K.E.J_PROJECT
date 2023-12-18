@@ -19,7 +19,6 @@
 		 WHERE 1=1
 		   AND board_no = #{boardNo}
 		   AND group_layer = #{groupLayer}
-		   AND yn = 1
 		 ORDER BY reply_no DESC
 	</select>
 	

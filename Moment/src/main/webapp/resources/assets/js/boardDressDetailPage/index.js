@@ -5,7 +5,12 @@ const firstPath = firstContextPath;   // '/moment' 가져오기
 
 // --a tag------------------------------------------------
 // 목록으로 a tag href 설정
-document.getElementById('goAllList').addEventListener('click', () => {location.href = firstPath + '/board/dress';});
+const goAllListBtn = document.querySelectorAll('.goAllList');
+goAllListBtn.forEach(button => {
+    button.addEventListener('click', () => {
+        location.href = firstPath + '/board/dress';
+    });
+});
 document.getElementById('dressAllList').addEventListener('click', () => {location.href = firstPath + '/board/dress';});
 
 // 댓글작성 a tag click event
@@ -47,9 +52,12 @@ const boardManagemantBnt = () => {
     console.log(boadrWriter);
 
     // 수정 페이지로 이동
-    document.getElementById('modify').addEventListener('click', () => {
-        location.href = firstContextPath + '/board/dress/modify/' + boardNumber();
-    })
+    const modifyBtn = document.querySelectorAll('.modify');
+    modifyBtn.forEach(button => {
+        button.addEventListener('click', () => {
+            location.href = firstContextPath + '/board/dress/modify/' + boardNumber();
+        });
+    }); 
 }
 // --a tag end------------------------------------------------
 
@@ -202,14 +210,15 @@ const parentReplyDeleteAjax = (replyNo) => {
                 cancelButtonText: "아니요"
             }).then((result) => {
                 if (result.isConfirmed) {
+                    boardDetail();          // 상세조회 ajax 호출
+                    replyList();            // 댓글 ajax 호출
+                    boardRelatedPosts();    // 관련글 ajax 호출
+
                     Swal.fire({
                         icon: "success",
                         title: "삭제완료",
-                        didClose: function () {
-                            boardDetail();          // 상세조회 ajax 호출
-                            replyList();            // 댓글 ajax 호출
-                            boardRelatedPosts();    // 관련글 ajax 호출
-                        }
+                        // didClose: function () {
+                        // }
                     });
                 }
             });
@@ -406,7 +415,14 @@ const replyRender = (post) => {
         // 댓글 내용 부분 생성
         const commentContent = document.createElement('div');
         commentContent.classList.add('commentContent');
-        commentContent.innerHTML = '<span>' + item.content +'</span>';
+        const commentContent_span = document.createElement('span');
+        if(item.yn === 0) {
+            commentContent_span.textContent = '삭제 댓글입니다.';
+            commentContent_span.className = 'parentReplyContent';
+        } else {
+            commentContent_span.textContent = item.content;
+        }
+        commentContent.appendChild(commentContent_span);
         parentReplyContainal.appendChild(commentContent);
         
         // 답글 작성 버튼 부분 생성
@@ -436,6 +452,7 @@ const replyRender = (post) => {
 
         const childReplyinnerContainal = document.createElement('div');
         childReplyinnerContainal.classList.add('childReplyinnerContainal');
+        childReplyinnerContainal.setAttribute('reply-append', item.replyNo);
 
         childReplyContent.appendChild(childReplyinnerContainal);
 
@@ -619,9 +636,7 @@ const replyList = () => {
             replySectionTwoTextarea(replyNo);   // 대댓글 작성란 글자수 표기 및 제한
 
             child.map(child_item => {
-                if(replyNo == child_item.groupNo) {
-                    ChildreplyRender(child_item, '.childReplyinnerContainal');
-                }
+                ChildreplyRender(child_item, '.childReplyinnerContainal[reply-append="' + replyNo + '"]');
             });
             // let removeElement = document.getElementById('child_reply_' + item.replyNo);
             // removeElement.style.display = 'none';
