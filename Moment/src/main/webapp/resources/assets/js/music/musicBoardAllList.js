@@ -244,12 +244,25 @@ const init = () => {
    showContent(currentViewType, amount, category);
 }
 
+window.clickFunction = () => {
+   document.addEventListener("click", function(e) {
+      if (e.target.classList.contains("pageNumBtn")) {
+         // 클릭한 요소가 "pageNum" 클래스를 가지고 있는 경우
+         console.log(e.target);
+         console.log("꺄ㄹ를르르를르르ㅡㅡㄹ륵");
+      }
+   });
+}
+
 // =====================================================================================
 $().ready(function() {
    init();
-   document.getElementsByClassName("pageNumBtn");
-   $(".pageNumBtn").on("click", (e) => {
-      console(e.target)
-      console.log(document.getElementsByClassName("pageNumBtn"));
+   $(document).on("click", ".pageNumBtn", function(e) {
+
+      console.log(e.target);
+   });
+
+   $(".menuCategoryATag").on("click", (e) => {
+      console.log("e.targete.targete.targete.target",e.target);
    })
 });
