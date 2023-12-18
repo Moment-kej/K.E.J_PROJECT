@@ -3,6 +3,7 @@
 // http://localhost:8080/app/board/20 -> /app 이것만 추출해서 /app/ 형태로 만듦 
 export const firstContextPath = "/" + window.location.pathname.split("/")[1];
 
+// =====================================================================================
 export const getUrlParam = (paramName) => {
     // 현재 페이지 URL의 쿼리 문자열을 가져옴
     var queryString = window.location.search;
@@ -22,6 +23,7 @@ export const getUrlParam = (paramName) => {
     // });
 };
 
+// =====================================================================================
 // 시간포맷 : yyyy.MM.dd HH:mm (EE)
 export const formatTime_hhmm = (timestamp) => {
     // 밀리초로 표현된 시간 데이터를 Date 객체로 변환
@@ -43,6 +45,7 @@ export const formatTime_hhmm = (timestamp) => {
     }
 };
 
+// =====================================================================================
 // 시간포맷 : yyyy.MM.dd HH:mm:ss (EE)
 export const formatTime_hhmmss = (timestamp) => {
     // addLeadingZero() : 주어진 숫자가 한 자리 숫자일 경우에 앞에 0을 추가하여 두 자리로 만들어주는 함수
@@ -72,7 +75,7 @@ const addLeadingZero = (number) => {
     return number < 10 ? '0' + number : number;
 };
 
-
+// =====================================================================================
 // url board number 추출
 export const boardNumber = () => {
     let pathname = window.location.pathname;
@@ -86,6 +89,7 @@ export const boardNumber = () => {
     return boardNumber;
 }
 
+// =====================================================================================
 // 사용방법 : 데이터를 성공적으로 들고 왔을 때 실행해야 하는 것들을 담으면 됨
 // const callback = (data) => {
 //     console.log(data);
@@ -100,6 +104,7 @@ export const boardNumber = () => {
 //     serachName: ''
 // }
 
+// =====================================================================================
 // ajax 공통함수 / GET, POST 확인완료
 export const ajaxRequest = (url, method, data, successCallback) => {
     const hasSuccessCallback = $.isFunction(successCallback) ? true : false;
@@ -125,4 +130,28 @@ export const ajaxRequest = (url, method, data, successCallback) => {
     };
 
     $.ajax(ajaxOptions);
+};
+
+// =====================================================================================
+/**
+ * Element를 만들고 append하는 함수
+ * 
+ * @param   parent  append할 부모 Element
+ * @param   elementType  생성 할 elementType 
+ * @param   attributes  elementType 속성
+ * @param   content  내용
+ * @returns element 만들어 진 Element를 return 합니다.
+ *
+**/
+export const createAndAppendElement = (parent, elementType, attributes = {}, content = '') => {
+    const element = document.createElement(elementType);
+
+    for (const key in attributes) {
+        element.setAttribute(key, attributes[key]);
+    }
+
+    element.innerHTML = content;
+    parent.appendChild(element);
+
+    return element;
 };
