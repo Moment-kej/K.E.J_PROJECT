@@ -124,7 +124,63 @@
                                 </div>
                             </nav>
                             <!-- new board rendering -->
-                            <div id="newBoardList"></div>
+                            <div id="newBoardList">
+                                <div class="mt-3">
+                                    <table class="table table-hover mainTable">
+                                        <colgroup>
+                                            <col style="width: 10%">
+                                            <col style="width: 40%">
+                                            <col style="width: 20%">
+                                            <col style="width: 20%">
+                                            <col style="width: 10%">
+                                        </colgroup>
+                                        <thead class="text-center">
+                                            <th>번호</th>
+                                            <th>제목</th>
+                                            <th>작성자</th>
+                                            <th>작성일</th>
+                                            <th>조회수</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">1</td>
+                                                <td>2</td>
+                                                <td class="text-center">3</td>
+                                                <td class="text-center">4</td>
+                                                <td class="text-center">5</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">1</td>
+                                                <td>2</td>
+                                                <td class="text-center">3</td>
+                                                <td class="text-center">4</td>
+                                                <td class="text-center">5</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">1</td>
+                                                <td>2</td>
+                                                <td class="text-center">3</td>
+                                                <td class="text-center">4</td>
+                                                <td class="text-center">5</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">1</td>
+                                                <td>2</td>
+                                                <td class="text-center">3</td>
+                                                <td class="text-center">4</td>
+                                                <td class="text-center">5</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">1</td>
+                                                <td>2</td>
+                                                <td class="text-center">3</td>
+                                                <td class="text-center">4</td>
+                                                <td class="text-center">5</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -141,7 +197,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-7 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
@@ -235,7 +291,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <script type="module" src="${pageContext.request.contextPath}/assets/js/mainPage/mainPage.js"></script>
