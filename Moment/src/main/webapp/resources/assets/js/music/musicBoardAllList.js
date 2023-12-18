@@ -1,28 +1,5 @@
-import { firstContextPath, formatTime_hhmm } from '../common/common.js';
+import { firstContextPath, formatTime_hhmm, createAndAppendElement } from '../common/common.js';
 
-// =====================================================================================
-/**
- * Element를 만들고 append하는 함수
- * 
- * @param   parent  append할 부모 Element
- * @param   elementType  생성 할 elementType 
- * @param   attributes  elementType 속성
- * @param   content  내용
- * @returns element 만들어 진 Element를 return 합니다.
- *
-**/
-const createAndAppendElement = (parent, elementType, attributes = {}, content = '') => {
-   const element = document.createElement(elementType);
-
-   for (const key in attributes) {
-      element.setAttribute(key, attributes[key]);
-   }
-
-   element.innerHTML = content;
-   parent.appendChild(element);
-
-   return element;
-};
 // =====================================================================================
 const boardListContainer = document.getElementById("boardList");
 // 게시글 List형태
