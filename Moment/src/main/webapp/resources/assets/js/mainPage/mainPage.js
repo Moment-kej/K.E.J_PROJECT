@@ -234,7 +234,6 @@ const newBoardListWithin3Days = (code, category, page) => {
     const callback = (post) => {
         newBoardRender(post.data);
         pagenation(post.pagenation);
-        pagenationWork();
     };
     ajaxRequest(firstPath + '/board/newList', 'GET', data, callback);
 };
@@ -243,11 +242,17 @@ const newBoardListWithin3DaysBtn = () => {
     Array.from(newBoardCategory).forEach((element) => {
         element.addEventListener('click', (e) => {
             const code = e.target.getAttribute('cate-data');
+            Array.from(newBoardCategory).forEach(remove => {
+                // 모든 링크에서 'selected' 클래스를 제거
+                remove.classList.remove('selected');
+            });
+            // 현재 클릭된 링크에 'selected' 클래스 추가
             if(code === 0) {
-                newBoardListWithin3Days('0', '0');
+                newBoardListWithin3Days('0', '0', 1);
             } else {
-                newBoardListWithin3Days(code, '0');
+                newBoardListWithin3Days(code, '0', 1);
             };
+            element.classList.add('selected');
         });
     });
 };
@@ -301,29 +306,44 @@ const pagenation = (data) => {
     createAndAppendElement(containal, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
     for(let i = 1 ; i <= data.realEnd ; i++) {
         const pageNumberLink = createAndAppendElement(containal, "button", { class: 'pageNumBtn pbtn' });
-        createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum' }, i);
+        createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum'}, i);
     };
     createAndAppendElement(containal, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
     createAndAppendElement(containal, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
 };
 
 const pagenationWork = () => {
-    let mainNumber;
-    let page = document.getElementsByClassName('pageNumBtn');
+    const pagenationDiv = document.getElementById('pagingBox');
+    pagenationDiv.addEventListener('click', (e) => {
+        const currentCategoryElement = document.querySelector('.newBoardCategory.selected');
+        let currentMainCategory;
+        
+        if(e.target.classList.contains('pageNumBtn')) {
+            let currentPage = e.target.textContent;
+            // 현재 페이지 값을 가져오기
+            // 클릭된 카테고리 값 가져오기
+            if(!currentCategoryElement){
+                currentMainCategory = 0;
+            } else {
+                currentMainCategory = currentCategoryElement.getAttribute('cate-data');
+            }
+            newBoardListWithin3Days(currentMainCategory, '0', currentPage);
+        } else if(e.target.classList.contains('firstPage')) {
+            newBoardListWithin3Days(currentMainCategory, '0', 1);
+        } else if(e.target.classList.contains('prevPage')) {
+            const prevPage = e.target.textContent-1;
+            
+            console.log('prevPage:',prevPage);
+            if(prevPage > 0) {
+                document.getElementById('prevPageBtn').disabled = 'false';
+                newBoardListWithin3Days(currentMainCategory, '0', prevPage);
+            } else {
+                document.getElementById('prevPageBtn').disabled = 'ture';
+            }
+        }
+    })
+    
 
-    console.log(page);
-
-    const code = document.querySelectorAll('newBoardCategory');
-
-    Array.from(code).forEach((mainCategory) => {
-        mainNumber = mainCategory.getAttribute('cate-data');
-    });
-
-    Array.from(page).forEach((page_number) => {
-        page_number.addEventListener('click', (e) => {
-            console.log(e.target);
-        });
-    });
 };
 //------------------------------------------------------------------------
 // ajax list
@@ -331,6 +351,7 @@ bookSearch();
 newsSearch();
 createBookComponent(firstPath, 1, "all");
 createNewsComponent(firstPath, 1, "all");
+pagenationWork();
 
 newBoardListWithin3Days('0', '0', 1);
 newBoardListWithin3DaysBtn('0', '0', 1);
