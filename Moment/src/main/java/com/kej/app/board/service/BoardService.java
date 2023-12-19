@@ -18,8 +18,7 @@ public interface BoardService {
 	public List<BoardVO> getCombinedBoardList(BoardListVO vo);
 	public int dressBoardUpdate(BoardVO vo);
 	public int dressBoardDelete(BoardVO vo);
-	public List<BoardVO> newBoardListWithin3Days(Criteria cri);
-	public int newBoardCountWithin3Days(Criteria cri);
+	public Map<String, Object> boardNewList(Criteria cri);
 	
 	
 	

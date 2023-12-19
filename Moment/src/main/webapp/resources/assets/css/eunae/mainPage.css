@@ -48,5 +48,13 @@ a {
     color: blue;
 }
 .mainTable {
-    height: 220px;
+    height: 30px;
+}
+.mainTable td:nth-child(1),
+.mainTable td:nth-child(3),
+.mainTable td:nth-child(4),
+.mainTable td:nth-child(5) {
+    text-align: center;
+    color: #666;
+    font-size: 12.7px;
 }

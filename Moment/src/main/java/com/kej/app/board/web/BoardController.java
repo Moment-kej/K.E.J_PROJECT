@@ -165,20 +165,11 @@ public class BoardController {
 	public int boardDressDelAjax(@RequestBody BoardVO vo) {
 		return service.dressBoardDelete(vo);
 	}
-	
 	// 메인페이지 최신글 (AJAX)
 	@RequestMapping(value="/newList", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> boardNewList(Criteria cri) {
-		int total = service.newBoardCountWithin3Days(cri);
-		PageVO pvo = new PageVO(cri, total);
-		
-		Map<String, Object> res = new HashMap<>();
-		
-		res.put("data", service.newBoardListWithin3Days(cri));
-		res.put("pagenation", pvo);
-		
-		return res;
+		return service.boardNewList(cri);
 	}
 	
 	
