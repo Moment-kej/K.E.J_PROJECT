@@ -40,6 +40,7 @@ const createSortListTypeComponent = (data) => {
 
    boardListContainer.appendChild(table);
 }
+
 // =====================================================================================
 // 게시글 Card 형태
 const createSortCardTypeComponent = (data) => {
@@ -72,6 +73,7 @@ const createSortCardTypeComponent = (data) => {
 
    boardListContainer.appendChild(boardSortCardType);
 }
+
 // =====================================================================================
 // 게시글 Album 형태
 const createSortAlbumTypeComponent = (data) => {
@@ -95,7 +97,6 @@ const createSortAlbumTypeComponent = (data) => {
 
       createAndAppendElement(infoArea, 'span', { class: 'writeDt' }, dateFormat);
       createAndAppendElement(infoArea, 'span', { class: 'viewCount' }, ' ⦁ 조회 ' + item.viewCount);
-
    });
 }
 
@@ -108,22 +109,21 @@ const createPagination = (data) => {
       parentElement.removeChild(parentElement.firstChild);
    };
    
-   createAndAppendElement(parentElement, 'button', { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
+   createAndAppendElement(parentElement, "button", { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
 
-   createAndAppendElement(parentElement, 'button', { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
+   createAndAppendElement(parentElement, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
 
    for (let i = 1; i <= data.pageCnt; i++) {
-      const pageNumberLink = createAndAppendElement(parentElement, 'button', { class: 'pageNumBtn pbtn' });
+      const pageNumberLink = createAndAppendElement(parentElement, "button", { class: 'pageNumBtn pbtn' });
       createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum' }, i);
    }
 
-   createAndAppendElement(parentElement, 'button', { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
+   createAndAppendElement(parentElement, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
 
-   createAndAppendElement(parentElement, 'button', { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
+   createAndAppendElement(parentElement, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
 };
 
 // ======================================================================
-
 const showContent = (viewType, amount, category) => {
    $.ajax({
       url : firstContextPath + "/board/music-data",
@@ -136,20 +136,17 @@ const showContent = (viewType, amount, category) => {
          currentViewType = viewType;
          amount = amount;
          category = category;
-         if(viewType == "cardType") {
 
+         if(viewType == "cardType") {
             createSortCardTypeComponent(data.data);
          }
          if(viewType == "albumType") {
-
             createSortAlbumTypeComponent(data.data);
          } 
          if(viewType == "listType") {
-            
             createSortListTypeComponent(data.data);
          }
-         createPagination(data.paging)
-         
+         createPagination(data.paging);
       },
       error:(error) => {
          Swal.fire({
@@ -170,7 +167,7 @@ const disableViewTypeBtn = () => {
    sortListIcon.setAttribute("src", firstContextPath + "/assets/icon/sortList.svg");
    sortCardIcon.setAttribute("src", firstContextPath + "/assets/icon/sortCard.svg");
    sortAlbumIcon.setAttribute("src", firstContextPath + "/assets/icon/sortAlbum.svg");
-}
+};
 
 // =====================================================================================
 const clearContent = () => {
@@ -178,7 +175,7 @@ const clearContent = () => {
    while (parentElement.firstChild) {
       parentElement.removeChild(parentElement.firstChild);
    };
-}
+};
 
 // =====================================================================================
 let currentViewType = "listType"; // 카드형, 앨범형, 리스트형 
@@ -221,25 +218,17 @@ const init = () => {
    showContent(currentViewType, amount, category);
 }
 
-window.clickFunction = () => {
-   document.addEventListener("click", function(e) {
-      if (e.target.classList.contains("pageNumBtn")) {
-         // 클릭한 요소가 "pageNum" 클래스를 가지고 있는 경우
-         console.log(e.target);
-         console.log("꺄ㄹ를르르를르르ㅡㅡㄹ륵");
-      }
-   });
-}
-
 // =====================================================================================
-$().ready(function() {
+$().ready(() => {
    init();
-   $(document).on("click", ".pageNumBtn", function(e) {
-
-      console.log(e.target);
+   $(document).on("click", ".pageNumBtn", (e) => {
+      // 페이지 번호 숫자 icon click했을 때
+      if(e.target.tagName == "SPAN") {
+         console.log(e.target);
+      } else {
+         console.log(e.target);
+      }
+      clearContent();
+      showContent(currentViewType, amount, category);
    });
-
-   $(".menuCategoryATag").on("click", (e) => {
-      console.log("e.targete.targete.targete.target",e.target);
-   })
 });

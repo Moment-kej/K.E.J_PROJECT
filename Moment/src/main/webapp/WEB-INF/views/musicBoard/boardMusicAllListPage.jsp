@@ -85,7 +85,7 @@
                                     <button class="btn btn-outline-dark btn-fw" type="button" id="button-addon2">Search</button>
                                 </div>
                             </div>
-                        </div> <!-- search div end-->
+                        </div><!-- search div end-->
                     </div>
                 </div>
             </div>
