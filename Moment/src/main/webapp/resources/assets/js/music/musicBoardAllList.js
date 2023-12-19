@@ -39,14 +39,14 @@ const createSortListTypeComponent = (data) => {
    });
 
    boardListContainer.appendChild(table);
-}
+};
 
 // =====================================================================================
 // 게시글 Card 형태
 const createSortCardTypeComponent = (data) => {
    const boardSortCardType = createAndAppendElement(boardListContainer, 'ul', { id : 'boardSortCardType'});
 
-   data.map((item) => { 
+   data.map((item) => {
       const dateFormat = formatTime_hhmm(item.writeDt);
       // createAndAppendElement 함수를 사용하여 새로운 리스트 아이템 생성 및 추가
       const newListItem = createAndAppendElement(boardSortCardType, 'li');
@@ -72,11 +72,12 @@ const createSortCardTypeComponent = (data) => {
    });
 
    boardListContainer.appendChild(boardSortCardType);
-}
+};
 
 // =====================================================================================
 // 게시글 Album 형태
 const createSortAlbumTypeComponent = (data) => {
+   
    const albumTypeArea = createAndAppendElement(boardListContainer, 'div', { class: 'albumType'} );
    data.map((item) => {
       const dateFormat = formatTime_hhmm(item.writeDt);
@@ -98,11 +99,10 @@ const createSortAlbumTypeComponent = (data) => {
       createAndAppendElement(infoArea, 'span', { class: 'writeDt' }, dateFormat);
       createAndAppendElement(infoArea, 'span', { class: 'viewCount' }, ' ⦁ 조회 ' + item.viewCount);
    });
-}
+};
 
 // =====================================================================================
 const createPagination = (data) => {
-
    const parentElement = document.getElementById('pagingBox'); // 부모 요소의 ID를 지정해야 합니다.
 
    while (parentElement.firstChild) {
@@ -112,10 +112,10 @@ const createPagination = (data) => {
    createAndAppendElement(parentElement, "button", { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
 
    createAndAppendElement(parentElement, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
-
-   for (let i = 1; i <= data.pageCnt; i++) {
+   
+   for (data.start; data.start <= data.end; data.start++) {
       const pageNumberLink = createAndAppendElement(parentElement, "button", { class: 'pageNumBtn pbtn' });
-      createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum' }, i);
+      createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum' }, data.start);
    }
 
    createAndAppendElement(parentElement, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
@@ -124,11 +124,11 @@ const createPagination = (data) => {
 };
 
 // ======================================================================
-const showContent = (viewType, amount, category) => {
+const showContent = (viewType, amount, category, page) => {
    $.ajax({
       url : firstContextPath + "/board/music-data",
       method : "GET",
-      data : { code: 20, amount: amount, listType: viewType, category: category },
+      data : { code: 20, amount: amount, listType: viewType, category: category, page: page },
       contentType: "application/json", // 클라이언트 -> 서버로 전송할 데이터 타입
       dataType : "json", // 서버 -> 클라이언트로 받을 때 데이터 타입',
       success : (data) => {
@@ -136,7 +136,7 @@ const showContent = (viewType, amount, category) => {
          currentViewType = viewType;
          amount = amount;
          category = category;
-
+         page = page;
          if(viewType == "cardType") {
             createSortCardTypeComponent(data.data);
          }
@@ -156,7 +156,7 @@ const showContent = (viewType, amount, category) => {
          });
       }
    });
-}
+};
 
 // =====================================================================================
 const sortCardIcon = document.getElementById("sortCard");
@@ -174,61 +174,69 @@ const clearContent = () => {
    const parentElement = document.getElementById("boardList")
    while (parentElement.firstChild) {
       parentElement.removeChild(parentElement.firstChild);
-   };
+   }
 };
 
 // =====================================================================================
 let currentViewType = "listType"; // 카드형, 앨범형, 리스트형 
 let category = 0; // 국악, 발라드, k-pop 등
 let amount = 10; // 게시글 몇개씩 보여줄건지?
+let page = 1;
 const init = () => {
    document.getElementById("cardType").addEventListener("click", () => {
       disableViewTypeBtn();
       sortCardIcon.setAttribute("src", firstContextPath + "/assets/icon/sortCardSelected.svg");
-      showContent("cardType", amount, category);
+      
+      showContent("cardType", amount, category, page);
    });
 
    document.getElementById("albumType").addEventListener("click", () => {
       disableViewTypeBtn();
       sortAlbumIcon.setAttribute("src", firstContextPath + "/assets/icon/sortAlbumSelected.svg");
-      showContent("albumType", amount, category);
+      showContent("albumType", amount, category, page);
    });
 
    document.getElementById("listType").addEventListener("click", () => {
       disableViewTypeBtn();
       sortListIcon.setAttribute("src", firstContextPath + "/assets/icon/sortListSelected.svg");
-      showContent("listType", amount, category);
+      showContent("listType", amount, category, page);
    });
 
    $("#handleAmount").on("change", (e) => {
+      page = 1
       amount = e.target.value;
-      showContent(currentViewType, amount, category);
+      showContent(currentViewType, amount, category, page);
    });
 
    $(".menuCategoryATag").on("click", (e) => {
+      page = 1
       category = e.target.getAttribute("data-value");
       if(category == null || category == undefined) {
          category = 0
       }
-      showContent(currentViewType, amount, category);
+      showContent(currentViewType, amount, category, page);
    });
 
    sortListIcon.setAttribute("src", firstContextPath + "/assets/icon/sortListSelected.svg");
 
-   showContent(currentViewType, amount, category);
-}
+   showContent(currentViewType, amount, category, page);
+};
 
 // =====================================================================================
 $().ready(() => {
    init();
    $(document).on("click", ".pageNumBtn", (e) => {
-      // 페이지 번호 숫자 icon click했을 때
+      page = e.target;
+
       if(e.target.tagName == "SPAN") {
-         console.log(e.target);
+         page = $(page).parent().eq(0).text();
       } else {
-         console.log(e.target);
+         page = $(page).text();
       }
+     e.target.children().attr('style', 'color: pink;');
+      console.log(e.target);
+      $(page).attr('"style"', '"color: pink"');
       clearContent();
-      showContent(currentViewType, amount, category);
+      showContent(currentViewType, amount, category, page);
    });
 });

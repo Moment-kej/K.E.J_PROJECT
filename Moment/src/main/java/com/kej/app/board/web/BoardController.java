@@ -321,7 +321,7 @@ public class BoardController {
 		Map<String, Object> response = new HashMap<>();
 		response.put("data", musicService.musicBoardAllList(cri));
 		response.put("paging", pageVO);
- 		
+ 		System.out.println(response);
  		return response;
  	}
         

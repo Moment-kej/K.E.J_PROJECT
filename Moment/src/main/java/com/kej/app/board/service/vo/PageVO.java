@@ -18,7 +18,7 @@ public class PageVO {
 	
 	private Criteria cri; //페이지기준
 	
-	private int pageCnt = 5; //페이지네이션 개수
+	private int pageCnt = 5; // 나타나는 페이지 번호 개수
 	
 	//생성자 - pageVO가 만들어질 때 cri, total을 받는다
 	public PageVO(Criteria cri, int total) {
