@@ -47,3 +47,6 @@ a {
 .categoryLink:hover {
     color: blue;
 }
+.mainTable {
+    height: 220px;
+}
