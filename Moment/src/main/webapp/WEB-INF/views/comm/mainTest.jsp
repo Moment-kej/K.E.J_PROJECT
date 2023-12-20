@@ -3,17 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/eunae/mainPage.css">
-<style>
-    #prevPageBtn[disabled],
-    #prevPageBtn[disabled]:hover {
-        background-color: #e7e7e7;
-        cursor: not-allowed;
-        border: 1px solid #e7e7e7;
-    }
-    #prevPageBtn[disabled] i:hover {
-        color: #fff
-    }
-</style>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="row">

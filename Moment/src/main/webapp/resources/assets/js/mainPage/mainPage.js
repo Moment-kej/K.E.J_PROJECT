@@ -230,10 +230,16 @@ const formatMoney = (money) => {
 //------------------------------------------------------------------------
 // new board list ajax
 const newBoardListWithin3Days = (code, category, page) => {
-    let data = {code: code, amount:5, category: category, page: page};
+    let data = {code: code, amount:5, category: category, page: parseInt(page)};
     const callback = (post) => {
         newBoardRender(post.data);
         pagenation(post.pagenation);
+        
+        let currentPageNumber = post.pagenation.page;
+        let realEndPageNumber = post.pagenation.realEnd;
+        prevButtonClick(currentPageNumber);
+        nextButtonClick(currentPageNumber, realEndPageNumber);
+        lastButtonClick(realEndPageNumber);
     };
     ajaxRequest(firstPath + '/board/newList', 'GET', data, callback);
 };
@@ -262,96 +268,143 @@ const newBoardRender = (data) => {
     const containal = document.querySelector('#newBoardList');
     containal.innerHTML = '';
     const innerContainal = createAndAppendElement(containal, 'div', {class : 'mt-3 border-top'});
-    const table = createAndAppendElement(innerContainal, 'table', {class : 'table table-hover'});
-    const colgroup = ['10%','40%','20%','20%','10%'];
-    for(const key of colgroup) {
-        createAndAppendElement(table, 'col', {style : 'width:' + key});
-    };
-    const thead = createAndAppendElement(table, 'thead', {class: 'text-center'});
-    const trHead = createAndAppendElement(thead, 'tr', {class : 'mt-3'});
-    const columnMapping = {
-        headerTitles: ['번호', '제목', '작성자', '작성일', '조회'],        // 제목
-        rowDataKeys: ["boardNo", "title", "id", "writeDt", "viewCount"] // 데이터
-    };
-    for(const title of columnMapping.headerTitles) {
-        createAndAppendElement(trHead, 'th', {}, title);
-    };
-    const tbody = createAndAppendElement(table, 'tbody');
-    data.map((item) => { // tbody 에 있는 tr에 ajax로 들고오는 값 불어넣기
-        item.writeDt = formatTime_hhmm(item.writeDt);
-        const trBody = createAndAppendElement(tbody, 'tr', {class : 'mainTable'});
-        for(const key of columnMapping.rowDataKeys) {
-            let tdContent = "";
-            if(key === 'title') {
-                tdContent = '<a href="' + firstPath + '/board/dress/all/' + item.boardNo + '">'
-                            +   '<span>' + item[key] + '</span>' 
-                            + '</a>';
-            } else {
-                tdContent = '<span class="' + key + '">'+ item[key] +'</span>'
-            };
-            createAndAppendElement(trBody, 'td', {}, tdContent);
+    if(data != 0) {
+        const table = createAndAppendElement(innerContainal, 'table', {class : 'table table-hover'});
+        const colgroup = ['10%','40%','20%','20%','10%'];
+        for(const key of colgroup) {
+            createAndAppendElement(table, 'col', {style : 'width:' + key});
         };
-    });
+        const thead = createAndAppendElement(table, 'thead', {class: 'text-center'});
+        const trHead = createAndAppendElement(thead, 'tr', {class : 'mt-3'});
+        const columnMapping = {
+            headerTitles: ['번호', '제목', '작성자', '작성일', '조회'],        // 제목
+            rowDataKeys: ["boardNo", "title", "id", "writeDt", "viewCount"] // 데이터
+        };
+        for(const title of columnMapping.headerTitles) {
+            createAndAppendElement(trHead, 'th', {}, title);
+        };
+        const tbody = createAndAppendElement(table, 'tbody');
+        data.map((item) => { // tbody 에 있는 tr에 ajax로 들고오는 값 불어넣기
+            item.writeDt = formatTime_hhmm(item.writeDt);
+            const trBody = createAndAppendElement(tbody, 'tr', {class : 'mainTable'});
+            for(const key of columnMapping.rowDataKeys) {
+                let tdContent = "";
+                if(key === 'title') {
+                    tdContent = '<a href="' + firstPath + '/board/dress/all/' + item.boardNo + '">'
+                                +   '<span>' + item[key] + ' <span style="color: red;">[' + item.replyCount + ']</span>' + '</span>' 
+                                + '</a>';
+                } else {
+                    tdContent = '<span class="' + key + '">'+ item[key] +'</span>'
+                };
+                createAndAppendElement(trBody, 'td', {}, tdContent);
+            };
+        });
+    } else {
+        const dataNotDiv = createAndAppendElement(innerContainal, 'div', {class : 'd-flex justify-content-center position-relative', style : 'height: 140px;'});
+        createAndAppendElement(dataNotDiv, 'h3', {class : 'position-absolute top-50 start-50 translate-middle'}, '최근 등록된 게시글이 없습니다.');
+    }
     containal.append(innerContainal);
 };
-
+//------------------------------------------------------------------------
 const pagenation = (data) => {
     const containal = document.getElementById('pagingBox');
     // 컨테이너의 첫번째 자식이면 삭제할 자식 중 첫번째 자식을 지워라.
     while (containal.firstChild) {
         containal.removeChild(containal.firstChild);
     };
-    // 순서 : <<,<,number,>,>>
-    createAndAppendElement(containal, 'button', { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
-    createAndAppendElement(containal, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
-    for(let i = 1 ; i <= data.realEnd ; i++) {
-        const pageNumberLink = createAndAppendElement(containal, "button", { class: 'pageNumBtn pbtn' });
-        createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum'}, i);
-    };
-    createAndAppendElement(containal, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
-    createAndAppendElement(containal, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
+
+    if(data.total !== 0) {
+        // 순서 : <<,<,number,>,>>
+        createAndAppendElement(containal, 'button', { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
+        createAndAppendElement(containal, "button", { id: 'prevPageBtn_', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
+        for(let i = 1 ; i <= data.realEnd ; i++) {
+            const pageNumberLink = createAndAppendElement(containal, "button", { class: 'pageNumBtn pbtn' });
+            createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum'}, i);
+        };
+        createAndAppendElement(containal, "button", { id: 'nextpageBtn_', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
+        createAndAppendElement(containal, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
+    } else {
+        createAndAppendElement(containal, 'div', {});
+    }
 };
 
-const pagenationWork = () => {
+const currentCategory = () => {
+    const currentCategoryElement = document.querySelector('.newBoardCategory.selected');
+    let currentMainCategory;
+
+    if(!currentCategoryElement) {
+        currentMainCategory = 0;
+    } else {
+        currentMainCategory = parseInt(currentCategoryElement.getAttribute('cate-data'));
+    };
+
+    return currentMainCategory;
+};
+
+const prevButtonClick = (page) => {
+    const clickedElement = document.getElementById('prevPageBtn_');
+    const category = currentCategory();
+
+    clickedElement.addEventListener('click', () => {
+        // <
+        console.log('prevButtonClick');
+        if(page > 1) {
+            newBoardListWithin3Days(category, 0, page - 1);
+            clickedElement.disabled = 'false';
+        } else if (page === 1) {
+            clickedElement.disabled = 'true';
+        };
+    });
+};
+
+const nextButtonClick = (page, realEnd) => {
+    const clickedElement = document.getElementById('nextpageBtn_');
+    const category = currentCategory();
+    clickedElement.addEventListener('click', () => {
+        // >
+        console.log('nextButtonClick');
+        console.log(realEnd !== page);
+        if (realEnd !== page) {
+            newBoardListWithin3Days(category, 0, page + 1);
+            clickedElement.disabled = 'false';
+        } else {
+            clickedElement.disabled = 'true';
+        }
+    });
+};
+
+const lastButtonClick = (realEnd) => {
+    const clickedElement = document.getElementById('lastPageBtn');
+    const category = currentCategory();
+    // >>
+    clickedElement.addEventListener('click', () => {
+        console.log('lastButtonClick');
+        console.log(realEnd);
+        newBoardListWithin3Days(category, 0, realEnd);
+    });
+};
+
+const numberAndFirstPageButtonClick = () => {
     const pagenationDiv = document.getElementById('pagingBox');
     pagenationDiv.addEventListener('click', (e) => {
-        const currentCategoryElement = document.querySelector('.newBoardCategory.selected');
-        let currentMainCategory;
+        const category = currentCategory();
+        // 현재 페이지 값을 가져오기
+        let currentPageNumber = parseInt(e.target.textContent, 10);
         
         if(e.target.classList.contains('pageNumBtn')) {
-            let currentPage = e.target.textContent;
-            // 현재 페이지 값을 가져오기
-            // 클릭된 카테고리 값 가져오기
-            if(!currentCategoryElement){
-                currentMainCategory = 0;
-            } else {
-                currentMainCategory = currentCategoryElement.getAttribute('cate-data');
-            }
-            newBoardListWithin3Days(currentMainCategory, '0', currentPage);
-        } else if(e.target.classList.contains('firstPage')) {
-            newBoardListWithin3Days(currentMainCategory, '0', 1);
-        } else if(e.target.classList.contains('prevPage')) {
-            const prevPage = e.target.textContent-1;
-            
-            console.log('prevPage:',prevPage);
-            if(prevPage > 0) {
-                document.getElementById('prevPageBtn').disabled = 'false';
-                newBoardListWithin3Days(currentMainCategory, '0', prevPage);
-            } else {
-                document.getElementById('prevPageBtn').disabled = 'ture';
-            }
+            newBoardListWithin3Days(category, '0', currentPageNumber);
+        } else if (e.target.classList.contains('firstPage')) {
+            newBoardListWithin3Days(category, '0', 1);
         }
-    })
-    
-
-};
+    });
+}
 //------------------------------------------------------------------------
 // ajax list
 bookSearch();
 newsSearch();
 createBookComponent(firstPath, 1, "all");
 createNewsComponent(firstPath, 1, "all");
-pagenationWork();
+numberAndFirstPageButtonClick();
 
 newBoardListWithin3Days('0', '0', 1);
 newBoardListWithin3DaysBtn('0', '0', 1);

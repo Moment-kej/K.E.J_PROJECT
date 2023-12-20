@@ -58,3 +58,22 @@ a {
     color: #666;
     font-size: 12.7px;
 }
+/* pagenation */
+#prevPageBtn_[disabled],
+#prevPageBtn_[disabled]:hover {
+    background-color: #e7e7e7;
+    cursor: not-allowed;
+    border: 1px solid #e7e7e7;
+}
+#prevPageBtn_[disabled] i:hover {
+    color: #fff
+}
+#nextpageBtn_[disabled],
+#nextpageBtn_[disabled]:hover {
+    background-color: #e7e7e7;
+    cursor: not-allowed;
+    border: 1px solid #e7e7e7;
+}
+#nextpageBtn_[disabled] i:hover {
+    color: #fff
+}
