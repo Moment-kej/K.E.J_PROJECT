@@ -127,9 +127,9 @@
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/mainTest">
+            <a class="nav-link" href="${pageContext.request.contextPath}/">
               <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">MainTestPage</span>
+              <span class="menu-title">Main</span>
             </a>
           </li>
           <li class="nav-item">

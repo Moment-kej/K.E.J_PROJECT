@@ -112,11 +112,11 @@
                                     <div class="collapse navbar-collapse" id="categoryDropdown">
                                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                             <li class="nav-item">
-                                                <a class="nav-link newBoardCategory" aria-current="page">전체</a>
+                                                <a class="nav-link newBoardCategory selected" aria-current="page" cate-data="0">전체</a>
                                             </li>
                                             <c:forEach var="item" items="${code.CO}">
                                             <li class="nav-item">
-                                                <a class="nav-link newBoardCategory" aria-current="page">${item.commonDetailName}</a>
+                                                <a class="nav-link newBoardCategory" aria-current="page" cate-data="${item.commonDetailCd}">${item.commonDetailName}</a>
                                             </li>
                                             </c:forEach>
                                         </ul>
@@ -124,62 +124,22 @@
                                 </div>
                             </nav>
                             <!-- new board rendering -->
-                            <div id="newBoardList">
-                                <div class="mt-3">
-                                    <table class="table table-hover mainTable">
-                                        <colgroup>
-                                            <col style="width: 10%">
-                                            <col style="width: 40%">
-                                            <col style="width: 20%">
-                                            <col style="width: 20%">
-                                            <col style="width: 10%">
-                                        </colgroup>
-                                        <thead class="text-center">
-                                            <th>번호</th>
-                                            <th>제목</th>
-                                            <th>작성자</th>
-                                            <th>작성일</th>
-                                            <th>조회수</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>2</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-center">4</td>
-                                                <td class="text-center">5</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>2</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-center">4</td>
-                                                <td class="text-center">5</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>2</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-center">4</td>
-                                                <td class="text-center">5</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>2</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-center">4</td>
-                                                <td class="text-center">5</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>2</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-center">4</td>
-                                                <td class="text-center">5</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div id="newBoardList"></div>
+                            <!-- pagenation -->
+                            <div id="pagingBox" class="pagination d-flex justify-content-center align-items-center">
+                                <!-- <button type="button" id="firstPageBtn" class="firstPage pbtn"><i class="fa-solid fa-angles-left"></i></button>
+                                <button type="button" id="prevPageBtn" class="prevPage pbtn"><i class="fa-solid fa-angle-left"></i></button>
+                                <button type="button" class="pageNumBtn pbtn">
+                                    <span class="pageNum">1</span>
+                                </button>
+                                <button type="button" class="pageNumBtn pbtn">
+                                    <span class="pageNum">2</span>
+                                </button>
+                                <button type="button" class="pageNumBtn pbtn">
+                                    <span class="pageNum">3</span>
+                                </button>
+                                <button type="button" id="nextpageBtn" class="nextpage pbtn"><i class="fa-solid fa-angle-right"></i></button>
+                                <button type="button" id="lastPageBtn" class="lastPage pbtn"><i class="fa-solid fa-angles-right"></i></button> -->
                             </div>
                         </div>
                     </div>

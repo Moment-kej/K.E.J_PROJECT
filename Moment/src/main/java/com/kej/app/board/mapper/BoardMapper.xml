@@ -228,18 +228,21 @@
 		 	   , 0) AS "like_count"
 		  FROM board b
 		 WHERE yn = 1
-		   AND code = #{code}
+		   AND code LIKE CONCAT('%',#{code},'%')
+		   AND category LIKE CONCAT('%',#{category},'%')
 		   AND b.write_dt BETWEEN DATE_ADD(NOW(), INTERVAL -3 DAY) AND NOW()
-		 ORDER BY b.board_no DESC
+		 ORDER BY WRITE_DT DESC
+		 LIMIT #{pageStart}, #{amount}
 	  </select>
 	  
 	  <!-- 메인페이지 최근 게시글 페이지네이션 -->
-	  <select id="newBoardCountWithin3Days" resultType="BoardVO">
+	  <select id="newBoardCountWithin3Days" resultType="int">
 		  SELECT COUNT(*)
-		  FROM board b
-		 WHERE yn = 1
-		   AND code = #{code}
-		   AND b.write_dt BETWEEN DATE_ADD(NOW(), INTERVAL -3 DAY) AND NOW()
+		    FROM board b
+		   WHERE yn = 1
+		     AND code LIKE CONCAT('%',#{code},'%')
+		     AND category LIKE CONCAT('%',#{category},'%')
+		     AND b.write_dt BETWEEN DATE_ADD(NOW(), INTERVAL -3 DAY) AND NOW()
 	  </select>
 	  
 	

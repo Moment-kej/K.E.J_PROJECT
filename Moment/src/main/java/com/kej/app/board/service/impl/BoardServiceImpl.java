@@ -3,6 +3,7 @@ package com.kej.app.board.service.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import com.kej.app.board.service.BoardService;
 import com.kej.app.board.service.vo.BoardListVO;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
+import com.kej.app.board.service.vo.PageVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -137,14 +139,17 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<BoardVO> newBoardListWithin3Days(Criteria cri) {
-		return bMapper.newBoardListWithin3Days(cri);
-	}
-	
-	@Override
-	public int newBoardCountWithin3Days(Criteria cri) {
-		return bMapper.newBoardCountWithin3Days(cri);
-	}
+	public Map<String, Object> boardNewList(Criteria cri) {
+		int total = bMapper.newBoardCountWithin3Days(cri);
+		PageVO pvo = new PageVO(cri, total);
+		
+		Map<String, Object> res = new HashMap<>();
+		
+		res.put("data", bMapper.newBoardListWithin3Days(cri));
+		res.put("pagenation", pvo);
+		
+		return res;
+	};
 	// eunae ---------------------------------------------
 
 	

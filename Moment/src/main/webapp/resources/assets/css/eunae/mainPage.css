@@ -48,5 +48,32 @@ a {
     color: blue;
 }
 .mainTable {
-    height: 220px;
+    height: 30px;
+}
+.mainTable td:nth-child(1),
+.mainTable td:nth-child(3),
+.mainTable td:nth-child(4),
+.mainTable td:nth-child(5) {
+    text-align: center;
+    color: #666;
+    font-size: 12.7px;
+}
+/* pagenation */
+#prevPageBtn_[disabled],
+#prevPageBtn_[disabled]:hover {
+    background-color: #e7e7e7;
+    cursor: not-allowed;
+    border: 1px solid #e7e7e7;
+}
+#prevPageBtn_[disabled] i:hover {
+    color: #fff
+}
+#nextpageBtn_[disabled],
+#nextpageBtn_[disabled]:hover {
+    background-color: #e7e7e7;
+    cursor: not-allowed;
+    border: 1px solid #e7e7e7;
+}
+#nextpageBtn_[disabled] i:hover {
+    color: #fff
 }
