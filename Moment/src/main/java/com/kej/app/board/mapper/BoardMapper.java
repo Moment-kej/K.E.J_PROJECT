@@ -27,6 +27,9 @@ public interface BoardMapper {
 	//main page new board whithin 3 days
 	public List<BoardVO> newBoardListWithin3Days(Criteria cri);
 	public int newBoardCountWithin3Days(Criteria cri);
+	//main page like top
+	public List<BoardVO> likeTopList(Criteria cri);
+	public int likeTopCount(Criteria cri);
 	
 	
 	

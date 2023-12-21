@@ -19,6 +19,7 @@ public interface BoardService {
 	public int dressBoardUpdate(BoardVO vo);
 	public int dressBoardDelete(BoardVO vo);
 	public Map<String, Object> boardNewList(Criteria cri);
+	public Map<String, Object> boardTopList(Criteria cri);
 	
 	
 	

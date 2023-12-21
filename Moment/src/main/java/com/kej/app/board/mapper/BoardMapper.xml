@@ -245,8 +245,43 @@
 		     AND b.write_dt BETWEEN DATE_ADD(NOW(), INTERVAL -3 DAY) AND NOW()
 	  </select>
 	  
+	  <!-- 메인페이지 인기 게시글 -->
+	  <select id="likeTopList" resultType="BoardVO">
+	  	SELECT b.board_no
+		     , code
+		     , category
+		     , b.id
+		     , title
+		     , content
+		     , write_dt
+		     , view_count
+		     , yn
+		     , (SELECT COUNT(*)
+		          FROM reply r
+		         WHERE b.board_no = r.board_no) AS "reply_count"
+		     , COALESCE(like_count, 0) AS "like_count"
+		  FROM board b LEFT JOIN (SELECT board_no, COUNT(*) AS "like_count"
+						     	    FROM board_like
+						     	   GROUP BY board_no) l
+		    ON b.board_no = l.board_no
+		 WHERE code LIKE CONCAT('%',#{code},'%')
+		   AND category LIKE CONCAT('%',#{category},'%')
+		   AND like_count IS NOT NULL
+		 ORDER BY like_count DESC
+	  </select>
 	
-	
+	  <!-- 메인 페이지 인기 게시글 total -->
+	  <select id="likeTopCount" resultType="int">
+	  	SELECT COUNT(*)
+		  FROM board b LEFT JOIN (SELECT board_no, COUNT(*) AS "like_count"
+						     	    FROM board_like
+						     	   GROUP BY board_no) l
+		    ON b.board_no = l.board_no
+		 WHERE code LIKE CONCAT('%',#{code},'%')
+		   AND category LIKE CONCAT('%',#{category},'%')
+		   AND like_count IS NOT NULL
+		 ORDER BY like_count DESC
+	  </select>
 	
 	
 	

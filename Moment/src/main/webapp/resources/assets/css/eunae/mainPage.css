@@ -77,3 +77,6 @@ a {
 #nextpageBtn_[disabled] i:hover {
     color: #fff
 }
+.pageSelected {
+    background-color: #495b69 !important;
+}

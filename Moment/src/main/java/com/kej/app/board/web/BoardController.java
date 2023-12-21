@@ -62,14 +62,12 @@ public class BoardController {
 		
 		return "dressBoard/boardDressPage";
 	}
-	
 	// Ajax Get Method 
 	@RequestMapping(value="/dress/all", method = RequestMethod.GET)
 	@ResponseBody
 	public List<BoardVO> getPosts(Criteria cri){
 		return service.dressBoradList(cri);
 	}
-	
 	// dress insert page
 	@GetMapping("/dress/write")
 	public String boardDressInsert(Model model) {
@@ -77,14 +75,12 @@ public class BoardController {
         
 		return "dressBoard/boardDressInsert";
 	}
-	
 	// dress insert (AJAX)
 	@RequestMapping(value = "/dress/insert", method = RequestMethod.POST)
 	@ResponseBody
 	public int boardInsertSave(@RequestBody BoardVO vo) {
 		return service.boardInsert(vo); 
 	}
-	
 	// dress detail page
 	@RequestMapping(value = "/dress/all/{boardNo}", method = RequestMethod.GET)
 	public String boardDressDetail(Model model, @PathVariable("boardNo") Integer boardNo, HttpServletRequest req, HttpServletResponse res) {
@@ -124,21 +120,18 @@ public class BoardController {
 		
 		return "dressBoard/boardDressDetail";
 	}
-	
 	// 게시글 단건조회 (AJAX)
 	@RequestMapping(value="/dress/boardDetail", method= RequestMethod.GET)
 	@ResponseBody
 	public BoardVO boardDressDetail(@RequestParam("boardNo") int boardNo) {
 		return service.boardDressDetail(boardNo);
 	}
-	
 	// 게시글 관련글 보기 (AJAX)
 	@RequestMapping(value = "/dress/boardRelatedPosts", method = RequestMethod.GET)
 	@ResponseBody
 	public List<BoardVO> boardRelatedPosts(BoardListVO vo) {
 		return service.getCombinedBoardList(vo);
 	}
-	
 	// dress update page
 	@GetMapping("/dress/modify/{boardNo}")
 	public String boardDressUpdate(Model model, @PathVariable("boardNo") int boardNo) {
@@ -171,30 +164,14 @@ public class BoardController {
 	public Map<String, Object> boardNewList(Criteria cri) {
 		return service.boardNewList(cri);
 	}
+	// 메인페이지 인기글 (AJAX)
+	@ RequestMapping(value="/topList", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> boardTopList(Criteria cri) {
+		return service.boardTopList(cri);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// --- eunae End --------------------------------------------------------
 	
 	//아트게시판 전체 조회
 	@GetMapping("/art")
