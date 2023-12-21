@@ -2,6 +2,13 @@
    display: none;
 }
 
+.menuCategoryATagClick {
+   font-size: 13px;
+   color: #3289ba !important;
+   font-weight: 900;
+   text-decoration: underline !important;
+}
+
 /* 게시글 Card Type */
 #boardList #boardSortCardType li:first-child {
    border-top: 1px solid #bbb;
@@ -284,6 +291,20 @@
 #pagingBox .pbtn:hover {
    font-size: 13px;
    font-weight: 500;
+   background-color: #fff;
+   color: #567182;
+   transition: 0.3;
+}
+
+/* 눌렀을 때 */
+#pagingBox .pbtnClick {
+   font-size: 13px;
+   font-weight: 500;
+   width: 30px;
+   height: 30px;
+   margin: 0px 5px;
+   border: 1px solid #caced1;
+   border-radius: 2px;
    background-color: #fff;
    color: #567182;
    transition: 0.3;
