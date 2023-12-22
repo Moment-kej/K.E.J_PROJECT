@@ -150,6 +150,19 @@ public class BoardServiceImpl implements BoardService {
 		
 		return res;
 	};
+	
+	@Override
+	public Map<String, Object> boardTopList(Criteria cri) {
+		int total = bMapper.likeTopCount(cri);
+		PageVO pvo = new PageVO(cri, total);
+		
+		Map<String, Object> res = new HashMap<>();
+		
+		res.put("data", bMapper.likeTopList(cri));
+		res.put("paging", pvo);
+		
+		return res;
+	}
 	// eunae ---------------------------------------------
 
 	
@@ -170,6 +183,8 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> boardArtDetail(int BoardNo) {
 		return bMapper.boardArtDetail(BoardNo);
 	}
+
+
 
 
 
