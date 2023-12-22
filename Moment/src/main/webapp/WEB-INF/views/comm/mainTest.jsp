@@ -27,10 +27,10 @@
                                             </li>
                                             </c:forEach>
                                         </ul>
-                                    <form class="d-flex">
-                                        <input class="form-control me-2" type="search" placeholder="입력해주세요" aria-label="Search" id="bookSerachName">
+                                    <div class="d-flex">
+                                        <input class="form-control me-2" type="text" placeholder="입력해주세요" aria-label="Search" id="bookSerachName">
                                         <button class="btn btn-outline-success" type="button" id="bookSerachBnt">Search</button>
-                                    </form>
+                                    </div>
                                     </div>
                                 </div>
                             </nav>
@@ -67,10 +67,10 @@
                                             </li>
                                             </c:forEach>
                                         </ul>
-                                    <form class="d-flex">
-                                        <input class="form-control me-2" type="search" placeholder="입력해주세요" aria-label="Search" id="newsSerachName">
+                                    <div class="d-flex">
+                                        <input class="form-control me-2" type="text" placeholder="입력해주세요" aria-label="Search" id="newsSerachName">
                                         <button class="btn btn-outline-success" type="button" id="newsSerachBnt">Search</button>
-                                    </form>
+                                    </div>
                                     </div>
                                 </div>
                             </nav>
@@ -112,11 +112,11 @@
                                     <div class="collapse navbar-collapse" id="categoryDropdown">
                                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                             <li class="nav-item">
-                                                <a class="nav-link newBoardCategory selected" aria-current="page" cate-data="0">전체</a>
+                                                <a class="nav-link newBoardCategory selected" aria-current="page" data-cate="0">전체</a>
                                             </li>
                                             <c:forEach var="item" items="${code.CO}">
                                             <li class="nav-item">
-                                                <a class="nav-link newBoardCategory" aria-current="page" cate-data="${item.commonDetailCd}">${item.commonDetailName}</a>
+                                                <a class="nav-link newBoardCategory" aria-current="page" data-cate="${item.commonDetailCd}">${item.commonDetailName}</a>
                                             </li>
                                             </c:forEach>
                                         </ul>
@@ -125,22 +125,8 @@
                             </nav>
                             <!-- new board rendering -->
                             <div id="newBoardList"></div>
-                            <!-- pagenation -->
-                            <div id="pagingBox" class="pagination d-flex justify-content-center align-items-center">
-                                <!-- <button type="button" id="firstPageBtn" class="firstPage pbtn"><i class="fa-solid fa-angles-left"></i></button>
-                                <button type="button" id="prevPageBtn" class="prevPage pbtn"><i class="fa-solid fa-angle-left"></i></button>
-                                <button type="button" class="pageNumBtn pbtn">
-                                    <span class="pageNum">1</span>
-                                </button>
-                                <button type="button" class="pageNumBtn pbtn">
-                                    <span class="pageNum">2</span>
-                                </button>
-                                <button type="button" class="pageNumBtn pbtn">
-                                    <span class="pageNum">3</span>
-                                </button>
-                                <button type="button" id="nextpageBtn" class="nextpage pbtn"><i class="fa-solid fa-angle-right"></i></button>
-                                <button type="button" id="lastPageBtn" class="lastPage pbtn"><i class="fa-solid fa-angles-right"></i></button> -->
-                            </div>
+                            <!-- new board pagenation -->
+                            <div id="pagingBox" class="pagination d-flex justify-content-center align-items-center"></div>
                         </div>
                     </div>
                 </div>
@@ -151,8 +137,26 @@
                         <div class="card-body">
                         <div>
                             <p class="card-title">인기 게시글</p>
-                        <!-- top board rendering -->
-                        </div id="topBoardList"></div>
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                                <div class="container-fluid">
+                                    <div class="collapse navbar-collapse" id="categoryDropdown">
+                                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                            <li class="nav-item">
+                                                <a class="nav-link topBoardCategory selected" aria-current="page" data-cate="0">전체</a>
+                                            </li>
+                                            <c:forEach var="item" items="${code.CO}">
+                                            <li class="nav-item">
+                                                <a class="nav-link topBoardCategory" aria-current="page" data-cate="${item.commonDetailCd}">${item.commonDetailName}</a>
+                                            </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                            <!-- top board rendering -->
+                            <div id="topBoardList"></div>
+                            <!-- top board pagenation -->
+                            <div id="topBoardListPagingBox" class="pagination d-flex justify-content-center align-items-center"></div>
                         </div>
                     </div>
                 </div>

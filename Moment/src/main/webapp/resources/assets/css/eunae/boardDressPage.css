@@ -6,26 +6,8 @@ ul::marker{list-style: none !important;}
 fieldset {border : none !important;}
 
 .selected{
-    color: #3935ff !important;
-    font-weight: bold;
-}
-.pagination {
-    display: inline-block;
-}
-.pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-.pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-}
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-    border-radius: 5px;
+    background-color: #ffffff !important;
+    color: #404040 !important;
 }
 .boardListForm {
 	margin: 20px 0px;
@@ -56,10 +38,10 @@ fieldset {border : none !important;}
     padding: 3px;
     font-size: 12px;
 }
-.writingBntDiv {
+/* .writingBntDiv {
     float: right;
     margin-top: 10px;
-}
+} */
 .boardSearchInput {
     width: 500px;
 }

@@ -3,7 +3,7 @@ const contentContainer = document.getElementById('boardList');
 
 // 글쓰기 버튼 클릭 이벤트
 export const writingBntEvent = () => {
-    const writingBnt = document.getElementById('boardInsertBnt');
+    const writingBnt = document.getElementById('writeBnt');
     if(writingBnt) {
         writingBnt.addEventListener('click', () => {
             window.location.href = contextPath + '/board/dress/write'; // 현재 창으로 링크 열기

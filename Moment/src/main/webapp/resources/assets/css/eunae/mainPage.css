@@ -53,30 +53,50 @@ a {
 .mainTable td:nth-child(1),
 .mainTable td:nth-child(3),
 .mainTable td:nth-child(4),
-.mainTable td:nth-child(5) {
+.mainTable td:nth-child(5),
+.mainTable td:nth-child(6) {
     text-align: center;
     color: #666;
     font-size: 12.7px;
 }
 /* pagenation */
-#prevPageBtn_[disabled],
-#prevPageBtn_[disabled]:hover {
+#prevPageBtn[disabled],
+#prevPageBtn[disabled]:hover {
     background-color: #e7e7e7;
     cursor: not-allowed;
     border: 1px solid #e7e7e7;
 }
-#prevPageBtn_[disabled] i:hover {
-    color: #fff
+#prevPageBtn[disabled] i:hover {
+    color: #fff;
 }
-#nextpageBtn_[disabled],
-#nextpageBtn_[disabled]:hover {
+#nextpageBtn[disabled],
+#nextpageBtn[disabled]:hover {
     background-color: #e7e7e7;
     cursor: not-allowed;
     border: 1px solid #e7e7e7;
 }
-#nextpageBtn_[disabled] i:hover {
-    color: #fff
+#nextpageBtn[disabled] i:hover {
+    color: #fff;
 }
 .pageSelected {
-    background-color: #495b69 !important;
+    background-color: #ffffff !important;
+    color: #404040 !important;
+}
+/* top board pagenation */
+#topBoardListPagingBox {
+    clear: both;
+    margin-top: 20px;
+    width: 100%;
+}
+#topBoardListPagingBox .pbtn {
+    width: 30px;
+    height: 30px;
+    margin: 0px 5px;
+    border: 1px solid #caced1;
+    border-radius: 2px;
+    color: #fff;
+    background-color: #caced1;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
 }
