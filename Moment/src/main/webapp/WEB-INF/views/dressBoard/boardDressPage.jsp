@@ -56,12 +56,12 @@
                                 </form>
                             </div>
                         </div>
-                        <div style="clear:both"></div>
+                        <!-- <div style="clear:both"></div> -->
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
                         <div><div id="boardList" class="border-top"></div></div>
                         <!--글쓰기 버튼-->
-                        <div class="writingBntDiv">
-                            <button type="button" class="btn btn-inverse-success btn-md" id="boardInsertBnt">글쓰기</button>
+                        <div id="writeBtnBox">
+                            <button type="button" class="btn-md" id="writeBnt"><i class="fa-solid fa-pen"></i>글쓰기</button>
                         </div>
                         <!--확인용 div-->
                         <div id="dataCheck" style="display: none;">
@@ -77,37 +77,37 @@
                             <input type="hidden" name="contextPath" id="contextPath" value="${pageContext.request.contextPath}">
                         </div>
                         <!-- pagination -->
-                        <div class="pagination d-flex justify-content-center">
+                        <div class="pagination d-flex justify-content-center" id="pagingBox">
                             <!-- 5. 맨 처음으로 -->
-                            <a id="pageNumberOne" class="firstpage pbtn">
-                                &laquo;&laquo;
-                            </a>
+                            <button id="pageNumberOne" class="firstpage pbtn">
+                                <i class="fa-solid fa-angles-left"></i>
+                            </button>
                             
                             <!-- 3.이전페이지네이션 -->
                             <c:if test="${pageVO.prev}">
-                            <a id="pageStart" class="prevpage pbtn">
-                                &laquo;
-                            </a>
+                            <button id="pageStart" class="prevpage pbtn">
+                                <i class="fa-solid fa-angle-left"></i>
+                            </button>
                             </c:if>
                             
                             <!-- 1.페이지네이션 -->
                             <c:forEach var="num" begin="${pageVO.start}" end="${pageVO.end}">
-                            <a class="pageNumber" data-page="${num}">
+                            <button class="pageNumber pbtn" data-page="${num}">
                                 <span class="pagenum ${pageVO.page == num ? 'currentpage' : '' }currentpage">${num}</span>
-                            </a>
+                            </button>
                             </c:forEach>
                             
                             <!-- 2.다음페이지네이션 -->
                             <c:if test="${pageVO.next}">
-                            <a id="pageNext" class="nextpage pbtn">
-                                &raquo;
-                            </a>
+                            <button id="pageNext" class="nextpage pbtn">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </button>
                             </c:if>
                             
                             <!-- 4. 맨 마지막으로 -->
-                            <a id="pageRealEnd" class="lastpage pbtn">
-                                &raquo;&raquo;
-                            </a>
+                            <button id="pageRealEnd" class="lastpage pbtn">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </button>
                         </div><!-- pagination end -->
                         <!-- search div -->
                         <div class="col-lg-12 pt-5">

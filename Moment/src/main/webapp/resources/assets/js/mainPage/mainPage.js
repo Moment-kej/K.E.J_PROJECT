@@ -228,61 +228,23 @@ const formatMoney = (money) => {
     return formatted.split('').reverse().join('');
 };
 //------------------------------------------------------------------------
-// new board list ajax
-const newBoardListWithin3Days = (code, category, page) => {
-    const data = {code: code, amount:5, category: category, page: parseInt(page)};
-    const callback = (post) => {
-        newBoardRender(post.data);
-        pagenation(post.pagenation);
-        pageNumberButtonClick();
-        let currentPageNumber = post.pagenation.page;
-        let realEndPageNumber = post.pagenation.realEnd;
-
-        // pagenation click event
-        prevButtonClick(currentPageNumber);
-        nextButtonClick(currentPageNumber, realEndPageNumber);
-        lastButtonClick(realEndPageNumber);
-        firstButtonClick();
-        // pageNumberButtonClick();
-    };
-    ajaxRequest(firstPath + '/board/newList', 'GET', data, callback);
-};
-const newBoardListWithin3DaysBtn = () => {
-    const newBoardCategory = document.getElementsByClassName('newBoardCategory');
-    Array.from(newBoardCategory).forEach((element) => {
-        element.addEventListener('click', (e) => {
-            const code = e.target.getAttribute('cate-data');
-            Array.from(newBoardCategory).forEach(remove => {
-                // 모든 링크에서 'selected' 클래스를 제거
-                remove.classList.remove('selected');
-            });
-            // 현재 클릭된 링크에 'selected' 클래스 추가
-            if(code === 0) {
-                newBoardListWithin3Days('0', '0', 1);
-            } else {
-                newBoardListWithin3Days(code, '0', 1);
-                element.classList.add('selected');
-            };
-        });
-    });
-};
-// new board render
-const newBoardRender = (data) => {
-    // parent, elementType, attributes = {}, content = ''
-    const containal = document.querySelector('#newBoardList');
+// board render
+const postRedner = (data, mainContainal) => {
+    // parent, elementType, attributes = {}, content = '' 
+    const containal = document.querySelector(mainContainal);
     containal.innerHTML = '';
     const innerContainal = createAndAppendElement(containal, 'div', {class : 'mt-3 border-top'});
     if(data != 0) {
         const table = createAndAppendElement(innerContainal, 'table', {class : 'table table-hover'});
-        const colgroup = ['10%','40%','20%','20%','10%'];
+        const colgroup = ['10%', '40%', '20%', '20%', '5%', '5%'];
         for(const key of colgroup) {
             createAndAppendElement(table, 'col', {style : 'width:' + key});
         };
         const thead = createAndAppendElement(table, 'thead', {class: 'text-center'});
         const trHead = createAndAppendElement(thead, 'tr', {class : 'mt-3'});
         const columnMapping = {
-            headerTitles: ['번호', '제목', '작성자', '작성일', '조회'],        // 제목
-            rowDataKeys: ["boardNo", "title", "id", "writeDt", "viewCount"] // 데이터
+            headerTitles: ['번호', '제목', '작성자', '작성일', '조회', '좋아요'],        // 제목
+            rowDataKeys: ["boardNo", "title", "id", "writeDt", "viewCount", "likeCount"] // 데이터
         };
         for(const title of columnMapping.headerTitles) {
             createAndAppendElement(trHead, 'th', {}, title);
@@ -309,7 +271,44 @@ const newBoardRender = (data) => {
     }
     containal.append(innerContainal);
 };
-//------------------------------------------------------------------------
+
+// new board list ajax
+const newBoardList = (code, category, page) => {
+    const data = {code: code, amount:5, category: category, page: parseInt(page)};
+    const callback = (post) => {
+        postRedner(post.data, '#newBoardList');
+        pagenation(post.pagenation);
+        pageNumberButtonClick();
+        let currentPageNumber = post.pagenation.page;
+        let realEndPageNumber = post.pagenation.realEnd;
+
+        // pagenation click event
+        prevButtonClick(currentPageNumber);
+        nextButtonClick(currentPageNumber, realEndPageNumber);
+        lastButtonClick(realEndPageNumber);
+        firstButtonClick();
+    };
+    ajaxRequest(firstPath + '/board/newList', 'GET', data, callback);
+};
+const newBoardListBtn = () => {
+    const newBoardCategory = document.getElementsByClassName('newBoardCategory');
+    Array.from(newBoardCategory).forEach((element) => {
+        element.addEventListener('click', (e) => {
+            const code = e.target.getAttribute('data-cate');
+            Array.from(newBoardCategory).forEach(remove => {
+                // 모든 링크에서 'selected' 클래스를 제거
+                remove.classList.remove('selected');
+            });
+            // 현재 클릭된 링크에 'selected' 클래스 추가
+            if(code === 0) {
+                newBoardList('0', '0', 1);
+            } else {
+                newBoardList(code, '0', 1);
+                element.classList.add('selected');
+            };
+        });
+    });
+};
 const pagenation = (data) => {
     const containal = document.getElementById('pagingBox');
     // 컨테이너의 첫번째 자식이면 삭제할 자식 중 첫번째 자식을 지워라.
@@ -320,13 +319,13 @@ const pagenation = (data) => {
     if(data.total !== 0) {
         // 순서 : <<,<,number,>,>>
         createAndAppendElement(containal, 'button', { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
-        createAndAppendElement(containal, "button", { id: 'prevPageBtn_', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
+        createAndAppendElement(containal, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
         for(let i = 1 ; i <= data.realEnd ; i++) {
-            const pageNumberLink = createAndAppendElement(containal, "button", { class: 'pageNumBtn pbtn', 'num-data' : i });
-            createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum'}, i);
+            createAndAppendElement(containal, "button", { class: 'pageNumBtn pbtn', id: 'pageNumBtn' + i }, i);
         };
-        createAndAppendElement(containal, "button", { id: 'nextpageBtn_', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
+        createAndAppendElement(containal, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
         createAndAppendElement(containal, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
+        document.getElementById("pageNumBtn" + data.page).classList.add("pageSelected");
     } else {
         createAndAppendElement(containal, 'div', {});
     }
@@ -338,20 +337,19 @@ const currentCategory = () => {
     if(!currentCategoryElement) {
         currentMainCategory = 0;
     } else {
-        currentMainCategory = parseInt(currentCategoryElement.getAttribute('cate-data'));
+        currentMainCategory = parseInt(currentCategoryElement.getAttribute('data-cate'));
     };
 
     return currentMainCategory;
 };
 const prevButtonClick = (page) => {
-    const clickedElement = document.getElementById('prevPageBtn_');
+    const clickedElement = document.getElementById('prevPageBtn');
     const category = currentCategory();
 
     clickedElement.addEventListener('click', () => {
         // <
-        console.log('prevButtonClick');
         if(page > 1) {
-            newBoardListWithin3Days(category, 0, page - 1);
+            newBoardList(category, 0, page - 1);
             clickedElement.disabled = 'false';
         } else if (page === 1) {
             clickedElement.disabled = 'true';
@@ -359,12 +357,12 @@ const prevButtonClick = (page) => {
     });
 };
 const nextButtonClick = (page, realEnd) => {
-    const clickedElement = document.getElementById('nextpageBtn_');
+    const clickedElement = document.getElementById('nextpageBtn');
     const category = currentCategory();
     clickedElement.addEventListener('click', () => {
         // >
         if (realEnd !== page) {
-            newBoardListWithin3Days(category, 0, page + 1);
+            newBoardList(category, 0, page + 1);
             clickedElement.disabled = 'false';
         } else {
             clickedElement.disabled = 'true';
@@ -376,58 +374,78 @@ const lastButtonClick = (realEnd) => {
     const category = currentCategory();
     // >>
     clickedElement.addEventListener('click', () => {
-        newBoardListWithin3Days(category, 0, realEnd);
+        newBoardList(category, 0, realEnd);
     });
 };
 const firstButtonClick = () => {
-    const clickedElement = document.getElementById('lastPageBtn');
+    const clickedElement = document.getElementById('firstPageBtn');
     const category = currentCategory();
     // <<
     clickedElement.addEventListener('click', () => {
-        newBoardListWithin3Days(category, '0', 1);
+        newBoardList(category, '0', 1);
     });
 };
 const pageNumberButtonClick = () => {
-    const clickedElement = document.getElementsByClassName('pageNumBtn');
+    const pageNumBtnElementList = document.querySelectorAll(".pageNumBtn ");
     const category = currentCategory();
-    Array.from(clickedElement).forEach((element)  => {
-        element.addEventListener('click', (e) => {
-            const currentPageNumber = parseInt(e.target.children[0].innerText);
-            Array.from(clickedElement).forEach(remove => {
-                // 모든 링크에서 'selected' 클래스를 제거
-                remove.classList.remove('pageSelected');
-            });
-            // 선택한 페이지 번호를 쿠키에 저장
-            document.cookie = 'selectedPage=' + currentPageNumber + '; path=/';
-            element.classList.add('pageSelected');
-            newBoardListWithin3Days(category, '0', currentPageNumber);
+    Array.from(pageNumBtnElementList).forEach((element) => {
+        element.addEventListener("click", (e) => {
+            newBoardList(
+                category, 
+                '0', 
+                parseInt(e.target.innerText)
+            );
         });
-    });
-
-    window.addEventListener('load', () => {
-        const selectedPageCookie = document.cookie
-            .split('; ')
-            .find(row => row.startsWith('selectedPage='));
-
-        if (selectedPageCookie) {
-            const selectedPageNumber = parseInt(selectedPageCookie.split('=')[1]);
-            const selectedPageElement = document.querySelector('.pageNumBtn[num-data="' + selectedPageNumber + '"]');
-            console.log(selectedPageElement);
-            if (selectedPageElement) {
-                selectedPageElement.classList.add('pageSelected');
-            }
-        }
     });
 };
 //------------------------------------------------------------------------
 const topBoardLsit = (code, category, page) => {
     const data = {code: code, amount:5, category: category, page: parseInt(page)};
     const callback = (data) => {
-        // console.log(data.data);
-        // console.log(data.paging);
+        postRedner(data.data, '#topBoardList');
+        topBoardPagenation(data.paging);
     };
     ajaxRequest(firstPath + '/board/topList', 'GET', data, callback);
-}
+};
+const topBoardListBtn = () => {
+    const topBoardCategory = document.getElementsByClassName('topBoardCategory');
+    Array.from(topBoardCategory).forEach((element) => {
+        element.addEventListener('click', (e) => {
+            const code = e.target.getAttribute('data-cate');
+            Array.from(topBoardCategory).forEach(remove => {
+                // 모든 링크에서 'selected' 클래스를 제거
+                remove.classList.remove('selected');
+            });
+            // 현재 클릭된 링크에 'selected' 클래스 추가
+            if(code === 0) {
+                topBoardLsit('0', '0', 1);
+            } else {
+                topBoardLsit(code, '0', 1);
+                element.classList.add('selected');
+            };
+        });
+    });
+};
+const topBoardPagenation = (data) => {
+    const containal = document.getElementById('topBoardListPagingBox');
+    // 컨테이너의 첫번째 자식이면 삭제할 자식 중 첫번째 자식을 지워라.
+    while (containal.firstChild) {
+        containal.removeChild(containal.firstChild);
+    };
+    if(data.total !== 0) {
+        // 순서 : <<,<,number,>,>>
+        createAndAppendElement(containal, 'button', { id: 'top-firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
+        createAndAppendElement(containal, "button", { id: 'top-prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
+        for(let i = 1 ; i <= data.realEnd ; i++) {
+            createAndAppendElement(containal, "button", { class: 'top-pageNumBtn pbtn', id: 'top-pageNumBtn' + i }, i);
+        };
+        createAndAppendElement(containal, "button", { id: 'top-nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
+        createAndAppendElement(containal, "button", { id: 'top-lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
+        document.getElementById("top-pageNumBtn" + data.page).classList.add("pageSelected");
+    } else {
+        createAndAppendElement(containal, 'div', {});
+    };
+};
 //------------------------------------------------------------------------
 // ajax list
 bookSearch();
@@ -435,9 +453,10 @@ newsSearch();
 createBookComponent(firstPath, 1, "all");
 createNewsComponent(firstPath, 1, "all");
 
-newBoardListWithin3Days(0, 0, 1);
-newBoardListWithin3DaysBtn();
+newBoardList(0, 0, 1);
+newBoardListBtn();
 topBoardLsit(0, 0, 1);
+topBoardListBtn();
 
 // 페이지 로드 후 데이터 가져오기
 window.onload = function() {
