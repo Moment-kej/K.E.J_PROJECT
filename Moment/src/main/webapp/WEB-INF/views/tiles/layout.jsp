@@ -42,7 +42,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/vertical-layout-light/style.css">
 	
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<%-- <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" /> --%>
 	
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>

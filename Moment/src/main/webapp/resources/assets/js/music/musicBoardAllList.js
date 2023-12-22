@@ -124,7 +124,7 @@ const createPagination = (data) => {
 };
 
 // ======================================================================
-const showContent = (viewType, amount, category, page) => {
+const showContent = (viewType, amount, category, page, pageBtn) => {
    $.ajax({
       url : firstContextPath + "/board/music-data",
       method : "GET",
@@ -146,7 +146,10 @@ const showContent = (viewType, amount, category, page) => {
          if(viewType == "listType") {
             createSortListTypeComponent(data.data);
          }
+         
          createPagination(data.paging);
+         $(pageBtn).removeClass("pbtn").addClass("pbtnClick");
+         console.log(pageBtn);
       },
       error:(error) => {
          Swal.fire({
@@ -214,6 +217,15 @@ const init = () => {
       if(category == null || category == undefined) {
          category = 0
       }
+
+      let element = document.getElementsByClassName("categoryTemp");
+
+      for(let i=0; i < element.length; i++) {
+         element[i].classList.remove("menuCategoryATagClick");
+         element[i].classList.add("menuCategoryATag");
+      }
+
+      $(e.target).removeClass("menuCategoryATag").addClass("menuCategoryATagClick");
       showContent(currentViewType, amount, category, page);
    });
 
@@ -226,17 +238,14 @@ const init = () => {
 $().ready(() => {
    init();
    $(document).on("click", ".pageNumBtn", (e) => {
-      page = e.target;
-
+      
       if(e.target.tagName == "SPAN") {
-         page = $(page).parent().eq(0).text();
+         page = $(e.target).parent().eq(0).text();
       } else {
-         page = $(page).text();
+         page = $(e.target).text();
       }
-     e.target.children().attr('style', 'color: pink;');
-      console.log(e.target);
-      $(page).attr('"style"', '"color: pink"');
+
       clearContent();
-      showContent(currentViewType, amount, category, page);
+      showContent(currentViewType, amount, category, page, e.target);
    });
 });

@@ -14,10 +14,10 @@
                             <div class="card-title"><h2>Music 게시판</h2></div>
                             <div class="d-flex justify-content-center menuCategoryDiv">
                                 <ul class="menuCategory p-0">
-                                    <li><a class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
+                                    <li><a class="AllListView menuCategoryATag categoryTemp" data-category="0">전체보기</a></li>
                                     <c:forEach var="list" items="${code.CA}">
                                         <c:if test="${list.commonDetailEx eq '음악 카테고리'}">
-                                            <li><a class="menuCategoryATag" data-value="${list.commonDetailCd}">${list.commonDetailName}</a></li>
+                                            <li><a class="menuCategoryATag categoryTemp" data-value="${list.commonDetailCd}">${list.commonDetailName}</a></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
