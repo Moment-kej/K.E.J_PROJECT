@@ -1,9 +1,7 @@
-import { firstContextPath, formatTime_hhmm, createAndAppendElement } from '../common/common.js';
-
-// =====================================================================================
 const boardListContainer = document.getElementById("boardList");
+
 // 게시글 List형태
-const createSortListTypeComponent = (data) => {
+export const createSortListTypeComponent = (data) => {
    const table = createAndAppendElement(document.body, 'table', { class: 'boardSortListType container mx-auto' });
    createAndAppendElement(table, 'caption', { class: 'board_caption displyNone'}, '게시판 리스트입니다.');
 
@@ -43,7 +41,7 @@ const createSortListTypeComponent = (data) => {
 
 // =====================================================================================
 // 게시글 Card 형태
-const createSortCardTypeComponent = (data) => {
+export const createSortCardTypeComponent = (data) => {
    const boardSortCardType = createAndAppendElement(boardListContainer, 'ul', { id : 'boardSortCardType'});
 
    data.map((item) => {
@@ -76,7 +74,7 @@ const createSortCardTypeComponent = (data) => {
 
 // =====================================================================================
 // 게시글 Album 형태
-const createSortAlbumTypeComponent = (data) => {
+export const createSortAlbumTypeComponent = (data) => {
    
    const albumTypeArea = createAndAppendElement(boardListContainer, 'div', { class: 'albumType'} );
    data.map((item) => {
@@ -102,7 +100,7 @@ const createSortAlbumTypeComponent = (data) => {
 };
 
 // =====================================================================================
-const createPagination = (data) => {
+export const createPagination = (data) => {
    const parentElement = document.getElementById('pagingBox'); // 부모 요소의 ID를 지정해야 합니다.
 
    while (parentElement.firstChild) {
@@ -113,139 +111,12 @@ const createPagination = (data) => {
 
    createAndAppendElement(parentElement, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
    
-   for (data.start; data.start <= data.end; data.start++) {
-      const pageNumberLink = createAndAppendElement(parentElement, "button", { class: 'pageNumBtn pbtn' });
-      createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum' }, data.start);
+   for (let i=1; i <= data.end; i++) {
+      const pageNumberLink = createAndAppendElement(parentElement, "button", { id: 'pageNumBtn' + i, class: 'pageNumBtn pbtn' });
+      createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum' }, i);
    }
-
+   document.getElementById("pageNumBtn" + data.page).classList.add("pbtnClick")
    createAndAppendElement(parentElement, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
 
    createAndAppendElement(parentElement, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
 };
-
-// ======================================================================
-const showContent = (viewType, amount, category, page, pageBtn) => {
-   $.ajax({
-      url : firstContextPath + "/board/music-data",
-      method : "GET",
-      data : { code: 20, amount: amount, listType: viewType, category: category, page: page },
-      contentType: "application/json", // 클라이언트 -> 서버로 전송할 데이터 타입
-      dataType : "json", // 서버 -> 클라이언트로 받을 때 데이터 타입',
-      success : (data) => {
-         clearContent();
-         currentViewType = viewType;
-         amount = amount;
-         category = category;
-         page = page;
-         if(viewType == "cardType") {
-            createSortCardTypeComponent(data.data);
-         }
-         if(viewType == "albumType") {
-            createSortAlbumTypeComponent(data.data);
-         } 
-         if(viewType == "listType") {
-            createSortListTypeComponent(data.data);
-         }
-         
-         createPagination(data.paging);
-         $(pageBtn).removeClass("pbtn").addClass("pbtnClick");
-         console.log(pageBtn);
-      },
-      error:(error) => {
-         Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: "통신 실패" + error
-         });
-      }
-   });
-};
-
-// =====================================================================================
-const sortCardIcon = document.getElementById("sortCard");
-const sortAlbumIcon = document.getElementById("sortAlbum")
-const sortListIcon = document.getElementById("sortList");
-
-const disableViewTypeBtn = () => {
-   sortListIcon.setAttribute("src", firstContextPath + "/assets/icon/sortList.svg");
-   sortCardIcon.setAttribute("src", firstContextPath + "/assets/icon/sortCard.svg");
-   sortAlbumIcon.setAttribute("src", firstContextPath + "/assets/icon/sortAlbum.svg");
-};
-
-// =====================================================================================
-const clearContent = () => {
-   const parentElement = document.getElementById("boardList")
-   while (parentElement.firstChild) {
-      parentElement.removeChild(parentElement.firstChild);
-   }
-};
-
-// =====================================================================================
-let currentViewType = "listType"; // 카드형, 앨범형, 리스트형 
-let category = 0; // 국악, 발라드, k-pop 등
-let amount = 10; // 게시글 몇개씩 보여줄건지?
-let page = 1;
-const init = () => {
-   document.getElementById("cardType").addEventListener("click", () => {
-      disableViewTypeBtn();
-      sortCardIcon.setAttribute("src", firstContextPath + "/assets/icon/sortCardSelected.svg");
-      
-      showContent("cardType", amount, category, page);
-   });
-
-   document.getElementById("albumType").addEventListener("click", () => {
-      disableViewTypeBtn();
-      sortAlbumIcon.setAttribute("src", firstContextPath + "/assets/icon/sortAlbumSelected.svg");
-      showContent("albumType", amount, category, page);
-   });
-
-   document.getElementById("listType").addEventListener("click", () => {
-      disableViewTypeBtn();
-      sortListIcon.setAttribute("src", firstContextPath + "/assets/icon/sortListSelected.svg");
-      showContent("listType", amount, category, page);
-   });
-
-   $("#handleAmount").on("change", (e) => {
-      page = 1
-      amount = e.target.value;
-      showContent(currentViewType, amount, category, page);
-   });
-
-   $(".menuCategoryATag").on("click", (e) => {
-      page = 1
-      category = e.target.getAttribute("data-value");
-      if(category == null || category == undefined) {
-         category = 0
-      }
-
-      let element = document.getElementsByClassName("categoryTemp");
-
-      for(let i=0; i < element.length; i++) {
-         element[i].classList.remove("menuCategoryATagClick");
-         element[i].classList.add("menuCategoryATag");
-      }
-
-      $(e.target).removeClass("menuCategoryATag").addClass("menuCategoryATagClick");
-      showContent(currentViewType, amount, category, page);
-   });
-
-   sortListIcon.setAttribute("src", firstContextPath + "/assets/icon/sortListSelected.svg");
-
-   showContent(currentViewType, amount, category, page);
-};
-
-// =====================================================================================
-$().ready(() => {
-   init();
-   $(document).on("click", ".pageNumBtn", (e) => {
-      
-      if(e.target.tagName == "SPAN") {
-         page = $(e.target).parent().eq(0).text();
-      } else {
-         page = $(e.target).text();
-      }
-
-      clearContent();
-      showContent(currentViewType, amount, category, page, e.target);
-   });
-});

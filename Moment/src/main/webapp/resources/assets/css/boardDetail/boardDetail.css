@@ -1,5 +1,12 @@
-hr {
-   color: rgba(207, 210, 226, 1);
+.hrStyle {
+   border-bottom-style : inset;
+   border-bottom-color: #E2E4F0;
+   border-bottom-width: thin;
+}
+.hrStyleChildReply {
+   border-top-style : inset;
+   border-top-color: #ffffff4f;
+   border-top-width: thin;
 }
 
 a {
@@ -38,13 +45,13 @@ button {
 
 /* Top Button */
 .topBtnBox  {
-   margin-bottom: 7px;
+   margin-bottom: 10px;
 }
 
 #modify, #delete {
-   width: 50px;
-   height: 35px;
-   margin: 7px;
+   width: 45px;
+   height: 32px;
+   margin: 0px 5px;
    line-height: 32px;
    color: #222f4e;
    font-size: 12px;
@@ -64,9 +71,9 @@ button {
 }
 
 .rightBtnBox button {
-   width: 70px;
-   height: 35px;
-   margin: 7px;
+   width: 65px;
+   height: 32px;
+   margin: 0px 5px;
    line-height: 32px;
    color: #222f4e;
    font-size: 12px;
@@ -79,7 +86,7 @@ button {
 }
 
 .rightBtnBox button:last-child {
-   width: 50px;
+   width: 45px;
 }
 
 .rightBtnBox button:hover {
@@ -99,6 +106,10 @@ button {
    border: 1px solid rgba(207, 210, 226, 0.5);
    border-radius: 10px;
    padding: 30px;
+   margin-bottom: 30px;
+}
+
+.cntnHeaderBox {
    margin-bottom: 30px;
 }
 
@@ -157,15 +168,15 @@ button {
 
 /* 게시글 내용 */
 .contentViewer {
-   margin-bottom: 50px;
+   margin-bottom: 70px;
 }
 
 /* 좋아요 및 댓글 count */
 .replyBox {
-   margin-bottom: -10px;
    font-size: 13px;
-   color: #666;
    font-weight: 500;
+   color: #666;
+   margin-bottom: 10px;
 }
 
 /* Like Icon */
@@ -180,12 +191,15 @@ button {
 }
 
 .replyBox .likeBox .like, .likeCount {
+   font-size: 13px;
    margin-right: 3px;
+   color: #000;
 } /* Like Icon End */
 
 /* Reply */
 .replyBox .replyCountBox {
    margin-right: 15px;
+   color: #000;
 }
 
 .replyBox .replyCountBox i {
@@ -195,8 +209,14 @@ button {
 }
 
 .replyBox .replyCountBox .reply, .replyCount {
+   font-size: 13px;
    margin-right: 3px;
-} /* Reply End */
+} 
+
+.replyBox .likeCount, .replyCount {
+   font-weight: 600;
+}
+/* Reply End */
 
 /* Reply */
 .commentBox ul {
@@ -207,8 +227,8 @@ button {
 
 /* User Info */
 .commentBox .replyUserImgBox {
-   width: 37px;
-   height: 37px;
+   width: 35px;
+   height: 35px;
 }
 
 .commentBox .replyUserImgBox img {
@@ -245,6 +265,7 @@ button {
    margin-top: 10px;
    padding: 0px 3px;
 }
+
 .commentBox .commentContent span {
    font-size: 13px;
    font-weight: 500;
@@ -266,6 +287,12 @@ button {
 }
 
 .commentWirterBtnBox a {
+   font-size: 12px;
+   color: #6a737e;
+   font-weight: 500;
+}
+
+.commentWirterBtnBox button {
    font-size: 12px;
    color: #6a737e;
    font-weight: 500;
