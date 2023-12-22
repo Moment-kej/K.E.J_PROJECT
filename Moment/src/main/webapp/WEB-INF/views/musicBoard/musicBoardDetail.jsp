@@ -22,7 +22,7 @@
               
               <!-- Detail Content -->
               <div class="contentBox">
-                <div class="cntnHeaderBox">
+                <div class="cntnHeaderBox hrStyle">
                   <div class="headerTitleBox">
                     <a href="#">해당 게시판 목록<i class="fa-solid fa-angle-right"></i></a>
                     <h3>게시글 Title</h3>
@@ -30,7 +30,7 @@
                   <div class="writerInfoBox">
                     <div class="d-flex justify-content-start align-items-center ">
                       <div class="writerImgBox justify-content-start align-items-center">
-                        <img src="images/faces/face3.jpg" alt="사용자프로필">
+                        <img src="${pageContext.request.contextPath}/assets/images/faces/face3.jpg" alt="사용자프로필">
                       </div>
                       <div class="writerInfo">
                         <div class="writerInfoID">
@@ -43,7 +43,6 @@
                       </div>
                     </div>
                   </div>
-                  <hr>
                 </div>
                 <div class="contentViewer">
                   게시글 본문 </br>
@@ -57,28 +56,29 @@
                   게시글 본문 </br>
                   게시글 본문 </br>
                 </div>
-                <div class="replyBox d-flex justify-content-start align-items-center">
-                  <div class="likeBox d-flex justify-content-start align-items-center">
-                    <span class="like"><i class="fa-regular fa-face-kiss-wink-heart"></i>좋아요</span>
-                    <span class="likeCount">10</span>
-                  </div>
-                  <div class="replyCountBox d-flex justify-content-start align-items-center">
-                    <span class="reply"><i class="fa-regular fa-comment-dots"></i>댓글</span>
-                    <span class="replyCount">1</span>
+                <div class="replyBox hrStyle">
+                  <div class="d-flex justify-content-start align-items-center mb-3">
+                    <div class="likeBox d-flex justify-content-start align-items-center">
+                      <span class="like fw-medium"><i class="fa-regular fa-face-kiss-wink-heart"></i><i class="fa-solid fa-face-kiss-wink-heart"></i>좋아요</span>
+                      <span class="likeCount">10</span>
+                    </div>
+                    <div class="replyCountBox d-flex justify-content-start align-items-center">
+                      <span class="reply fw-medium"><i class="fa-regular fa-comment-dots"></i>댓글</span>
+                      <span class="replyCount">1</span>
+                    </div>
                   </div>
                 </div>
-                <hr>
                 
                 <!-- Detail Reply -->
                 <div class="commentBox">
                   <ul class="p-1">
                     <!-- 댓글 -->
                     <li>
-                      <div>
+                      <div class="hrStyle mt-2 pb-4">
                         <div class="d-flex justify-content-between align-items-center">
                           <div class="d-flex justify-content-start align-items-center"> <!-- 은애언니, 수민 여기 부분 수정 (div 태그 추가)-->
                             <div class="replyUserImgBox">
-                              <img class="mx-auto" src="images/faces/face3.jpg" alt="프로필 사진">
+                              <img class="mx-auto" src="${pageContext.request.contextPath}/assets/images/faces/face3.jpg" alt="프로필 사진">
                             </div>
                             <div class="replyInfoBox ml-2">
                               <div>
@@ -99,15 +99,14 @@
                         <div class="commentContent">
                           <span>여기 고민해봐야할 듯<br> 1. 엔터가 먹힐까? 엔터가 누르면 br태그가 들어가야하나..? <br>그리고 구분할 때 hr tag를 사용했는데 규칙 못찾았음..</span>
                         </div>
-                        <div class="commentWirterBtnBox">
-                          <a href="#">답글작성</a>
+                        <div class="commentWirterBtnBox mt-2">
+                          <button type="button">답글작성</button>
                         </div>
-                        <hr>
                       </div>
                     </li>
                     <!-- 답글 작성 폼 -->
-                    <li class="pl-4">
-                      <div>
+                    <li class="pl-5">
+                      <div class="hrStyle mt-2 pb-2">
                         <div class="commentWriter">
                           <div class="comment_inbox">
                             <span class="comment_inbox_name">똥심</span>
@@ -125,15 +124,14 @@
                             </div>
                           </div>
                         </div>
-                        <hr>
                       </div>
                     </li> <!-- 답글 작성 폼 End -->
                     <!-- 대댓글 -->
-                    <li class="pl-4">
-                      <div>
+                    <li class="pl-5">
+                      <div class="pt-2 pb-4">
                         <div class="d-flex justify-content-start align-items-center">
                           <div class="replyUserImgBox">
-                            <img class="mx-auto" src="images/faces/face1.jpg" alt="프로필 사진">
+                            <img class="mx-auto" src="${pageContext.request.contextPath}/assets/images/faces/face1.jpg" alt="프로필 사진">
                           </div>
                           <div class="replyInfoBox ml-2">
                             <div>
@@ -253,3 +251,4 @@
       
       <!-- partial -->
     </div>
+    <script type="module" src="${pageContext.request.contextPath}/assets/js/music/musicBoardDetail/musicBoardDetail.js"></script>

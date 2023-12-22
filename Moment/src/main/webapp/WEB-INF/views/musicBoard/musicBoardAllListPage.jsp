@@ -14,7 +14,7 @@
                             <div class="card-title"><h2>Music 게시판</h2></div>
                             <div class="d-flex justify-content-center menuCategoryDiv">
                                 <ul class="menuCategory p-0">
-                                    <li><a class="AllListView menuCategoryATag categoryTemp" data-category="0">전체보기</a></li>
+                                    <li><a class="AllListView menuCategoryATagClick categoryTemp" data-value="0">전체보기</a></li>
                                     <c:forEach var="list" items="${code.CA}">
                                         <c:if test="${list.commonDetailEx eq '음악 카테고리'}">
                                             <li><a class="menuCategoryATag categoryTemp" data-value="${list.commonDetailCd}">${list.commonDetailName}</a></li>
@@ -52,12 +52,10 @@
                                 <h3> 데이터가 없을시 "조회할 게시글이 없습니다." 라는 문구가 나오게 하기</h3>
                             </div>
                         </div>
-                        <div>
-                            <div id="contentListTest"></div><!-- js로 렌더링 하는곳 -->
-                        </div>
+                        
                         <!--글쓰기 버튼-->
                         <div id="writeBtnBox">
-                            <button type="button" id="writeBnt"><i class="fa-solid fa-pen"></i>글쓰기</button>
+                            <a href="${pageContext.request.contextPath}/board/musice/write" id="writeBnt"><i class="fa-solid fa-pen"></i>글쓰기</a>
                         </div>
 
                         <!-- pagination -->
@@ -92,4 +90,4 @@
         </div>
     </div>
 </div>
-<script type="module" src="${pageContext.request.contextPath}/assets/js/music/musicBoardAllList.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/assets/js/music/musicBoardAllList/musicBoardAllList.js"></script>
