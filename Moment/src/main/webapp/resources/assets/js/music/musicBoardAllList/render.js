@@ -1,3 +1,6 @@
+import { firstContextPath, formatTime_hhmm, createAndAppendElement } from '../../common/common.js';
+
+// =====================================================================================
 const boardListContainer = document.getElementById("boardList");
 
 // 게시글 List형태
