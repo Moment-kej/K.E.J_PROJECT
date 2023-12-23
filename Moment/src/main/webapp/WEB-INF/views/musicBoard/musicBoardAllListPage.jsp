@@ -11,17 +11,21 @@
                     <div class="card-body">
                         <!--제목, 카테고리 div-->
                         <div class="boardCategoryInfo">
-                            <div class="card-title"><h2>Music 게시판</h2></div>
-                            <div class="d-flex justify-content-center menuCategoryDiv">
-                                <ul class="menuCategory p-0">
-                                    <li><a class="AllListView menuCategoryATagClick categoryTemp" data-value="0">전체보기</a></li>
-                                    <c:forEach var="list" items="${code.CA}">
-                                        <c:if test="${list.commonDetailEx eq '음악 카테고리'}">
-                                            <li><a class="menuCategoryATag categoryTemp" data-value="${list.commonDetailCd}">${list.commonDetailName}</a></li>
-                                        </c:if>
-                                    </c:forEach>
-                                </ul>
-                            </div>
+                            <c:forEach var="item" items="${code.CO}">
+                                <c:if test="${item.commonDetailCd == 20}">
+                                    <div class="card-title"><h2>${item.commonDetailName} 게시판</h2></div>
+                                    <div class="d-flex justify-content-center menuCategoryDiv">
+                                        <ul class="menuCategory p-0">
+                                            <li><a class="AllListView menuCategoryATagClick categoryTemp" data-value="0">전체보기</a></li>
+                                            <c:forEach var="list" items="${code.CA}">
+                                                <c:if test="${list.commonDetailEx eq '음악 카테고리'}">
+                                                    <li><a class="menuCategoryATag categoryTemp" data-value="${list.commonDetailCd}">${list.commonDetailName}</a></li>
+                                                </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
                         </div>
                         <!-- 게시글 보기 양식 정하는 장소 -->
                         <div class="boardListForm">

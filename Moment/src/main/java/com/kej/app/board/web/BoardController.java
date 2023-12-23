@@ -265,9 +265,8 @@ public class BoardController {
     @GetMapping("/music")
     public String musicAllListPage(Model model, Criteria cri) {
     	
-    	model.addAttribute("code", cservice.getCodes("CA"));
-    	
-		// model.addAttribute("pageVO", pageVO);
+    	model.addAttribute("code", cservice.getCodes("CO", "CA"));
+
     	return "musicBoard/musicBoardAllListPage";
     }
     
