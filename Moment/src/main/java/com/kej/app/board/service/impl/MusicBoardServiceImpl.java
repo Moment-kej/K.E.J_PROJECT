@@ -29,4 +29,11 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		return mapper.pageCount(cri);
 	}
 
+	// Music 단건 조회
+	@Override
+	public BoardVO musicBoardDetail(int BoardNo) {
+
+		return mapper.musicBoardDetail(BoardNo);
+	}
+
 }

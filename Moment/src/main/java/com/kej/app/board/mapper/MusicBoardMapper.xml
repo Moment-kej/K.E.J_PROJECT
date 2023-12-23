@@ -40,4 +40,29 @@
 		    AND yn = 1
   	</select>
   	
+  	<!--  Music 단건 조회 -->
+  	<select id="musicBoardDetail" resultType="BoardVO">
+  		SELECT b.board_no
+			 , b.id
+			 , b.title 
+			 , b.write_dt  
+			 , b.view_count
+			 , b.content
+			 , b.code
+			 , (SELECT count(BOARD_NO)
+			 	  FROM board_like bl
+			  	 WHERE b.board_no = bl.board_no
+			   ) as like_count
+			  , (SELECT count(*)
+			  	   FROM reply r
+			  	  WHERE yn = 1
+			     	AND b.board_no = r.board_no
+				    AND r.yn = 1
+			  	 ) as reply_count
+		  FROM board b
+		 WHERE b.yn = 1
+		   AND board_no = #{boardNo}
+		   AND code = 20;
+  	</select>
+  	
   </mapper>

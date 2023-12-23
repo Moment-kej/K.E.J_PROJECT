@@ -50,5 +50,36 @@ public class ReplyServiceImpl implements ReplyService {
 	public int replyDelete(int replyNo) {
 		return rMapper.replyDelete(replyNo);
 	}
+	// --- eunae End -----------------------------------------------------------
+	
+	
+	// --- Minjin Start --------------------------------------------------------
+	//댓글 조회
+	@Override
+	public List<ReplyVO> musicReplyAllList(ReplyVO vo) {
+		
+		return rMapper.musicReplyAllList(vo);
+	}
+	
+	// 댓글 등록
+	@Override
+	public int musicReplyInsert(ReplyVO vo) {
+		
+		return rMapper.musicReplyInsert(vo);
+	}
+	
+	// 댓글 수정
+	@Override
+	public int musicReplyUpdate(ReplyVO vo) {
+		
+		return rMapper.musicReplyUpdate(vo);
+	}
+
+	// 댓글 삭제
+	@Override
+	public int musicReplyDelete(int replyNo) {
+		
+		return rMapper.musicReplyDelete(replyNo);
+	}
 
 }

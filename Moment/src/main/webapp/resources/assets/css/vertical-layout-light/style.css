@@ -8687,7 +8687,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -8698,7 +8698,7 @@
 }
 
 html {
-  font-family: sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -8710,7 +8710,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -8831,7 +8831,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-size: 1em;
 }
 
@@ -15151,7 +15151,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -15264,7 +15264,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -18773,7 +18773,7 @@ button.bg-dark:focus,
 }
 
 .text-monospace {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
 }
 
 .text-justify {
@@ -19327,7 +19327,7 @@ input:focus {
 }
 
 @font-face {
-  font-family: 'Nunito';
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   src: url("../../fonts/Nunito/Nunito-Light.eot");
   src: url("../../fonts/Nunito/Nunito-Light.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-Light.woff2") format("woff2"), url("../../fonts/Nunito/Nunito-Light.woff") format("woff"), url("../../fonts/Nunito/Nunito-Light.ttf") format("truetype");
   font-weight: 300;
@@ -19335,7 +19335,7 @@ input:focus {
 }
 
 @font-face {
-  font-family: 'Nunito';
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   src: url("../../fonts/Nunito/Nunito-Bold.eot");
   src: url("../../fonts/Nunito/Nunito-Bold.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-Bold.woff2") format("woff2"), url("../../fonts/Nunito/Nunito-Bold.woff") format("woff"), url("../../fonts/Nunito/Nunito-Bold.ttf") format("truetype");
   font-weight: bold;
@@ -19343,7 +19343,7 @@ input:focus {
 }
 
 @font-face {
-  font-family: 'Nunito';
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   src: url("../../fonts/Nunito/Nunito-SemiBold.eot");
   src: url("../../fonts/Nunito/Nunito-SemiBold.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-SemiBold.woff2") format("woff2"), url("../../fonts/Nunito/Nunito-SemiBold.woff") format("woff"), url("../../fonts/Nunito/Nunito-SemiBold.ttf") format("truetype");
   font-weight: 500;
@@ -19351,7 +19351,7 @@ input:focus {
 }
 
 @font-face {
-  font-family: 'Nunito';
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   src: url("../../fonts/Nunito/Nunito-Regular.eot");
   src: url("../../fonts/Nunito/Nunito-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-Regular.woff2") format("woff2"), url("../../fonts/Nunito/Nunito-Regular.woff") format("woff"), url("../../fonts/Nunito/Nunito-Regular.ttf") format("truetype");
   font-weight: normal;
@@ -19433,7 +19433,7 @@ input:focus {
 /* Typography */
 body {
   font-size: 1rem;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-weight: initial;
   line-height: normal;
   -webkit-font-smoothing: antialiased;
@@ -19691,7 +19691,7 @@ pre {
 code {
   padding: 5px;
   color: #FF4747;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-weight: 300;
   font-size: 0.875rem;
   border-radius: 4px;
@@ -19706,7 +19706,7 @@ code {
   -webkit-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   font-size: calc(0.875rem - 0.05rem);
-  font-family: "Nunito", sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-weight: 400;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -20085,7 +20085,7 @@ code {
 }
 
 .performance-overview-carousel .carousel-control-prev:after {
-  font-family: "themify";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   content: '\e64a';
   font-size: .875rem;
   color: #ffffff;
@@ -20103,7 +20103,7 @@ code {
 }
 
 .performance-overview-carousel .carousel-control-next:after {
-  font-family: "themify";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   content: '\e649';
   font-size: .875rem;
   color: #ffffff;
@@ -20136,7 +20136,7 @@ code {
 }
 
 .detailed-report-carousel .carousel-control-prev:after {
-  font-family: "themify";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   content: '\e64a';
   font-size: .875rem;
   color: #6c7383;
@@ -20154,7 +20154,7 @@ code {
 }
 
 .detailed-report-carousel .carousel-control-next:after {
-  font-family: "themify";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   content: '\e649';
   font-size: .875rem;
   color: #6c7383;
@@ -20175,7 +20175,7 @@ code {
 }
 
 .navbar-brand.landing img {
-  height: 34px;
+  height: auto;
 }
 
 .landing-effect {
@@ -20329,7 +20329,7 @@ code {
 }
 
 .accordion > .card .card-header a:before {
-  font-family: "themify";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   position: absolute;
   right: 7px;
   top: 0;
@@ -22388,7 +22388,7 @@ code {
   transition-duration: 0s;
   -webkit-transition-duration: 250ms;
   transition-duration: 250ms;
-  font-family: themify;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   opacity: 0;
   filter: alpha(opacity=0);
   -webkit-transform: scale(0);
@@ -23626,7 +23626,7 @@ dl li {
 .list-ticked li:before,
 .list-arrow li:before,
 .list-star li:before {
-  font-family: "themify";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   margin-left: -1.5rem;
   width: 1.5rem;
   margin-right: .5rem;
@@ -23750,7 +23750,7 @@ dl li {
   padding-left: 0;
   position: relative;
   margin-bottom: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
 }
 
 .icon-data-list li {
@@ -24545,7 +24545,7 @@ dl li {
 }
 
 .preview-list .preview-item .preview-item-content p .content-category {
-  font-family: 'source-sans-pro-semibold', sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   padding-right: 15px;
   border-right: 1px solid #CED4DA;
 }
@@ -26191,7 +26191,7 @@ body.avgrund-active {
 .dataTables_wrapper .dataTable thead .sorting_desc_disabled:before,
 .dataTables_wrapper .dataTable thead .sorting_desc_disabled:after {
   line-height: 2.5;
-  font-family: themify;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-size: .65rem;
 }
 
@@ -26324,7 +26324,7 @@ body.avgrund-active {
 
 .expandable-table tr td.details-control:before {
   content: '\e64b';
-  font-family: "themify";
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
 }
 
 .expandable-table tr.shown td.details-control:before {
@@ -26401,7 +26401,7 @@ table.dataTable tbody td.select-checkbox:after {
 
 .datepicker.datepicker-dropdown .datepicker-days table.table-condensed thead tr th.dow,
 .datepicker.datepicker-inline .datepicker-days table.table-condensed thead tr th.dow {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   color: #1F1F1F;
   font-size: 0.875rem;
   font-weight: initial;
@@ -27565,7 +27565,7 @@ table.dataTable tbody td.select-checkbox:after {
   border-radius: 3px;
   padding: 6px;
   font-size: .625rem;
-  font-family: inherit;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   line-height: 1;
 }
 
@@ -27716,7 +27716,7 @@ div.tagsinput span.tag {
   color: #ffffff;
   padding: 6px 14px;
   font-size: .8125rem;
-  font-family: inherit;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   line-height: 1;
 }
 
@@ -27827,7 +27827,7 @@ div.tagsinput span.tag a {
 .wysi-editor textarea {
   height: 280px;
   border: 1px solid #CED4DA;
-  font-family: inherit;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-size: 1rem;
 }
 
@@ -28466,7 +28466,7 @@ div.tagsinput span.tag a {
 .sidebar {
   min-height: calc(100vh - 60px);
   background: #fff;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-weight: 500;
   padding: 0;
   width: 235px;
@@ -30303,7 +30303,7 @@ div.tagsinput span.tag a {
 .settings-panel .settings-heading {
   padding: 16px 0 13px 35px;
   font-size: 0.875rem;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-weight: 500;
   line-height: 1;
   color: rgba(0, 0, 0, 0.9);
@@ -30498,7 +30498,7 @@ div.tagsinput span.tag a {
 }
 
 .settings-panel .events p {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
   font-weight: 400;
 }
 

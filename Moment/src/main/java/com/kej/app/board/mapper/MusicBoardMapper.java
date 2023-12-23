@@ -12,5 +12,8 @@ public interface MusicBoardMapper {
 	public List<BoardVO> musicBoardAllList(Criteria cri);
 
 	// 페이지
-	public int pageCount(Criteria cri); 
+	public int pageCount(Criteria cri);
+
+	// Music 단건 조회
+	public BoardVO musicBoardDetail(int boardNo); 
 }

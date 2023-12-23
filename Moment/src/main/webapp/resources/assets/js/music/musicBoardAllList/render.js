@@ -109,17 +109,21 @@ export const createPagination = (data) => {
    while (parentElement.firstChild) {
       parentElement.removeChild(parentElement.firstChild);
    };
+   if(data.start != data.end) {
+      createAndAppendElement(parentElement, "button", { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
    
-   createAndAppendElement(parentElement, "button", { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
-
-   createAndAppendElement(parentElement, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
+      createAndAppendElement(parentElement, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
+   }
    
    for (let i=1; i <= data.end; i++) {
-      const pageNumberLink = createAndAppendElement(parentElement, "button", { id: 'pageNumBtn' + i, class: 'pageNumBtn pbtn' });
-      createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum' }, i);
+      createAndAppendElement(parentElement, "button", { id: 'pageNumBtn' + i, class: 'pageNumBtn pbtn' }, i);
+      //createAndAppendElement(pageNumberLink, 'span', { class: 'pageNum' }, i);
    }
-   document.getElementById("pageNumBtn" + data.page).classList.add("pbtnClick")
-   createAndAppendElement(parentElement, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
 
-   createAndAppendElement(parentElement, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
+   if(data.start != data.end) {
+      document.getElementById("pageNumBtn" + data.page).classList.add("pbtnClick")
+      createAndAppendElement(parentElement, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
+
+      createAndAppendElement(parentElement, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
+   }
 };

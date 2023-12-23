@@ -163,10 +163,10 @@ public class BoardServiceImpl implements BoardService {
 		
 		return res;
 	}
-	// eunae ---------------------------------------------
+	// eunae -------------------------------------------------------
 
 	
-	// soomin ----------------------------------------------------	
+	// soomin ------------------------------------------------------
 	// 전체조회
 	@Override
 	public List<BoardVO> artBoardList(Criteria cri) {
