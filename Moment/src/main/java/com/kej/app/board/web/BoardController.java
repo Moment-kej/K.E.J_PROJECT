@@ -282,14 +282,18 @@ public class BoardController {
 		Map<String, Object> response = new HashMap<>();
 		response.put("data", musicService.musicBoardAllList(cri));
 		response.put("paging", pageVO);
- 		System.out.println(response);
+		
  		return response;
  	}
         
     // Music Detail Page
 	@GetMapping("/music/{boardNo}")
-	public String BoardDetail(Model model, @PathVariable ("boardNo") int boardNo) {
+	public String BoardDetail(Model model, BoardVO board, @PathVariable ("boardNo") int boardNo) {
 		
+	    board = musicService.musicBoardDetail(boardNo);
+
+	    model.addAttribute("item", board);
+	    
 		return "musicBoard/musicBoardDetail";
 	}
 	

@@ -150,7 +150,7 @@ button {
 
 .writerInfoBox .writerInfoID .userID {
    font-size: 13px;
-   font-weight: 700;
+   font-weight: 600;
    color: #222f4e;
 }
 
@@ -225,6 +225,19 @@ button {
    margin-bottom: 30px;
 }
 
+.commentBox .commentItem:first-child {
+   border-top: none;
+}
+
+.commentBox .commentItem {
+   border-top: 1px solid #E2E4F0;
+   padding: 10px 0px 10px 0px;
+}
+
+.commentBox .commentReply {
+	padding-left: 45px;
+}
+
 /* User Info */
 .commentBox .replyUserImgBox {
    width: 35px;
@@ -282,8 +295,7 @@ button {
 }
 
 .commentWirterBtnBox {
-   margin-bottom: -10px;
-   margin-left: 3px;
+   margin: 5px 0px 0px 3px;
 }
 
 .commentWirterBtnBox a {
@@ -301,7 +313,7 @@ button {
 /* 답글 작성 */
 .commentWriter {
    box-sizing: border-box;
-   margin: 13px 0px;
+   margin-top: 10px;
    padding: 10px 17px;
    border: 2px solid rgba(207, 210, 226, 1);
    border-radius: 5px;

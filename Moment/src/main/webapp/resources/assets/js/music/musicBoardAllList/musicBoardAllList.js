@@ -111,14 +111,76 @@ const init = () => {
 // =====================================================================================
 $().ready(() => {
    init();
+   let pageNumber;
    $(document).on("click", ".pageNumBtn", (e) => {
-      let pageNumber;
-      if(e.target.tagName == "SPAN") {
-         pageNumber = parseInt($(e.target).parent().eq(0).text());
-      } else {
-         pageNumber = parseInt($(e.target).text());
-      }
+      pageNumber = parseInt($(e.target).text());
+      clearContent();
+      showContent(currentViewType, amount, category, pageNumber);
+   });
 
+   $(document).on("click", "#firstPageBtn", () => {
+      pageNumber = parseInt($(".pbtnClick").eq(0).text());
+      if(1 == pageNumber) {
+         Swal.fire({
+            icon: 'info',
+            title: 'First Page',
+         });
+         return;
+      }
+      pageNumber = parseInt(1);
+      clearContent();
+      showContent(currentViewType, amount, category, pageNumber);
+   });
+
+   $(document).on("click", "#prevPageBtn", () => {
+      let pageNumBtnFirstElement = $(".pageNumBtn").first().eq(0).text();
+
+      if (pageNumber > pageNumBtnFirstElement) {
+         pageNumber = parseInt(pageNumber) - 1;
+
+         clearContent();
+         showContent(currentViewType, amount, category, pageNumber);
+      } else {
+         Swal.fire({
+            icon: 'info',
+            title: 'First Page',
+         });
+         return;
+      }
+      
+   });
+
+   let pageNumBtnLastElement;
+   $(document).on("click", "#nextpageBtn", () => {
+      pageNumber = parseInt($(".pbtnClick").eq(0).text());
+      pageNumBtnLastElement = parseInt($(".pageNumBtn").last().eq(0).text());
+
+      if (pageNumber < pageNumBtnLastElement) {
+         pageNumber = parseInt(pageNumber) + 1;
+         clearContent();
+         showContent(currentViewType, amount, category, pageNumber);
+      } else {
+         Swal.fire({
+            icon: 'info',
+            title: 'Last Page',
+         });
+         return;
+      }
+   });
+   
+   $(document).on("click", "#lastPageBtn", () => {
+      pageNumBtnLastElement = $(".pageNumBtn").last().eq(0).text();
+      
+      if(pageNumBtnLastElement == pageNumber) {
+         Swal.fire({
+            icon: 'info',
+            title: 'Last Page',
+         });
+         return;
+      }
+      pageNumber = parseInt(pageNumBtnLastElement);
+      console.log(pageNumber)
+      
       clearContent();
       showContent(currentViewType, amount, category, pageNumber);
    });

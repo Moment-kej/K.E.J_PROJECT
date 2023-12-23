@@ -13,4 +13,7 @@ public interface MusicBoardService {
 	
 	public int pageCount(Criteria cri);
 	
+	// Music 단건 조회
+	public BoardVO musicBoardDetail(int BoardNo);
+	
 }
