@@ -60,33 +60,33 @@ public class ReplyController {
 	@RequestMapping(value = "/music/reply-data", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ReplyVO> musicReplyAllList(ReplyVO vo) {
-		
+		System.out.println("sfadsfdasfdsfsafdsafdsfsafasfasd" + vo);
 		return service.musicReplyAllList(vo);
 	}
 	
 	// 리뷰 등록
-	@PostMapping("/music")
-	@ResponseBody
-	public int musicReplyInsert(ReplyVO vo) {
-
-		return 0;
-	}
+//	@PostMapping("/music")
+//	@ResponseBody
+//	public int musicReplyInsert(ReplyVO vo) {
+//
+//		return 0;
+//	}
 
 	// 리뷰 수정
-	@PutMapping("/music")
-	@ResponseBody
-	public int musicReplyUpdate(ReplyVO vo) {
-		
-		return 0;
-	}
+//	@PutMapping("/music")
+//	@ResponseBody
+//	public int musicReplyUpdate(ReplyVO vo) {
+//		
+//		return 0;
+//	}
 
 	// 리뷰 삭제
-	@DeleteMapping("/music")
-	@ResponseBody
-	public int musicReplyDelete(ReplyVO vo) {
-		
-		return 0;
-	}
+//	@DeleteMapping("/music")
+//	@ResponseBody
+//	public int musicReplyDelete(ReplyVO vo) {
+//		
+//		return 0;
+//	}
 	
 	
 	

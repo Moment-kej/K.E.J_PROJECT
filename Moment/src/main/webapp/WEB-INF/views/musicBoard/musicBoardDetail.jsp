@@ -24,7 +24,7 @@
             <div class="contentBox">
               <div class="cntnHeaderBox hrStyle">
                 <div class="headerTitleBox">
-                  <a href="#">해당 게시판 목록<i class="fa-solid fa-angle-right"></i></a>
+                  <a href="${pageContext.request.contextPath}/board/music">Music 게시판 목록<i class="fa-solid fa-angle-right"></i></a>
                   <h3>${item.title}</h3>
                 </div>
                 <div class="writerInfoBox">

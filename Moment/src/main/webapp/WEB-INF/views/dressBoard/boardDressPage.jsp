@@ -18,7 +18,7 @@
                                         <ul class="menuCategory p-0">
                                             <li><a id="0" class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
                                             <c:forEach var="coDetailList" items="${code.CA}">
-                                                <c:if test="${coDetailList.commonDetailEx eq '옷 카테고리'}">
+                                                <c:if test="${coDetailList.commonDetailEx eq 'DressCategroy'}">
                                                     <li>
                                                         <a id="${coDetailList.commonDetailCd}" class="menuCategoryATag" data-category="${coDetailList.commonDetailCd}">${coDetailList.commonDetailName}</a>
                                                     </li>
