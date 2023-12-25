@@ -1,6 +1,7 @@
 package com.kej.app.common.web;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kej.app.common.service.CommonService;
 import com.kej.app.common.service.vo.BookVO;
+import com.kej.app.common.service.vo.CodeVO;
 import com.kej.app.common.service.vo.NewsVO;
 
 @Controller
@@ -52,5 +54,11 @@ public class CommonController {
 		
 		return service.books(page, query);
 	};
+	
+	@RequestMapping(value="/code", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, List<CodeVO>> commonCode() {
+		return service.getCodes("CO", "CA");
+	}
 
 }

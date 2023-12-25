@@ -30,65 +30,59 @@
                             </c:forEach>
                         </div>
                         <!-- 게시글 보기 양식 정하는 장소 -->
-                        <div class="boardListForm">
-                            <div class="boardListFormBtn">
-                                <a id="cardsType" class="boardListFormChangeBtn">
-                                    <img src="${pageContext.request.contextPath}/assets/icon/sortCard.svg" class="boardType" data-type="cardsType" alt="sort_card">
-                                </a>
-                                <a id="albumType" class="boardListFormChangeBtn">
-                                    <img src="${pageContext.request.contextPath}/assets/icon/sortAlbum.svg" class="boardType" data-type="albumType" alt="sort_album">
-                                </a>
-                                <a id="listType" class="boardListFormChangeBtn">
-                                    <img src="${pageContext.request.contextPath}/assets/icon/sortList.svg" class="boardType" data-type="listType" alt="sort_list">
-                                </a>
+                        <div id="dressBoardContainal">
+                            <div class="boardListForm mb-3">
+                                <div class="boardListFormBtn">
+                                    <a id="cardsType" class="boardListFormChangeBtn">
+                                        <img src="${pageContext.request.contextPath}/assets/icon/sortCard.svg" class="boardType" data-type="cardsType" alt="sort_card">
+                                    </a>
+                                    <a id="albumType" class="boardListFormChangeBtn">
+                                        <img src="${pageContext.request.contextPath}/assets/icon/sortAlbum.svg" class="boardType" data-type="albumType" alt="sort_album">
+                                    </a>
+                                    <a id="listType" class="boardListFormChangeBtn">
+                                        <img src="${pageContext.request.contextPath}/assets/icon/sortList.svg" class="boardType" data-type="listType" alt="sort_list">
+                                    </a>
+                                </div>
+                                <div class="listSizeSelect">
+                                    <!-- 한번에 보여줄 개수 정하기 -->
+                                    <select id="handleAmount">
+                                        <option value="10" ${pageVO.amount == 10 ? 'selected' : ''}>10개씩</option>
+                                        <option value="20" ${pageVO.amount == 20 ? 'selected' : ''}>20개씩</option>
+                                        <option value="30" ${pageVO.amount == 30 ? 'selected' : ''}>30개씩</option>
+                                        <option value="40" ${pageVO.amount == 40 ? 'selected' : ''}>40개씩</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="listSizeSelect">
-                                <!-- 한번에 보여줄 개수 정하기 -->
-                                <form action="1" class="minisrch_form" name="actionForm" >
-                                    <fieldset>
-                                        <select id="handleAmount">
-                                            <option value="10" ${pageVO.amount == 10 ? 'selected' : ''}>10개씩</option>
-                                            <option value="20" ${pageVO.amount == 20 ? 'selected' : ''}>20개씩</option>
-                                            <option value="30" ${pageVO.amount == 30 ? 'selected' : ''}>30개씩</option>
-                                            <option value="40" ${pageVO.amount == 40 ? 'selected' : ''}>40개씩</option>
-                                        </select>
-                                    </fieldset>
-                                </form>
+                            <!-- <div style="clear:both"></div> -->
+                            <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
+                            <div><div id="boardList" class="border-top"></div></div>
+                            <!--글쓰기 버튼-->
+                            <div id="writeBtnBox">
+                                <button type="button" class="btn-md" id="writeBnt"><i class="fa-solid fa-pen"></i>글쓰기</button>
                             </div>
-                        </div>
-                        <!-- <div style="clear:both"></div> -->
-                        <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
-                        <div><div id="boardList" class="border-top"></div></div>
-                        <!--글쓰기 버튼-->
-                        <div id="writeBtnBox">
-                            <button type="button" class="btn-md" id="writeBnt"><i class="fa-solid fa-pen"></i>글쓰기</button>
-                        </div>
-                        <!--확인용 div-->
-                        <div id="dataCheck" style="display: none;">
-                            <p>확인용 >> ${criteria}</p>
-                            <input type="hidden" name="page"        id="criteriaPage" value="${criteria.page}">
-                            <input type="hidden" name="amount"      id="criteriaAmount" value="${criteria.amount}">
-                            <input type="hidden" name="category"    id="criteriaCategory" value="${criteria.category}">
-                            <input type="hidden" name="listType"    id="criteriaListType" value="${criteria.listType}">
-                            <input type="hidden" name="pageStart"   id="pageVOStart" value="${pageVO.start-1}">
-                            <input type="hidden" name="pageEnd"     id="pageVOEnd" value="${pageVO.end+1}">
-                            <input type="hidden" name="pagerealEnd" id="pageVORealEnd" value="${pageVO.realEnd}">
-                            <input type="hidden" name="pageTotal"   id="pageVOTotal" value="${pageVO.total}">
-                            <input type="hidden" name="contextPath" id="contextPath" value="${pageContext.request.contextPath}">
+                            <!--확인용 class="display"-->
+                            <div id="dataCheck" >
+                                <p>확인용 >> ${criteria}</p>
+                                <p>확인용 >> ${pageVO}</p>
+                                <input type="hidden" name="page"        id="criteriaPage" value="${criteria.page}">
+                                <input type="hidden" name="amount"      id="criteriaAmount" value="${criteria.amount}">
+                                <input type="hidden" name="category"    id="criteriaCategory" value="${criteria.category}">
+                                <input type="hidden" name="listType"    id="criteriaListType" value="${criteria.listType}">
+                                <input type="hidden" name="pagerealEnd" id="pageVORealEnd" value="${pageVO.realEnd}">
+                                <input type="hidden" name="pageTotal"   id="pageVOTotal" value="${pageVO.total}">
+                            </div>
                         </div>
                         <!-- pagination -->
                         <div class="pagination d-flex justify-content-center" id="pagingBox">
                             <!-- 5. 맨 처음으로 -->
-                            <button id="pageNumberOne" class="firstpage pbtn">
+                            <button id="firstPage" class="firstpage pbtn">
                                 <i class="fa-solid fa-angles-left"></i>
                             </button>
                             
                             <!-- 3.이전페이지네이션 -->
-                            <c:if test="${pageVO.prev}">
-                            <button id="pageStart" class="prevpage pbtn">
+                            <button id="beforePage" class="prevpage pbtn">
                                 <i class="fa-solid fa-angle-left"></i>
                             </button>
-                            </c:if>
                             
                             <!-- 1.페이지네이션 -->
                             <c:forEach var="num" begin="${pageVO.start}" end="${pageVO.end}">
@@ -98,21 +92,19 @@
                             </c:forEach>
                             
                             <!-- 2.다음페이지네이션 -->
-                            <c:if test="${pageVO.next}">
-                            <button id="pageNext" class="nextpage pbtn">
+                            <button id="afterPage" class="nextpage pbtn">
                                 <i class="fa-solid fa-angle-right"></i>
                             </button>
-                            </c:if>
                             
                             <!-- 4. 맨 마지막으로 -->
-                            <button id="pageRealEnd" class="lastpage pbtn">
+                            <button id="lastPage" class="lastpage pbtn">
                                 <i class="fa-solid fa-angles-right"></i>
                             </button>
                         </div><!-- pagination end -->
                         <!-- search div -->
                         <div class="col-lg-12 pt-5">
                             <div class="d-flex justify-content-center grid-margin">
-                                <div class="d-flex">
+                                <div class="d-flex searchArea">
                                     <select name="category" id="boardCategory">
                                         <option value="0">카테고리</option>
                                         <c:forEach var="coDetailList" items="${code.CA}">
@@ -130,9 +122,8 @@
                                     </select>
 
                                     <input type="hidden" id="searchPage" value="1">
-
-                                    <input type="text" name="searchName" id="searchName" class="form-control boardSearchInput" placeholder="입력해주세요" aria-describedby="button-addon2">
-                                    <button class="btn btn-outline-dark btn-fw" type="button" id="searchBnt">Search</button>
+                                    <input type="text" autocomplete="off" name="searchName" id="searchName"  placeholder="입력해주세요" aria-describedby="button-addon2">
+                                    <button type="button" class="searchBtn">검색</button>
                                 </div>
                             </div>
                         </div> <!-- search div end-->

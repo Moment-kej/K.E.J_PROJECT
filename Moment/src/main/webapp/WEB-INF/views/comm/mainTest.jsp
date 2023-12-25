@@ -10,13 +10,11 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title">추천도서</p>
+                            <!-- https://velog.io/@dpdnjs402/uq0d5qph 이거보고 진행하자 -->
                             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                                 <!-- Navbar content -->
                                 <div class="container-fluid">
-                                    <button class="navbar-toggler category-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"></span>
-                                    </button>
-                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <div class="collapse navbar-collapse">
                                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                             <li class="nav-item">
                                                 <a onclick="createBookComponent('${pageContext.request.contextPath}', 1, 'all')" id="allLink" class="categoryLink nav-link" aria-current="page">전체</a>
@@ -27,10 +25,10 @@
                                             </li>
                                             </c:forEach>
                                         </ul>
-                                    <div class="d-flex">
-                                        <input class="form-control me-2" type="text" placeholder="입력해주세요" aria-label="Search" id="bookSerachName">
-                                        <button class="btn btn-outline-success" type="button" id="bookSerachBnt">Search</button>
-                                    </div>
+                                        <div class="d-flex">
+                                            <input class="form-control me-2" type="text" placeholder="입력해주세요" aria-label="Search" id="bookSerachName">
+                                            <button type="button" id="bookSerachBnt">검색</button>
+                                        </div>
                                     </div>
                                 </div>
                             </nav>
@@ -137,22 +135,21 @@
                         <div class="card-body">
                         <div>
                             <p class="card-title">인기 게시글</p>
-                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                                <div class="container-fluid">
-                                    <div class="collapse navbar-collapse" id="categoryDropdown">
-                                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                            <li class="nav-item">
-                                                <a class="nav-link topBoardCategory selected" aria-current="page" data-cate="0">전체</a>
-                                            </li>
-                                            <c:forEach var="item" items="${code.CO}">
-                                            <li class="nav-item">
-                                                <a class="nav-link topBoardCategory" aria-current="page" data-cate="${item.commonDetailCd}">${item.commonDetailName}</a>
-                                            </li>
-                                            </c:forEach>
+                            <div id="menu" class="d-flex justify-content-center">
+                                <ul id="mainCategory">
+                                    <li>
+                                        <a data-cate="0" class="topBoardCategory selected">전체</a>
+                                    </li>
+                                    <!-- <li>
+                                        <a class="topBoardCategory" data-cate=""></a>
+                                        <ul>
+                                            <li><a href="#">SUB_MENU</a></li>
+                                            <li><a href="#">SUB_MENU2</a></li>
+                                            <li><a href="#">SUB_MENU3</a></li>
                                         </ul>
-                                    </div>
-                                </div>
-                            </nav>
+                                    </li> -->
+                                </ul>
+                            </div>
                             <!-- top board rendering -->
                             <div id="topBoardList"></div>
                             <!-- top board pagenation -->
