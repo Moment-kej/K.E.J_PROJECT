@@ -262,20 +262,13 @@ public class BoardController {
 	
     
     
-    //Music 전체조회 Page
+	//Music 전체조회 Page
     @GetMapping("/music")
     public String musicAllListPage(Model model, Criteria cri) {
     	
-    	model.addAttribute("code", cservice.getCodes("CA"));
-    	
-		// model.addAttribute("pageVO", pageVO);
-    	return "musicBoard/boardMusicAllListPage";
-    }
-    
-    @GetMapping("/music/detail")
-    public String musicDetailPage(Model model) {
-    	
-    	return "musicBoard/boardDetail";
+    	model.addAttribute("code", cservice.getCodes("CO", "CA"));
+
+    	return "musicBoard/musicBoardAllListPage";
     }
     
     // Ajax Get Method 
@@ -296,22 +289,25 @@ public class BoardController {
         
     // Music Detail Page
 	@GetMapping("/music/{boardNo}")
-	public String BoardDetail(Model model, CodeVO codeVO, BoardVO board, @PathVariable ("boardNo") int boardNo) {
+	public String BoardDetail(Model model, @PathVariable ("boardNo") int boardNo) {
 		
-		model.addAttribute("code", cservice.getCodes("CA"));
-		
-	    board = musicService.musicBoardDetail(boardNo);
-	    model.addAttribute("item", board);
-	    
 		return "musicBoard/musicBoardDetail";
 	}
+	
+	@GetMapping("/musice/write")
+	public String musicInsertPage(Model model) {
+    	
+    	//model.addAttribute("code", cservice.getCodes("CA"));
+		
+    	return "musicBoard/musicBoardInsert";
+    }
 	
 	// Music insert page
 	@PostMapping("/music")
 	@ResponseBody
 	public String boardMusicInsert() {
 		
-		return "musicBoard/boardInsert";
+		return "musicBoard/musicBoardInsert";
 	}
 	
 	// Music update page
@@ -319,7 +315,7 @@ public class BoardController {
 	@ResponseBody
 	public String boardMusicUpdate(@PathVariable ("boardNo") int boardNo) {
 		
-		return "musicBoard/boardUpdate";
+		return "musicBoard/musicBoardUpdate";
 	}
     
 	// Music delete page
@@ -327,7 +323,7 @@ public class BoardController {
 	@ResponseBody
 	public String boardMusicDelete(@PathVariable ("boardNo") int boardNo) {
 		
-		return "musicBoard/boardUpdate";
+		return "musicBoard/musicBoardUpdate";
 	}
     
     
