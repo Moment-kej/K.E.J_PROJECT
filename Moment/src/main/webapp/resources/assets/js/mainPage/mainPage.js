@@ -140,7 +140,6 @@ const newsPagenationCondition = (currentPageNumber) => {
         }
     };
 };
-
 // news pagenation button
 const newsPageChangeBnt = () => {
     let querySearch = document.getElementById('querySearch').value;
@@ -190,7 +189,6 @@ const bookPagenationCondition = (bookPageNumber) => {
         }
     };
 };
-
 // book pagenation button
 const bookPageChangeBnt = () => {
     let querySearch = document.getElementById('book_querySearch').value;
@@ -214,7 +212,6 @@ const bookPageChangeBnt = () => {
         createBookComponent(firstPath, pageUp, querySearch);
     });
 };
-
 //------------------------------------------------------------------------
 // 금액 포맷
 const formatMoney = (money) => {
@@ -271,7 +268,6 @@ const postRedner = (data, mainContainal) => {
     }
     containal.append(innerContainal);
 };
-
 // new board list ajax
 const newBoardList = (code, category, page) => {
     const data = {code: code, amount:5, category: category, page: parseInt(page)};
@@ -411,6 +407,7 @@ const topBoardListBtn = () => {
     const topBoardCategory = document.getElementsByClassName('topBoardCategory');
     Array.from(topBoardCategory).forEach((element) => {
         element.addEventListener('click', (e) => {
+            console.log(e);
             const code = e.target.getAttribute('data-cate');
             Array.from(topBoardCategory).forEach(remove => {
                 // 모든 링크에서 'selected' 클래스를 제거
@@ -447,7 +444,37 @@ const topBoardPagenation = (data) => {
     };
 };
 //------------------------------------------------------------------------
+// common code ajax
+const commonCodeAjax = () => {
+    const callback = (data) => {
+        const CO = data.CO;
+        const CA = data.CA;
+
+        CO.map(item => {
+            CO_commonCodeRender(item);
+            CA.map(sub => {
+                console.log(sub);
+                CA_commonCodeReder(sub);
+            })
+        });
+    }
+    ajaxRequest(firstPath + '/code', 'GET', {}, callback);
+};
+// main category
+const CO_commonCodeRender = (data) => {
+    const mainCategory = document.querySelector('#mainCategory');
+    const li = createAndAppendElement(mainCategory, 'li', {id: 'mainCate_' + parseInt(data.commonDetailCd.toString()[0])});
+    createAndAppendElement(li, 'a', {'data-cate': data.commonDetailCd, class: 'topBoardCategory'}, data.commonDetailName);
+};
+// sub category
+const CA_commonCodeReder = (data) => {
+    const mainCategoryNumber = parseInt(data.commonDetailCd.toString()[0]);
+    console.log(document.querySelector('#mainCate_' + mainCategoryNumber));
+}
+//------------------------------------------------------------------------
+
 // ajax list
+commonCodeAjax();
 bookSearch();
 newsSearch();
 createBookComponent(firstPath, 1, "all");
@@ -456,10 +483,10 @@ createNewsComponent(firstPath, 1, "all");
 newBoardList(0, 0, 1);
 newBoardListBtn();
 topBoardLsit(0, 0, 1);
-topBoardListBtn();
 
 // 페이지 로드 후 데이터 가져오기
 window.onload = function() {
+    topBoardListBtn();
     bookPageChangeBnt();
     newsPageChangeBnt();
 };

@@ -266,9 +266,16 @@ public class BoardController {
     @GetMapping("/music")
     public String musicAllListPage(Model model, Criteria cri) {
     	
-    	model.addAttribute("code", cservice.getCodes("CO", "CA"));
-
-    	return "musicBoard/musicBoardAllListPage";
+    	model.addAttribute("code", cservice.getCodes("CA"));
+    	
+		// model.addAttribute("pageVO", pageVO);
+    	return "musicBoard/boardMusicAllListPage";
+    }
+    
+    @GetMapping("/music/detail")
+    public String musicDetailPage(Model model) {
+    	
+    	return "musicBoard/boardDetail";
     }
     
     // Ajax Get Method 
@@ -283,7 +290,7 @@ public class BoardController {
 		Map<String, Object> response = new HashMap<>();
 		response.put("data", musicService.musicBoardAllList(cri));
 		response.put("paging", pageVO);
-		
+ 		System.out.println(response);
  		return response;
  	}
         
@@ -299,20 +306,12 @@ public class BoardController {
 		return "musicBoard/musicBoardDetail";
 	}
 	
-	@GetMapping("/musice/write")
-	public String musicInsertPage(Model model) {
-    	
-    	//model.addAttribute("code", cservice.getCodes("CA"));
-		
-    	return "musicBoard/musicBoardInsert";
-    }
-	
 	// Music insert page
 	@PostMapping("/music")
 	@ResponseBody
 	public String boardMusicInsert() {
 		
-		return "musicBoard/musicBoardInsert";
+		return "musicBoard/boardInsert";
 	}
 	
 	// Music update page
@@ -320,7 +319,7 @@ public class BoardController {
 	@ResponseBody
 	public String boardMusicUpdate(@PathVariable ("boardNo") int boardNo) {
 		
-		return "musicBoard/musicBoardUpdate";
+		return "musicBoard/boardUpdate";
 	}
     
 	// Music delete page
@@ -328,7 +327,7 @@ public class BoardController {
 	@ResponseBody
 	public String boardMusicDelete(@PathVariable ("boardNo") int boardNo) {
 		
-		return "musicBoard/musicBoardUpdate";
+		return "musicBoard/boardUpdate";
 	}
     
     
