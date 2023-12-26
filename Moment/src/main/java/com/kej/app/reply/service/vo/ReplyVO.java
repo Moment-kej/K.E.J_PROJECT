@@ -9,7 +9,8 @@ import lombok.Data;
 public class ReplyVO {
 	private int       replyNo; 			// 댓글번호
 	private int       boardNo;			// 게시글번호
-	private int 	  groupNo;			// 댓글 순서
+	private int       originNo;			// 부모댓글번호
+	private int 	  groupOrd;			// 댓글 순서
 	private int 	  groupLayer;		// 댓글 계층
 	private String    id;				// 회원 아이디
 	private String    content;			// 댓글내용

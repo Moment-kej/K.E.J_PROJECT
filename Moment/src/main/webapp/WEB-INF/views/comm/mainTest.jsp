@@ -140,7 +140,7 @@
                                     <li>
                                         <a data-cate="0" class="topBoardCategory selected">전체</a>
                                     </li>
-                                    <!-- <li>
+                                <!-- <li id="mainCate_1">
                                         <a class="topBoardCategory" data-cate=""></a>
                                         <ul>
                                             <li><a href="#">SUB_MENU</a></li>

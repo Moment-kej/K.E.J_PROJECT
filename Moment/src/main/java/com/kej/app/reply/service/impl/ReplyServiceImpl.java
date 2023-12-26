@@ -23,7 +23,7 @@ public class ReplyServiceImpl implements ReplyService {
 		// 부모 댓글 길이만큼 반복
 		for (ReplyVO parent : parentsReplyList) {
 			parent.setGroupLayer(1);				// 계층 1 = 자식 댓글
-			parent.setGroupNo(parent.getReplyNo()); // 그룹   = 부모 댓글에 대한 자식 댓글
+			parent.setOriginNo(parent.getReplyNo()); // 그룹   = 부모 댓글에 대한 자식 댓글
 			
 	        List<ReplyVO> childReplyList = rMapper.childReplyList(parent);
 
@@ -38,7 +38,13 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public int replyInsert(ReplyVO vo) {
-		return rMapper.replyInsert(vo);
+		if(vo.getOriginNo() == 0) {	// 부모댓글을 넣으면?
+			// 부모 댓글 등록 쿼리
+			return rMapper.parentReplyInsert(vo);
+		} else {
+			// 자식 댓글 등록 쿼리
+			return rMapper.childReplyInsert(vo);
+		}
 	}
 
 	@Override

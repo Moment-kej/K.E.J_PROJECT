@@ -132,15 +132,16 @@ a {
     position:relative;
 }
 #menu > ul > li > ul {
-    width:130px;
-    display:none;
+    width: 130px;
+    display: none;
     position: absolute;
-    font-size:14px;
+    font-size: 14px;
     background: skyblue;
     padding: 0 !important;
+    z-index: 999;
 }
 #menu > ul > li:hover > ul {
-    display:block;
+    display: block;
 }
 #menu > ul > li > ul > li:hover {
     background: orange;

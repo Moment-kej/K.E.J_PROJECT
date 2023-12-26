@@ -153,14 +153,12 @@ const newsPageChangeBnt = () => {
     
     document.querySelector('.left-button').addEventListener('click', function() {
         let pageDown = --currentPageNumber;
-        // console.log('pageDown>>>' + pageDown);
         newsPagenationCondition(pageDown);
         createNewsComponent(firstPath, pageDown, querySearch);
     });
     
     document.querySelector('.right-button').addEventListener('click', function() {
         let pageUp = ++currentPageNumber;
-        // console.log('pageUp>>>' + pageUp);
         newsPagenationCondition(pageUp);
         createNewsComponent(firstPath, pageUp, querySearch);
     });
@@ -272,7 +270,6 @@ const postRedner = (data, mainContainal) => {
 const newBoardList = (code, category, page) => {
     const data = {code: code, amount:5, category: category, page: parseInt(page)};
     const callback = (post) => {
-        console.log(post.pagenation); 
         postRedner(post.data, '#newBoardList');
         pagenation(post.pagenation);
         pageNumberButtonClick();
@@ -319,8 +316,10 @@ const pagenation = (data) => {
         // 순서 : <<,<,number,>,>>
         createAndAppendElement(containal, 'button', { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
         createAndAppendElement(containal, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
-        for(let i = 1 ; i <= data.end ; i++) {
-            createAndAppendElement(containal, "button", { class: 'pageNumBtn pbtn', id: 'pageNumBtn' + i }, i);
+        for(let i = 1 ; i <= data.end ; i++) {  //8
+            if(i >= data.start) {
+                createAndAppendElement(containal, "button", { class: 'pageNumBtn pbtn', id: 'pageNumBtn' + i }, i);
+            }
         };
         createAndAppendElement(containal, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
         createAndAppendElement(containal, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
@@ -410,8 +409,9 @@ const topBoardListBtn = () => {
     const topBoardCategory = document.getElementsByClassName('topBoardCategory');
     Array.from(topBoardCategory).forEach((element) => {
         element.addEventListener('click', (e) => {
-            console.log(e);
             const code = e.target.getAttribute('data-cate');
+            console.log(code);
+            subCategory(e.target.nextSibling.childNodes);
             Array.from(topBoardCategory).forEach(remove => {
                 // 모든 링크에서 'selected' 클래스를 제거
                 remove.classList.remove('selected');
@@ -426,6 +426,9 @@ const topBoardListBtn = () => {
         });
     });
 };
+const subCategory = (clicked) => {
+    console.log(clicked);
+}
 const topBoardPagenation = (data) => {
     const containal = document.getElementById('topBoardListPagingBox');
     // 컨테이너의 첫번째 자식이면 삭제할 자식 중 첫번째 자식을 지워라.
@@ -455,9 +458,10 @@ const commonCodeAjax = () => {
 
         CO.map(item => {
             CO_commonCodeRender(item);
+            const commonDetailCd = item.commonDetailCd.toString()[0];
+
             CA.map(sub => {
-                // console.log(sub);
-                CA_commonCodeReder(sub);
+                CA_commonCodeReder(sub, '#mainCate_' + commonDetailCd);
             })
         });
     }
@@ -465,14 +469,19 @@ const commonCodeAjax = () => {
 };
 // main category
 const CO_commonCodeRender = (data) => {
-    const mainCategory = document.querySelector('#mainCategory');
-    const li = createAndAppendElement(mainCategory, 'li', {id: 'mainCate_' + parseInt(data.commonDetailCd.toString()[0])});
+    const mainCategory = document.querySelector('#mainCategory');   
+    const li = createAndAppendElement(mainCategory, 'li');
     createAndAppendElement(li, 'a', {'data-cate': data.commonDetailCd, class: 'topBoardCategory'}, data.commonDetailName);
+    createAndAppendElement(li, 'ul', {id: 'mainCate_' + parseInt(data.commonDetailCd.toString()[0])});
 };
 // sub category
-const CA_commonCodeReder = (data) => {
-    const mainCategoryNumber = parseInt(data.commonDetailCd.toString()[0]);
-    // console.log(document.querySelector('#mainCate_' + mainCategoryNumber));
+const CA_commonCodeReder = (data, append) => {
+    const containal = document.querySelector(append);
+    const mainCategoryFirstNumber = append.split('_')[1];
+    if(mainCategoryFirstNumber == data.commonDetailCd.toString()[0]) {
+        const li = createAndAppendElement(containal, 'li');
+        createAndAppendElement(li, 'a', {id: 'sub_' + data.commonDetailCd}, data.commonDetailName);
+    };
 }
 //------------------------------------------------------------------------
 
