@@ -1,11 +1,12 @@
-a {
-    text-decoration: none !important;
-}
+a {text-decoration: none !important;}
 ul, li, ol, dl {list-style: none !important;}
 ul::marker{list-style: none !important;}
 fieldset {border : none !important;}
-
-.selected{
+#dressBoardContainal {
+    width: 90%;
+    margin: 0 auto;
+}
+.selected {
     background-color: #ffffff !important;
     color: #404040 !important;
 }
@@ -28,7 +29,7 @@ fieldset {border : none !important;}
     width: 20px;
     height: 20px;
 }
-#handleAmount {
+#handleAmount { /* 페이지 목록 개수 */
     box-sizing: border-box;
     width: 80px;
     height: 30px;
@@ -38,13 +39,46 @@ fieldset {border : none !important;}
     padding: 3px;
     font-size: 12px;
 }
-/* .writingBntDiv {
-    float: right;
-    margin-top: 10px;
-} */
-.boardSearchInput {
-    width: 500px;
+/* 검색 관련 css */
+.searchArea select,
+.searchArea input {
+    height: 50px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    border: 1px solid #7f8182;
 }
+.searchArea select {
+    color: #333333;
+}
+.searchArea input {
+    width: 300px;
+    padding-left: 10px;
+}
+.searchBtn {
+    width: 95px;
+    height: 50px;
+    text-align: center;
+    /* 상자 디자인 큰틀*/
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 0px;
+    background-color: #E4EBF5;
+    /* 글씨 */
+    color: #333333;
+    font-size: 0.9em;
+    font-weight: bold;
+
+    animation-name: keybtn-language;
+    animation-duration: .2s;
+
+    margin-left: 10px;
+}
+/*버튼 눌리는 효과*/
+.searchBtn:active {
+    box-shadow: inset -.3rem -.1rem 1.4rem  #FBFBFB, inset .3rem .4rem .8rem #BEC5D0; 
+    cursor: pointer;
+}
+
 #boardCategory, #searchType {
     width: 30%;
     margin-right: 10px;
@@ -82,6 +116,9 @@ fieldset {border : none !important;}
 .menuCategory > li > a:hover {
     cursor: pointer !important;
     color: rgb(174, 77, 204) !important;
+}
+.display {
+    display: none !important;
 }
 
 /* 테스트용 */

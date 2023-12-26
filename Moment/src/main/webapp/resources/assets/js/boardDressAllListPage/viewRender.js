@@ -1,8 +1,8 @@
 import { pagenation, pagenationNumber } from "./pagenation.js";
-import { formatTime_hhmm } from "../common/common.js";
+import { formatTime_hhmm, firstContextPath } from "../common/common.js";
 
 const contentContainer = document.getElementById('boardList');
-const contextPath = document.getElementById('contextPath').value;
+const contextPath = firstContextPath;
 let currentView = 'cardsType'; // 기본적으로 앨범형으로 시작
 let criteriaListType = document.getElementById('criteriaListType').value;
 
@@ -315,13 +315,10 @@ const renderPostsContent = (posts) => {
 export const renderPosts = (page, category, searchType, searchName) => {
     // Ajax로 서버에서 데이터 가져오기
     let amount = $('#criteriaAmount').val();
-
-    // const dataForm = {page : page , amount : amount, category : category, code : code, searchType : searchType, searchName : searchName};
     
     $.ajax({
         url: contextPath + '/board/dress/all?page=' + page + '&amount=' + amount + '&category=' + category + '&code=10&searchType=' + searchType + '&searchName=' + searchName ,
         method: 'GET',
-        // data : dataForm,
         dataType: 'json',
         success: function(posts) {
             if(posts == 0 || posts == ''){
@@ -426,8 +423,7 @@ export const boardListFormChang = () => {
 
     // 모든 아이콘을 원래대로 돌리는 함수
     function resetIcons() {
-        var allIcons = document.querySelectorAll('.boardType');
-        var contextPath = document.getElementById('contextPath').value;
+        const allIcons = document.querySelectorAll('.boardType');
 
         allIcons.forEach(function (icon) {
             contentContainer.innerHTML = '';

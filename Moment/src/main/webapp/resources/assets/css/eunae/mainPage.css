@@ -100,3 +100,49 @@ a {
     font-weight: 400;
     text-align: center;
 }
+/* category menu css */
+#bookSerachBnt {
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 0px;
+    background-color: #E4EBF5;
+    color: #333333;
+    font-size: 0.8em;
+    font-weight: bold;
+    animation-name: keybtn-language;
+    animation-duration: .2s;
+    margin-left: 10px;
+}
+/* https://blog.naver.com/PostView.naver?blogId=bgpoilkj&logNo=221150512824 */
+#menu {
+    font:bold 16px "malgun gothic";
+    height:24px;
+    line-height: 50px; 
+    margin:0 auto;
+    text-align: center;
+    box-shadow: 3px 3px 13px -5px gray;
+    border-radius: 20px;
+}
+#menu > ul > li {
+    float:left;
+    width:140px;
+    position:relative;
+}
+#menu > ul > li > ul {
+    width:130px;
+    display:none;
+    position: absolute;
+    font-size:14px;
+    background: skyblue;
+    padding: 0 !important;
+}
+#menu > ul > li:hover > ul {
+    display:block;
+}
+#menu > ul > li > ul > li:hover {
+    background: orange;
+    transition: ease 1s;
+}

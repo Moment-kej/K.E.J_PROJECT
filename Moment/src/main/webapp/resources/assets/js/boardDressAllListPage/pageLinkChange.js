@@ -1,4 +1,6 @@
-const contextPath = document.getElementById('contextPath').value;
+import { firstContextPath } from "../common/common.js";
+
+const contextPath = firstContextPath;
 const contentContainer = document.getElementById('boardList');
 
 // 글쓰기 버튼 클릭 이벤트
@@ -29,9 +31,9 @@ export const menuCategoryEvent = () => {
     aTag.forEach( function(link) {
         link.addEventListener('click', function() {
             // 클릭한 요소의 ID 값을 가져온다.
-            var clickedId = link.id;
+            let clickedId = link.id;
+
             Change(clickedId);
-            
         });
     });
 };
@@ -51,18 +53,31 @@ export const Change_valueNull = () => {
 
 // 검색버튼
 export const search = () => {
-    document.getElementById('searchBnt').addEventListener('click', () => {
-        contentContainer.innerHTML = '';    // 게시글 div 초기화
-        // let page = document.getElementById('criteriaPage').value;
-        let contextPath = document.getElementById('contextPath').value;
-        let amount = document.getElementById('criteriaAmount').value;
-        // let category = document.getElementById('boardCategory').value;
-        // let code = document.getElementById('criteriaCode').value;
-        let searchType = document.getElementById('searchType').value;
-        let searchName = document.getElementById('searchName').value;
-        let listType = document.getElementById('criteriaListType').value;
-
-        // total 값이 제대로 나오지 않는다.
-        location.href = contextPath + '/board/dress?page=1&amount=' + amount + '&category=0&listType=' + listType + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
+    document.querySelector('.searchBtn').addEventListener('click', () => {
+        const amount = document.getElementById('criteriaAmount').value;
+        const category = document.getElementById('boardCategory').value;
+        const searchType = document.getElementById('searchType').value;
+        const searchName = document.getElementById('searchName').value;
+        const listType = document.getElementById('criteriaListType').value;
+        if(searchName.trim() === '') {
+            Swal.fire({
+                icon: "warning",
+                title: "검색 내용을 입력해주세요",
+                didClose: function () {
+                    return false; // 제출 취소
+                }
+            });
+        } else if (searchType === '') {
+            Swal.fire({
+                icon: "warning",
+                title: "분류를 선택해주세요",
+                didClose: function () {
+                    return false; // 제출 취소
+                }
+            });
+        } else {
+            contentContainer.innerHTML = '';    // 게시글 div 초기화
+            location.href = contextPath + '/board/dress?amount=' + amount + '&category=' + encodeURIComponent(category) + '&listType=' + listType + '&searchType=' + encodeURIComponent(searchType) + '&searchName=' + encodeURIComponent(searchName);
+        }
     });
 };
