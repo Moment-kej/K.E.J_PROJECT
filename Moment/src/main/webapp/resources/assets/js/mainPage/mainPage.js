@@ -272,17 +272,20 @@ const postRedner = (data, mainContainal) => {
 const newBoardList = (code, category, page) => {
     const data = {code: code, amount:5, category: category, page: parseInt(page)};
     const callback = (post) => {
+        console.log(post.pagenation); 
         postRedner(post.data, '#newBoardList');
         pagenation(post.pagenation);
         pageNumberButtonClick();
         let currentPageNumber = post.pagenation.page;
         let realEndPageNumber = post.pagenation.realEnd;
 
-        // pagenation click event
-        prevButtonClick(currentPageNumber);
-        nextButtonClick(currentPageNumber, realEndPageNumber);
-        lastButtonClick(realEndPageNumber);
-        firstButtonClick();
+        if(post.data != '') {
+            // pagenation click event
+            prevButtonClick(currentPageNumber);
+            nextButtonClick(currentPageNumber, realEndPageNumber);
+            lastButtonClick(realEndPageNumber);
+            firstButtonClick();
+        }
     };
     ajaxRequest(firstPath + '/board/newList', 'GET', data, callback);
 };
@@ -316,7 +319,7 @@ const pagenation = (data) => {
         // 순서 : <<,<,number,>,>>
         createAndAppendElement(containal, 'button', { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
         createAndAppendElement(containal, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
-        for(let i = 1 ; i <= data.realEnd ; i++) {
+        for(let i = 1 ; i <= data.end ; i++) {
             createAndAppendElement(containal, "button", { class: 'pageNumBtn pbtn', id: 'pageNumBtn' + i }, i);
         };
         createAndAppendElement(containal, "button", { id: 'nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
@@ -453,7 +456,7 @@ const commonCodeAjax = () => {
         CO.map(item => {
             CO_commonCodeRender(item);
             CA.map(sub => {
-                console.log(sub);
+                // console.log(sub);
                 CA_commonCodeReder(sub);
             })
         });
@@ -469,7 +472,7 @@ const CO_commonCodeRender = (data) => {
 // sub category
 const CA_commonCodeReder = (data) => {
     const mainCategoryNumber = parseInt(data.commonDetailCd.toString()[0]);
-    console.log(document.querySelector('#mainCate_' + mainCategoryNumber));
+    // console.log(document.querySelector('#mainCate_' + mainCategoryNumber));
 }
 //------------------------------------------------------------------------
 
