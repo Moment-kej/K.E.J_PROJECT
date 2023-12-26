@@ -31,7 +31,6 @@ import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
 import com.kej.app.board.service.vo.PageVO;
 import com.kej.app.common.service.CommonService;
-import com.kej.app.common.service.vo.CodeVO;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -292,6 +291,7 @@ public class BoardController {
 	public String BoardDetail(Model model, @PathVariable ("boardNo") int boardNo) {
 		
 		return "musicBoard/musicBoardDetail";
+
 	}
 	
 	@GetMapping("/musice/write")

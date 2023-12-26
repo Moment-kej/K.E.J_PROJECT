@@ -18,7 +18,7 @@
                                         <ul class="menuCategory p-0">
                                             <li><a id="0" class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
                                             <c:forEach var="coDetailList" items="${code.CA}">
-                                                <c:if test="${coDetailList.commonDetailEx eq 'DressCategroy'}">
+                                                <c:if test="${coDetailList.commonDetailEx eq '옷 카테고리'}">
                                                     <li>
                                                         <a id="${coDetailList.commonDetailCd}" class="menuCategoryATag" data-category="${coDetailList.commonDetailCd}">${coDetailList.commonDetailName}</a>
                                                     </li>
@@ -60,8 +60,8 @@
                             <div id="writeBtnBox">
                                 <button type="button" class="btn-md" id="writeBnt"><i class="fa-solid fa-pen"></i>글쓰기</button>
                             </div>
-                            <!--확인용 class="display"-->
-                            <div id="dataCheck" >
+                            <!--확인용 -->
+                            <div id="dataCheck" class="display">
                                 <p>확인용 >> ${criteria}</p>
                                 <p>확인용 >> ${pageVO}</p>
                                 <input type="hidden" name="page"        id="criteriaPage" value="${criteria.page}">
