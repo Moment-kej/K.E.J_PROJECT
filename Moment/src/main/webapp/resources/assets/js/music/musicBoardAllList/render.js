@@ -104,6 +104,7 @@ export const createSortAlbumTypeComponent = (data) => {
 
 // =====================================================================================
 export const createPagination = (data) => {
+   
    const parentElement = document.getElementById('pagingBox'); // 부모 요소의 ID를 지정해야 합니다.
 
    while (parentElement.firstChild) {

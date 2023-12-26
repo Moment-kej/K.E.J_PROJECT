@@ -79,5 +79,22 @@
 	</update>
 	
 	<!-- dress detail page end -->
+	
+	<select id="musicReplyAllList" resultType="ReplyVO">
+		SELECT reply_no
+			 , board_no
+			 , id
+			 , content
+			 , write_dt
+			 , update_dt
+			 , yn
+			 , re_reply_content
+			 , re_reply_write_dt
+			 , re_reply_update_dt
+			 , re_reply_yn
+		  FROM reply
+	     WHERE board_no = #{boardNo}
+	     ORDER BY write_dt DESC
+	</select>
 
 </mapper>
