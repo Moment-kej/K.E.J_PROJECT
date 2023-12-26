@@ -329,7 +329,10 @@
 		WHERE 1=1
 		  AND YN = 1
 		  AND CODE = #{code}
-	    <!-- LIMIT #{pageStart}, #{amount} -->
+		  <if test="category != '' and category != null and category != 0">
+		  AND CATEGORY = #{category}
+		  </if>
+	    LIMIT #{pageStart}, #{amount}
 	</select>
 	
 	<!-- 페이징을 하기 위해서 총 게시글의 개수 -->
@@ -338,6 +341,9 @@
 		   FROM BOARD
 		  WHERE 1=1
 		  	AND CODE = #{code}
+		  	<if test="category != '' and category != null and category != 0">
+		  	AND CATEGORY = #{category}
+		  	</if>
 		  	AND YN = 1
 	</select>
 
@@ -349,29 +355,16 @@
 			 , B.VIEW_COUNT
 			 , B.CONTENT AS BOARD_CONTENT
 			 , COUNT(L.ID) AS LIKE_COUNT
-			 , COUNT(R.REPLY_NO) AS REPLY_COUNT
-			 , R.CONTENT 
-			 , R.ID 
-			 , R.WRITE_DT 
-			 , R.RE_REPLY_WRITE_DT 
-			 , R.RE_REPLY_CONTENT
 		  FROM BOARD B
-		  JOIN BOARD_LIKE L
+	 LEFT JOIN BOARD_LIKE L
 		    ON B.BOARD_NO = L.BOARD_NO
-		  JOIN REPLY R
-		    ON B.BOARD_NO = R.BOARD_NO
-		 WHERE R.YN = 1
-		   AND B.BOARD_NO = 3000
+		 WHERE 1=1
+		   AND B.BOARD_NO = ${boardNo}
 		 GROUP BY B.TITLE
 			 , B.ID
 			 , B.WRITE_DT
 			 , B.VIEW_COUNT
 			 , B.CONTENT
-			 , R.CONTENT
-			 , R.ID 
-			 , R.WRITE_DT 
-			 , R.RE_REPLY_WRITE_DT
-			 , R.RE_REPLY_CONTENT
 	</select>
 
 

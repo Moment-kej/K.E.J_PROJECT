@@ -183,11 +183,6 @@ public class BoardController {
 		//공통코드
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
 		
-		//목록 Ajax로 대신 사용
-		List<BoardVO> list = service.artBoardList(cri);
-		model.addAttribute("list", list);
-
-		
 		//페이지네이션
 		int total = service.pagecount(cri);
 		PageVO pageVO = new PageVO(cri, total);
@@ -204,10 +199,10 @@ public class BoardController {
 	}
 	
 	//아트게시판 상세 조회
-	@GetMapping("/art/boardNo")
+	@GetMapping("/art/{boardNo}")
 	public String BoardArtDetail(Model model, BoardVO boardVO) {
 		Map<String, Object> boardDetail = service.boardArtDetail(boardVO.getBoardNo()); // vo를 답글과 게시판 두개를 써야함으로 map형태로 바꿔주기
-		System.out.println("boardDetail" + boardDetail);
+		System.out.println("boardVO" + boardVO.toString());
 		
 		model.addAttribute("boardDetail", boardDetail);
 		return "artBoard/boardArtDetail";
