@@ -1,14 +1,13 @@
 import { firstContextPath, ajaxRequest, formatTime_hhmm, formatTime_hhmmss, createAndAppendElement } from "../common/common.js";
 
 const firstPath = firstContextPath;   // '/moment' 가져오기
-// 도서 리스트 랜더링 아작스
-window.createBookComponent = (contextPath, PageNumber, query) => {
+//------------------------------------------------------------------------
+window.createBookComponent = (contextPath, PageNumber, query) => {  // 도서 리스트 랜더링 아작스
     const data = {page : PageNumber, query : query};
     const callback = (data) => {bookListRender(data);};
     ajaxRequest(contextPath + '/naverBook', 'GET', data, callback );
 };
-// 도서 검색 아작스
-const bookSearch = () => {
+const bookSearch = () => {  // 도서 검색 아작스
     document.getElementById('bookSerachBnt').addEventListener('click', () => {
         const query = document.getElementById('bookSerachName').value;
         const data = {page: 1, query: query};
@@ -16,8 +15,7 @@ const bookSearch = () => {
         ajaxRequest(firstPath + '/naverBook', 'GET', data, callback);
     });
 };
-// 도서 리스트 랜더링
-const bookListRender = (data) => {
+const bookListRender = (data) => {  // 도서 리스트 랜더링
     const dataList = document.getElementById('bookList');
     dataList.textContent = "";      // 초기화
     // 초기화 후 렌더링
@@ -64,8 +62,21 @@ const bookListRender = (data) => {
         dataList.append(listItem);
     });
 };
-// 뉴스 리스트 랜더링
-const newsListRender = (data) => {
+//------------------------------------------------------------------------
+window.createNewsComponent = (contextPath, currentPageNumber, querySearch) => { // 뉴스 리스트 랜더링 아작스
+    const data = {page: currentPageNumber, query: querySearch};
+    const callback = (data) => {newsListRender(data);};
+    ajaxRequest(contextPath + '/naverNews', 'GET', data, callback);
+};
+const newsSearch = () => {  // 뉴스 검색 아작스
+    document.getElementById('newsSerachBnt').addEventListener('click', () => {
+        let query = document.getElementById('newsSerachName').value;
+        const data = {page: 1, query: query};
+        const callback = (data) => {newsListRender(data);};
+        ajaxRequest(firstPath + '/naverNews', 'GET', data, callback);
+    });
+};
+const newsListRender = (data) => {  // 뉴스 리스트 랜더링
     document.querySelector("#newsList").innerHTML = '';
 
     data.map((item) => {
@@ -103,24 +114,8 @@ const newsListRender = (data) => {
         document.querySelector("#newsList").append(liTag);
     });
 }
-// 뉴스 리스트 랜더링 아작스
-window.createNewsComponent = (contextPath, currentPageNumber, querySearch) => {
-    const data = {page: currentPageNumber, query: querySearch};
-    const callback = (data) => {newsListRender(data);};
-    ajaxRequest(contextPath + '/naverNews', 'GET', data, callback);
-};
-// 뉴스 검색 아작스
-const newsSearch = () => {
-    document.getElementById('newsSerachBnt').addEventListener('click', () => {
-        let query = document.getElementById('newsSerachName').value;
-        const data = {page: 1, query: query};
-        const callback = (data) => {newsListRender(data);};
-        ajaxRequest(firstPath + '/naverNews', 'GET', data, callback);
-    });
-};
 //------------------------------------------------------------------------
-// news pagenation 조건
-const newsPagenationCondition = (currentPageNumber) => {
+const newsPagenationCondition = (currentPageNumber) => {    // news pagenation 조건
     let total = document.getElementById('total').value;
     let total_number = parseInt(total);
 
@@ -140,8 +135,7 @@ const newsPagenationCondition = (currentPageNumber) => {
         }
     };
 };
-// news pagenation button
-const newsPageChangeBnt = () => {
+const newsPageChangeBnt = () => {   // news pagenation button
     let querySearch = document.getElementById('querySearch').value;
     // string -> number change
     let currentPageNumber = parseInt(document.getElementById('currentPage').value);
@@ -165,8 +159,7 @@ const newsPageChangeBnt = () => {
     
 };
 //------------------------------------------------------------------------
-// book pagenation 조건
-const bookPagenationCondition = (bookPageNumber) => {
+const bookPagenationCondition = (bookPageNumber) => {   // book pagenation 조건
     let total = document.getElementById('total').value;
     let totalNumber = parseInt(total);
     
@@ -187,8 +180,7 @@ const bookPagenationCondition = (bookPageNumber) => {
         }
     };
 };
-// book pagenation button
-const bookPageChangeBnt = () => {
+const bookPageChangeBnt = () => {   // book pagenation button
     let querySearch = document.getElementById('book_querySearch').value;
     
     // string -> number change
@@ -211,21 +203,7 @@ const bookPageChangeBnt = () => {
     });
 };
 //------------------------------------------------------------------------
-// 금액 포맷
-const formatMoney = (money) => {
-    // 숫자를 문자열로 변환 후 역순으로 만들기
-    const reversed = money.toString().split('').reverse().join('');
-
-    // 3자리마다 쉼표 추가
-    const formatted = reversed.replace(/(\d{3})(?=\d)/g, '$1,');
-
-    // 역순으로 된 문자열을 다시 뒤집어서 최종 결과 얻기
-    return formatted.split('').reverse().join('');
-};
-//------------------------------------------------------------------------
-// board render
-const postRedner = (data, mainContainal) => {
-    // parent, elementType, attributes = {}, content = '' 
+const postRedner = (data, mainContainal) => {    // new and top board render
     const containal = document.querySelector(mainContainal);
     containal.innerHTML = '';
     const innerContainal = createAndAppendElement(containal, 'div', {class : 'mt-3 border-top'});
@@ -266,36 +244,26 @@ const postRedner = (data, mainContainal) => {
     }
     containal.append(innerContainal);
 };
-// new board list ajax
-const newBoardList = (code, category, page) => {
+const newBoardList = (code, category, page) => { // new board list ajax
     const data = {code: code, amount:5, category: category, page: parseInt(page)};
     const callback = (post) => {
         postRedner(post.data, '#newBoardList');
         pagenation(post.pagenation);
-        pageNumberButtonClick();
-        let currentPageNumber = post.pagenation.page;
-        let realEndPageNumber = post.pagenation.realEnd;
-
         if(post.data != '') {
             // pagenation click event
-            prevButtonClick(currentPageNumber);
-            nextButtonClick(currentPageNumber, realEndPageNumber);
-            lastButtonClick(realEndPageNumber);
-            firstButtonClick();
+            newboard_init(post.pagenation.page, post.pagenation.realEnd);
         }
     };
     ajaxRequest(firstPath + '/board/newList', 'GET', data, callback);
 };
-const newBoardListBtn = () => {
+const newBoardMainCategoryClicked = () => { // new board main cateogry click event
     const newBoardCategory = document.getElementsByClassName('newBoardCategory');
     Array.from(newBoardCategory).forEach((element) => {
         element.addEventListener('click', (e) => {
             const code = e.target.getAttribute('data-cate');
             Array.from(newBoardCategory).forEach(remove => {
-                // 모든 링크에서 'selected' 클래스를 제거
                 remove.classList.remove('selected');
             });
-            // 현재 클릭된 링크에 'selected' 클래스 추가
             if(code === 0) {
                 newBoardList('0', '0', 1);
             } else {
@@ -305,7 +273,7 @@ const newBoardListBtn = () => {
         });
     });
 };
-const pagenation = (data) => {
+const pagenation = (data) => { // new board pagenation
     const containal = document.getElementById('pagingBox');
     // 컨테이너의 첫번째 자식이면 삭제할 자식 중 첫번째 자식을 지워라.
     while (containal.firstChild) {
@@ -317,7 +285,7 @@ const pagenation = (data) => {
         createAndAppendElement(containal, 'button', { id: 'firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
         createAndAppendElement(containal, "button", { id: 'prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
         for(let i = 1 ; i <= data.end ; i++) {  //8
-            if(i >= data.start) {
+            if (i >= data.start) {
                 createAndAppendElement(containal, "button", { class: 'pageNumBtn pbtn', id: 'pageNumBtn' + i }, i);
             }
         };
@@ -328,7 +296,7 @@ const pagenation = (data) => {
         createAndAppendElement(containal, 'div', {});
     }
 };
-const currentCategory = () => {
+const newBoardCurrentCategory = () => { // new board main cateogry number return
     const currentCategoryElement = document.querySelector('.newBoardCategory.selected');
     let currentMainCategory;
 
@@ -340,83 +308,99 @@ const currentCategory = () => {
 
     return currentMainCategory;
 };
-const prevButtonClick = (page) => {
-    const clickedElement = document.getElementById('prevPageBtn');
-    const category = currentCategory();
+const newboard_init = (page, realEnd) => {  // new board pagenation click event
+    const category = newBoardCurrentCategory();
 
-    clickedElement.addEventListener('click', () => {
-        // <
-        if(page > 1) {
-            newBoardList(category, 0, page - 1);
-            clickedElement.disabled = 'false';
-        } else if (page === 1) {
-            clickedElement.disabled = 'true';
-        };
-    });
-};
-const nextButtonClick = (page, realEnd) => {
-    const clickedElement = document.getElementById('nextpageBtn');
-    const category = currentCategory();
-    clickedElement.addEventListener('click', () => {
-        // >
-        if (realEnd !== page) {
-            newBoardList(category, 0, page + 1);
-            clickedElement.disabled = 'false';
-        } else {
-            clickedElement.disabled = 'true';
-        }
-    });
-};
-const lastButtonClick = (realEnd) => {
-    const clickedElement = document.getElementById('lastPageBtn');
-    const category = currentCategory();
-    // >>
-    clickedElement.addEventListener('click', () => {
-        newBoardList(category, 0, realEnd);
-    });
-};
-const firstButtonClick = () => {
-    const clickedElement = document.getElementById('firstPageBtn');
-    const category = currentCategory();
-    // <<
-    clickedElement.addEventListener('click', () => {
-        newBoardList(category, '0', 1);
-    });
-};
-const pageNumberButtonClick = () => {
-    const pageNumBtnElementList = document.querySelectorAll(".pageNumBtn ");
-    const category = currentCategory();
-    Array.from(pageNumBtnElementList).forEach((element) => {
-        element.addEventListener("click", (e) => {
-            newBoardList(
-                category, 
-                '0', 
-                parseInt(e.target.innerText)
-            );
+    const prevButtonClick = () => {
+        const clickedElement = document.getElementById('prevPageBtn');
+
+        clickedElement.addEventListener('click', () => {
+            // <
+            if(page > 1) {
+                newBoardList(category, 0, page - 1);
+                clickedElement.disabled = 'false';
+            } else if (page === 1) {
+                clickedElement.disabled = 'true';
+            };
         });
-    });
+    };
+
+    const nextButtonClick = () => {
+        const clickedElement = document.getElementById('nextpageBtn');
+        clickedElement.addEventListener('click', () => {
+            // >
+            if (realEnd !== page) {
+                newBoardList(category, 0, page + 1);
+                clickedElement.disabled = 'false';
+            } else {
+                clickedElement.disabled = 'true';
+            }
+        });
+    };
+
+    const lastButtonClick = () => {
+        const clickedElement = document.getElementById('lastPageBtn');
+        // >>
+        clickedElement.addEventListener('click', () => {
+            newBoardList(category, 0, realEnd);
+        });
+    };
+
+    const firstButtonClick = () => {
+        const clickedElement = document.getElementById('firstPageBtn');
+        // <<
+        clickedElement.addEventListener('click', () => {
+            newBoardList(category, 0, 1);
+        });
+    };
+
+    const pageNumberButtonClick = () => {
+        const pageNumBtnElementList = document.querySelectorAll(".pageNumBtn");
+        Array.from(pageNumBtnElementList).forEach((element) => {
+            element.addEventListener("click", (e) => {
+                newBoardList(
+                    category, 
+                    0, 
+                    parseInt(e.target.innerText)
+                );
+            });
+        });
+    };
+
+    prevButtonClick();
+    nextButtonClick();
+    lastButtonClick();
+    firstButtonClick();
+    pageNumberButtonClick();
 };
 //------------------------------------------------------------------------
-const topBoardLsit = (code, category, page) => {
+const topBoardLsit = (code, category, page) => { // top board ajax
     const data = {code: code, amount:5, category: category, page: parseInt(page)};
     const callback = (data) => {
         postRedner(data.data, '#topBoardList');
         topBoardPagenation(data.paging);
+        if(data.data != '') {
+            topBoard_init(data.paging.page, data.paging.realEnd);
+        }
     };
     ajaxRequest(firstPath + '/board/topList', 'GET', data, callback);
 };
-const topBoardListBtn = () => {
+const topBoardMainCategoryClicked = () => { // top board main cateogry click event
     const topBoardCategory = document.getElementsByClassName('topBoardCategory');
+    const topBoardSubCategory = document.getElementsByClassName('topBoardSubCategory');
     Array.from(topBoardCategory).forEach((element) => {
         element.addEventListener('click', (e) => {
             const code = e.target.getAttribute('data-cate');
-            console.log(code);
-            subCategory(e.target.nextSibling.childNodes);
             Array.from(topBoardCategory).forEach(remove => {
                 // 모든 링크에서 'selected' 클래스를 제거
                 remove.classList.remove('selected');
             });
             // 현재 클릭된 링크에 'selected' 클래스 추가
+            Array.from(topBoardSubCategory).forEach(remove => {
+                remove.classList.remove('subCategorySelected');
+                remove.parentNode.classList.remove('subCategorySelected');
+            });
+
             if(code === 0) {
                 topBoardLsit('0', '0', 1);
             } else {
@@ -426,10 +410,7 @@ const topBoardListBtn = () => {
         });
     });
 };
-const subCategory = (clicked) => {
-    console.log(clicked);
-}
-const topBoardPagenation = (data) => {
+const topBoardPagenation = (data) => {      // top board pagenation render
     const containal = document.getElementById('topBoardListPagingBox');
     // 컨테이너의 첫번째 자식이면 삭제할 자식 중 첫번째 자식을 지워라.
     while (containal.firstChild) {
@@ -439,8 +420,11 @@ const topBoardPagenation = (data) => {
         // 순서 : <<,<,number,>,>>
         createAndAppendElement(containal, 'button', { id: 'top-firstPageBtn', class: 'firstPage pbtn' }, '<i class="fa-solid fa-angles-left"></i>');
         createAndAppendElement(containal, "button", { id: 'top-prevPageBtn', class: 'prevPage pbtn' }, '<i class="fa-solid fa-angle-left"></i>');
-        for(let i = 1 ; i <= data.realEnd ; i++) {
-            createAndAppendElement(containal, "button", { class: 'top-pageNumBtn pbtn', id: 'top-pageNumBtn' + i }, i);
+        for(let i = 1 ; i <= data.end ; i++) {
+            // 페이지 번호가 페이지 스타트 번호보다 크거나 같으면 페이지네이션 랜더링
+            if (i >= data.start) {
+                createAndAppendElement(containal, "button", { class: 'top-pageNumBtn pbtn', id: 'top-pageNumBtn' + i }, i);
+            }
         };
         createAndAppendElement(containal, "button", { id: 'top-nextpageBtn', class: 'nextpage pbtn' }, '<i class="fa-solid fa-angle-right"></i>');
         createAndAppendElement(containal, "button", { id: 'top-lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
@@ -449,40 +433,143 @@ const topBoardPagenation = (data) => {
         createAndAppendElement(containal, 'div', {});
     };
 };
+const topBoardCurrentCategory = () => {            // top board main and sub category number return
+    const currentTopBoardCategory = document.querySelector('.topBoardCategory.selected');
+    const currentTopBoardSubCategory = document.querySelector('.topBoardSubCategory.subCategorySelected');
+
+    let currentMainCategory;
+    let currentSubCategory;
+
+    if(!currentTopBoardCategory || !currentTopBoardSubCategory) {
+        currentMainCategory = 0;
+        currentSubCategory = 0;
+    } else {
+        currentMainCategory = parseInt(currentTopBoardCategory.getAttribute('data-cate'));
+        currentSubCategory = parseInt(currentTopBoardSubCategory.id.split('_')[1]);
+    }
+
+    return {currentMainCategory: currentMainCategory, currentSubCategory: currentSubCategory};
+};
+const topBoard_init = (page, realEnd) => {  // top board pagenation click event
+    const currnetCatgory = topBoardCurrentCategory();
+    const currentMainCategory = currnetCatgory.currentMainCategory;
+    const currentSubCategory = currnetCatgory.currentSubCategory;
+    // console.log('page, realEnd, mainCate, subCate: ', page, ',', realEnd, ',', currentMainCategory, ',', currentSubCategory);
+    const prevButtonClick = () => {
+        const element = document.getElementById('top-prevPageBtn');
+        element.addEventListener('click', () => {
+            // <
+            if(page > 1) {
+                topBoardLsit(currentMainCategory, currentSubCategory, page - 1);
+                element.disabled = 'false';
+            } else if(page === 1) {
+                element.disabled = 'true';
+            }
+        });
+    };
+    const nextButtonClick = () => {
+        const element = document.getElementById('top-nextpageBtn');
+        element.addEventListener('click', () => {
+            // >
+            if (realEnd !== page) {
+                topBoardLsit(currentMainCategory, currentSubCategory, page + 1);
+                element.disabled = 'false';
+            } else {
+                element.disabled = 'true';
+            }
+        })
+    };
+    const lastButtonClick = () => {
+        const element = document.getElementById('top-lastPageBtn');
+        // >>
+        element.addEventListener('click', () => {
+            topBoardLsit(currentMainCategory, currentSubCategory, realEnd);
+        });
+    };
+    const firstButtonClick = () => {
+        const element = document.getElementById('top-firstPageBtn');
+        // <<
+        element.addEventListener('click', () => {
+            topBoardLsit(currentMainCategory, currentSubCategory, 1);
+        });
+    };
+    const pageNumberButtonClick = () => {
+        const pageNumBtnElementList = document.querySelectorAll(".top-pageNumBtn");
+        Array.from(pageNumBtnElementList).forEach((element) => {
+            element.addEventListener("click", (e) => {
+                topBoardLsit(
+                    currentMainCategory, 
+                    currentSubCategory, 
+                    parseInt(e.target.innerText)
+                );
+            });
+        });
+    };
+
+    prevButtonClick();
+    nextButtonClick();
+    lastButtonClick();
+    firstButtonClick();
+    pageNumberButtonClick();
+};
 //------------------------------------------------------------------------
-// common code ajax
-const commonCodeAjax = () => {
+const commonCodeAjax = () => {  // common code ajax
     const callback = (data) => {
-        const CO = data.CO;
-        const CA = data.CA;
-
-        CO.map(item => {
-            CO_commonCodeRender(item);
+        data.CO.map(item => {
+            // main category render
             const commonDetailCd = item.commonDetailCd.toString()[0];
+            const mainCategory = document.querySelector('#mainCategory');   
+            const mainCategoRy_li_element = createAndAppendElement(mainCategory, 'li');
+            createAndAppendElement(mainCategoRy_li_element, 'a', {'data-cate': item.commonDetailCd, class: 'topBoardCategory'}, item.commonDetailName);
+            createAndAppendElement(mainCategoRy_li_element, 'ul', {id: 'mainCate_' + parseInt(commonDetailCd)});
+            data.CA.map(sub => {
+                // sub category render
+                const mainCategoryContainal = document.querySelector('#mainCate_' + commonDetailCd);
+                const mainCategoryFirstNumber = mainCategoryContainal.id.split('_')[1];
+                if(mainCategoryFirstNumber == sub.commonDetailCd.toString()[0]) {
+                    const subCategory_li_element = createAndAppendElement(mainCategoryContainal, 'li');
+                    createAndAppendElement(subCategory_li_element, 'a', {id: 'sub_' + sub.commonDetailCd, class: 'topBoardSubCategory'}, sub.commonDetailName);
 
-            CA.map(sub => {
-                CA_commonCodeReder(sub, '#mainCate_' + commonDetailCd);
-            })
+                    subCategory(document.getElementById('sub_' + sub.commonDetailCd));
+                };
+            });
         });
     }
     ajaxRequest(firstPath + '/code', 'GET', {}, callback);
 };
-// main category
-const CO_commonCodeRender = (data) => {
-    const mainCategory = document.querySelector('#mainCategory');   
-    const li = createAndAppendElement(mainCategory, 'li');
-    createAndAppendElement(li, 'a', {'data-cate': data.commonDetailCd, class: 'topBoardCategory'}, data.commonDetailName);
-    createAndAppendElement(li, 'ul', {id: 'mainCate_' + parseInt(data.commonDetailCd.toString()[0])});
+const subCategory = (subCategoryElement) => {   // sub category를 통한 top board list ajax 호출
+    const topBoardCategory = document.getElementsByClassName('topBoardCategory');
+    const topBoardSubCategory = document.getElementsByClassName('topBoardSubCategory');
+    subCategoryElement.addEventListener('click', (e) => {
+        const mainCategoryElement = e.target.closest('ul').previousSibling;
+        const mainCategory = e.target.closest('ul').previousSibling.getAttribute('data-cate');
+        const subCategory = e.target.id.split('_')[1];
+
+        Array.from(topBoardCategory).forEach(remove => {
+            remove.classList.remove('selected');
+        });
+        mainCategoryElement.classList.add('selected');
+
+        Array.from(topBoardSubCategory).forEach(remove => {
+            remove.classList.remove('subCategorySelected');
+            remove.parentNode.classList.remove('subCategorySelected');
+        });
+        e.target.classList.add('subCategorySelected');
+        e.target.parentNode.classList.add('subCategorySelected');
+
+        topBoardLsit(mainCategory, subCategory, 1);
+    });
 };
-// sub category
-const CA_commonCodeReder = (data, append) => {
-    const containal = document.querySelector(append);
-    const mainCategoryFirstNumber = append.split('_')[1];
-    if(mainCategoryFirstNumber == data.commonDetailCd.toString()[0]) {
-        const li = createAndAppendElement(containal, 'li');
-        createAndAppendElement(li, 'a', {id: 'sub_' + data.commonDetailCd}, data.commonDetailName);
-    };
-}
+const formatMoney = (money) => {    // 금액 포맷
+    // 숫자를 문자열로 변환 후 역순으로 만들기
+    const reversed = money.toString().split('').reverse().join('');
+
+    // 3자리마다 쉼표 추가
+    const formatted = reversed.replace(/(\d{3})(?=\d)/g, '$1,');
+
+    // 역순으로 된 문자열을 다시 뒤집어서 최종 결과 얻기
+    return formatted.split('').reverse().join('');
+};
 //------------------------------------------------------------------------
 
 // ajax list
@@ -493,12 +580,12 @@ createBookComponent(firstPath, 1, "all");
 createNewsComponent(firstPath, 1, "all");
 
 newBoardList(0, 0, 1);
-newBoardListBtn();
+newBoardMainCategoryClicked();
 topBoardLsit(0, 0, 1);
 
 // 페이지 로드 후 데이터 가져오기
 window.onload = function() {
-    topBoardListBtn();
+    topBoardMainCategoryClicked();
     bookPageChangeBnt();
     newsPageChangeBnt();
 };

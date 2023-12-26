@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <p class="card-title">추천도서</p>
                             <!-- https://velog.io/@dpdnjs402/uq0d5qph 이거보고 진행하자 -->
-                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
                                 <!-- Navbar content -->
                                 <div class="container-fluid">
                                     <div class="collapse navbar-collapse">
@@ -48,7 +48,7 @@
                         <div class="card-body">
                             <p class="card-title">뉴스<b>100</b></p>
 
-                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
                                 <!-- Navbar content -->
                                 <div class="container-fluid">
                                     <button class="navbar-toggler category-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@
                                         </ul>
                                     <div class="d-flex">
                                         <input class="form-control me-2" type="text" placeholder="입력해주세요" aria-label="Search" id="newsSerachName">
-                                        <button class="btn btn-outline-success" type="button" id="newsSerachBnt">Search</button>
+                                        <button type="button" id="newsSerachBnt">검색</button>
                                     </div>
                                     </div>
                                 </div>
@@ -140,14 +140,6 @@
                                     <li>
                                         <a data-cate="0" class="topBoardCategory selected">전체</a>
                                     </li>
-                                <!-- <li id="mainCate_1">
-                                        <a class="topBoardCategory" data-cate=""></a>
-                                        <ul>
-                                            <li><a href="#">SUB_MENU</a></li>
-                                            <li><a href="#">SUB_MENU2</a></li>
-                                            <li><a href="#">SUB_MENU3</a></li>
-                                        </ul>
-                                    </li> -->
                                 </ul>
                             </div>
                             <!-- top board rendering -->
