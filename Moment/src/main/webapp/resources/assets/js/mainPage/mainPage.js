@@ -239,7 +239,7 @@ const postRedner = (data, mainContainal) => {    // new and top board render
             };
         });
     } else {
-        const dataNotDiv = createAndAppendElement(innerContainal, 'div', {class : 'd-flex justify-content-center position-relative', style : 'height: 140px;'});
+        const dataNotDiv = createAndAppendElement(innerContainal, 'div', {class : 'd-flex justify-content-center position-relative', style : 'height: 180px;'});
         createAndAppendElement(dataNotDiv, 'h3', {class : 'position-absolute top-50 start-50 translate-middle'}, '최근 등록된 게시글이 없습니다.');
     }
     containal.append(innerContainal);
@@ -293,7 +293,7 @@ const pagenation = (data) => { // new board pagenation
         createAndAppendElement(containal, "button", { id: 'lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
         document.getElementById("pageNumBtn" + data.page).classList.add("pageSelected");
     } else {
-        createAndAppendElement(containal, 'div', {});
+        createAndAppendElement(containal, 'div', {style: 'height:32.222px;'});
     }
 };
 const newBoardCurrentCategory = () => { // new board main cateogry number return
@@ -430,7 +430,7 @@ const topBoardPagenation = (data) => {      // top board pagenation render
         createAndAppendElement(containal, "button", { id: 'top-lastPageBtn', class: 'lastPage pbtn' }, '<i class="fa-solid fa-angles-right"></i>');
         document.getElementById("top-pageNumBtn" + data.page).classList.add("pageSelected");
     } else {
-        createAndAppendElement(containal, 'div', {});
+        createAndAppendElement(containal, 'div', {style: 'height:32.222px;'});
     };
 };
 const topBoardCurrentCategory = () => {            // top board main and sub category number return
