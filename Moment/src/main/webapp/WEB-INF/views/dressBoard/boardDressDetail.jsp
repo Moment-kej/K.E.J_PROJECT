@@ -137,7 +137,7 @@
                         </div>
                     </div><!-- 원댓글 작성 폼 End -->
                 </div> <!-- Detail Reply End -->
-                <div class="rightBtnBox d-flex justify-content-end">
+                <div class="rightBtnBox d-flex justify-content-end mt-3">
                     <button id="modify" class="modify">수정</button>
                     <button id="goAllList" class="goAllList">목록</button>
                 </div>
