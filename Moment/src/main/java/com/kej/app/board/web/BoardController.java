@@ -198,7 +198,7 @@ public class BoardController {
 		return service.artBoardList(cri);
 	}
 	
-	//아트게시판 상세 조회
+	//아트게시판 상세_조회
 	@GetMapping("/art/{boardNo}")
 	public String BoardArtDetail(Model model, BoardVO boardVO) {
 		Map<String, Object> boardDetail = service.boardArtDetail(boardVO.getBoardNo()); // vo를 답글과 게시판 두개를 써야함으로 map형태로 바꿔주기
