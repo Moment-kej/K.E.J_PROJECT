@@ -11,19 +11,21 @@
                     <div class="card-body">
                         <!--제목, 카테고리 div-->
                         <div class="boardCategoryInfo">
-                            <div class="card-title"><h2>Art 게시판</h2></div>
-                            <div class="d-flex justify-content-center menuCategoryDiv">
-                                <ul class="menuCategory p-0">
-                                    <li><a class="AllListView menuCategoryATag" data-category="0">전체보기</a></li>
-                                    <li><a class="menuCategoryATag">회화</a></li>
-                                    <li><a class="menuCategoryATag">조각</a></li>
-                                    <li><a class="menuCategoryATag">공예</a></li>
-                                    <li><a class="menuCategoryATag">건축</a></li>
-                                    <li><a class="menuCategoryATag">디자인</a></li>
-                                    <li><a class="menuCategoryATag">판화</a></li>
-                                    <li><a class="menuCategoryATag">소묘</a></li>
-                                </ul>
-                            </div>
+                        	<c:forEach var="item" items="${code.CO}">
+                                <c:if test="${item.commonDetailCd == 30}">
+		                            <div class="card-title"><h2>${item.commonDetailName} 게시판</h2></div>
+		                            <div class="d-flex justify-content-center menuCategoryDiv">
+		                                <ul class="menuCategory p-0">
+		                                    <li><a class="AllListView menuCategoryATag" data-category="0" onclick="categoryType(0)">전체보기</a></li>
+		                                    <c:forEach var="coDetailList" items="${code.CA}">
+                                                <c:if test="${coDetailList.commonDetailEx eq '미술 카테고리'}">
+				                                    <li><a id="${coDetailList.commonDetailCd}" class="menuCategoryATag" data-category="${coDetailList.commonDetailCd}" onclick="categoryType('${coDetailList.commonDetailCd}')">${coDetailList.commonDetailName}</a></li>
+		                                    	</c:if>
+                                            </c:forEach>
+		                                </ul>
+		                            </div>
+                            	</c:if>
+                           </c:forEach>
                         </div>
                         <!-- 게시글 보기 양식 정하는 장소 -->
                         <div class="boardListForm">
@@ -36,7 +38,7 @@
                                 <!-- 한번에 보여줄 개수 정하기 -->
                                 <form action="1" class="minisrch_form" name="actionForm" >
                                     <fieldset>
-                                        <select id="handleAmount">
+                                        <select id="handleAmount" onchange="amountType()">
                                             <option value="10">10개씩</option>
                                             <option value="20">20개씩</option>
                                             <option value="30">30개씩</option>
@@ -54,51 +56,38 @@
                         <div class="writingBntDiv">
                             <button type="button" class="btn btn-inverse-success btn-md" id="writingBnt">글쓰기</button>
                         </div>
-                        <!-- pagination -->
-                        <div class="pagination d-flex justify-content-center">
+                       <!-- pagination -->
+                        <div class="pagination d-flex justify-content-center" id="pagingBox">
                             <!-- 5. 맨 처음으로 -->
-                            <a id="pageNumberOne" class="firstpage pbtn">
-                                &laquo;&laquo;
-                            </a>
+                            <button id="firstPage" class="firstpage pbtn">
+                                <i class="fa-solid fa-angles-left"></i>
+                            </button>
                             
                             <!-- 3.이전페이지네이션 -->
-                            <a id="pageStart" class="prevpage pbtn">
-                                &laquo;
-                            </a>
+                            <button id="beforePage" class="prevpage pbtn">
+                                <i class="fa-solid fa-angle-left"></i>
+                            </button>
                             
                             <!-- 1.페이지네이션 -->
+                            <c:forEach var="num" begin="${pageVO.start}" end="${pageVO.end}">
+                            <button class="pageNumber pbtn" data-page="${num}">
+                                <span class="pagenum ${pageVO.page == num ? 'currentpage' : '' }currentpage">${num}</span>
+                            </button>
+                            </c:forEach>
                             
-                            <a class="pageNumber">
-                                <span class="pagenum">1</span>
-                            </a>
-                            <a class="pageNumber">
-                                <span class="pagenum">2</span>
-                            </a>
-                            <a class="pageNumber">
-                                <span class="pagenum">3</span>
-                            </a>
-                            <a class="pageNumber">
-                                <span class="pagenum">4</span>
-                            </a>
-                            <a class="pageNumber">
-                                <span class="pagenum">5</span>
-                            </a>
                             <!-- 2.다음페이지네이션 -->
-                            <a id="pageNext" class="nextpage pbtn">
-                                &raquo;
-                            </a>
+                            <button id="afterPage" class="nextpage pbtn">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </button>
                             
                             <!-- 4. 맨 마지막으로 -->
-                            <a id="pageRealEnd" class="lastpage pbtn">&raquo;&raquo;</a>
-                        </div><!-- pagination end -->
-                        <div>
-                        	<!-- <p>확인용 >> ${criteria}</p>  ajax에 보낼 데이터 -->
+                            <button id="lastPage" class="lastpage pbtn">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </button>
+                        </div>
+                        <!-- pagination end -->
+                         <div>
                         	<input type="hidden" name="page" id="criteriaPage" value="${criteria.page}" />
-                        	<input type="hidden" name="amount" id="criteriaAmount" value="${criteria.amount}" />
-                        	<input type="hidden" name="category" id="criteriaCategory" value="${criteria.category}" />
-                        	<input type="hidden" name="listType" id="criteriaListType" value="${criteria.listType}" />
-                        	<input type="hidden" name="code" id="criteriaCode" value="30" />
-                        	 <!-- <p>확인용 >> ${list}</p>  ajax로 보냈을때 가져오는 데이터 -->
                         </div>
                         <!-- search div -->
                         <div class="col-lg-12 pt-5">
@@ -106,13 +95,11 @@
                                 <div style="display: flex;">
                                     <select name="category" id="boardCategory">
                                         <option value="0">카테고리</option>
-                                        <option value="300">회화</option>
-                                        <option value="301">조각</option>
-                                        <option value="302">공예</option>
-                                        <option value="303">건축</option>
-                                        <option value="304">디자인</option>
-                                        <option value="305">판화</option>
-                                        <option value="306">소묘</option>
+                                        <c:forEach var="coDetailList" items="${code.CA}">
+                                                <c:if test="${coDetailList.commonDetailEx eq '미술 카테고리'}">
+			                                        <option value="${coDetailList.commonDetailCd}">${coDetailList.commonDetailName}</option>
+                                        	</c:if>
+                                        </c:forEach>
                                     </select>
                                     <select name="searchType" id="searchType">
                                         <option value="">게시글 + 댓글</option>
@@ -133,17 +120,27 @@
     </div>
 </div>
 <script>
+let category;
+let type;
+let amount;
+	function amountType(){
+		amount = $('#handleAmount').val();
+		viewType(type);
+	}
+	function categoryType(categoryType){
+		category = categoryType;
+		viewType(type);
+	}
 /* 리스트, 카드, 앨범 타입 호출 */
  	function viewType(viewType){
  		let str1 = ``;
  		let str2 = ``;
- 		let str3= `` ;
+ 		let str3 = ``;
  		let data = {
  				page:$('#criteriaPage').val(),
- 				amount:$('#criteriaAmount').val(),
- 				category:$('#criteriaCategory').val(),
- 				listType:$('#criteriaListType').val(),
- 				code:$('#criteriaCode').val()
+ 				amount:amount,
+ 				category:category,
+ 				code:30
  					}; 
 			 $.ajax({
 				url: "/moment/board/artList",
@@ -185,7 +182,15 @@
 						str1 = ``
 						srt3 = ``
 					}
-					
+					if(data.length == 0){
+						if(viewType == "listType" || viewType == null){
+							 str2 = ` <tr>
+							 			<td colspan="5">"조회할 게시글이 없습니다."</td>
+							 		  </tr>`;
+						}else if(viewType == "albumType" || viewType == "cardsType"){
+							str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
+						}
+					}
 					$.each(data, function(index, item) {
 						// 리스트 타입일 떄 
 						if(viewType == "listType" || viewType == null){
@@ -193,7 +198,7 @@
 						        str2 += `<tr>
 						                    <td>` + item.boardNo + `</td>
 						                    <td>
-						                        <a href="/moment/board/dress/all/35">` + item.title + ` 
+						                        <a href="/moment/board/art/`+item.boardNo+`">` + item.title + ` 
 						                            <span style="color:red;">[` + item.replyCount + `]</span>
 						                        </a>
 						                    </td>
@@ -201,8 +206,6 @@
 						                    <td>` + item.writeDt + `</td>
 						                    <td>` + item.viewCount + `</td>
 						                </tr>`;
-						    } else {
-						        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
 						    }
 						}else if(viewType == "albumType"){
 							 if (data != null) {
@@ -213,7 +216,7 @@
 							    				<div class="con">
 							    					<div class="con_top">
 							    						<div class="tit_area">
-							    							<a href="/moment/board/dress/all/35">`+item.title+`</a>
+							    							<a href="/moment/board/art/`+item.boardNo+`">`+item.title+`</a>
 							    						</div>
 							    							<p>`+item.content+`</p>
 							    					</div>
@@ -234,14 +237,12 @@
 							    		</li>
 							    	</ui>
 							    </div>`;
-							    } else {
-							        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
 							    }
 						}else if(viewType == "cardsType"){
 							 if (data != null) {
 							        str2 += `<div class="postType">
 							        	<div class="cardType mr-3">
-							    		<a href="/moment/board/dress/all/35">
+							    		<a href="/moment/board/art/`+item.boardNo+`">
 							    			<img class="albumTypeImg" src="/moment/assets/images/noImages.png">
 							    		</a>
 							    		<p class="cardsPStyle">`+item.title+`</p>
@@ -252,10 +253,10 @@
 							    		</p>
 							    	</div>
 							    </div>`;
-							    } else {
-							        str2 = ` <h3>"조회할 게시글이 없습니다."</h3> `;
-							    }
+							    } 
 						}
+					
+					console.log("data" + data.length);
 					});
 	
 					$("#contentList").append(str1 + str2 + str3);
@@ -268,16 +269,19 @@
 	// 리스트 타입
 	$("#listType").on("click", function(e) {
 		e.preventDefault();// 새로고침 방지
-		viewType("listType");
+		type = "listType";
+		viewType(type);
 	});
 	// 카드 타입
 	$("#cardsType").on("click", function(e) {
 		e.preventDefault();
-		viewType("cardsType");
+		type = "cardsType";
+		viewType(type);
 	});
 	// 앨범 타입
 	$("#albumType").on("click", function(e) {
 		e.preventDefault();
-		viewType("albumType");
+		type = "cardsType";
+		viewType(type);
 	});
 </script>
