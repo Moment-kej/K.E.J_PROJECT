@@ -41,7 +41,6 @@ public class ReplyController {
 	@ResponseBody
 	public int dressReplyUpdate(@RequestBody ReplyVO vo) {
 		
-		System.out.println("확인>> " + service.replyModify(vo));
 		return service.replyModify(vo);
 	}
 	
@@ -60,7 +59,7 @@ public class ReplyController {
 	@RequestMapping(value = "/music/reply-data", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ReplyVO> musicReplyAllList(ReplyVO vo) {
-		System.out.println("sfadsfdasfdsfsafdsafdsfsafasfasd" + vo);
+		
 		return service.musicReplyAllList(vo);
 	}
 	

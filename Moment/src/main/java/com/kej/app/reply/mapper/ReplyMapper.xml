@@ -78,23 +78,24 @@
 		 WHERE reply_no = #{replyNo}
 	</update>
 	
-	<!-- dress detail page end -->
+	<!-- === eunae End ===========================================================  --> 
+	
+	
+	<!-- === Minjin Start ========================================================  -->
 	
 	<select id="musicReplyAllList" resultType="ReplyVO">
 		SELECT reply_no
 			 , board_no
+			 , group_no
+			 , group_layer
 			 , id
 			 , content
 			 , write_dt
 			 , update_dt
 			 , yn
-			 , re_reply_content
-			 , re_reply_write_dt
-			 , re_reply_update_dt
-			 , re_reply_yn
 		  FROM reply
-	     WHERE board_no = #{boardNo}
-	     ORDER BY write_dt DESC
+		 WHERE board_no = #{boardNo}
+		 ORDER BY write_dt DESC
 	</select>
 
 </mapper>
