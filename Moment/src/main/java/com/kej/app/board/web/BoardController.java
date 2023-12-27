@@ -286,13 +286,17 @@ public class BoardController {
  		return response;
  	}
         
-    // Music Detail Page
-	@GetMapping("/music/{boardNo}")
-	public String BoardDetail(Model model, @PathVariable ("boardNo") int boardNo) {
-		
-		return "musicBoard/musicBoardDetail";
+ 	// Music Detail Page
+ 	@GetMapping("/music/{boardNo}")
+ 	public String BoardDetail(Model model, BoardVO board, @PathVariable ("boardNo") int boardNo) {
 
-	}
+ 		model.addAttribute("code", cservice.getCodes("CA"));
+
+ 	    board = musicService.musicBoardDetail(boardNo);
+ 	    model.addAttribute("item", board);
+
+ 		return "musicBoard/musicBoardDetail";
+ 	}
 	
 	@GetMapping("/musice/write")
 	public String musicInsertPage(Model model) {

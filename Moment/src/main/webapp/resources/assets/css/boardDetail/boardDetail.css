@@ -219,19 +219,15 @@ button {
 /* Reply End */
 
 /* Reply */
-.commentBox ul {
+.commentBox #comment_area_box {
    display: block;
    list-style: none;
-   margin-bottom: 30px;
+   margin-bottom: 50px;
 }
 
-.commentBox .commentItem:first-child {
-   border-top: none;
-}
-
-.commentBox .commentItem {
+.commentBox .comment_area {
    border-top: 1px solid #E2E4F0;
-   padding: 10px 0px 10px 0px;
+   padding: 10px 0px;
 }
 
 .commentBox .commentReply {
@@ -313,7 +309,6 @@ button {
 /* 답글 작성 */
 .commentWriter {
    box-sizing: border-box;
-   margin-top: 10px;
    padding: 10px 17px;
    border: 2px solid rgba(207, 210, 226, 1);
    border-radius: 5px;

@@ -90,6 +90,12 @@ export const boardNumber = () => {
 }
 
 // =====================================================================================
+export const pathNameOfBoardNumber = () => {
+    const pathNameOfBoardNo = parseInt(window.location.pathname.split("/").pop());
+    console.log(pathNameOfBoardNo);
+    return pathNameOfBoardNo;
+}
+// =====================================================================================
 // 사용방법 : 데이터를 성공적으로 들고 왔을 때 실행해야 하는 것들을 담으면 됨
 // const callback = (data) => {
 //     console.log(data);

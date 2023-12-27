@@ -63,7 +63,7 @@ public class ReplyServiceImpl implements ReplyService {
 	//댓글 조회
 	@Override
 	public List<ReplyVO> musicReplyAllList(ReplyVO vo) {
-		System.out.println("implimplimplimplimplimpl" + rMapper.musicReplyAllList(vo));
+		
 		return rMapper.musicReplyAllList(vo);
 	}
 	

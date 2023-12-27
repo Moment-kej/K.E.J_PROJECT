@@ -45,7 +45,7 @@
                 </div>
               </div>
               <div class="contentViewer">${item.content}</div>
-              <div class="replyBox hrStyle">
+              <div class="replyBox">
                 <div class="d-flex justify-content-start align-items-center mb-3">
                   <div class="likeBox d-flex justify-content-start align-items-center">
                     <span class="like fw-medium"><i class="fa-regular fa-face-kiss-wink-heart"></i><i class="fa-solid fa-face-kiss-wink-heart"></i>좋아요</span>
@@ -60,29 +60,29 @@
               
               <!-- Reply -->
               <div class="commentBox">
-                <ul class="p-1">
+                <ul id="comment_area_box" class="p-1">
                   <li class="commentItem">
                     <div class="comment_area">
                       <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex justify-content-start align-items-center"> <!-- 은애언니, 수민 여기 부분 수정 (div 태그 추가)-->
+                        <div class="d-flex justify-content-start align-items-center">
                           <div class="replyUserImgBox">
                             <img class="mx-auto" src="${pageContext.request.contextPath}/assets/images/faces/face3.jpg" alt="프로필 사진">
                           </div>
                           <div class="replyInfoBox ml-2">
-                            <div>
+                            <div id="reply_info_area">
                               <span class="replyInfoID">UserID</span>
                               <span class="replyInfoDate">2023.11.26. 18:14</span>
                             </div>
                           </div>
-                        </div><!-- 은애언니, 수민 여기 부분 수정 (div 태그 닫기)-->
-                        <div class="commentBtnBox"><!-- 은애언니, 수민 수정이랑 삭제 버튼! (commentBtnBox이 div안에 내용까지 통채로 넣기!)-->
+                        </div>
+                        <div class="commentBtnBox">
                           <button class="modifyBtnBox">
                             <i class="fa-solid fa-pen-to-square commentModifyBtn"></i>
                           </button>
                           <button class="deleteBtnBox">
                             <i class="fa-solid fa-trash commentDelBtn"></i>
                           </button>
-                        </div><!-- 은애언니, 수민 수정이랑 삭제 버튼! (commentBtnBox이 div안에 내용까지 통채로 넣기!)-->
+                        </div>
                       </div>
                       <div class="commentContent">
                         <span>여기 고민해봐야할 듯<br> 1. 엔터가 먹힐까? 엔터가 누르면 br태그가 들어가야하나..? <br>그리고 구분할 때 hr tag를 사용했는데 규칙 못찾았음..</span>
@@ -91,10 +91,8 @@
                         <button type="button">답글작성</button>
                       </div>
                     </div>
-                  </li>
-                  <!-- 답글 작성 폼 -->
-                  <li class="pl-5 commentItem">
-                    <div class="pb-2 comment_area">
+                    <!-- 답글 작성 폼 -->
+                    <div class="comment_area">
                       <div class="commentWriter">
                         <div class="comment_inbox">
                           <span class="comment_inbox_name">똥심</span>
@@ -107,16 +105,16 @@
                             <span class="fontSizeSmall comment_box_write_total">500</span>
                           </div>
                           <div class="register_box">
-                            <button class="button">취소</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
-                            <button class="button">등록</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
+                            <button class="button">취소</button>
+                            <button class="button">등록</button>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </li> <!-- 답글 작성 폼 End -->
+                  </li>
                   <!-- 대댓글 -->
-                  <li class="pl-5 commentItem">
-                    <div class="comment_area">
+                  <li class="commentItem">
+                    <div class="comment_area pl-5">
                       <div class="d-flex justify-content-start align-items-center">
                         <div class="replyUserImgBox">
                           <img class="mx-auto" src="${pageContext.request.contextPath}/assets/images/faces/face1.jpg" alt="프로필 사진">
