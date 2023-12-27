@@ -1,6 +1,11 @@
 /* book list style */
-#newsList {
+#newsList, #bookList {
     width: 100%;
+    height: 520px;
+}
+#newBoardList > div,
+#topBoardList > div {
+    height: 180px;
 }
 .titleDiv p {
     max-height: 4.6em;
@@ -61,21 +66,27 @@ a {
 }
 /* pagenation */
 #prevPageBtn[disabled],
-#prevPageBtn[disabled]:hover {
+#prevPageBtn[disabled]:hover,
+#top-prevPageBtn[disabled],
+#top-prevPageBtn[disabled]:hover {
     background-color: #e7e7e7;
     cursor: not-allowed;
     border: 1px solid #e7e7e7;
 }
-#prevPageBtn[disabled] i:hover {
+#prevPageBtn[disabled] i:hover,
+#top-prevPageBtn[disabled] i:hover {
     color: #fff;
 }
 #nextpageBtn[disabled],
-#nextpageBtn[disabled]:hover {
+#nextpageBtn[disabled]:hover,
+#top-nextpageBtn[disabled],
+#top-nextpageBtn[disabled]:hover {
     background-color: #e7e7e7;
     cursor: not-allowed;
     border: 1px solid #e7e7e7;
 }
-#nextpageBtn[disabled] i:hover {
+#nextpageBtn[disabled] i:hover,
+#top-nextpageBtn[disabled] i:hover {
     color: #fff;
 }
 .pageSelected {
@@ -101,12 +112,11 @@ a {
     text-align: center;
 }
 /* category menu css */
-#bookSerachBnt {
+#bookSerachBnt,
+#newsSerachBnt {
     width: 60px;
-    height: 50px;
     text-align: center;
     border-radius: 10px;
-    margin-bottom: 30px;
     border: 0px;
     background-color: #E4EBF5;
     color: #333333;
@@ -115,6 +125,12 @@ a {
     animation-name: keybtn-language;
     animation-duration: .2s;
     margin-left: 10px;
+}
+/*버튼 눌리는 효과*/
+#bookSerachBnt:active,
+#newsSerachBnt:active {
+    box-shadow: inset -.3rem -.1rem 1.4rem  #FBFBFB, inset .3rem .4rem .8rem #BEC5D0; 
+    cursor: pointer;
 }
 /* https://blog.naver.com/PostView.naver?blogId=bgpoilkj&logNo=221150512824 */
 #menu {
@@ -132,17 +148,42 @@ a {
     position:relative;
 }
 #menu > ul > li > ul {
-    width:130px;
-    display:none;
+    width: 130px;
+    display: none;
     position: absolute;
-    font-size:14px;
-    background: skyblue;
+    font-size: 14px;
     padding: 0 !important;
+    z-index: 999;
+    background: #f2f0f3;
+    border: 1px solid #dadada;
+    border-radius: 10px;
 }
 #menu > ul > li:hover > ul {
-    display:block;
+    display: block;
+}
+#menu > ul > li > ul > li {
+    border-bottom: 2px dotted #efd9f4;
+}
+#menu > ul > li > ul > li:last-child {
+    border-bottom: none;
 }
 #menu > ul > li > ul > li:hover {
-    background: orange;
+    background: rgb(255, 255, 255);
     transition: ease 1s;
+}
+#menu > ul > li > ul > li:hover:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+#menu > ul > li > ul > li:hover:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.subCategorySelected {
+    background: rgb(255, 255, 255);
+    color: rgb(240, 72, 128);
+}
+.subCategorySelected:hover {
+    background: rgb(255, 255, 255);
+    color: rgb(240, 72, 128);
 }

@@ -120,15 +120,26 @@ const boardDelAtax = () => {
 const childReplyInsertAtax = (replyNo) => {
     const childReplyInsertBnt = document.querySelector('#childReplyInBtn_' + replyNo);
     const childReplyInsertArea = childReplyInsertBnt.closest('#childReplyArea_' + replyNo);
-
+    
     childReplyInsertBnt.addEventListener('click', () => {
         const id = childReplyInsertArea.querySelector('.comment_inbox_name').textContent;
         const content = childReplyInsertArea.querySelector('.comment_inbox textarea').value;
-        const groupNo = childReplyInsertArea.id.split('_')[1];
+        const parentOriginNo = childReplyInsertArea.id.split('_')[1];
+
+        const lastChildGroupOrdElement = document.querySelector('#child_reply_' + replyNo).children[0].lastChild;
+        let groupOrd;
+
+        if(lastChildGroupOrdElement == null) {
+            groupOrd = 1;
+        } else {
+            const lastChildGroupOrd = parseInt(lastChildGroupOrdElement.getAttribute('data-index'));
+            groupOrd = lastChildGroupOrd + 1;
+        }
 
         const data = JSON.stringify({
             boardNo: boardNumber(),
-            groupNo: parseInt(groupNo),
+            originNo: parseInt(parentOriginNo),
+            groupOrd: groupOrd,
             groupLayer: 1,
             id: id,
             content: content
@@ -166,7 +177,8 @@ const parentReplyInsertAjax = () => {
             content: content,
         });
         const callback = () => {
-            document.getElementById('replyTextrea').value = '';     // 값 초기화
+            document.getElementById('replyTextrea').value = '';
+            document.getElementById('writeCount').textContent = 0;   
             boardDetail();          // 상세조회 ajax 호출
             replyList();            // 댓글 ajax 호출
             boardRelatedPosts();    // 관련글 ajax 호출
@@ -266,9 +278,10 @@ const replySectionTwoTextarea = (replyNo) => {
 };
 // ------------------------------------------------------------
 // child reply render
-const ChildreplyRender = (post, containal) => {
+const ChildreplyRender = (post, containal, index) => {
     const outContainer = document.createElement("div");
     outContainer.classList.add('pt-3', 'mb-4', 'hrStyleChildReply');
+    outContainer.setAttribute('data-index', (index+1));
     outContainer.id = 'child_' + post.replyNo;
 
     const commentContainer = document.createElement("div");
@@ -634,11 +647,9 @@ const replyList = () => {
             childReplyInsertAtax(replyNo);      // 대댓글 등록
             replySectionTwoTextarea(replyNo);   // 대댓글 작성란 글자수 표기 및 제한
 
-            child.map(child_item => {
-                ChildreplyRender(child_item, '.childReplyinnerContainal[reply-append="' + replyNo + '"]');
+            child.map((child_item, index) => {
+                ChildreplyRender(child_item, '.childReplyinnerContainal[reply-append="' + replyNo + '"]', index);
             });
-            // let removeElement = document.getElementById('child_reply_' + item.replyNo);
-            // removeElement.style.display = 'none';
         });
     };
     ajaxRequest(firstPath + '/reply/dress/replyList', 'GET', data, callback);
