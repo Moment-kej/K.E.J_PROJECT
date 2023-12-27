@@ -1,4 +1,4 @@
-import { firstContextPath, ajaxRequest, formatTime_hhmm, formatTime_hhmmss, createAndAppendElement } from "../common/common.js";
+import { firstContextPath, ajaxRequest, formatTime_hhmm, formatTime_hhmmss, createAndAppendElement } from "../common.js";
 
 const firstPath = firstContextPath;   // '/moment' 가져오기
 //------------------------------------------------------------------------

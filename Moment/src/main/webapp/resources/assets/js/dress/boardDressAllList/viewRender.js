@@ -1,5 +1,5 @@
 import { pagenation, pagenationNumber } from "./pagenation.js";
-import { formatTime_hhmm, firstContextPath, getUrlParam } from "../common/common.js";
+import { formatTime_hhmm, firstContextPath, getUrlParam } from "../../common/common.js";
 
 const contentContainer = document.getElementById('boardList');
 const contextPath = firstContextPath;

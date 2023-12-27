@@ -126,6 +126,13 @@
               </ul>
             </div>
           </li>
+          <!-- 2023.12.27 eunae -->
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/user/my">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">MyInfoModify</span>
+            </a>
+          </li>
           <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>

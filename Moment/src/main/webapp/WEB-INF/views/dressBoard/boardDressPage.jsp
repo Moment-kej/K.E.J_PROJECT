@@ -131,4 +131,4 @@
         </div>
     </div>
 </div>
-<script type="module" src="${pageContext.request.contextPath}/assets/js/boardDressAllListPage/index.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/assets/js/dress/boardDressAllList/index.js"></script>

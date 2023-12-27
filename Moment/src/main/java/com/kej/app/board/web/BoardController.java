@@ -42,7 +42,7 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	//https://jadestone.tistory.com/101 == 페이징/진행중
-	@GetMapping("/dress")
+	@RequestMapping(value="/dress", method = RequestMethod.GET)
 	public String boardDressPage(Model model, Criteria cri) throws Exception {
 		
 		//cri vo에 code 값을 10으로 준 것
@@ -69,7 +69,7 @@ public class BoardController {
 		return service.dressBoradList(cri);
 	}
 	// dress insert page
-	@GetMapping("/dress/write")
+	@RequestMapping(value="/dress/write", method = RequestMethod.GET)
 	public String boardDressInsert(Model model) {
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
         
