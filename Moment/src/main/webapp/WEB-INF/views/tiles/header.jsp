@@ -130,7 +130,13 @@
           <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/user/my">
               <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">MyInfoModify</span>
+              <span class="menu-title">MyInfoPw</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/user/my/id">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">MyInfo</span>
             </a>
           </li>
           <!-- <li class="nav-item">
