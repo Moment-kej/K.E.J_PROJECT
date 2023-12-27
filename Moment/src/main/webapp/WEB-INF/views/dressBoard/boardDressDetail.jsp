@@ -26,7 +26,6 @@
     }
     .selected, .selected a {
         color: black;
-        background-color: #ebeef8;
         font-weight: bold !important;
     }
     .modifyBtnBox, .deleteBtnBox {
