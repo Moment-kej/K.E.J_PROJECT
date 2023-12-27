@@ -62,8 +62,6 @@
                             </div>
                             <!--확인용 -->
                             <div id="dataCheck" class="display">
-                                <p>확인용 >> ${criteria}</p>
-                                <p>확인용 >> ${pageVO}</p>
                                 <input type="hidden" name="page"        id="criteriaPage" value="${criteria.page}">
                                 <input type="hidden" name="amount"      id="criteriaAmount" value="${criteria.amount}">
                                 <input type="hidden" name="category"    id="criteriaCategory" value="${criteria.category}">
