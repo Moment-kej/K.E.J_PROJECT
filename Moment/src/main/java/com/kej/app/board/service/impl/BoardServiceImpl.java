@@ -163,6 +163,18 @@ public class BoardServiceImpl implements BoardService {
 		
 		return res;
 	}
+	@Override
+	public Map<String, Object> postsWithImages(Criteria cri) {
+		int total = bMapper.postsWithImagesCount();
+		PageVO pvo = new PageVO(cri, total);
+		
+		Map<String, Object> res = new HashMap<>();
+		
+		res.put("data", bMapper.postsWithImages(cri));
+		res.put("paging", pvo);
+		
+		return res;
+	}
 	// eunae -------------------------------------------------------
 
 	
@@ -183,6 +195,8 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> boardArtDetail(int BoardNo) {
 		return bMapper.boardArtDetail(BoardNo);
 	}
+
+
 
 
 

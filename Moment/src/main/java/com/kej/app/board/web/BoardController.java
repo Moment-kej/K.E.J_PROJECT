@@ -165,10 +165,15 @@ public class BoardController {
 		return service.boardNewList(cri);
 	}
 	// 메인페이지 인기글 (AJAX)
-	@ RequestMapping(value="/topList", method = RequestMethod.GET)
+	@RequestMapping(value="/topList", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> boardTopList(Criteria cri) {
 		return service.boardTopList(cri);
+	}
+	@RequestMapping(value="/imgIn", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> PostWhthImg(Criteria cri) {
+		return service.postsWithImages(cri);
 	}
 	
 	// --- eunae End --------------------------------------------------------

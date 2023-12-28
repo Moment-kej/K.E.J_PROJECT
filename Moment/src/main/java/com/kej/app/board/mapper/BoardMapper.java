@@ -30,9 +30,9 @@ public interface BoardMapper {
 	//main page like top
 	public List<BoardVO> likeTopList(Criteria cri);
 	public int likeTopCount(Criteria cri);
-	
-	
-	
+	//main posts with images
+	public List<BoardVO> postsWithImages(Criteria cri);
+	public int postsWithImagesCount();
 	
 	
 	public List<BoardVO> artBoardList(Criteria cri); // 전체조회(타입3개)

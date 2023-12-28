@@ -5,6 +5,74 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/eunae/mainPage.css">
     <div class="main-panel">
         <div class="content-wrapper">
+            <!-- 사진 게시글 목록 -->
+            <div class="row">  
+                <div class="col-md-12 stretch-card grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">게시글 사진</p>
+                            <div class="slide_wrapper">
+                                <ul class="slides"></ul>
+                            </div>
+                            <div class="button-container" id="imgBntContainer">
+                                <button class="img-prev hidden">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                <button class="img-next">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 최근게시글 -->
+            <div class="row">
+                <div class="col-md-12 stretch-card grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">최신 게시글</p>
+                            <!-- new board menu -->
+                            <div id="newBoardMenu" class="d-flex justify-content-center">
+                                <ul id="newBoardMainCategory">
+                                    <li>
+                                        <a data-cate="0" class="newBoardCategory selected">전체</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- new board rendering -->
+                            <div id="newBoardList"></div>
+                            <!-- new board pagenation -->
+                            <div id="pagingBox" class="pagination d-flex justify-content-center align-items-center"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 인기게시글 -->
+            <div class="row">
+                <div class="col-md-12 stretch-card grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <p class="card-title">인기 게시글</p>
+                                <!-- top board menu -->
+                                <div id="menu" class="d-flex justify-content-center">
+                                    <ul id="mainCategory">
+                                        <li>
+                                            <a data-cate="0" class="topBoardCategory selected">전체</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- top board rendering -->
+                                <div id="topBoardList"></div>
+                                <!-- top board pagenation -->
+                                <div id="topBoardListPagingBox" class="pagination d-flex justify-content-center align-items-center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 도서 및 뉴스 -->
             <div class="row">
                 <div class="col-md-5 stretch-card grid-margin">
                     <div class="card">
@@ -96,49 +164,6 @@
                                     <input type="hidden" id="book_currentPage" value="1">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 stretch-card grid-margin">
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-title">최신 게시글</p>
-                            <!-- new board menu -->
-                            <div id="newBoardMenu" class="d-flex justify-content-center">
-                                <ul id="newBoardMainCategory">
-                                    <li>
-                                        <a data-cate="0" class="newBoardCategory selected">전체</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- new board rendering -->
-                            <div id="newBoardList"></div>
-                            <!-- new board pagenation -->
-                            <div id="pagingBox" class="pagination d-flex justify-content-center align-items-center"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 stretch-card grid-margin">
-                    <div class="card">
-                        <div class="card-body">
-                        <div>
-                            <p class="card-title">인기 게시글</p>
-                            <!-- top board menu -->
-                            <div id="menu" class="d-flex justify-content-center">
-                                <ul id="mainCategory">
-                                    <li>
-                                        <a data-cate="0" class="topBoardCategory selected">전체</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- top board rendering -->
-                            <div id="topBoardList"></div>
-                            <!-- top board pagenation -->
-                            <div id="topBoardListPagingBox" class="pagination d-flex justify-content-center align-items-center"></div>
                         </div>
                     </div>
                 </div>
