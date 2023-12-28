@@ -1,5 +1,6 @@
 package com.kej.app.board.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,25 +189,35 @@ public class BoardController {
 		//공통코드
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
 		
-		//페이지네이션
-		int total = service.pagecount(cri);
-		PageVO pageVO = new PageVO(cri, total);
-		model.addAttribute("pageVO", pageVO);
+		//페이지네이션 ajax로 한번에 해결 예정
+//		int total = service.pagecount(cri);
+//		PageVO pageVO = new PageVO(cri, total);
+//		model.addAttribute("pageVO", pageVO);
 		
 		return "artBoard/boardArtPage";
 	}
 	
-	// Ajax Get Method ListType
+	// Ajax Get Method 
 	@RequestMapping(value="/artList", method = {RequestMethod.GET})
 	@ResponseBody
-	public List<BoardVO> artGetList(Criteria cri){
-		return service.artBoardList(cri);
+	public  Map<String, Object> artGetList(Criteria cri){
+		Map<String, Object> artList = new HashMap<String, Object>();
+		
+		List<BoardVO> artBoardList = service.artBoardList(cri);
+		
+		int total = service.pagecount(cri);
+		PageVO pageVO = new PageVO(cri, total);
+		
+		artList.put("artBoardList", artBoardList);
+		artList.put("pageVO", pageVO);
+		
+		return artList;
 	}
 	
 	//아트게시판 상세_조회
 	@GetMapping("/art/{boardNo}")
 	public String BoardArtDetail(Model model, BoardVO boardVO) {
-		Map<String, Object> boardDetail = service.boardArtDetail(boardVO.getBoardNo()); // vo를 답글과 게시판 두개를 써야함으로 map형태로 바꿔주기
+		Map<String, Object> boardDetail = service.boardArtDetail(boardVO.getBoardNo()); // vo를 답글과 게시판 두개를 써야함으로 map형태로 바꿔주기(게시판만 가져오기로 수정)
 		System.out.println("boardVO" + boardVO.toString());
 		
 		model.addAttribute("boardDetail", boardDetail);
