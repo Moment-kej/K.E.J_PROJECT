@@ -229,12 +229,24 @@ const postRedner = (data, mainContainal) => {    // new and top board render
             for(const key of columnMapping.rowDataKeys) {
                 let tdContent = "";
                 if(key === 'title') {
-                    tdContent = '<a href="' + firstPath + '/board/dress/all/' + item.boardNo + '">'
+                    tdContent = '<a class=no' + item.boardNo + '>'
                                 +   '<span>' + item[key] + ' <span style="color: red;">[' + item.replyCount + ']</span>' + '</span>' 
                                 + '</a>';
                 } else {
                     tdContent = '<span class="' + key + '">'+ item[key] +'</span>'
                 };
+                
+                let boardDetailLlnk = document.querySelector('.no' + item.boardNo);
+                if(boardDetailLlnk !== null) {
+                    if(item.code == 10 ) {
+                        boardDetailLlnk.setAttribute('href', firstPath + '/board/dress/all/' + item.boardNo);
+                    } else if(item.code == 20) {
+                        boardDetailLlnk.setAttribute('href', firstPath + '/board/art/' + item.boardNo); 
+                    } else if(item.code == 30) {
+                        boardDetailLlnk.setAttribute('href', firstPath + '/board/music/' + item.boardNo);
+                    };
+                };
+
                 createAndAppendElement(trBody, 'td', {}, tdContent);
             };
         });
@@ -460,7 +472,6 @@ const topBoard_init = (page, realEnd) => {  // top board pagenation click event
     const currnetCatgory = topBoardCurrentCategory();
     const currentMainCategory = currnetCatgory.currentMainCategory;
     const currentSubCategory = currnetCatgory.currentSubCategory;
-    // console.log('page, realEnd, mainCate, subCate: ', page, ',', realEnd, ',', currentMainCategory, ',', currentSubCategory);
     const prevButtonClick = () => {
         const element = document.getElementById('top-prevPageBtn');
         element.addEventListener('click', () => {
@@ -617,7 +628,110 @@ const formatMoney = (money) => {    // 금액 포맷
     return formatted.split('').reverse().join('');
 };
 //------------------------------------------------------------------------
+const PostsWithImagesAjax = (page) => {
+    const data = { page: parseInt(page), amount : 4 };
+    const callback = (data) => {
+        const page = parseInt(data.paging.page);
+        const realEnd = parseInt(data.paging.realEnd);
+        imgPostsCurrentPage = page;
+        imgPostsCurrentRealEnd = realEnd;
+        document.querySelector('.slides').innerHTML = '';
+        data.data.map(item => {
+            PostsWithImagesRender(item, document.querySelector('.slides'));
+        });
+    };
+    ajaxRequest(firstPath + '/board/imgIn', 'GET', data, callback);
+};
+const PostsWithImagesRender = (data, container) => {
+    const content = extractContent(data);
+    let content_img = content.thumbnail;
 
+    const li = createAndAppendElement(container, 'li');
+    // img
+    const imgContainer = createAndAppendElement(li, 'div');
+    const imgLink = createAndAppendElement(imgContainer, 'a', {id: data.code + '_' + data.boardNo});
+    const imgInnerContainer = createAndAppendElement(imgLink, 'div', {style:'text-align: center;'});
+    createAndAppendElement(imgInnerContainer, 'img', {class: 'boardImgStyle', src : content_img});
+    // category and user info
+    const boardInformation = createAndAppendElement(li, 'div', {class : 'boardInformation mt-2'});
+    const boardCateAndTitle = createAndAppendElement(boardInformation, 'div', {class : 'boardCateAndTitle'});
+    const boardCateAndTitleLink = createAndAppendElement(boardCateAndTitle, 'a', {id: 'title_' + data.boardNo, class : 'boardCateAndTitleLink'});
+    createAndAppendElement(boardCateAndTitleLink, 'span', {id: 'category' + data.code + '_' + data.boardNo});
+    createAndAppendElement(boardCateAndTitleLink, 'span', {class : 'boardTitle'}, data.title);
+    const userInfoContainer = createAndAppendElement(boardInformation, 'div', {class : 'userInfoArea mb-1'});
+    createAndAppendElement(userInfoContainer, 'span', {}, '작성자: ' + data.id);
+    const boardWriteDtArea = createAndAppendElement(boardInformation, 'div', {class : 'boardWriteDtArea mb-1'});
+    createAndAppendElement(boardWriteDtArea, 'span', {}, formatTime_hhmm(data.writeDt));
+    const boardViewAndReplyArea = createAndAppendElement(boardInformation, 'div', {class : 'boardViewAndReplyArea'});
+    createAndAppendElement(boardViewAndReplyArea,'span', {},
+                                    '<i class="fa-regular fa-eye"></i> ' + data.viewCount + ' ' + 
+                                    '<i class="fa-regular fa-comment-dots" aria-hidden="true"></i> ' + data.replyCount + ' ' + 
+                                    '<i class="fa-regular fa-thumbs-up"></i> ' + data.likeCount);
+    
+    let boardTitleLink = document.getElementById('title_' + data.boardNo);
+    let boardImgLink = document.getElementById(data.code + '_' + data.boardNo);
+    let boardCategory = document.getElementById('category' + data.code + '_' + data.boardNo);
+    if(data.code == 10) {
+        boardTitleLink.setAttribute('href', firstPath + '/board/dress/all/' + data.boardNo);
+        boardImgLink.setAttribute('href', firstPath + '/board/dress/all/' + data.boardNo);
+        boardCategory.textContent = '[옷] ';
+    } else if(data.code == 20) {
+        boardTitleLink.setAttribute('href', firstPath + '/board/art/' + data.boardNo); 
+        boardImgLink.setAttribute('href', firstPath + '/board/art/' + data.boardNo); 
+        boardCategory.textContent = '[음악] ';
+    } else if(data.code == 30) {
+        boardTitleLink.setAttribute('href', firstPath + '/board/music/' + data.boardNo);
+        boardImgLink.setAttribute('href', firstPath + '/board/music/' + data.boardNo);
+        boardCategory.textContent = '[미술] ';
+    };
+    container.appendChild(li);
+};
+const extractContent = (data) => {
+    let parser = new DOMParser();
+    let content = parser.parseFromString(data.content, 'text/html');
+
+    // 이미지는 첫 번째 이미지만 가져오기
+    let firstImg = content.querySelector('figure.image img');
+    let firstImgSrcHtml = firstImg ? firstImg.getAttribute('src') : '';
+
+    // 단락은 모든 내용 가져오기
+    let previewText = Array.from(content.querySelectorAll('p')).map(p => p.textContent).join(' ');
+    let previewHtml = previewText ? '<p>' + previewText + '</p>' : '';
+
+    return {
+        thumbnail: firstImgSrcHtml || '<p>이미지 없음</p>',
+        preview: previewHtml || '<p>내용 없음</p>'
+    };
+};
+let imgPostsCurrentPage = 1;
+let imgPostsCurrentRealEnd = 4;
+const PostsWhthImagesPagenation = () => {
+    const prevButton = document.querySelector('.img-prev');
+    const nextButton = document.querySelector('.img-next');
+    if(imgPostsCurrentPage === 1) {
+        prevButton.classList.add("hidden");
+    } else {
+        prevButton.addEventListener('click', () => {
+            nextButton.classList.remove("hidden");
+            const currentPage = --imgPostsCurrentPage;
+            if(imgPostsCurrentPage === 1) {
+                prevButton.setAttribute("class", "hidden");
+            };
+            PostsWithImagesAjax(currentPage);
+        });
+    }
+    nextButton.addEventListener('click', () => {
+        prevButton.classList.add("hidden");
+        if(imgPostsCurrentPage < imgPostsCurrentRealEnd ) {
+            nextButton.classList.remove("hidden");
+            PostsWithImagesAjax(++imgPostsCurrentPage);
+        } else {
+            nextButton.classList.add("hidden");
+        }
+    });
+    
+};
+//------------------------------------------------------------------------
 // ajax list
 commonCodeAjax();
 bookSearch();
@@ -625,6 +739,8 @@ newsSearch();
 createBookComponent(firstPath, 1, "all");
 createNewsComponent(firstPath, 1, "all");
 
+PostsWithImagesAjax(imgPostsCurrentPage);
+PostsWhthImagesPagenation();
 newBoardList(0, 0, 1);
 topBoardLsit(0, 0, 1);
 

@@ -283,33 +283,38 @@
 		   AND like_count IS NOT NULL
 		 ORDER BY like_count DESC
 	  </select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	  <!-- 메인, 이미지 있는 게시글  -->
+	  <select id="postsWithImages" resultType="BoardVO">
+	   SELECT b.board_no
+		      , code
+		      , category
+		      , id
+		      , title
+		      , content
+		      , write_dt
+		      , view_count
+		      , yn
+		      , (SELECT COUNT(*)
+		           FROM reply r
+		          WHERE b.board_no = r.board_no) AS "reply_count"
+		      , (SELECT COUNT(*)
+		           FROM board_like l
+		          WHERE b.board_no = l.board_no) AS "like_count"
+		   FROM board b
+		  WHERE 1=1
+		    AND content LIKE CONCAT('%figure class="image"%')
+		    AND yn = 1
+		  ORDER BY write_dt DESC
+		  LIMIT #{pageStart}, #{amount}
+	  </select>
+	  <select id="postsWithImagesCount" resultType="int">
+	  	 SELECT COUNT(*)
+		   FROM board b
+		  WHERE 1=1
+		    AND content LIKE CONCAT('%figure class="image"%')
+		    AND yn = 1
+	  </select>
+
 
 	<!-- eunae end -->
 

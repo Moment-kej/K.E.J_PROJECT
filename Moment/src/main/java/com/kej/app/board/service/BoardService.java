@@ -20,7 +20,7 @@ public interface BoardService {
 	public int dressBoardDelete(BoardVO vo);
 	public Map<String, Object> boardNewList(Criteria cri);
 	public Map<String, Object> boardTopList(Criteria cri);
-	
+	public Map<String, Object> postsWithImages(Criteria cri);
 	
 	
 	
