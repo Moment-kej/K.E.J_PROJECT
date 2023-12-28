@@ -269,7 +269,3 @@ a {
 .slides li:not(:last-child){ 
     margin-right: 20px;
 }
-/* .controls{
-    text-align: center;
-    margin-top: 20px;
-} */

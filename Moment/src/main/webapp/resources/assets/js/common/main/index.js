@@ -708,20 +708,18 @@ let imgPostsCurrentRealEnd = 4;
 const PostsWhthImagesPagenation = () => {
     const prevButton = document.querySelector('.img-prev');
     const nextButton = document.querySelector('.img-next');
-    if(imgPostsCurrentPage === 1) {
-        prevButton.classList.add("hidden");
-    } else {
-        prevButton.addEventListener('click', () => {
-            nextButton.classList.remove("hidden");
-            const currentPage = --imgPostsCurrentPage;
-            if(imgPostsCurrentPage === 1) {
-                prevButton.setAttribute("class", "hidden");
-            };
-            PostsWithImagesAjax(currentPage);
-        });
-    }
+    prevButton.addEventListener('click', () => {
+        nextButton.classList.remove("hidden");
+        const currentPage = --imgPostsCurrentPage;
+
+        if(imgPostsCurrentPage === 1) {
+            prevButton.classList.add("hidden");
+        };
+        PostsWithImagesAjax(currentPage);
+    });
+
     nextButton.addEventListener('click', () => {
-        prevButton.classList.add("hidden");
+        prevButton.classList.remove("hidden");
         if(imgPostsCurrentPage < imgPostsCurrentRealEnd ) {
             nextButton.classList.remove("hidden");
             PostsWithImagesAjax(++imgPostsCurrentPage);
@@ -729,7 +727,6 @@ const PostsWhthImagesPagenation = () => {
             nextButton.classList.add("hidden");
         }
     });
-    
 };
 //------------------------------------------------------------------------
 // ajax list

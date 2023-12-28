@@ -15,7 +15,7 @@
                                 <ul class="slides"></ul>
                             </div>
                             <div class="button-container" id="imgBntContainer">
-                                <button class="img-prev">
+                                <button class="img-prev hidden">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
                                 <button class="img-next">
