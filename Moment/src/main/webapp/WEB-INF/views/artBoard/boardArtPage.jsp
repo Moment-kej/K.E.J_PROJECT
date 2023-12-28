@@ -58,32 +58,6 @@
                         </div>
                        <!-- pagination -->
                         <div class="pagination d-flex justify-content-center" id="pagingBox">
-                            <!-- 5. 맨 처음으로 -->
-                            <button id="firstPage" class="firstpage pbtn">
-                                <i class="fa-solid fa-angles-left"></i>
-                            </button>
-                            
-                            <!-- 3.이전페이지네이션 -->
-                            <button id="beforePage" class="prevpage pbtn">
-                                <i class="fa-solid fa-angle-left"></i>
-                            </button>
-                            
-                            <!-- 1.페이지네이션 -->
-                            <c:forEach var="num" begin="${pageVO.start}" end="${pageVO.end}">
-                            <button class="pageNumber pbtn" data-page="${num}">
-                                <span class="pagenum ${pageVO.page == num ? 'currentpage' : '' }currentpage">${num}</span>
-                            </button>
-                            </c:forEach>
-                            
-                            <!-- 2.다음페이지네이션 -->
-                            <button id="afterPage" class="nextpage pbtn">
-                                <i class="fa-solid fa-angle-right"></i>
-                            </button>
-                            
-                            <!-- 4. 맨 마지막으로 -->
-                            <button id="lastPage" class="lastpage pbtn">
-                                <i class="fa-solid fa-angles-right"></i>
-                            </button>
                         </div>
                         <!-- pagination end -->
                          <div>
@@ -136,6 +110,11 @@ let amount;
  		let str1 = ``;
  		let str2 = ``;
  		let str3 = ``;
+ 		let page1 = ``;
+ 		let page2 = ``;
+ 		let page3 = ``;
+ 		let page4 = ``;
+ 		let page5 = ``;
  		let data = {
  				page:$('#criteriaPage').val(),
  				amount:amount,
@@ -149,7 +128,8 @@ let amount;
 				dataType: "json",
 				success: function(data){
 					console.log(data);
-					$("#contentList").empty();
+					$("#contentList").empty(); // 게시글 나올곳
+					$("#pagingBox").empty(); // 페이징 할 곳
 					// 리스트 타입일 때 나오도록
 					if(viewType == "listType" || viewType == null){
 						str1 = `<div>
@@ -256,10 +236,10 @@ let amount;
 							    } 
 						}
 					
-					console.log("data" + data.length);
 					});
 	
 					$("#contentList").append(str1 + str2 + str3);
+					$("#pagingBox").append(page1 + page2 + page3 + page4 + page5);
 					
 				}
 			}) 
@@ -281,7 +261,7 @@ let amount;
 	// 앨범 타입
 	$("#albumType").on("click", function(e) {
 		e.preventDefault();
-		type = "cardsType";
+		type = "albumType";
 		viewType(type);
 	});
 </script>
