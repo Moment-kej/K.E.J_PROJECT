@@ -35,8 +35,8 @@
                             <!-- book list rendering -->
                             <ul class="icon-data-list mt-2" id="bookList"></ul>
                             <!-- book list rendering -->
-
-                            <div class="d-flex justify-content-center inner-div">
+                            <!-- d-flex justify-content-center inner-div -->
+                            <div class="dookListBtn">
                                 <button type="button" class="btn btn-social-icon btn-rounded bookLeftBnt"><iconify-icon icon="formkit:caretleft"></iconify-icon></button>
                                 <button type="button" class="btn btn-social-icon btn-rounded bookRightBnt"><iconify-icon icon="formkit:caretright"></iconify-icon></button>
                             </div>
@@ -105,22 +105,14 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title">최신 게시글</p>
-                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                                <div class="container-fluid">
-                                    <div class="collapse navbar-collapse" id="categoryDropdown">
-                                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                            <li class="nav-item">
-                                                <a class="nav-link newBoardCategory selected" aria-current="page" data-cate="0">전체</a>
-                                            </li>
-                                            <c:forEach var="item" items="${code.CO}">
-                                            <li class="nav-item">
-                                                <a class="nav-link newBoardCategory" aria-current="page" data-cate="${item.commonDetailCd}">${item.commonDetailName}</a>
-                                            </li>
-                                            </c:forEach>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </nav>
+                            <!-- new board menu -->
+                            <div id="newBoardMenu" class="d-flex justify-content-center">
+                                <ul id="newBoardMainCategory">
+                                    <li>
+                                        <a data-cate="0" class="newBoardCategory selected">전체</a>
+                                    </li>
+                                </ul>
+                            </div>
                             <!-- new board rendering -->
                             <div id="newBoardList"></div>
                             <!-- new board pagenation -->
@@ -135,6 +127,7 @@
                         <div class="card-body">
                         <div>
                             <p class="card-title">인기 게시글</p>
+                            <!-- top board menu -->
                             <div id="menu" class="d-flex justify-content-center">
                                 <ul id="mainCategory">
                                     <li>
@@ -247,4 +240,4 @@
             </div> -->
         </div>
     </div>
-    <script type="module" src="${pageContext.request.contextPath}/assets/js/mainPage/mainPage.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/assets/js/common/main/index.js"></script>

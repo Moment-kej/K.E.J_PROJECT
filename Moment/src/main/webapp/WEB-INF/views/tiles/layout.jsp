@@ -38,7 +38,10 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/soomin/boardInsert.css">
 	<!-- Board Update Css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/soomin/boardUpdate.css">
-	
+	<!-- user info css -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/identification.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/myInfo.css">
+
 	
 	<!-- Plugin Css for this page -->
 	<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css"> -->
@@ -73,6 +76,9 @@
 	<!-- CK Editor -->
 	<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/super-build/ckeditor.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/super-build/translations/ko.js"></script>
+	
+	<!-- kakao address api -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
 </head>
 

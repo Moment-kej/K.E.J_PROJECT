@@ -1,4 +1,4 @@
-import { firstContextPath, ajaxRequest, formatTime_hhmm, boardNumber, formatTime_hhmmss } from "../common/common.js";
+import { firstContextPath, ajaxRequest, formatTime_hhmm, boardNumber, formatTime_hhmmss } from "../../common/common.js";
 
 //--url pathname 추출------------------------------------
 const firstPath = firstContextPath;   // '/moment' 가져오기

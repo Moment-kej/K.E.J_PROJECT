@@ -63,4 +63,4 @@
     </div>
 </div>
 <script type="module" src="${pageContext.request.contextPath}/assets/js/ckeditor/ckaditorSuperBuild.js"></script>
-<script type="module" src="${pageContext.request.contextPath}/assets/js/boardDressInsertPage/index.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/assets/js/dress/boardDressInsert/index.js"></script>

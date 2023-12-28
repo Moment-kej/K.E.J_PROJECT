@@ -1,5 +1,5 @@
 import { pagenation, pagenationNumber } from "./pagenation.js";
-import { formatTime_hhmm, firstContextPath } from "../common/common.js";
+import { formatTime_hhmm, firstContextPath, getUrlParam } from "../../common/common.js";
 
 const contentContainer = document.getElementById('boardList');
 const contextPath = firstContextPath;
@@ -160,7 +160,7 @@ const createPostElement = (post) => {
             albumTypeDiv_1_2_2.className = 'date_num';
 
             let albumTypeDiv_1_2_2_sapn_1 = document.createElement('span');     // 시간
-            albumTypeDiv_1_2_2_sapn_1.innerText = boardWriteDt;
+            albumTypeDiv_1_2_2_sapn_1.innerText = boardWriteDt + ' ';
             albumTypeDiv_1_2_2.appendChild(albumTypeDiv_1_2_2_sapn_1);
 
             let albumTypeDiv_1_2_2_sapn_2 = document.createElement('span');     // 조회수
@@ -239,7 +239,7 @@ const createPostElement = (post) => {
             
             //제목
             const cardTypeTitleArea = document.createElement('div');
-            cardTypeTitleArea.className = 'cardTypeTitleArea';
+            cardTypeTitleArea.classList.add('cardTypeTitleArea', 'mt-1');
             let cards_span = document.createElement('span');
             cards_span.innerText = boardTitle;
             cards_span.className = 'album_title';
@@ -267,7 +267,7 @@ const createPostElement = (post) => {
 
             //조회수
             let coardsView_span = document.createElement('span');
-            coardsView_span.innerText = ' ⦁ 조회 ' + boardView;
+            coardsView_span.innerHTML = '&nbsp;⦁ 조회 ' + boardView;
             cardTypeInfoArea.appendChild(coardsView_span);
 
             cardsTypeDiv.appendChild(cardTypeInfoArea);
@@ -393,9 +393,16 @@ if(criteriaListType == ''){
 // 게시글 양식에 맞춰 렌더링
 export const boardListFormChang = () => {
     const boardListFormChang = document.querySelectorAll('.boardListFormChangeBtn');
-    const defualtListType =  document.querySelector('.boardType[data-type="cardsType"]');
-
-    defualtListType.setAttribute('src', contextPath + '/assets/icon/sortCardSelected.svg');
+    let currentListType = document.querySelector('.boardType[data-type="' + getUrlParam('listType') + '"]');
+    
+    if(getUrlParam('listType') === null || getUrlParam('listType') == 'cardsType'){
+        currentListType =  document.querySelector('.boardType[data-type="cardsType"]');
+        currentListType.setAttribute('src', contextPath + '/assets/icon/sortCardSelected.svg');
+    } else if(getUrlParam('listType') == 'listType') {
+        currentListType.setAttribute('src', contextPath + '/assets/icon/sortListSelected.svg');
+    } else if(getUrlParam('listType') == 'albumType') {
+        currentListType.setAttribute('src', contextPath + '/assets/icon/sortAlbumSelected.svg');
+    };
 
     boardListFormChang.forEach(function(link) {
         link.addEventListener('click', function() {
@@ -424,7 +431,6 @@ export const boardListFormChang = () => {
     // 모든 아이콘을 원래대로 돌리는 함수
     function resetIcons() {
         const allIcons = document.querySelectorAll('.boardType');
-
         allIcons.forEach(function (icon) {
             contentContainer.innerHTML = '';
             var dataTypeAttribute = icon.getAttribute('data-type');
@@ -437,7 +443,7 @@ export const boardListFormChang = () => {
                 icon.setAttribute('src', contextPath + '/assets/icon/sortCard.svg');
             }
         });
-    }
+    };
 };
 
 // 선택된 카테고리 색상 변경

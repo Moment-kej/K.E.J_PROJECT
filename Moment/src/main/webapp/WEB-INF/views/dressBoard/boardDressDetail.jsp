@@ -170,4 +170,4 @@
     </div>
 </div>
 
-<script type="module" src="${pageContext.request.contextPath}/assets/js/boardDressDetailPage/index.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/assets/js/dress/boardDressDetail/index.js"></script>

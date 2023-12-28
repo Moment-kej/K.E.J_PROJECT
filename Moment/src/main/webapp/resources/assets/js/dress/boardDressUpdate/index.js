@@ -1,5 +1,5 @@
-import { firstContextPath, boardNumber, ajaxRequest } from "../common/common.js";
-import { getData, setData } from "../ckeditor/ckaditorSuperBuild.js"
+import { firstContextPath, boardNumber, ajaxRequest } from "../../common/common.js";
+import { getData, setData } from "../../ckeditor/ckaditorSuperBuild.js"
 
 const firstPath = firstContextPath;   // '/moment' 가져오기
 

@@ -1,4 +1,4 @@
-import { firstContextPath } from "../common/common.js";
+import { firstContextPath } from "../../common/common.js";
 const contextPath = firstContextPath;
 
 export const pagenation = () => {

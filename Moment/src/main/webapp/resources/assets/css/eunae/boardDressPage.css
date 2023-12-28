@@ -153,9 +153,6 @@ fieldset {border : none !important;}
     width: 100%;
 }
 .postAlbumType > li {
-    /* display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px; */
     border-bottom: 1px solid #eeeeef;
     padding: 16px 0;
     display: block;

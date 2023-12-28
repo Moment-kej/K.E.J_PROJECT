@@ -62,8 +62,6 @@
                             </div>
                             <!--확인용 -->
                             <div id="dataCheck" class="display">
-                                <p>확인용 >> ${criteria}</p>
-                                <p>확인용 >> ${pageVO}</p>
                                 <input type="hidden" name="page"        id="criteriaPage" value="${criteria.page}">
                                 <input type="hidden" name="amount"      id="criteriaAmount" value="${criteria.amount}">
                                 <input type="hidden" name="category"    id="criteriaCategory" value="${criteria.category}">
@@ -133,4 +131,4 @@
         </div>
     </div>
 </div>
-<script type="module" src="${pageContext.request.contextPath}/assets/js/boardDressAllListPage/index.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/assets/js/dress/boardDressAllList/index.js"></script>
