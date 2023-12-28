@@ -125,6 +125,7 @@
 			 , yn
 		  FROM reply
 		 WHERE board_no = #{boardNo}
+		   AND yn = 1
 		 ORDER BY write_dt DESC
 	</select>
 
