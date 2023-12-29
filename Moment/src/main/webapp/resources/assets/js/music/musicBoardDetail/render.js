@@ -21,10 +21,10 @@ export const createReplyBox = (data) => {
       createAndAppendElement(btnContainer, 'button', { class: 'deleteBtnBox' }, '<i class="fa-solid fa-trash commentDelBtn"></i>');
       const commentContent = createAndAppendElement(commentArea, 'div', { class: 'commentContent' });
       createAndAppendElement(commentContent, 'span', {}, item.content)
-      createAndAppendElement(commentArea, 'div', { class: 'commentWirterBtnBox' }, '<button type="button" id="commentWriteBtn">답글작성</button>');
+      createAndAppendElement(commentArea, 'div', { class: 'commentWirterBtnBox' }, '<button type="button" class="commentWriteBtn">답글작성</button>');
       // 답글 작성 폼
-      const comment_area = createAndAppendElement(listElement, 'div', { class: 'comment_area' });
-      const commentWriteBox = createAndAppendElement(comment_area, 'div', {id : 'commentWriteBox', class: 'pl-4'})
+      const comment_area = createAndAppendElement(listElement, 'div', { class: 'comment_write_area displayNone' });
+      const commentWriteBox = createAndAppendElement(comment_area, 'div', { class: 'commentWriteBox pl-4'})
       const commentWriter = createAndAppendElement(commentWriteBox, 'div', { class: 'commentWriter' });
       const commentInbox = createAndAppendElement(commentWriter, 'div', { class: 'comment_inbox' });
       createAndAppendElement(commentInbox, 'span', { class: 'comment_inbox_name' }, '똥심');
