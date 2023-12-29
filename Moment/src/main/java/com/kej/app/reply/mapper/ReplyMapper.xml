@@ -116,7 +116,7 @@
 	<select id="musicReplyAllList" resultType="ReplyVO">
 		SELECT reply_no
 			 , board_no
-			 , group_no
+			 , group_ord
 			 , group_layer
 			 , id
 			 , content
