@@ -9,8 +9,10 @@
 
 /* Board Insert */
 @import url(soomin/boardInsert.css);
+
 /* Board Update */
 @import url(soomin/boardUpdate.css);
+
 /* User Info */
 @import url(user/identification.css);
 @import url(user/myInfo.css);

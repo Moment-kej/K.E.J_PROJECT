@@ -1,6 +1,5 @@
 package com.kej.app.board.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -293,7 +292,7 @@ public class BoardController {
 		Map<String, Object> response = new HashMap<>();
 		response.put("data", musicService.musicBoardAllList(cri));
 		response.put("paging", pageVO);
- 		System.out.println(response);
+		
  		return response;
  	}
         
