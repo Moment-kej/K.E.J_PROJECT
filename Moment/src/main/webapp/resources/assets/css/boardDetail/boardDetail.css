@@ -230,9 +230,12 @@ button {
    padding: 10px 0px;
 }
 
-.commentBox .commentReply {
-	padding-left: 45px;
+.commentBox .comment_write_area {
+	border-top: 1px solid #E2E4F0;
+	padding: 10px 0px 10px 45px;
 }
+
+
 
 /* User Info */
 .commentBox .replyUserImgBox {

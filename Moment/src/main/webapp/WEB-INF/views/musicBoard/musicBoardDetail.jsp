@@ -190,8 +190,8 @@
                 <!-- 원댓글 작성 폼 -->
                 <div class="commentWriter">
                   <div class="comment_inbox">
-                    <span class="comment_inbox_name">똥심</span>
-                    <textarea placeholder="댓글을 남겨보세요 (여기는 기본 댓글 창)"></textarea>
+                    <span id="replyWriter" class="comment_inbox_name">똥심</span>
+                    <textarea id="replyTextrea" placeholder="댓글을 남겨보세요"></textarea>
                   </div>
                   <div class="comment_attach d-flex justify-content-between align-items-center">
                     <div class="comment_box_write_count">
@@ -200,8 +200,7 @@
                       <span class="fontSizeSmall comment_box_write_total">500</span>
                     </div>
                     <div class="register_box">
-                      <button class="button">취소</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
-                      <button class="button">등록</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
+                      <button id="replyWriteBtn" class="button">등록</button><!-- 은애언니, 수민 여기 a tag -> button tag-->
                     </div>
                   </div>
                 </div><!-- 원댓글 작성 폼 End -->

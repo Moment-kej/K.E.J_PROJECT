@@ -65,13 +65,14 @@
 	<!--<script src="assets/vendors/datatables.net/jquery.dataTables.js"></script>-->
 	
 	<!-- End plugin js for this page -->
+	
 	<!-- inject:js -->
 	<script src="${pageContext.request.contextPath}/assets/js/off-canvas.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/hoverable-collapse.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/template.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/settings.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/todolist.js"></script>
-	<!-- end inject -->
+	<!-- End Inject -->
 	
 	<!-- Custom js for this page-->
 	<!-- <script src="${pageContext.request.contextPath}/assets/js/dashboard.js"></script> -->

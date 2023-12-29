@@ -4,7 +4,7 @@ export const createReplyBox = (data) => {
    const comment_area_box = document.getElementById("comment_area_box");
 
    data.map((item) => {
-      console.log(item);
+      //console.log(item);
       let writeDt = formatTime_hhmmss(item.writeDt)
       const listElement = createAndAppendElement(comment_area_box, 'li', { class: 'commentItem pt-1' });
       const commentArea = createAndAppendElement(listElement, 'div', { class: 'comment_area' });
@@ -24,10 +24,10 @@ export const createReplyBox = (data) => {
       createAndAppendElement(commentArea, 'div', { class: 'commentWirterBtnBox' }, '<button type="button" class="commentWriteBtn">답글작성</button>');
       // 답글 작성 폼
       const comment_area = createAndAppendElement(listElement, 'div', { class: 'comment_write_area displayNone' });
-      const commentWriteBox = createAndAppendElement(comment_area, 'div', { class: 'commentWriteBox pl-4'})
+      const commentWriteBox = createAndAppendElement(comment_area, 'div', { class: 'commentWriteBox'})
       const commentWriter = createAndAppendElement(commentWriteBox, 'div', { class: 'commentWriter' });
       const commentInbox = createAndAppendElement(commentWriter, 'div', { class: 'comment_inbox' });
-      createAndAppendElement(commentInbox, 'span', { class: 'comment_inbox_name' }, '똥심');
+      createAndAppendElement(commentInbox, 'span', { class: 'comment_inbox_name' }, item.id);
       createAndAppendElement(commentInbox, 'textarea', { placeholder: '댓글을 남겨보세요 (여기는 버튼 누르면 나타나는 거임)' });
       const commentAttach = createAndAppendElement(commentWriter, 'div', { class: 'comment_attach d-flex justify-content-between align-items-center' });
       const commentBoxWriteCount = createAndAppendElement(commentAttach, 'div', { class: 'comment_box_write_count' });

@@ -128,5 +128,30 @@
 		   AND yn = 1
 		 ORDER BY write_dt DESC
 	</select>
+	
+	<insert id="musicReplyInsert" parameterType="ReplyVO">
+		<selectKey keyProperty="replyNo" resultType="java.lang.Integer" order="BEFORE">
+			SELECT nextval('reply_no_seq')
+		</selectKey>
+		INSERT 
+		  INTO reply ( 
+		  	   reply_no
+			 , board_no
+			 , group_ord
+			 , group_layer
+			 , id
+			 , content
+			 , write_dt
+			 , yn )
+		VALUES ( 
+			   #{replyNo}
+			 , #{boardNo}
+			 , #{groupOrd}
+			 , #{groupLayer}
+			 , #{id}
+			 , #{content}
+			 , now()
+			 , 1 )
+	</insert>
 
 </mapper>

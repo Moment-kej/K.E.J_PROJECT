@@ -92,7 +92,7 @@ export const boardNumber = () => {
 // =====================================================================================
 export const pathNameOfBoardNumber = () => {
     const pathNameOfBoardNo = parseInt(window.location.pathname.split("/").pop());
-    console.log(pathNameOfBoardNo);
+    
     return pathNameOfBoardNo;
 }
 // =====================================================================================

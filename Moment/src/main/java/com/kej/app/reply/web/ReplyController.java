@@ -55,7 +55,7 @@ public class ReplyController {
 	
 	
 	// --- Minjin Start --------------------------------------------------------
-	// reply 조회
+	// 댓글 조회
 	@RequestMapping(value = "/music/reply-data", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ReplyVO> musicReplyAllList(ReplyVO vo) {
@@ -63,15 +63,16 @@ public class ReplyController {
 		return service.musicReplyAllList(vo);
 	}
 	
-	// 리뷰 등록
-//	@PostMapping("/music")
-//	@ResponseBody
-//	public int musicReplyInsert(ReplyVO vo) {
-//
-//		return 0;
-//	}
+	// 댓글 등록
+	@PostMapping("/music")
+	@ResponseBody
+	public int musicReplyInsert(@RequestBody ReplyVO vo) {
+		System.out.println("VO를 알고싶어서 찍어봤다 값을 내놔라" + vo);
+		
+		return service.musicReplyInsert(vo);
+	}
 
-	// 리뷰 수정
+	// 댓글 수정
 //	@PutMapping("/music")
 //	@ResponseBody
 //	public int musicReplyUpdate(ReplyVO vo) {
@@ -79,7 +80,7 @@ public class ReplyController {
 //		return 0;
 //	}
 
-	// 리뷰 삭제
+	// 댓글 삭제
 //	@DeleteMapping("/music")
 //	@ResponseBody
 //	public int musicReplyDelete(ReplyVO vo) {
