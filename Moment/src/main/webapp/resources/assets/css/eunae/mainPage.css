@@ -217,6 +217,9 @@ a {
     color: rgb(240, 72, 128);
 }
 /* 게시글 이미지 목록 */
+.imgNotPostContainer {
+    height: 340px;
+}
 .slide_wrapper{
     position: relative;
     width: 100%;
@@ -235,7 +238,7 @@ a {
 .boardImgStyle {
     width: 100%;
     height: 230px;
-    border-radius: 15px;
+    border-radius: 15px 15px 0 0;
 }
 .boardInformation {
     text-align: left !important;
@@ -250,6 +253,12 @@ a {
 }
 .boardInformation .boardTitle {
     font-weight: bold;
+    /* max-height: 4.6em; */
+    display: -webkit-box;
+    line-height: 20px;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .categoryArea span {
     font-size: 12px;
@@ -258,14 +267,17 @@ a {
     transition: 0.5s ease-out;
 }
 .slides li{
-    display: inline-block;
+    /* display: inline-block; */
     width: 22%;
     height: 400px;
     list-style: none;
     border: 1px solid rgb(233, 230, 230);
     border-radius: 15px;
+    float: left;
+    margin-left: 20px;
 }
 /* 막내빼고는 다른 li에 마진 */
-.slides li:not(:last-child){ 
-    margin-right: 20px;
-}
+/* .slides li:not(:last-child){ 
+    
+    
+} */

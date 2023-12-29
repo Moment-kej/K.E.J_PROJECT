@@ -631,14 +631,23 @@ const formatMoney = (money) => {    // 금액 포맷
 const PostsWithImagesAjax = (page) => {
     const data = { page: parseInt(page), amount : 4 };
     const callback = (data) => {
+        console.log(data.paging);
         const page = parseInt(data.paging.page);
         const realEnd = parseInt(data.paging.realEnd);
         imgPostsCurrentPage = page;
-        imgPostsCurrentRealEnd = realEnd;
         document.querySelector('.slides').innerHTML = '';
-        data.data.map(item => {
-            PostsWithImagesRender(item, document.querySelector('.slides'));
-        });
+        document.querySelector('.slides').id = 'totalPage_' + realEnd;
+        if(data.data != ''){
+            data.data.map(item => {
+                PostsWithImagesRender(item, document.querySelector('.slides'));
+            });
+        } else {
+            const container = document.querySelector('.slides');
+            const innerContainer = createAndAppendElement(container, 'div', {class: "imgNotPostContainer position-relative"});
+            createAndAppendElement(innerContainer, 'h3', {class: "imgNotPost position-absolute top-50 start-50 translate-middle"}, '사진이 포함된 게시글이 없습니다.');
+            container.appendChild(innerContainer);
+            document.querySelector('.img-next').classList.add("hidden");
+        }
     };
     ajaxRequest(firstPath + '/board/imgIn', 'GET', data, callback);
 };
@@ -704,27 +713,28 @@ const extractContent = (data) => {
     };
 };
 let imgPostsCurrentPage = 1;
-let imgPostsCurrentRealEnd = 4;
 const PostsWhthImagesPagenation = () => {
     const prevButton = document.querySelector('.img-prev');
     const nextButton = document.querySelector('.img-next');
     prevButton.addEventListener('click', () => {
         nextButton.classList.remove("hidden");
         const currentPage = --imgPostsCurrentPage;
-
         if(imgPostsCurrentPage === 1) {
             prevButton.classList.add("hidden");
         };
         PostsWithImagesAjax(currentPage);
     });
-
+    
     nextButton.addEventListener('click', () => {
+        const realEnd = parseInt(document.querySelector('.slides').getAttribute("id").split("_")[1]);
+        const currentPage = ++imgPostsCurrentPage;
         prevButton.classList.remove("hidden");
-        if(imgPostsCurrentPage < imgPostsCurrentRealEnd ) {
-            nextButton.classList.remove("hidden");
-            PostsWithImagesAjax(++imgPostsCurrentPage);
-        } else {
+        if(imgPostsCurrentPage == realEnd) {
+            PostsWithImagesAjax(currentPage);
             nextButton.classList.add("hidden");
+        } else {
+            nextButton.classList.remove("hidden");
+            PostsWithImagesAjax(currentPage);
         }
     });
 };
