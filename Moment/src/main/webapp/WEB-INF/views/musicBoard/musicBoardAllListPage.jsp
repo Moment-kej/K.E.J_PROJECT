@@ -51,7 +51,7 @@
                         <div id="boardList"></div>
 
                         <!--게시글 양식에 맞춰 게시글 목록 나오는 장소-->
-                        <div class="contentNotData displyNone">
+                        <div class="contentNotData displayNone">
                             <div class="d-flex justify-content-center inner-div">
                                 <h3> 데이터가 없을시 "조회할 게시글이 없습니다." 라는 문구가 나오게 하기</h3>
                             </div>
