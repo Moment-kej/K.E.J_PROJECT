@@ -1,9 +1,9 @@
 import { ajaxRequest, pathNameOfBoardNumber, firstContextPath} from '../../common/common.js';
 import { createReplyBox } from './render.js';
-
+let boardNo = pathNameOfBoardNumber();
 // =====================================================================================
 const replyShowContent = (() => {
-   const data = { boardNo : pathNameOfBoardNumber()};
+   const data = { boardNo : boardNo };
    const callback = (data) => {
       createReplyBox(data);
    }
@@ -15,7 +15,7 @@ const replyInsert = (() => {
    let content = document.getElementById("replyTextrea").value;
    console.log("id: " + id + "content: " + content);
    const data = JSON.stringify({ 
-      boardNo: pathNameOfBoardNumber(),
+      boardNo: boardNo,
 		groupOrd: 0,
 		groupLayer: 0,
 		id: id,
