@@ -1,37 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<style>
-    .titleATag {
-        color: #676767;
-        font-weight: 400;
-    }
-    .noUpPage {
-        opacity: 0;
-        cursor: context-menu;
-    }
-    .hrStyle {
-        border-bottom-style : inset;
-        border-bottom-color: #E2E4F0;
-        border-bottom-width: thin;
-    }
-    .hrStyleChildReply {
-        border-top-style : inset;
-        border-top-color: #ffffff4f;
-        border-top-width: thin;
-    }
-    .hidden {
-        display: none;
-    }
-    .selected, .selected a {
-        color: black;
-        font-weight: bold !important;
-    }
-    .modifyBtnBox, .deleteBtnBox {
-        cursor: pointer !important;
-    }
-</style>
 <div class="main-panel">
     <div class="content-wrapper">
     <div class="row">

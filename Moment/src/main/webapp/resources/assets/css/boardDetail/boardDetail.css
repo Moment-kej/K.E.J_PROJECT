@@ -267,7 +267,10 @@ button {
    all: unset !important;
 }
 
-.commentBox .commentBtnBox .commentModifyBtn, .commentDelBtn {
+.commentBox .commentBtnBox .commentModifyBtn,
+.commentDelBtn,
+.childCommentBtnBox .childCommentModifyBtnBox .childCommentModifyBtn,
+.childCommentBtnBox .childCommentDeleteBtnBox .childCommentDelBtn {
    font-size: 15px;
    margin-left: 13px;
    color: #afafaf;
@@ -408,4 +411,23 @@ button {
 
 .alignRight {
    text-align: right;
+}
+
+/* eunae plus css */
+.titleATag {                 /* 관련게시글 제목 css */
+   color: #676767;
+   font-weight: 400;
+}
+.selected, .selected a {    /* 관련게시글 : 현재 선택된 글 표시 */
+   color: black;
+   font-weight: bold !important;
+}
+.noUpPage {                /* 이전글 버튼 숨기기 */
+   display: none;
+}
+.hidden {                  /* 숨기기 전용 클래스 */
+   display: none;
+}
+.modifyBtnBox, .deleteBtnBox {   /* 버튼 커서 설정 */ 
+   cursor: pointer !important;
 }
