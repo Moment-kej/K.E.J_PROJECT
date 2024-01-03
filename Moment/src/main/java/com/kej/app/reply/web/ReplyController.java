@@ -67,7 +67,6 @@ public class ReplyController {
 	@PostMapping("/music")
 	@ResponseBody
 	public int musicReplyInsert(@RequestBody ReplyVO vo) {
-		System.out.println("VO를 알고싶어서 찍어봤다 값을 내놔라" + vo);
 		
 		return service.musicReplyInsert(vo);
 	}
@@ -81,12 +80,12 @@ public class ReplyController {
 //	}
 
 	// 댓글 삭제
-//	@DeleteMapping("/music")
-//	@ResponseBody
-//	public int musicReplyDelete(ReplyVO vo) {
-//		
-//		return 0;
-//	}
+	@DeleteMapping("/music/{replyNo}")
+	@ResponseBody
+	public int musicReplyDelete(@PathVariable(required = false) Integer replyNo) {
+		
+		return service.musicReplyDelete(replyNo);
+	}
 	
 	
 	

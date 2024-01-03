@@ -274,6 +274,7 @@ button {
    font-size: 15px;
    margin-left: 13px;
    color: #afafaf;
+   cursor: pointer;
 }
 
 .commentBox .commentContent {

@@ -1,6 +1,7 @@
 package com.kej.app.reply.mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.kej.app.reply.service.vo.ReplyVO;
 
@@ -15,8 +16,8 @@ public interface ReplyMapper {
 	
 	
 	// --- Minjin Start --------------------------------------------------------
-	public List<ReplyVO> musicReplyAllList(ReplyVO vo); //댓글 조회
-	public int musicReplyInsert(ReplyVO vo);	// 댓글 등록
-	public int musicReplyUpdate(ReplyVO vo);	// 댓글 수정
-	public int musicReplyDelete(int replyNo);	// 댓글 삭제
+	public List<ReplyVO> musicReplyAllList(ReplyVO vo); // 댓글 조회
+	public int musicReplyInsert(ReplyVO vo);			// 댓글 등록
+	public int musicReplyUpdate(ReplyVO vo);			// 댓글 수정
+	public int musicReplyDelete(Integer replyNo);			// 댓글 삭제
 }

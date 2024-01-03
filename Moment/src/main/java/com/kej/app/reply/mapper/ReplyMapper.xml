@@ -153,5 +153,11 @@
 			 , now()
 			 , 1 )
 	</insert>
+	
+	<update id="musicReplyDelete" parameterType="int">
+		UPDATE reply
+		   SET yn = 0
+		 WHERE reply_no = #{replyNo};
+	</update>
 
 </mapper>
