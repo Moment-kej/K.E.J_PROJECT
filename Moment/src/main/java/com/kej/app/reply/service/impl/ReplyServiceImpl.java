@@ -83,7 +83,7 @@ public class ReplyServiceImpl implements ReplyService {
 
 	// 댓글 삭제
 	@Override
-	public int musicReplyDelete(int replyNo) {
+	public int musicReplyDelete(Integer replyNo) {
 		
 		return rMapper.musicReplyDelete(replyNo);
 	}
