@@ -2,6 +2,58 @@ import { firstContextPath, ajaxRequest, formatTime_hhmm, formatTime_hhmmss } fro
 
 const firstPath = firstContextPath;
 
+// test
+const radioEvent = () => {
+    let radioButtons = document.querySelectorAll('input[type="radio"]');
+    let additionalInput = document.getElementById("type7Detail");
+    const radio_event = () => {
+        radioButtons.forEach(function(button) {
+            button.addEventListener('change', () => {
+                if(button.id === "type7") {
+                    additionalInput.classList.remove("hidden");
+                } else {
+                    additionalInput.classList.add("hidden");
+                }
+            });
+        });
+    };
+    radio_event();
+
+    const userDropDetailInput_event = () => {
+        const userDropOutDetailInput = document.getElementById("type7Detail");
+        if(userDropOutDetailInput) {
+            userDropOutDetailInput.addEventListener("input", () => {
+                if(userDropOutDetailInput.value.length > 50) {
+                    userDropOutDetailInput.value = userDropOutDetailInput.value.slice(0,50);
+                }
+            });
+        }
+    };
+
+    // ! 탈퇴버튼 눌렀으면 탈퇴를 시켜줘야하는데 하지않았다!
+    const userDropBtn_event = () => {
+        const userDropOutBtn = document.getElementById("userDropOutBtn");
+        userDropOutBtn.addEventListener('click', () => {
+            const userDropOutDetailInput = document.getElementById("type7Detail");
+            if(userDropOutDetailInput) {
+                if(userDropOutDetailInput.value == '') {
+                    console.log("마 글 적어라!");
+                } else {
+                    console.log("마 글 다 즈긋나!");
+                }
+            };
+        });
+    };
+
+    document.getElementById('userDropOut-tab').addEventListener('shown.bs.tab', function (event) {
+        console.log('회원탈퇴 탭이 활성화되었습니다.');
+        userDropDetailInput_event();
+        userDropBtn_event();
+    });
+};
+radioEvent();
+
+
 const handleFileSelect = () => {    // 프로필 사진 수정 버튼 이벤트
     const fileInput = document.getElementById('imageInput');
     fileInput.addEventListener('change', () => {
