@@ -209,6 +209,7 @@ public class BoardController {
 		
 		artList.put("artBoardList", artBoardList);
 		artList.put("pageVO", pageVO);
+		System.out.println("pageVO" + pageVO.toString());
 		
 		return artList;
 	}
