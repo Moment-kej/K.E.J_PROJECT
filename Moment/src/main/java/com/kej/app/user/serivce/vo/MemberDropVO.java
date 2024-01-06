@@ -1,4 +1,4 @@
-package com.kej.app.user.serivce;
+package com.kej.app.user.serivce.vo;
 
 import java.sql.Timestamp;
 

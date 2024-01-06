@@ -67,14 +67,7 @@
                                     <label>이메일</label>
                                     <input type="text" placeholder="이메일" id="info-email">
                                     <span>@</span>
-                                    <select>
-                                        <option>kakao</option>
-                                        <option>naver</option>
-                                        <option>nate</option>
-                                        <option>...</option>
-                                        <option>...</option>
-                                        <option>...</option>
-                                    </select>
+                                    <select id="email"></select>
                                 </div>
                             </div>
                             <div class="pt-4 d-flex align-content-center btn-containar">

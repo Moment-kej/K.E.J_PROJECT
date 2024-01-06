@@ -3,7 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kej.app.user.mapper.UserMapper">
-
+	<insert id="userDropOutReasonInsert" parameterType="MemberDropVO">
+		<selectKey keyProperty="dropNo" resultType="java.lang.Integer" order="BEFORE">
+				SELECT nextval('OUT_SEQ')
+		</selectKey>
+		INSERT INTO member_drop
+			(drop_no, reason, reason_detail, drop_dt, id )
+		VALUES 
+			(#{dropNo, jdbcType=INTEGER, javaType=Integer}, #{reason}, #{reasonDetail}, now(), #{id})
+	</insert>
 
 
 
