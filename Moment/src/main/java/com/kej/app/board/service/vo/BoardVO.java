@@ -25,4 +25,7 @@ public class BoardVO {
 	
 	//좋아요
 	private int likeCount;
+	
+	//boardNo 추출
+	private int currval;
 }

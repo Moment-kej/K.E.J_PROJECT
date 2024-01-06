@@ -38,7 +38,6 @@
 		 WHERE 1=1
 		   AND origin_no = #{originNo}
 		   AND group_layer = #{groupLayer}
-		   AND yn = 1
 		 ORDER BY reply_no
 	</select>
 	

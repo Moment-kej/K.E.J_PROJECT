@@ -13,6 +13,7 @@ public interface BoardMapper {
 	public List<BoardVO> dressBoradList(Criteria cri);
 	//board insert
 	public int boardInsert(BoardVO vo);
+	public int maxBoardNo();
 	//board detail
 	public BoardVO boardDressDetail(int BoardNo);	// 게시글
 	public int dressBoardViewCount(int boardNo);	// 게시글 조회수

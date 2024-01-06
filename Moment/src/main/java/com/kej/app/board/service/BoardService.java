@@ -13,6 +13,7 @@ public interface BoardService {
 	public List<BoardVO> dressBoradList(Criteria cri);
 	public int pagecount(Criteria cri);
 	public int boardInsert(BoardVO vo);
+	public int maxBoardNo();
 	public BoardVO boardDressDetail(int BoardNo);
 	public int dressBoardViewCount(int boardNo);
 	public List<BoardVO> getCombinedBoardList(BoardListVO vo);

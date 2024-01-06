@@ -60,5 +60,11 @@ public class CommonController {
 	public Map<String, List<CodeVO>> commonCode() {
 		return service.getCodes("CO", "CA");
 	}
+	
+	@RequestMapping(value="/dropOut", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, List<CodeVO>> commonCodeDropOut() {
+		return service.getCodes("DR");
+	}
 
 }

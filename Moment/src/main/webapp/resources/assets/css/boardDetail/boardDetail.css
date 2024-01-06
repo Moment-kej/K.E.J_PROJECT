@@ -277,6 +277,13 @@ button {
    cursor: pointer;
 }
 
+.childCommentDeleteBtnBox i:hover,
+.childCommentModifyBtnBox i:hover,
+.deleteBtnBox i:hover,
+.modifyBtnBox i:hover {
+   color: rgb(86, 86, 86) !important;
+}
+
 .commentBox .commentContent {
    margin-top: 10px;
    padding: 0px 3px;

@@ -175,6 +175,10 @@ public class BoardServiceImpl implements BoardService {
 		
 		return res;
 	}
+	@Override
+	public int maxBoardNo() {	// 게시글 시퀀스 현재값 가져오는 메소드
+		return bMapper.maxBoardNo();
+	}
 	// eunae -------------------------------------------------------
 
 	
@@ -195,6 +199,8 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> boardArtDetail(int BoardNo) {
 		return bMapper.boardArtDetail(BoardNo);
 	}
+
+	
 
 
 

@@ -1,15 +1,30 @@
-import { firstContextPath, ajaxRequest, formatTime_hhmm, formatTime_hhmmss } from "../../common/common.js";
+import { firstContextPath, ajaxRequest, createAndAppendElement, formatTime_hhmm, formatTime_hhmmss } from "../../common/common.js";
 
 const firstPath = firstContextPath;
 
-// test
+// 탈퇴사유 가져오기
+const dropOutRadioAjax = () => {
+    const callback = (data) => {
+        const dropOutReasonContainer = document.querySelector(".dropOutReason");
+        data.DR.map(item => {
+            const label = createAndAppendElement(dropOutReasonContainer, "label", {for : "DR" + item.commonDetailCd, class : "radio_box"}, item.commonDetailName);
+            createAndAppendElement(label, "input", {type: "radio", name: "DR", id: "DR" + item.commonDetailCd, value: item.commonDetailCd});
+            createAndAppendElement(label, "span", {class: "on"});
+        });
+        document.getElementById("DR1100").setAttribute("checked", "checked");
+        createAndAppendElement(dropOutReasonContainer, "input", {type: "text", id: "type7Detail", class: "hidden", placeholder: "50자 이내로 작성해주세요"});
+    };
+    ajaxRequest(firstPath+"/dropOut", "GET", {}, callback);
+};
+dropOutRadioAjax();
+
 const radioEvent = () => {
-    let radioButtons = document.querySelectorAll('input[type="radio"]');
-    let additionalInput = document.getElementById("type7Detail");
     const radio_event = () => {
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        const additionalInput = document.getElementById("type7Detail");
         radioButtons.forEach(function(button) {
             button.addEventListener('change', () => {
-                if(button.id === "type7") {
+                if(button.id === "DR1700") {
                     additionalInput.classList.remove("hidden");
                 } else {
                     additionalInput.classList.add("hidden");
@@ -17,7 +32,6 @@ const radioEvent = () => {
             });
         });
     };
-    radio_event();
 
     const userDropDetailInput_event = () => {
         const userDropOutDetailInput = document.getElementById("type7Detail");
@@ -35,18 +49,46 @@ const radioEvent = () => {
         const userDropOutBtn = document.getElementById("userDropOutBtn");
         userDropOutBtn.addEventListener('click', () => {
             const userDropOutDetailInput = document.getElementById("type7Detail");
-            if(userDropOutDetailInput) {
-                if(userDropOutDetailInput.value == '') {
-                    console.log("마 글 적어라!");
+            const checked = document.getElementById("dropOutAgreeOrNot").checked;
+
+            if(checked === false) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "회원 탈퇴 동의가 필요합니다.",
+                    didClose: function () {
+                        return false; // 제출 취소
+                    }
+                });
+            } else {
+                if(userDropOutDetailInput.getAttribute("class") != 'hidden') {
+                    console.log("input이 있는 상태");
+                    if(userDropOutDetailInput.value == '') {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "탈퇴 사유를 적어주세요",
+                            didClose: function () {
+                                userDropOutDetailInput.focus();
+                                return false; // 제출 취소
+                            }
+                        });
+                    } else {
+                        console.log("마 글 다 즈긋나!");
+                        // const data = {
+                        //     id : ,
+                        //     reason : ,
+                        //     reasonDetail : userDropOutDetailInput.value
+                        // };
+                    }
                 } else {
-                    console.log("마 글 다 즈긋나!");
-                }
+                    console.log("input이 없는 상태");
+                };
             };
         });
     };
 
     document.getElementById('userDropOut-tab').addEventListener('shown.bs.tab', function (event) {
         console.log('회원탈퇴 탭이 활성화되었습니다.');
+        radio_event();
         userDropDetailInput_event();
         userDropBtn_event();
     });

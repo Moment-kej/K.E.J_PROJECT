@@ -72,7 +72,7 @@ public class BoardController {
 	@RequestMapping(value="/dress/write", method = RequestMethod.GET)
 	public String boardDressInsert(Model model) {
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
-        
+        model.addAttribute("boardNo", service.maxBoardNo());
 		return "dressBoard/boardDressInsert";
 	}
 	// dress insert (AJAX)
