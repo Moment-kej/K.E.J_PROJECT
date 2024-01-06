@@ -18,7 +18,7 @@ const clearContent = () => {
    }
 };
 
-const replyInsertAjax = ((id, content) => {
+export const replyInsertAjax = ((id, content) => {
    const data = JSON.stringify({ 
       boardNo: boardNo,
 		groupOrd: 0,
@@ -36,6 +36,19 @@ const replyInsertAjax = ((id, content) => {
       // });
    }
    ajaxRequest(firstContextPath + "/reply/music", 'POST', data, callback);
+});
+
+export const replyUpdateAjax = ((content, replyNo) => {
+   const data = JSON.stringify({
+      content: content,
+      replyNo: replyNo,
+   });
+   console.log("content: ",content, "replyNo: ", replyNo);
+   const callback = () => {
+      clearContent();
+      replyShowContent();
+   };
+   ajaxRequest(firstContextPath + "/reply/music", 'PUT', data, callback);
 });
 
 const replyDeleteAjax = ((replyNo) => {
@@ -59,6 +72,10 @@ $().ready(() => {
    $(document).on("click", ".commentWriteBtn", (e) => {
       $(".comment_write_area").addClass("displayNone");
       $(e.target).parent().parent().next().removeClass("displayNone");
+      let textareaElement = $(e.target).closest(".comment_area").next().children().children().children().children().eq(1);
+      let registerBtnElement = $(e.target).closest(".comment_area").next().children().children().children().eq(1).children().eq(1).children().eq(1);
+      textareaElement.val("");
+      registerBtnElement.text("등록");
    });
 
    $("#replyWriteBtn").on("click", () => {
@@ -77,21 +94,18 @@ $().ready(() => {
             icon: "warning",
          });
       }
-      
    });
 
    $(document).on("click", ".commentModifyBtn", (e) => {
       let commentContent = $(e.target).closest(".comment_area").find('.commentContent').children().eq(0).text();
-      let commentWriteAreaElemente = $(e.target).parent().parent().parent().parent().next();
-      console.log(commentContent);
+      let commentWriteAreaElement = $(e.target).parent().parent().parent().parent().next();
 
       $(".comment_write_area").addClass("displayNone");
-      commentWriteAreaElemente.removeClass("displayNone");
-      commentWriteAreaElemente.children().children().find(".comment_inbox").children().eq(1).find("textarea").val(commentContent);
+      let registerBtnElement = $(e.target).closest(".comment_area").next().children().children().children().eq(1).children().eq(1).children().eq(1);
+      registerBtnElement.text("저장");
 
-      //console.log("comment_area: " + $(e.target).parent().parent().parent().parent().eq(0));
-      //$(e.target).closest(".comment_area").find(".comment_write_area").removeClass("displayNone");
-      // console.log("e.target" + $(e.target).closest('.comment_area').find('.comment_write_area').children().children().children().children());
+      commentWriteAreaElement.removeClass("displayNone");
+      commentWriteAreaElement.children().children().find(".comment_inbox").children().eq(1).val(commentContent);
    });
 
    $(document).on("click", ".commentDelBtn", (e) => {
@@ -118,6 +132,4 @@ $().ready(() => {
          }
       }); 
    });
-
-   
 })
