@@ -52,7 +52,7 @@
                 <div id="board_state_update">
                     <div class="replyBox d-flex justify-content-start align-items-center hrStyle pb-4 mb-2">
                         <div class="likeBox d-flex justify-content-start align-items-center">
-                            <span class="like"><i class="fa-regular fa-face-kiss-wink-heart"></i>좋아요</span>
+                            <span class="heart"><i class="fa-regular fa-face-kiss-wink-heart"></i>좋아요</span>
                             <span class="likeCount"></span>
                         </div>
                         <div class="replyCountBox d-flex justify-content-start align-items-center">

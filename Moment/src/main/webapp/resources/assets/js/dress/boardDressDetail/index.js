@@ -834,7 +834,41 @@ const boardRelatedPosts = () => {
     ajaxRequest(firstPath + '/board/dress/boardRelatedPosts', 'GET', data, callback);
 }
 // ------------------------------------------------------------
+// 게시글 좋아요
+const boardLikeAjax = () => {
+    const heart = document.querySelector(".heart").childNodes[0];
+    // ! id는 추후 spring security를 활용하여 진행해야 함.
+    const callback = (data) => {
+        // 빈 객체를 확인하는 방법
+        if(Object.keys(data).length != 0) {
+            heart.classList.add("likeUp");
+        };
+    };
+    ajaxRequest(firstPath + "/board/like", "GET", {boardNo : boardNumber, id: "user6"}, callback);
+};
+boardLikeAjax();
 
+const likeBtn = () => {
+    const heart = document.querySelector(".heart");
+    // ! id는 추후 spring security를 활용하여 진행해야 함.
+    heart.addEventListener("click", (e) => {
+        const callback = (data) => {
+            if(data == 1) {
+                if(e.target.classList.contains("likeUp")) {
+                    // console.log("likeUp 클래스가 있습니다.");
+                    e.target.classList.remove("likeUp");
+                } else {
+                    // console.log("likeUp 클래스가 없습니다.");
+                    e.target.classList.add("likeUp");
+                };
+                boardDetail();
+            };
+        };
+        ajaxRequest(firstPath + "/board/like", "POST", JSON.stringify({boardNo: boardNumber(), id: "user6"}), callback);
+    });
+};
+likeBtn();
+// ------------------------------------------------------------
 // board
 boardDetail();
 boardDelAtax();

@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -179,6 +180,22 @@ public class BoardServiceImpl implements BoardService {
 	public int maxBoardNo() {	// 게시글 시퀀스 현재값 가져오는 메소드
 		return bMapper.maxBoardNo();
 	}
+	@Override					// 게시글 좋아요 확인
+	public BoardVO findHeart(BoardVO vo) {
+		return bMapper.findHeart(vo);
+	}
+	@Override					// 게시글 좋아요 등록 및 삭제
+	public int boardLike(BoardVO vo) {
+		BoardVO find = bMapper.findHeart(vo);
+		int res = 0;
+		// find가 null이면 좋아요가 없는 상태이므로 정보 저장
+		if(find == null) {
+			res = bMapper.likeInsert(vo);
+		} else {
+			res = bMapper.likeDelete(vo);
+		}
+		return res;
+	}
 	// eunae -------------------------------------------------------
 
 	
@@ -199,6 +216,10 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> boardArtDetail(int BoardNo) {
 		return bMapper.boardArtDetail(BoardNo);
 	}
+
+
+
+
 
 	
 
