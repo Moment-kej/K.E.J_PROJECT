@@ -1,10 +1,10 @@
 package com.kej.app.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
-import com.kej.app.board.service.vo.PageVO;
 
 public interface MusicBoardService {
 	
@@ -15,5 +15,5 @@ public interface MusicBoardService {
 	
 	// Music 단건 조회
 	public BoardVO musicBoardDetail(int BoardNo);
-	
+	public Map<String, Object> musicBoardFirstAndLastNumber(BoardVO vo);
 }

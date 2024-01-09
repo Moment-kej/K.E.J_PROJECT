@@ -1,7 +1,6 @@
 package com.kej.app.reply.mapper;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.kej.app.reply.service.vo.ReplyVO;
 

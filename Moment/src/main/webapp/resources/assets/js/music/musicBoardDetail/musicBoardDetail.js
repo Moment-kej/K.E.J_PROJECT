@@ -48,7 +48,7 @@ export const replyUpdateAjax = ((content, replyNo) => {
       clearContent();
       replyShowContent();
    };
-   ajaxRequest(firstContextPath + "/reply/music", 'PUT', data, callback);
+   ajaxRequest(firstContextPath + "/reply/music", "PUT", data, callback);
 });
 
 const replyDeleteAjax = ((replyNo) => {
@@ -59,14 +59,91 @@ const replyDeleteAjax = ((replyNo) => {
       clearContent();
       replyShowContent();
    }
-   ajaxRequest(firstContextPath + "/reply/music/" + replyNo, 'DELETE', data, callback);
+   ajaxRequest(firstContextPath + "/reply/music/" + replyNo, "DELETE", data, callback);
 });
+
+const pageUpDown = (() => {
+   const data = {code: 20};
+   const callback = (data) => {
+      const firstBoardNo = parseInt(data.first.boardNo);
+      const lastBoardNo = parseInt(data.last.boardNo);
+      switch (true) {
+         case lastBoardNo === boardNo:
+            Swal.fire({
+               title: "마지막 페이지 입니다.",
+               icon: "info",
+            });
+            $("#pageUp").css("display", "none");
+         break;
+   
+         case firstBoardNo === boardNo:
+            Swal.fire({
+               title: "첫번째 페이지 입니다.",
+               icon: "info",
+            });
+            $("#pageDown").css("display", "none");
+         break;
+   
+         default:
+            // 기본 동작
+            break;
+      }
+      if(lastBoardNo == boardNo) {
+         Swal.fire({
+            title: "마지막 페이지 입니다.",
+            icon: "info",
+         });
+      } else if(lastBoardNo != boardNo) {
+         location.href = firstContextPath + '/board/music/' + parseInt(boardNo + 1);
+      }
+   }
+   ajaxRequest(firstContextPath + "/board/music-boardNo-number", "GET", data, callback);
+})
 
 // =====================================================================================
 $().ready(() => {
    replyShowContent();
+   
    $("#goAllList").on("click", () => {
       location.href = firstContextPath + "/board/music"
+   });
+
+   $("#pageUp").on("click", () => {
+      const data = {code: 20};
+      const callback = (data) => {
+         const lastBoardNo = parseInt(data.last.boardNo);
+         if(lastBoardNo == boardNo) {
+            Swal.fire({
+               title: "마지막 게시글 입니다.",
+               icon: "info",
+            });
+            $("#pageUp").hide();
+         } else if(lastBoardNo != boardNo) {
+            location.href = firstContextPath + '/board/music/' + parseInt(boardNo + 1);
+         }
+      }
+      ajaxRequest(firstContextPath + "/board/music-boardNo-number", "GET", data, callback);
+   });
+
+   $("#pageDown").on("click", () => {
+      const data = {code: 20};
+      const callback = (data) => {
+         const firstBoardNo = parseInt(data.first.boardNo);
+         if(firstBoardNo == boardNo) {
+            Swal.fire({
+               title: "첫번째 게시글 입니다.",
+               icon: "info",
+            });
+            $("#pageDown").hide();
+         } else if(firstBoardNo != boardNo) {
+            location.href = firstContextPath + '/board/music/' + parseInt(boardNo - 1);
+         }
+      }
+      ajaxRequest(firstContextPath + "/board/music-boardNo-number", "GET", data, callback);
+   });
+
+   $("#likeIcon").on("click", (e) => {
+      console.log(e.target);
    });
 
    $(document).on("click", ".commentWriteBtn", (e) => {

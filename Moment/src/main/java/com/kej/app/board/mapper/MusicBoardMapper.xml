@@ -36,8 +36,24 @@
   	<select id="pageCount" resultType="int">
   		 SELECT COUNT(*)
 		   FROM board
-		  WHERE code = 20
+		  WHERE code = #{code}
 		    AND yn = 1
+  	</select>
+  	
+  	<select id="musicBoardFirstNumber" resultType="BoardVO">
+  		SELECT board_no
+  		  FROM board
+  		 WHERE code = #{code}
+  		 ORDER BY board_no asc 
+  		 LIMIT 1
+  	</select>
+  	
+  	<select id="musicBoardLastNumber" resultType="BoardVO">
+  		SELECT board_no
+  		  FROM board
+  		 WHERE code = #{code}
+  		 ORDER BY board_no DESC 
+  		 LIMIT 1
   	</select>
   	
   	<!--  Music 단건 조회 -->
@@ -62,7 +78,7 @@
 		  FROM board b
 		 WHERE b.yn = 1
 		   AND board_no = #{boardNo}
-		   AND code = 20;
+		   AND code = 20
   	</select>
   	
   </mapper>

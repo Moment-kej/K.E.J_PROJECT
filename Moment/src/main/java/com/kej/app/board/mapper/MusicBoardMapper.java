@@ -8,12 +8,11 @@ import com.kej.app.board.service.vo.PageVO;
 
 public interface MusicBoardMapper {
 	
-	// Music 게시판 목록 조회
-	public List<BoardVO> musicBoardAllList(Criteria cri);
+	public List<BoardVO> musicBoardAllList(Criteria cri);	// Music 게시판 목록 조회
+	public int pageCount(Criteria cri);						// 페이징
+	
+	public BoardVO musicBoardDetail(int boardNo);			// Music 단건 조회
 
-	// 페이지
-	public int pageCount(Criteria cri);
-
-	// Music 단건 조회
-	public BoardVO musicBoardDetail(int boardNo); 
+	public BoardVO musicBoardFirstNumber(BoardVO vo);		// 게시판 첫번째 글 번호
+	public BoardVO musicBoardLastNumber(BoardVO vo);		// 게시판 마지막 글 번호
 }

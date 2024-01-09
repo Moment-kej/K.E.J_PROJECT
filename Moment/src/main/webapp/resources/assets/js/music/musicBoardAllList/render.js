@@ -6,7 +6,7 @@ const boardListContainer = document.getElementById("boardList");
 // 게시글 List형태
 export const createSortListTypeComponent = (data) => {
    const table = createAndAppendElement(document.body, 'table', { class: 'boardSortListType container mx-auto' });
-   createAndAppendElement(table, 'caption', { class: 'board_caption displyNone'}, '게시판 리스트입니다.');
+   createAndAppendElement(table, 'caption', { class: 'board_caption displayNone'}, '게시판 리스트입니다.');
 
    const thead = createAndAppendElement(table, 'thead');
    const trHead = createAndAppendElement(thead, 'tr');
