@@ -137,8 +137,8 @@
 }
 .form-area input {
     margin-bottom: 14px;
-    padding: 5px;
-    border-color: #8d898999;
+    padding: 7px;
+    border-color: #ededed8f;
     width: 77%;
     border-radius: 5px;
     font-size: 13px;
@@ -193,7 +193,7 @@
 .form-area .info-email-area select {
     width: 33%;
     padding: 6px;
-    border-color: #8d898999;
+    border-color: #aaaaaa99;
     border-radius: 5px;
     font-size: 13px;
 }

@@ -188,13 +188,23 @@ button {
    margin-right: 5px;
    color: red;
    font-size: 16px;
+} 
+/* eunae 2024.01.17 */
+.replyBox .likeBox .heart i {
+   cursor: pointer;
+   margin-right: 5px;
+   font-size: 16px;
 }
+.likeUp {
+   color: red;
+}/* eunae 2024.01.17 end*/
 
-.replyBox .likeBox .like, .likeCount {
+.replyBox .likeBox .like, .likeCount,
+.replyBox .likeBox .heart {
    font-size: 13px;
    margin-right: 3px;
    color: #000;
-} /* Like Icon End */
+}/* Like Icon End */
 
 /* Reply */
 .replyBox .replyCountBox {
@@ -275,6 +285,13 @@ button {
    margin-left: 13px;
    color: #afafaf;
    cursor: pointer;
+}
+
+.childCommentDeleteBtnBox i:hover,
+.childCommentModifyBtnBox i:hover,
+.deleteBtnBox i:hover,
+.modifyBtnBox i:hover {
+   color: rgb(86, 86, 86) !important;
 }
 
 .commentBox .commentContent {

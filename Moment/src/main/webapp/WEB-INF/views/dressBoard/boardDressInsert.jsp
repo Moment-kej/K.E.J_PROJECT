@@ -45,11 +45,12 @@
                             <div class="form-group">
                                 <div id="editor" name="content"></div>
                             </div>
-                            <!-- <div class="mb-2 mt-2">
-                                <hr>
+                            <div class="mb-2 mt-2">
+                                <!-- <hr>
                                 <button type="button" id="ckeditorTest">담긴 데이터 보기(debug)</button>
-                                <hr>
-                            </div> -->
+                                <hr> -->
+                                <input type="text" id="boardNoCurrntVal" class="hidden" value="${boardNo}">
+                            </div>
                             <div class="d-flex justify-content-center mt-2">
                                 <!-- 게시글 등록 또는 게시글 목록으로 (임시저장 없음 알림창 띄우기) -->
                                 <button type="button" class="btn btn-outline-success btn-fw mr-2 btn-lg" id="boardInsertBtn" >등록</button>

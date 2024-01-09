@@ -2,6 +2,7 @@ package com.kej.app.board.mapper;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.kej.app.board.service.vo.BoardListVO;
 import com.kej.app.board.service.vo.BoardVO;
@@ -13,9 +14,13 @@ public interface BoardMapper {
 	public List<BoardVO> dressBoradList(Criteria cri);
 	//board insert
 	public int boardInsert(BoardVO vo);
+	public int maxBoardNo();
 	//board detail
 	public BoardVO boardDressDetail(int BoardNo);	// 게시글
 	public int dressBoardViewCount(int boardNo);	// 게시글 조회수
+	public BoardVO findHeart(BoardVO vo);			// 게시글 좋아요
+	public int likeInsert(BoardVO vo);			// 게시글 좋아요 등록
+	public int likeDelete(BoardVO vo);			// 게시글 좋아요 삭제
 	//Before,After 확인완료
 	public List<BoardVO> selectBoardsAfter(BoardListVO vo);
 	public BoardVO selectBoardAt(BoardListVO vo);

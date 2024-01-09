@@ -59,6 +59,12 @@ public class CommonController {
 	@ResponseBody
 	public Map<String, List<CodeVO>> commonCode() {
 		return service.getCodes("CO", "CA");
-	}
+	};
+	
+	@RequestMapping(value="/getCode", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, List<CodeVO>> getCode(String code) {
+		return service.getCodes(code);
+	};
 
 }

@@ -42,7 +42,7 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	//https://jadestone.tistory.com/101 == 페이징/진행중
-	@RequestMapping(value="/dress", method = RequestMethod.GET)
+	@GetMapping("/dress")
 	public String boardDressPage(Model model, Criteria cri) throws Exception {
 		
 		//cri vo에 code 값을 10으로 준 것
@@ -63,30 +63,28 @@ public class BoardController {
 		return "dressBoard/boardDressPage";
 	}
 	// Ajax Get Method 
-	@RequestMapping(value="/dress/all", method = RequestMethod.GET)
+	@GetMapping("/dress/all")
 	@ResponseBody
 	public List<BoardVO> getPosts(Criteria cri){
 		return service.dressBoradList(cri);
 	}
 	// dress insert page
-	@RequestMapping(value="/dress/write", method = RequestMethod.GET)
+	@GetMapping("/dress/write")
 	public String boardDressInsert(Model model) {
 		model.addAttribute("code", cservice.getCodes("CO", "CA"));
-        
+        model.addAttribute("boardNo", service.maxBoardNo());
 		return "dressBoard/boardDressInsert";
 	}
 	// dress insert (AJAX)
-	@RequestMapping(value = "/dress/insert", method = RequestMethod.POST)
+	@PostMapping("/dress/insert")
 	@ResponseBody
 	public int boardInsertSave(@RequestBody BoardVO vo) {
 		return service.boardInsert(vo); 
 	}
 	// dress detail page
-	@RequestMapping(value = "/dress/all/{boardNo}", method = RequestMethod.GET)
+	@GetMapping("/dress/all/{boardNo}")
 	public String boardDressDetail(Model model, @PathVariable("boardNo") Integer boardNo, HttpServletRequest req, HttpServletResponse res) {
 		BoardVO view = service.boardDressDetail(boardNo);
-		model.addAttribute("code", cservice.getCodes("CA"));
-		
 		// 조회수 로직
 		// https://velog.io/@juwonlee920/Spring-조회수-기능-구현-조회수-중복-방지
 		Cookie oldCookie = null;				// oldCookie 객체를 선언한 후 빈값으로 초기화
@@ -116,61 +114,71 @@ public class BoardController {
 			res.addCookie(newCookie);
 		}
 		model.addAttribute("dress", view);
-		model.addAttribute("code", cservice.getCodes("CO","CA"));
+		model.addAttribute("code", cservice.getCodes("CA"));
 		
 		return "dressBoard/boardDressDetail";
 	}
 	// 게시글 단건조회 (AJAX)
-	@RequestMapping(value="/dress/boardDetail", method= RequestMethod.GET)
+	@GetMapping("/dress/boardDetail")
 	@ResponseBody
 	public BoardVO boardDressDetail(@RequestParam("boardNo") int boardNo) {
 		return service.boardDressDetail(boardNo);
 	}
 	// 게시글 관련글 보기 (AJAX)
-	@RequestMapping(value = "/dress/boardRelatedPosts", method = RequestMethod.GET)
+	@GetMapping("/dress/boardRelatedPosts")
 	@ResponseBody
 	public List<BoardVO> boardRelatedPosts(BoardListVO vo) {
 		return service.getCombinedBoardList(vo);
+	}
+	// 게시글 좋아요 (AJAX)
+	@GetMapping("/like")
+	@ResponseBody
+	public BoardVO findHeart(BoardVO vo) {
+		return service.findHeart(vo);
+	}
+	@PostMapping("/like")
+	@ResponseBody
+	public int likeProcess(@RequestBody BoardVO vo) {
+		return service.boardLike(vo);
 	}
 	// dress update page
 	@GetMapping("/dress/modify/{boardNo}")
 	public String boardDressUpdate(Model model, @PathVariable("boardNo") int boardNo) {
 		// 게시글 단건조회
 		model.addAttribute("code", cservice.getCodes("CO","CA"));
-		
 		return "dressBoard/boardDressUpdate";
 	}
 	// 게시글 번호 기준 게시글 정보 가져오기 (AJAX)
-	@RequestMapping(value = "/dress/modContent", method = RequestMethod.GET)
+	@GetMapping("/dress/modContent")
 	@ResponseBody
 	public BoardVO boardDressUpdate(int boardNo) {
 		return service.boardDressDetail(boardNo);
 	}
 	// 게시글 수정 (AJAX)
-	@RequestMapping(value = "/dress/mod", method = RequestMethod.POST)
+	@PostMapping("/dress/mod")
 	@ResponseBody
 	public int boardDressModAjax(@RequestBody BoardVO vo) {
 		return service.dressBoardUpdate(vo);
 	}
 	// 게시글 삭제 (AJAX)
-	@RequestMapping(value = "/dress/del", method = RequestMethod.POST)
+	@PostMapping("/dress/del")
 	@ResponseBody
 	public int boardDressDelAjax(@RequestBody BoardVO vo) {
 		return service.dressBoardDelete(vo);
 	}
 	// 메인페이지 최신글 (AJAX)
-	@RequestMapping(value="/newList", method = RequestMethod.GET)
+	@GetMapping("/newList")
 	@ResponseBody
 	public Map<String, Object> boardNewList(Criteria cri) {
 		return service.boardNewList(cri);
 	}
 	// 메인페이지 인기글 (AJAX)
-	@RequestMapping(value="/topList", method = RequestMethod.GET)
+	@GetMapping("/topList")
 	@ResponseBody
 	public Map<String, Object> boardTopList(Criteria cri) {
 		return service.boardTopList(cri);
 	}
-	@RequestMapping(value="/imgIn", method = RequestMethod.GET)
+	@GetMapping("/imgIn")
 	@ResponseBody
 	public Map<String, Object> PostWhthImg(Criteria cri) {
 		return service.postsWithImages(cri);

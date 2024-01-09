@@ -67,14 +67,7 @@
                                     <label>이메일</label>
                                     <input type="text" placeholder="이메일" id="info-email">
                                     <span>@</span>
-                                    <select>
-                                        <option>kakao</option>
-                                        <option>naver</option>
-                                        <option>nate</option>
-                                        <option>...</option>
-                                        <option>...</option>
-                                        <option>...</option>
-                                    </select>
+                                    <select id="email"></select>
                                 </div>
                             </div>
                             <div class="pt-4 d-flex align-content-center btn-containar">
@@ -129,44 +122,7 @@
                                             </p>
                                             <p>탈퇴 사유를 적어주시면 운영에 적극 반영하겠습니다.</p>
                                         </div>
-                                        <div class="dropOutReason">
-                                            <label for="type1" class="radio_box">
-                                                <input type="radio" name="type" id="type1" value="" checked="checked">
-                                                <span class="on"></span>
-                                                타 사이트의 유사서비스 이용
-                                            </label>
-                                            <label for="type2" class="radio_box">
-                                                <input type="radio" name="type" id="type2" value="">
-                                                <span class="on"></span>
-                                                개인정보 변경으로 인한 재가입
-                                            </label>
-                                            <label for="type3" class="radio_box">
-                                                <input type="radio" name="type" id="type3" value="">
-                                                <span class="on"></span>
-                                                찾고자 하는 정보가 없음
-                                            </label>
-                                            <label for="type4" class="radio_box">
-                                                <input type="radio" name="type" id="type4" value="">
-                                                <span class="on"></span>
-                                                개인정보/사생활 침해 사례 경험
-                                            </label>
-                                            <label for="type5" class="radio_box">
-                                                <input type="radio" name="type" id="type5" value="">
-                                                <span class="on"></span>
-                                                이용 빈도 낮음
-                                            </label>
-                                            <label for="type6" class="radio_box">
-                                                <input type="radio" name="type" id="type6" value="">
-                                                <span class="on"></span>
-                                                사이트 이용 불편
-                                            </label>
-                                            <label for="type7" class="radio_box">
-                                                <input type="radio" name="type" id="type7" value="">
-                                                <span class="on"></span>
-                                                기타(50자이내)
-                                            </label>
-                                            <input type="text" name="" id="type7Detail" class="hidden" placeholder="사유를 기재해주세요">
-                                        </div>
+                                        <div class="dropOutReason"></div>
                                     </div>
                                 </div>
                                 <!-- 탈퇴버튼 -->

@@ -1,15 +1,33 @@
-import { firstContextPath, ajaxRequest, formatTime_hhmm, formatTime_hhmmss } from "../../common/common.js";
+import { firstContextPath, ajaxRequest, createAndAppendElement, formatTime_hhmm, formatTime_hhmmss } from "../../common/common.js";
 
 const firstPath = firstContextPath;
 
-// test
-const radioEvent = () => {
-    let radioButtons = document.querySelectorAll('input[type="radio"]');
-    let additionalInput = document.getElementById("type7Detail");
-    const radio_event = () => {
-        radioButtons.forEach(function(button) {
-            button.addEventListener('change', () => {
-                if(button.id === "type7") {
+const dropOutRadioAjax = () => {    // * 탈퇴사유 가져오기
+    const callback = (data) => {
+        const dropOutReasonContainer = document.querySelector(".dropOutReason");
+        data.DR.map(item => {
+            const label = createAndAppendElement(dropOutReasonContainer, "label", {for : "DR" + item.commonDetailCd, class : "radio_box"}, item.commonDetailName);
+            createAndAppendElement(label, "input", {type: "radio", name: "DR", id: "DR" + item.commonDetailCd, value: item.commonDetailCd});
+            createAndAppendElement(label, "span", {class: "on"});
+        });
+        document.getElementById("DR1100").setAttribute("checked", "checked");
+        createAndAppendElement(dropOutReasonContainer, "input", {type: "text", id: "type7Detail", class: "hidden", placeholder: "50자 이내로 작성해주세요"});
+    };
+    ajaxRequest(firstPath+"/getCode", "GET", {code : "DR"}, callback);
+};
+dropOutRadioAjax();
+const dropOut_init = () => {
+    const radio_event = () => { 
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        const additionalInput = document.getElementById("type7Detail");
+        radioButtons.forEach(function(radio) {
+            radio.addEventListener('click', () => {
+                // radio checked all remove
+                radioButtons.forEach(remove => {
+                    remove.removeAttribute("checked");
+                });
+                radio.setAttribute("checked", "checked");   // * radio 클릭 시 checked 속성 부여
+                if(radio.id === "DR1700") {                 // * 기타를 클릭했을 시 input 활성화
                     additionalInput.classList.remove("hidden");
                 } else {
                     additionalInput.classList.add("hidden");
@@ -17,9 +35,7 @@ const radioEvent = () => {
             });
         });
     };
-    radio_event();
-
-    const userDropDetailInput_event = () => {
+    const userDropDetailInput_event = () => {   // * 탈퇴사유 기타일 경우 input의 값을 50자로 맞추는 함수
         const userDropOutDetailInput = document.getElementById("type7Detail");
         if(userDropOutDetailInput) {
             userDropOutDetailInput.addEventListener("input", () => {
@@ -29,31 +45,73 @@ const radioEvent = () => {
             });
         }
     };
-
-    // ! 탈퇴버튼 눌렀으면 탈퇴를 시켜줘야하는데 하지않았다!
-    const userDropBtn_event = () => {
+    const userDropBtn_event = () => {          // * 탈퇴하기 버튼 클릭 이벤트
         const userDropOutBtn = document.getElementById("userDropOutBtn");
         userDropOutBtn.addEventListener('click', () => {
             const userDropOutDetailInput = document.getElementById("type7Detail");
-            if(userDropOutDetailInput) {
-                if(userDropOutDetailInput.value == '') {
-                    console.log("마 글 적어라!");
+            const checked = document.getElementById("dropOutAgreeOrNot").checked;
+            const reason = document.querySelector("input[type='radio']:checked");
+            let data = {};
+            if(checked === false) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "회원 탈퇴 동의가 필요합니다.",
+                    didClose: function () {
+                        return false; // 제출 취소
+                    }
+                });
+            } else {
+                if(userDropOutDetailInput.getAttribute("class") != 'hidden') {
+                    console.log("input이 있는 상태");
+                    if(userDropOutDetailInput.value == "" || userDropOutDetailInput.trim() == "") {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "탈퇴 사유를 적어주세요",
+                            didClose: function () {
+                                userDropOutDetailInput.focus();
+                                return false; // 제출 취소
+                            }
+                        });
+                    } else {
+                        data = {
+                            id : "test",    // ! 아이디는 스프링 시큐리티를 통해 값을 넣어주어야 한다.
+                            reason : reason.value,
+                            reasonDetail : userDropOutDetailInput.value
+                        };
+                    }
                 } else {
-                    console.log("마 글 다 즈긋나!");
-                }
+                    console.log("input이 없는 상태");
+                    data = {
+                        id : "test",       // ! 아이디는 스프링 시큐리티를 통해 값을 넣어주어야 한다.
+                        reason : reason.value
+                    };
+                };
+                const callback = (success) => {
+                    console.log(success);
+                };
+                ajaxRequest(firstPath + "/user/dropOut", "POST", JSON.stringify(data), callback);
             };
         });
     };
 
-    document.getElementById('userDropOut-tab').addEventListener('shown.bs.tab', function (event) {
-        console.log('회원탈퇴 탭이 활성화되었습니다.');
+    document.getElementById('userDropOut-tab').addEventListener('shown.bs.tab', function () {
+        // console.log('회원탈퇴 탭이 활성화되었습니다.');
+        radio_event();
         userDropDetailInput_event();
         userDropBtn_event();
     });
 };
-radioEvent();
-
-
+//----------------------------------------------------------------------------------
+const emailAjax = () => {       // * 이메일 가져오기
+    const callback = (data) => {
+        const emailSelectElement = document.getElementById("email");
+        data.EM.map(item => {
+            createAndAppendElement(emailSelectElement, "option", {value: item.commonDetailCd}, item.commonDetailName);
+        })
+    }
+    ajaxRequest(firstPath+"/getCode", "GET", {code : "EM"}, callback);
+}
+emailAjax();
 const handleFileSelect = () => {    // 프로필 사진 수정 버튼 이벤트
     const fileInput = document.getElementById('imageInput');
     fileInput.addEventListener('change', () => {
@@ -131,7 +189,7 @@ const kakaoAddressAPI = () => {
         }
     }).open();
 }
-const init = () => {
+const userInfo_init = () => {
     document.getElementById('img-change-btn').addEventListener('click', () => {
         document.getElementById('imageInput').click();  // 파일 선택 input 요소 트리거
         handleFileSelect();
@@ -147,4 +205,5 @@ const init = () => {
     });
 };
 formatPhoneNumber();
-init();
+userInfo_init();
+dropOut_init();

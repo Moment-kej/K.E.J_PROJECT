@@ -3,8 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kej.app.board.mapper.BoardMapper">
+	<select id="maxBoardNo" resultType="int">
+		SELECT currval
+		  FROM sequences
+		 WHERE name = "BOARD_SEQ"
+	</select>
+	
 	<!-- board all list -->
-	<!-- 페이징+목록개수+게시글타입+검색기능 -->
 	<!-- reference : https://badstorage.tistory.com/13 -->
 	<select id="dressBoradList" resultType="BoardVO">
 		SELECT *
@@ -125,6 +130,27 @@
 		   SET view_count = (view_count + 1)
 		 WHERE board_no = #{boardNo}
 	</update>
+	
+	<!-- 게시글 좋아요 조회 -->
+	<select id="findHeart" resultType="BoardVO">
+		SELECT board_no, id
+		  FROM board_like
+		 WHERE id = #{id}
+           AND board_no = #{boardNo}
+	</select>
+	<!-- 게시글 좋아요 등록 -->
+	<insert id="likeInsert" parameterType="BoardVO">
+		INSERT INTO board_like
+			(board_no, id)
+		VALUES
+			(#{boardNo}, #{id})
+	</insert>
+	<!-- 게시글 좋아요 삭제 -->
+	<insert id="likeDelete" parameterType="BoardVO">
+		DELETE FROM board_like
+		 WHERE board_no = #{boardNo}
+		   AND id = #{id}
+	</insert>
 	 <!-- 다음글 > -->
 	 <select id="selectBoardsAfter" resultType="BoardVO">
 		 SELECT b.board_no

@@ -5,7 +5,6 @@ const firstPath = firstContextPath;   // '/moment' 가져오기
 
 // 대분류 카테고리에 맞게 중분류 카테고리가 노출되는 함수
 const cateogryChange = () => {
-    // mainCategory와 subCategory select 요소 가져오기
     let mainCategorySelect = document.getElementById('mainCategory');   // 메인 카테고리 select tag
     let subCategorySelect = document.getElementById('subCategory');     // 서브 카테고리 select tag
     
@@ -18,14 +17,13 @@ const cateogryChange = () => {
         if(mainCategoryValue === '0') {
             subCategorySelect.value = '0';
         }
-        
         // subCategory option을 반복해서 value 값추출
         subCategoryOptions.forEach(function(option) {
             let optionValueSubStr = option.value.substring(0,2);    // option value 값 앞 숫자 2개만 가져온다
             if(mainCategoryValue == optionValueSubStr) {            // 메인 값과 서브 앞 숫자 2개의 값이 같으면
-                option.style.display = 'block';                       // 서브 옵션 태그를 활성화
+                option.style.display = 'block';                     // 서브 옵션 태그를 활성화
             } else {
-                option.style.display = 'none';                         // 같지 않으면 서브 옵션 태그를 비활성화
+                option.style.display = 'none';                      // 같지 않으면 서브 옵션 태그를 비활성화
             }
         });
     });
@@ -64,9 +62,6 @@ const goAllListBnt = () => {
 };
 goAllListBnt();      // 목록으로 버튼 클릭 이벤트
 //--AJAX--------------------------------------------------------------------
-// 선택한 폼 엘리먼트의 데이터를 URL-encoded된 문자열로 직렬화
-// const dataForm = $('#boardForm').serialize();
-
 // board Insert button click event
 document.getElementById('boardInsertBtn').addEventListener('click', () => {
     let id = document.getElementById('writer').value;
@@ -74,6 +69,7 @@ document.getElementById('boardInsertBtn').addEventListener('click', () => {
     let code = document.getElementById('mainCategory').value;
     let category = document.getElementById('subCategory').value;
     let ckeditor = getData();
+    const boardNo = parseInt(document.getElementById("boardNoCurrntVal").value) + 1;
 
     if(id.trim() === '') {
         Swal.fire({
@@ -128,13 +124,44 @@ document.getElementById('boardInsertBtn').addEventListener('click', () => {
             content: ckeditor
         });
         
-        const callback = (data) => {
-            Swal.fire({
+        const callback = () => {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success mt-3",
+                    cancelButton: "btn btn-warning mr-4 mt-3"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "게시글 등록이 완료되었습니다.",
                 icon: "success",
-                title: "게시글 등록이 완료되었습니다",
-                didClose: function () {
-                    location.href = firstPath + '/board/dress';
-                }
+                showCancelButton: true,
+                confirmButtonText: "목록가기",
+                cancelButtonText: "쓴글보기",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // 목록가기
+                    if(code == 10) {
+                        location.href = firstPath + '/board/dress';
+                    } else if(code == 20){ 
+                        location.href = firstPath + '/board/music';
+                    } else if(code == 30){
+                        location.href = firstPath + '/board/art';
+                    }
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    // 쓴글보기
+                    if(code == 10 ) {
+                        location.href = firstPath + '/board/dress/all/' + boardNo;
+                    } else if(code == 20) {
+                        location.href = firstPath + '/board/art/' + boardNo;
+                    } else if(code == 30) {
+                        location.href = firstPath + '/board/music/' + boardNo;
+                    };
+                };
             });
         };
         // url, method, data, successCallback
