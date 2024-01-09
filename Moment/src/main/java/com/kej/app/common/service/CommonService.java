@@ -3,7 +3,6 @@ package com.kej.app.common.service;
 import java.util.List;
 import java.util.Map;
 
-import com.kej.app.board.service.vo.Criteria;
 import com.kej.app.common.service.vo.BookVO;
 import com.kej.app.common.service.vo.CodeVO;
 import com.kej.app.common.service.vo.NewsVO;

@@ -316,6 +316,13 @@ public class BoardController {
 
  		return "musicBoard/musicBoardDetail";
  	}
+ 	
+ 	@RequestMapping(value="music-boardNo-number", method = {RequestMethod.GET})
+ 	@ResponseBody
+ 	public Map<String, Object> musicBoardFirstAndLastNumber(BoardVO vo) {
+ 		
+ 		return musicService.musicBoardFirstAndLastNumber(vo);
+ 	}
 	
 	@GetMapping("/musice/write")
 	public String musicInsertPage(Model model) {

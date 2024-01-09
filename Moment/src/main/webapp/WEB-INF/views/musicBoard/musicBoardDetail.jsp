@@ -13,8 +13,8 @@
                 <button id="delete">삭제</button>
               </div>
               <div class="rightBtnBox">
-                <button id="pageUp"><i class="fa-solid fa-angle-up"></i>이전글</button>
-                <button id="pageDown"><i class="fa-solid fa-angle-down"></i>다음글</button>
+                <button id="pageUp"><i class="fa-solid fa-angle-up"></i>다음글</button>
+                <button id="pageDown"><i class="fa-solid fa-angle-down"></i>이전글</button>
                 <button id="goAllList">목록</button>
               </div>
             </div><!-- 은애언니, 수민 여기 div안에 내용 바꼈어 확인해줭-->
@@ -48,7 +48,9 @@
               <div class="replyBox">
                 <div class="d-flex justify-content-start align-items-center mb-3">
                   <div class="likeBox d-flex justify-content-start align-items-center">
-                    <span class="like fw-medium"><i class="fa-regular fa-face-kiss-wink-heart"></i><i class="fa-solid fa-face-kiss-wink-heart"></i>좋아요</span>
+                    <span class="like fw-medium">
+                      <i id="likeIcon" class="fa-regular fa-face-kiss-wink-heart"></i>
+                      <i id="likeIcon" class="fa-solid fa-face-kiss-wink-heart"></i>좋아요</span>
                     <span class="likeCount">${item.likeCount}</span>
                   </div>
                   <div class="replyCountBox d-flex justify-content-start align-items-center">

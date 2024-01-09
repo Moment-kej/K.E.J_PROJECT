@@ -1,6 +1,8 @@
 package com.kej.app.board.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,6 @@ import com.kej.app.board.mapper.MusicBoardMapper;
 import com.kej.app.board.service.MusicBoardService;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
-import com.kej.app.board.service.vo.PageVO;
 
 @Service
 public class MusicBoardServiceImpl implements MusicBoardService {
@@ -34,6 +35,16 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 	public BoardVO musicBoardDetail(int BoardNo) {
 
 		return mapper.musicBoardDetail(BoardNo);
+	}
+
+	@Override
+	public Map<String, Object> musicBoardFirstAndLastNumber(BoardVO vo) {
+		Map<String, Object> response = new HashMap<>();
+		
+		response.put("first", mapper.musicBoardFirstNumber(vo));
+		response.put("last", mapper.musicBoardLastNumber(vo));
+		
+		return response;
 	}
 
 }

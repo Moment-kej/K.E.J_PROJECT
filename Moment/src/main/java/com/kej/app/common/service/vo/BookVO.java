@@ -2,8 +2,6 @@ package com.kej.app.common.service.vo;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Data;
 
 @Data
