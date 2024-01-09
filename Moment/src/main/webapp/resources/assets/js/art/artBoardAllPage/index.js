@@ -27,16 +27,12 @@ let amount;
  				category:$('#boardCategory').val(),
  				code:30
  					};
- 		
- 		console.log(data);
 			 $.ajax({
 				url: "/moment/board/artList",
 				type: "GET",
 				data: data,
 				dataType: "json",
 				success: function(data){
-					console.log(data.artBoardList);
-					console.log(data.pageVO);
 					$("#contentList").empty(); // 게시글 나올곳
 					$("#pagingBox").empty(); // 페이징 할 곳
 					// 리스트 타입일 때 나오도록
@@ -157,14 +153,14 @@ let amount;
                             <button id="beforePage" class="prevpage pbtn">
                                 <i class="fa-solid fa-angle-left"></i>
                             </button>`; 
-                    $.each(data.pageVO, function(index, item) {
-                        if(item.page>=item.start){
-                    page3 = `<!-- 1.페이지네이션 나는 백틱으로 구현하기 -->
-                            <button class="pageNumBtn pbtn" id="pageNumBtn + `+item.page+`>
-                            	`+item.page +`
+                            for(let i = 1 ; i <= data.pageVO.end ; i++) {  //8
+                        	if(i >= data.pageVO.start){
+                    page3 += `<!-- 1.페이지네이션 나는 백틱으로 구현하기 -->
+                            <button class="pageNumBtn pbtn" id="pageNumBtn `+i+`">
+                            	`+i+`
                             </button>`;
-                        }
-                    });
+                            	}
+                            };
                     page4 = `<!-- 2.다음페이지네이션 -->
                             <button id="afterPage" class="nextpage pbtn">
                                 <i class="fa-solid fa-angle-right"></i>
