@@ -119,8 +119,9 @@ export const ajaxRequest = (url, method, data, successCallback) => {
     const ajaxOptions = {
         url: url,
         type: method,
-        data : datas,
-        dataType : "json", // 서버로부터 받을 데이터의 타입을 지정하는 것
+        contentType: "application/json; charset=utf-8",
+        data: datas,
+        dataType: "json", // 서버로부터 받을 데이터의 타입을 지정하는 것
         error: function(error) {
             console.error('오류발생!' + error);
         }
@@ -130,10 +131,10 @@ export const ajaxRequest = (url, method, data, successCallback) => {
     if(hasSuccessCallback) ajaxOptions.success = successCallback;
 
     // 'POST' 메서드이면서 데이터가 존재하는 경우에만 contentType을 설정
-    if (method.toUpperCase() === 'POST' && datas) {
-        // 클라이언트가 서버로 데이터를 전송할 때의 타입을 지정하는 것
-        ajaxOptions.contentType = "application/json; charset=utf-8"
-    };
+    // if (method.toUpperCase() === 'POST' && datas) {
+    //     // 클라이언트가 서버로 데이터를 전송할 때의 타입을 지정하는 것
+    //     ajaxOptions.contentType = "application/json; charset=utf-8"
+    // };
 
     $.ajax(ajaxOptions);
 };

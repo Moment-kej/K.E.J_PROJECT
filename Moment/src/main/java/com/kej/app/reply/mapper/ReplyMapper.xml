@@ -153,6 +153,12 @@
 			 , 1 )
 	</insert>
 	
+	<update id="musicReplyUpdate" parameterType="ReplyVO">
+		UPDATE reply
+		   SET content = #{content}, update_dt = now()
+		 WHERE reply_no = #{replyNo};
+	</update>
+	
 	<update id="musicReplyDelete" parameterType="int">
 		UPDATE reply
 		   SET yn = 0

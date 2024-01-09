@@ -19,5 +19,5 @@ public interface ReplyMapper {
 	public List<ReplyVO> musicReplyAllList(ReplyVO vo); // 댓글 조회
 	public int musicReplyInsert(ReplyVO vo);			// 댓글 등록
 	public int musicReplyUpdate(ReplyVO vo);			// 댓글 수정
-	public int musicReplyDelete(Integer replyNo);			// 댓글 삭제
+	public int musicReplyDelete(Integer replyNo);		// 댓글 삭제
 }

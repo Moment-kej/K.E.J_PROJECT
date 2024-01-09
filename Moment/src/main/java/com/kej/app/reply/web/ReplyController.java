@@ -72,12 +72,13 @@ public class ReplyController {
 	}
 
 	// 댓글 수정
-//	@PutMapping("/music")
-//	@ResponseBody
-//	public int musicReplyUpdate(ReplyVO vo) {
-//		
-//		return 0;
-//	}
+	@PutMapping("/music")
+	@ResponseBody
+	public int musicReplyUpdate(@RequestBody ReplyVO vo) {
+		
+		System.out.println("값 내놔" + vo);
+		return service.musicReplyUpdate(vo);
+	}
 
 	// 댓글 삭제
 	@DeleteMapping("/music/{replyNo}")
@@ -86,33 +87,6 @@ public class ReplyController {
 		
 		return service.musicReplyDelete(replyNo);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	// --- Minjin End --------------------------------------------------------
 }
