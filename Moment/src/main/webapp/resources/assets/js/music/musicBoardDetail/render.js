@@ -1,6 +1,6 @@
 import { createAndAppendElement, formatTime_hhmmss, firstContextPath} from "../../common/common.js";
-import { replyUpdateAjax, replyInsertAjax } from "./musicBoardDetail.js"
-
+import { replyUpdateAjax, replyInsertAjax, replyDeleteAjax } from "./musicBoardDetail.js"
+// ========================================================================================================================
 export const createReplyBox = (data) => {
    const comment_area_box = document.getElementById("comment_area_box");
 
@@ -17,13 +17,17 @@ export const createReplyBox = (data) => {
       const replyInfoArea = createAndAppendElement(replyInfoBox, "div", { id: "replyInfoArea" });
       createAndAppendElement(replyInfoArea, "span", { class: "replyInfoID" }, item.id);
       createAndAppendElement(replyInfoArea, "span", { class : "replyInfoDate" }, writeDt)
-      const btnContainer = createAndAppendElement(firstContainer, "div", { class: "commentBtnBox", "data-value": item.replyNo });
-      createAndAppendElement(btnContainer, "button", { class: "modifyBtnBox" }, '<i class="fa-solid fa-pen-to-square commentModifyBtn"></i>');
-      createAndAppendElement(btnContainer, "button", { class: "deleteBtnBox" }, '<i class="fa-solid fa-trash commentDelBtn"></i>');
+      // * 댓글 수정 및 삭제 Button
+      const btnContainer = createAndAppendElement(firstContainer, "div", { class: "commentBtnBox", "data-value": item.replyNo } );
+      const modifyBtnBox = createAndAppendElement(btnContainer, "button", { class: "modifyBtnBox" } );
+      const commentModifyBtn = createAndAppendElement(modifyBtnBox, "i", { class: "fa-solid fa-pen-to-square commentModifyBtn"} )
+      const deleteBtnBox = createAndAppendElement(btnContainer, "button", { class: "deleteBtnBox" } );
+      const commentDelBtn = createAndAppendElement(deleteBtnBox, "i", { class: "fa-solid fa-trash commentDelBtn" } )
       const commentContent = createAndAppendElement(commentArea, "div", { class: "commentContent" });
       createAndAppendElement(commentContent, "span", {}, item.content)
-      createAndAppendElement(commentArea, "div", { class: "commentWirterBtnBox" }, '<button type="button" class="commentWriteBtn">답글작성</button>');
-      // 답글 작성 폼
+      const commentWirterBtnBox = createAndAppendElement(commentArea, "div", { class: "commentWirterBtnBox" });
+      const commentWriteBtn = createAndAppendElement(commentWirterBtnBox, "button", { type: "button", class: "commentWriteBtn" }, "답글작성")
+      // * 답글 작성 폼
       const comment_area = createAndAppendElement(listElement, "div", { class: "comment_write_area displayNone" });
       const commentWriteBox = createAndAppendElement(comment_area, "div", { class: "commentWriteBox"})
       const commentWriter = createAndAppendElement(commentWriteBox, "div", { class: "commentWriter" });
@@ -38,10 +42,12 @@ export const createReplyBox = (data) => {
       createAndAppendElement(commentBoxWriteCount, "span", { class: "fontSizeSmall comment_box_write_total" }, "500");
       
       const registerBox = createAndAppendElement(commentAttach, "div", { class: "register_box" });
-      const cancleBtn = createAndAppendElement(registerBox, "button", { class: "button cancleBtn" }, "취소");
-      const registerBtn = createAndAppendElement(registerBox, "button", { class: "button registerBtn" }, "등록");
-      cancleBtn.addEventListener ("click", (e) => { 
-         
+      const cancleBtn = createAndAppendElement(registerBox, "button", { type: "button", class: "button cancleBtn" }, "취소");
+      const registerBtn = createAndAppendElement(registerBox, "button", { type: "button", class: "button registerBtn" }, "등록");
+      // =====================================================================================      
+      // * 댓글 취소버튼
+      // todo 수정된 내용이 있으면 알림 띄워서 수정중인 내용 취소 할껀지 묻기, 없으면 걍 displayNone
+      cancleBtn.addEventListener ("click", (e) => {
          Swal.fire({
             title: "수정중인 내용을 취소 하겠습니까?",
             icon: "warning",
@@ -55,14 +61,80 @@ export const createReplyBox = (data) => {
             } 
          });
       });
-      registerBtn.addEventListener ("click", (e) => { 
-         let commentContent = $(e.target).closest(".commentWriter").children().children().eq(1).val();
-         let replyNo = $(e.target).closest(".comment_write_area").prev().children().eq(0).children().eq(1).attr("data-value");
-         replyUpdateAjax(commentContent, replyNo);
-         Swal.fire({
-            title: "수정 완료.",
-            icon: "success",
-         });
+      // ========================================================================================================================
+      // * 댓글 수정
+      commentModifyBtn.addEventListener("click", (e) => {
+         let commentContent = $(e.target).closest(".comment_area").find('.commentContent').children().eq(0).text();
+         let replyNum = $(e.target).closest(".commentBtnBox").attr("data-value");
+         $(".comment_area").show();
+         $(".comment_modify_area").hide();
+         $(e.target).closest(".comment_area").hide();
+         let tempElement = e.target.closest(".commentItem");
+
+         const modifyForm = document.createElement("div");
+         modifyForm.setAttribute("id", "replyModifyForm_" + replyNum);
+         modifyForm.classList.add("comment_modify_area");
+
+         modifyForm.innerHTML = '<div class="commentWriteBox">' +
+                                    '<div class="commentWriter">' +
+                                       '<div class="comment_inbox">' +
+                                          '<span class="comment_inbox_name">똥심</span>' +
+                                          '<textarea placeholder="댓글을 남겨보세요.">' + commentContent + '</textarea>' +
+                                       '</div>' +
+                                       '<div class="comment_attach d-flex justify-content-between align-items-center">' +
+                                          '<div class="comment_box_write_count">' +
+                                             '<strong class="fontSizeSmall comment_box_count_num">0</strong>' +
+                                             '<span class="fontSizeSmall">/</span>' +
+                                             '<span class="fontSizeSmall comment_box_write_total">500</span>' +
+                                          '</div>' +
+                                          '<div class="register_box">' +
+                                             '<button type="button" class="button cancleBtn">취소</button>' +
+                                             '<button type="button" class="button modifyBtn">저장</button>' +
+                                          '</div>' +
+                                       '</div>' +
+                                    '</div>' +
+                                 '</div>';
+         tempElement.appendChild(modifyForm);
+         
       });
+      // ========================================================================================================================
+      // ~ 댓글 삭제
+      commentDelBtn.addEventListener("click", (e) => {
+         Swal.fire({
+            title: "댓글을 삭제하시겠습니까?",
+            icon: "warning",
+            position: "center",
+            showDenyButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: "No",
+         }).then((result) => {
+            if (result.isConfirmed) {
+               let replyNo = parseInt($(e.target).parent().parent().attr("data-value"));
+               console.log(replyNo)
+               replyDeleteAjax(replyNo);
+               Swal.fire({
+                  title: "삭제되었습니다.",
+                  icon: "success",
+               });
+            } else if (result.isDenied) {
+               Swal.fire({
+                  title: "취소되었습니다.",
+                  icon: "error",
+               });
+            }
+         }); 
+      });
+      // ========================================================================================================================
+      // ~ 답글 작성
+      commentWriteBtn.addEventListener("click", (e) => {
+         $(".comment_write_area").addClass("displayNone");
+         $(e.target).parent().parent().next().removeClass("displayNone");
+         let textareaElement = $(e.target).closest(".comment_area").next().children().children().children().children().eq(1);
+         let registerBtnElement = $(e.target).closest(".comment_area").next().children().children().children().eq(1).children().eq(1).children().eq(1);
+         textareaElement.val("");
+         registerBtnElement.text("등록");
+      });
+      // ========================================================================================================================     
+      
    });
 }

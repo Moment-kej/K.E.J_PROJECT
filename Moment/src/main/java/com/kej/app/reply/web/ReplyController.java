@@ -75,7 +75,6 @@ public class ReplyController {
 	@ResponseBody
 	public int musicReplyUpdate(@RequestBody ReplyVO vo) {
 		
-		System.out.println("값 내놔" + vo);
 		return service.musicReplyUpdate(vo);
 	}
 

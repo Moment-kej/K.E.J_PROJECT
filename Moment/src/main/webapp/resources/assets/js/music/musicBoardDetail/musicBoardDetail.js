@@ -43,7 +43,6 @@ export const replyUpdateAjax = ((content, replyNo) => {
       content: content,
       replyNo: replyNo,
    });
-   console.log("content: ",content, "replyNo: ", replyNo);
    const callback = () => {
       clearContent();
       replyShowContent();
@@ -51,7 +50,7 @@ export const replyUpdateAjax = ((content, replyNo) => {
    ajaxRequest(firstContextPath + "/reply/music", "PUT", data, callback);
 });
 
-const replyDeleteAjax = ((replyNo) => {
+export const replyDeleteAjax = ((replyNo) => {
    const data = JSON.stringify({
       replyNo: replyNo,
    });
@@ -62,43 +61,17 @@ const replyDeleteAjax = ((replyNo) => {
    ajaxRequest(firstContextPath + "/reply/music/" + replyNo, "DELETE", data, callback);
 });
 
-const pageUpDown = (() => {
-   const data = {code: 20};
-   const callback = (data) => {
-      const firstBoardNo = parseInt(data.first.boardNo);
-      const lastBoardNo = parseInt(data.last.boardNo);
-      switch (true) {
-         case lastBoardNo === boardNo:
-            Swal.fire({
-               title: "마지막 페이지 입니다.",
-               icon: "info",
-            });
-            $("#pageUp").css("display", "none");
-         break;
-   
-         case firstBoardNo === boardNo:
-            Swal.fire({
-               title: "첫번째 페이지 입니다.",
-               icon: "info",
-            });
-            $("#pageDown").css("display", "none");
-         break;
-   
-         default:
-            // 기본 동작
-            break;
+function getTextLength(str) {
+   var len = 0;
+
+   for (var i = 0; i < str.length; i++) {
+      if (escape(str.charAt(i)).length == 6) {
+         len++;
       }
-      if(lastBoardNo == boardNo) {
-         Swal.fire({
-            title: "마지막 페이지 입니다.",
-            icon: "info",
-         });
-      } else if(lastBoardNo != boardNo) {
-         location.href = firstContextPath + '/board/music/' + parseInt(boardNo + 1);
-      }
+      len++;
    }
-   ajaxRequest(firstContextPath + "/board/music-boardNo-number", "GET", data, callback);
-})
+   return len;
+}
 
 // =====================================================================================
 $().ready(() => {
@@ -146,15 +119,6 @@ $().ready(() => {
       console.log(e.target);
    });
 
-   $(document).on("click", ".commentWriteBtn", (e) => {
-      $(".comment_write_area").addClass("displayNone");
-      $(e.target).parent().parent().next().removeClass("displayNone");
-      let textareaElement = $(e.target).closest(".comment_area").next().children().children().children().children().eq(1);
-      let registerBtnElement = $(e.target).closest(".comment_area").next().children().children().children().eq(1).children().eq(1).children().eq(1);
-      textareaElement.val("");
-      registerBtnElement.text("등록");
-   });
-
    $("#replyWriteBtn").on("click", () => {
       let id = document.getElementById("replyWriter").innerText;
       let content = document.getElementById("replyTextrea").value;
@@ -172,41 +136,29 @@ $().ready(() => {
          });
       }
    });
+   // ~ 댓글 수정
+   $(document).on("click", ".modifyBtn", (e) => {
+      let content = $(e.target).closest(".comment_attach").prev().children().eq(1).val();
+      let writer = $(e.target).closest(".comment_attach").prev().children().eq(0).text();
+      let replyNo = $(e.target).closest(".comment_modify_area").attr("id");
+      replyNo = parseInt(replyNo.split("_").pop());
 
-   $(document).on("click", ".commentModifyBtn", (e) => {
-      let commentContent = $(e.target).closest(".comment_area").find('.commentContent').children().eq(0).text();
-      let commentWriteAreaElement = $(e.target).parent().parent().parent().parent().next();
-
-      $(".comment_write_area").addClass("displayNone");
-      let registerBtnElement = $(e.target).closest(".comment_area").next().children().children().children().eq(1).children().eq(1).children().eq(1);
-      registerBtnElement.text("저장");
-
-      commentWriteAreaElement.removeClass("displayNone");
-      commentWriteAreaElement.children().children().find(".comment_inbox").children().eq(1).val(commentContent);
+      console.log("content: ", content, "writer: ", writer, "replyNo: ", replyNo)
+      replyUpdateAjax(content, replyNo)
    });
+   
+   // todo 글자수 체크하는거 해야함
+   // $("#replyTextrea").keyup(function(e) {
+   //    console.log("키업!");
+   //    let content = $(this).val();
+   //    let countNum = $(e.target).closest("comment_inbox");
+   //    console.log(countNum);
+   //    $(countNum).val("(" + content.length + "/ 200)"); //실시간 글자수 카운팅
+   //    if (content.length > 500) {
+   //       Alert("최대 500자까지 입력 가능합니다.");
+   //       $(this).val(content.substring(0, 200));
+   //       $('#replyTextrea').html("(200 / 최대 200자)");
+   //    }
+   // });
 
-   $(document).on("click", ".commentDelBtn", (e) => {
-      Swal.fire({
-         title: "댓글을 삭제하시겠습니까?",
-         icon: "warning",
-         position: "center",
-         showDenyButton: true,
-         confirmButtonText: "Yes",
-         denyButtonText: "No",
-      }).then((result) => {
-         if (result.isConfirmed) {
-            let replyNo = parseInt($(e.target).parent().parent().attr("data-value"));
-            replyDeleteAjax(replyNo);
-            Swal.fire({
-               title: "삭제되었습니다.",
-               icon: "success",
-            });
-         } else if (result.isDenied) {
-            Swal.fire({
-               title: "취소되었습니다.",
-               icon: "error",
-            });
-         }
-      }); 
-   });
 })
