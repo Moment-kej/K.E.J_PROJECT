@@ -16,4 +16,5 @@ public interface MusicBoardService {
 	// Music 단건 조회
 	public BoardVO musicBoardDetail(int BoardNo);
 	public Map<String, Object> musicBoardFirstAndLastNumber(BoardVO vo);
+	public String getRelatedPost(BoardVO vo);
 }

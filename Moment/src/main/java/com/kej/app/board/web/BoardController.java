@@ -356,6 +356,12 @@ public class BoardController {
 		return "musicBoard/musicBoardUpdate";
 	}
     
+    @GetMapping("/music/relation-post")
+    @ResponseBody
+    public String getRelationPosts(BoardVO vo) {
+    	musicService.getRelatedPost(vo);
+    	return "HEllo";
+    }
     
     
     

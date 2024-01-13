@@ -15,4 +15,5 @@ public interface MusicBoardMapper {
 
 	public BoardVO musicBoardFirstNumber(BoardVO vo);		// 게시판 첫번째 글 번호
 	public BoardVO musicBoardLastNumber(BoardVO vo);		// 게시판 마지막 글 번호
+	public BoardVO findPrevNextBoardNumber(BoardVO vo);
 }

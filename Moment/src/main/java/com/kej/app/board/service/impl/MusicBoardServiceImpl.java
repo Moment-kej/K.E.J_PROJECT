@@ -1,5 +1,6 @@
 package com.kej.app.board.service.impl;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import com.kej.app.board.mapper.MusicBoardMapper;
 import com.kej.app.board.service.MusicBoardService;
 import com.kej.app.board.service.vo.BoardVO;
 import com.kej.app.board.service.vo.Criteria;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 @Service
 public class MusicBoardServiceImpl implements MusicBoardService {
@@ -45,6 +47,16 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		response.put("last", mapper.musicBoardLastNumber(vo));
 		
 		return response;
+	}
+
+	@Override
+	public String getRelatedPost(BoardVO vo) {
+		int currentBoardNo = vo.getBoardNo();
+	    String relatedPostNumbers = mapper.findPrevNextBoardNumber(vo).getRelatedPostList();
+	    String[] convertToArray = relatedPostNumbers.split(",");
+	    String[] selectedArray = Arrays.copyOfRange(convertToArray, 0, 5);
+	    System.out.println(Arrays.toString(selectedArray));
+		return "eee";
 	}
 
 }
