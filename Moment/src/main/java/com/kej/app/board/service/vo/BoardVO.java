@@ -1,7 +1,9 @@
 package com.kej.app.board.service.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import com.mysql.cj.xdevapi.JsonArray;
 
 import lombok.Data;
 
@@ -28,4 +30,6 @@ public class BoardVO {
 	
 	//boardNo 추출
 	private int currval;
+	
+	private String relatedPostList;
 }

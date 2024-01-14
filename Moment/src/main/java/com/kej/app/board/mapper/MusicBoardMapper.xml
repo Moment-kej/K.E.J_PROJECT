@@ -81,4 +81,36 @@
 		   AND code = 20
   	</select>
   	
+  	<select id="findPrevNextBoardNumber" resultType="BoardVO">
+	  	WITH OrderedData AS (
+		    SELECT 
+		        board_no,
+		        LAG(board_no, 1) OVER (ORDER BY board_no DESC) AS prev1,
+		        LAG(board_no, 2) OVER (ORDER BY board_no DESC) AS prev2,
+		        LAG(board_no, 3) OVER (ORDER BY board_no DESC) AS prev3,
+		        LAG(board_no, 4) OVER (ORDER BY board_no DESC) AS prev4,
+		        LEAD(board_no, 1) OVER (ORDER BY board_no DESC) AS next1,
+		        LEAD(board_no, 2) OVER (ORDER BY board_no DESC) AS next2,
+		        LEAD(board_no, 3) OVER (ORDER BY board_no DESC) AS next3,
+		        LEAD(board_no, 4) OVER (ORDER BY board_no DESC) AS next4
+		    FROM BOARD
+		    WHERE code = #{code}
+		)
+		SELECT 
+		    CONCAT_WS(',',
+		        IFNULL(prev1, NULL),
+		        IFNULL(prev2, NULL),
+		        IFNULL(board_no, NULL),
+		        IFNULL(next1, NULL),
+		        IFNULL(next2, NULL),
+		        IFNULL(prev3, NULL),
+		        IFNULL(prev4, NULL),
+		        IFNULL(next3, NULL),
+		        IFNULL(next4, NULL)
+		    ) AS related_post_list
+		FROM OrderedData
+		WHERE board_no = #{boardNo};
+
+  	</select>
+  	
   </mapper>

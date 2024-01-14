@@ -1,5 +1,6 @@
 import { createAndAppendElement, formatTime_hhmmss, firstContextPath} from "../../common/common.js";
-import { replyUpdateAjax, replyInsertAjax, replyDeleteAjax } from "./musicBoardDetail.js"
+import { replyDeleteAjax, countTextLength } from "./musicBoardDetail.js";
+
 // ========================================================================================================================
 export const createReplyBox = (data) => {
    const comment_area_box = document.getElementById("comment_area_box");
@@ -33,12 +34,12 @@ export const createReplyBox = (data) => {
       const commentWriter = createAndAppendElement(commentWriteBox, "div", { class: "commentWriter" });
       const commentInbox = createAndAppendElement(commentWriter, "div", { class: "comment_inbox" });
       createAndAppendElement(commentInbox, "span", { class: "comment_inbox_name" }, item.id);
-      createAndAppendElement(commentInbox, "textarea", { placeholder: "댓글을 남겨보세요." });
+      createAndAppendElement(commentInbox, "textarea", { id: "replyTextarea_"+item.replyNo, class: "textarea", placeholder: "댓글을 남겨보세요." });
       
       const commentAttach = createAndAppendElement(commentWriter, "div", { class: "comment_attach d-flex justify-content-between align-items-center" });
       const commentBoxWriteCount = createAndAppendElement(commentAttach, "div", { class: "comment_box_write_count" });
       createAndAppendElement(commentBoxWriteCount, "strong", { class: "fontSizeSmall comment_box_count_num" }, "0");
-      createAndAppendElement(commentBoxWriteCount, "span", { class: "fontSizeSmall" }, "/");
+      createAndAppendElement(commentBoxWriteCount, "span", { class: "fontSizeSmall" }, " / ");
       createAndAppendElement(commentBoxWriteCount, "span", { class: "fontSizeSmall comment_box_write_total" }, "500");
       
       const registerBox = createAndAppendElement(commentAttach, "div", { class: "register_box" });
@@ -47,20 +48,20 @@ export const createReplyBox = (data) => {
       // =====================================================================================      
       // * 댓글 취소버튼
       // todo 수정된 내용이 있으면 알림 띄워서 수정중인 내용 취소 할껀지 묻기, 없으면 걍 displayNone
-      cancleBtn.addEventListener ("click", (e) => {
-         Swal.fire({
-            title: "수정중인 내용을 취소 하겠습니까?",
-            icon: "warning",
-            position: "center",
-            showDenyButton: true,
-            confirmButtonText: "Yes",
-            denyButtonText: "No",
-         }).then((result) => {
-            if (result.isConfirmed) {
-               $(e.target).closest(".comment_write_area").addClass("displayNone");
-            } 
-         });
-      });
+      // cancleBtn.addEventListener ("click", (e) => {
+      //    Swal.fire({
+      //       title: "수정중인 내용을 취소 하겠습니까?",
+      //       icon: "warning",
+      //       position: "center",
+      //       showDenyButton: true,
+      //       confirmButtonText: "Yes",
+      //       denyButtonText: "No",
+      //    }).then((result) => {
+      //       if (result.isConfirmed) {
+      //          $(e.target).closest(".comment_write_area").addClass("displayNone");
+      //       } 
+      //    });
+      // });
       // ========================================================================================================================
       // * 댓글 수정
       commentModifyBtn.addEventListener("click", (e) => {
@@ -79,13 +80,13 @@ export const createReplyBox = (data) => {
                                     '<div class="commentWriter">' +
                                        '<div class="comment_inbox">' +
                                           '<span class="comment_inbox_name">똥심</span>' +
-                                          '<textarea placeholder="댓글을 남겨보세요.">' + commentContent + '</textarea>' +
+                                          '<textarea id="modifyTextarea" class="textarea" placeholder="댓글을 남겨보세요.">' + commentContent + '</textarea>' +
                                        '</div>' +
                                        '<div class="comment_attach d-flex justify-content-between align-items-center">' +
                                           '<div class="comment_box_write_count">' +
-                                             '<strong class="fontSizeSmall comment_box_count_num">0</strong>' +
-                                             '<span class="fontSizeSmall">/</span>' +
-                                             '<span class="fontSizeSmall comment_box_write_total">500</span>' +
+                                             '<strong class="fontSizeSmall comment_box_count_num">' + commentContent.length + ' </strong>' +
+                                             '<span class="fontSizeSmall"> / </span>' +
+                                             '<span class="fontSizeSmall comment_box_write_total">3,000</span>' +
                                           '</div>' +
                                           '<div class="register_box">' +
                                              '<button type="button" class="button cancleBtn">취소</button>' +
@@ -100,6 +101,7 @@ export const createReplyBox = (data) => {
       // ========================================================================================================================
       // ~ 댓글 삭제
       commentDelBtn.addEventListener("click", (e) => {
+         // todo 해당 li만 지우기(현재는 전체 리로드 중)
          Swal.fire({
             title: "댓글을 삭제하시겠습니까?",
             icon: "warning",
@@ -110,7 +112,6 @@ export const createReplyBox = (data) => {
          }).then((result) => {
             if (result.isConfirmed) {
                let replyNo = parseInt($(e.target).parent().parent().attr("data-value"));
-               console.log(replyNo)
                replyDeleteAjax(replyNo);
                Swal.fire({
                   title: "삭제되었습니다.",
@@ -130,9 +131,9 @@ export const createReplyBox = (data) => {
          $(".comment_write_area").addClass("displayNone");
          $(e.target).parent().parent().next().removeClass("displayNone");
          let textareaElement = $(e.target).closest(".comment_area").next().children().children().children().children().eq(1);
-         let registerBtnElement = $(e.target).closest(".comment_area").next().children().children().children().eq(1).children().eq(1).children().eq(1);
+         // let registerBtnElement = $(e.target).closest(".comment_area").next().children().children().children().eq(1).children().eq(1).children().eq(1);
          textareaElement.val("");
-         registerBtnElement.text("등록");
+         // registerBtnElement.text("등록");
       });
       // ========================================================================================================================     
       

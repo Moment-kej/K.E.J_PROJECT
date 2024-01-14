@@ -61,17 +61,20 @@ export const replyDeleteAjax = ((replyNo) => {
    ajaxRequest(firstContextPath + "/reply/music/" + replyNo, "DELETE", data, callback);
 });
 
-function getTextLength(str) {
-   var len = 0;
+export const countTextLength = ((target) => {
+   let currentTextLength = target.closest(".comment_inbox").next().children().children().eq(0);
 
-   for (var i = 0; i < str.length; i++) {
-      if (escape(str.charAt(i)).length == 6) {
-         len++;
-      }
-      len++;
+   if (target.val().length > 3000) {
+      let inputText = target.val();
+      Swal.fire({
+         title: "3,000자까지 작성할 수 있습니다.",
+         icon: "info",
+      });
+      target.val(target.val().substring(0, 3000));
+      target.text(inputText.length);
    }
-   return len;
-}
+   $(currentTextLength).text(target.val().length); //실시간 글자수 카운팅
+});
 
 // =====================================================================================
 $().ready(() => {
@@ -136,29 +139,46 @@ $().ready(() => {
          });
       }
    });
+
+   $(document).on("click", ".cancleBtn", (e) => {
+      Swal.fire({
+         title: "수정중인 내용을 취소 하겠습니까?",
+         icon: "warning",
+         position: "center",
+         showDenyButton: true,
+         confirmButtonText: "Yes",
+         denyButtonText: "No",
+      }).then((result) => {
+         if (result.isConfirmed) {
+            $(e.target).closest(".comment_write_area").addClass("displayNone");
+         } 
+      });
+   })
+
    // ~ 댓글 수정
    $(document).on("click", ".modifyBtn", (e) => {
       let content = $(e.target).closest(".comment_attach").prev().children().eq(1).val();
       let writer = $(e.target).closest(".comment_attach").prev().children().eq(0).text();
       let replyNo = $(e.target).closest(".comment_modify_area").attr("id");
       replyNo = parseInt(replyNo.split("_").pop());
-
-      console.log("content: ", content, "writer: ", writer, "replyNo: ", replyNo)
       replyUpdateAjax(content, replyNo)
    });
    
-   // todo 글자수 체크하는거 해야함
-   // $("#replyTextrea").keyup(function(e) {
-   //    console.log("키업!");
-   //    let content = $(this).val();
-   //    let countNum = $(e.target).closest("comment_inbox");
-   //    console.log(countNum);
-   //    $(countNum).val("(" + content.length + "/ 200)"); //실시간 글자수 카운팅
-   //    if (content.length > 500) {
-   //       Alert("최대 500자까지 입력 가능합니다.");
-   //       $(this).val(content.substring(0, 200));
-   //       $('#replyTextrea').html("(200 / 최대 200자)");
-   //    }
-   // });
+   //~ textarea 글자 수 체크
+   $(document).on("input", ".textarea", (e) => {
+      let target = $(e.target);
+      let currentTextLength = target.closest(".comment_inbox").next().children().children().eq(0);
+
+      if (target.val().length > 3000) {
+         let inputText = target.val();
+         Swal.fire({
+            title: "3,000자까지 작성할 수 있습니다.",
+            icon: "info",
+         });
+         target.val(target.val().substring(0, 3000));
+         target.text(inputText.length);
+      }
+      $(currentTextLength).text(target.val().length); //실시간 글자수 카운팅
+   });
 
 })
