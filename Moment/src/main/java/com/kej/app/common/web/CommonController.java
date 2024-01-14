@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ import com.kej.app.common.service.vo.NewsVO;
 public class CommonController {
 	@Autowired CommonService service;
 	
-	// 메인페이지 테스트
+	// 메인페이지
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String boardAllListTemp(Model model, @RequestParam(defaultValue = "1") int page,
 									@RequestParam(defaultValue = "all") String query) {
@@ -38,6 +39,12 @@ public class CommonController {
         model.addAttribute("querySearch", query);
 		return "comm/mainTest";
 	};
+	
+	// 로그인 페이지
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
 	
 	@GetMapping("/naverNews")
 	@ResponseBody
