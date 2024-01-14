@@ -102,6 +102,7 @@ button {
 
 /* 게시글 본문 시작 */
 .contentBox {
+   background-color: #fff;
    clear: both;
    border: 1px solid rgba(207, 210, 226, 0.5);
    border-radius: 10px;
@@ -389,40 +390,57 @@ button {
    display: block;
 }
 
+.related_list_article .relatedArticleTab .currentSel {
+   background-color: #fff;
+}
+
+related_list_article .relatedArticleTab .currentSel, .currentSel a, .currentSel span{
+   font-weight: bolder;
+}
+
 .related_list_article .relatedArticleTab ul li {
    width: 100%;
+   height: auto;
+   padding-left: 5px;
    border-bottom: 1px solid #e2e2e2;
+   word-wrap: break-word;
+   word-break: break-all;
 }
 
 .related_list_article .relatedArticleTab .tit_area {
    width: 50%;
-   line-height: 35px;
+   margin-bottom: 0px;
+   line-height: 40px;
    font-size: 13px;
+   font-weight: 500;
    vertical-align: middle;
 }
 
 .related_list_article .relatedArticleTab .tit_area a:hover {
-   text-decoration: none;
+   text-decoration: underline;
 }
 
 .related_list_article .relatedArticleTab .tit_area .count {
    color: #ff2f3b;
-   font-weight: 700;
-   margin-left: 3px;
+   font-size: 12px;
+   font-weight: 600;
+   margin-left: 5px;
 }
 
 .related_list_article .relatedArticleTab .member_area {
    width: 25%;
-   line-height: 18px;
    font-size: 13px;
+   font-weight: 500;
+   line-height: 18px;
    vertical-align: middle;
    color: #676767;
 }
 
 .related_list_article .relatedArticleTab .date_area {
    width: 25%;
-   line-height: 18px;
    font-size: 13px;
+   font-weight: 500;
+   line-height: 18px;
    vertical-align: middle;
    color: #676767;
 }

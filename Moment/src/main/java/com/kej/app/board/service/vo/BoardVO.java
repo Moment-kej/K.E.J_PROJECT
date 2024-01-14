@@ -31,5 +31,7 @@ public class BoardVO {
 	//boardNo 추출
 	private int currval;
 	
+	// 관련게시글
 	private String relatedPostList;
+	private String[] selectedArray;
 }

@@ -1,12 +1,12 @@
-import { createAndAppendElement, formatTime_hhmmss, firstContextPath} from "../../common/common.js";
-import { replyDeleteAjax, countTextLength } from "./musicBoardDetail.js";
+import { createAndAppendElement, formatDateTime_hhmmss, formatTime_hhmm, firstContextPath, pathNameOfBoardNumber} from "../../common/common.js";
+import { replyDeleteAjax } from "./musicBoardDetail.js";
 
 // ========================================================================================================================
 export const createReplyBox = (data) => {
    const comment_area_box = document.getElementById("comment_area_box");
 
    data.map((item) => {
-      let writeDt = formatTime_hhmmss(item.writeDt)
+      let writeDt = formatDateTime_hhmmss(item.writeDt)
       
       const listElement = createAndAppendElement(comment_area_box, "li", { class: "commentItem pt-1" });
       const commentArea = createAndAppendElement(listElement, "div", { class: "comment_area" });
@@ -135,7 +135,31 @@ export const createReplyBox = (data) => {
          textareaElement.val("");
          // registerBtnElement.text("등록");
       });
-      // ========================================================================================================================     
+   });
+}
+// ========================================================================================================================
+export const createRelatedPost = (data) => {
+   const relatePostList = document.getElementById('relatePostList');
+
+   const relatedArticleTab = createAndAppendElement(relatePostList, 'div', { class: 'relatedArticleTab' });
+   const ul = createAndAppendElement(relatedArticleTab, 'ul', { class: 'pl-1' });
+   data.map((item) => {
+      let writeDt = formatDateTime_hhmmss(item.writeDt)
+      const li = createAndAppendElement(ul, 'li', { class: 'd-flex justify-content-between align-items-center', 'data-value': item.boardNo });
+      const titArea = createAndAppendElement(li, 'div', { class: 'tit_area d-flex justify-content-start align-items-center' });
+      const a = createAndAppendElement(titArea, 'a', { href: firstContextPath + '/board/music/' + item.boardNo });
+      createAndAppendElement(a, 'span', { class: 'textColorTit' }, item.title);
+      createAndAppendElement(titArea, 'span', { class: 'textColor count' }, '[' + item.replyCount + ']');
+
+      const memberArea = createAndAppendElement(li, 'div', { class: 'member_area' });
+      createAndAppendElement(memberArea, 'span', { class: 'text-right textColorGray' }, item.id);
+
+      const dateArea = createAndAppendElement(li, 'div', { class: 'date_area' });
+      createAndAppendElement(dateArea, 'span', { class: 'text-right textColorGray' }, writeDt);
       
+      let selected = parseInt(li.getAttribute("data-value"));
+      if (selected === pathNameOfBoardNumber()) {
+         li.classList.add('currentSel');
+      }
    });
 }

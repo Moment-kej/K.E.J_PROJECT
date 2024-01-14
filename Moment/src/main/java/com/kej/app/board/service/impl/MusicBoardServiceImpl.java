@@ -25,7 +25,8 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		
 		return mapper.musicBoardAllList(cri);
 	}
-
+	
+	// 전체 목록 카운트
 	@Override
 	public int pageCount(Criteria cri) {
 
@@ -39,6 +40,7 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		return mapper.musicBoardDetail(BoardNo);
 	}
 
+	// 이전글, 다음글 (첫 번째, 마지막 게시글 번호)
 	@Override
 	public Map<String, Object> musicBoardFirstAndLastNumber(BoardVO vo) {
 		Map<String, Object> response = new HashMap<>();
@@ -49,14 +51,17 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		return response;
 	}
 
+	// 관련 게시글
 	@Override
-	public String getRelatedPost(BoardVO vo) {
+	public List<BoardVO> getRelatedPost(BoardVO vo) {
 		int currentBoardNo = vo.getBoardNo();
-	    String relatedPostNumbers = mapper.findPrevNextBoardNumber(vo).getRelatedPostList();
+	    
+		String relatedPostNumbers = mapper.findPrevNextBoardNumber(vo).getRelatedPostList();
 	    String[] convertToArray = relatedPostNumbers.split(",");
 	    String[] selectedArray = Arrays.copyOfRange(convertToArray, 0, 5);
-	    System.out.println(Arrays.toString(selectedArray));
-		return "eee";
+	    vo.setSelectedArray(selectedArray);
+		
+	    return mapper.getRelatedPost(vo);
 	}
 
 }
