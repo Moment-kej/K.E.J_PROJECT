@@ -1,5 +1,5 @@
 import { ajaxRequest, pathNameOfBoardNumber, firstContextPath} from '../../common/common.js';
-import { createReplyBox } from './render.js';
+import { createReplyBox, createRelatedPost } from './render.js';
 
 let boardNo = pathNameOfBoardNumber();
 // =====================================================================================
@@ -18,6 +18,14 @@ const clearContent = () => {
    }
 };
 
+const relatedPostContent = (() => {
+   const data = { boardNo : boardNo, code: 20};
+   const callback = (data) => {
+      createRelatedPost(data);
+   }
+   ajaxRequest(firstContextPath + "/board/music/relation-post", 'GET', data, callback);
+});
+
 export const replyInsertAjax = ((id, content) => {
    const data = JSON.stringify({ 
       boardNo: boardNo,
@@ -30,7 +38,6 @@ export const replyInsertAjax = ((id, content) => {
       clearContent();
       replyShowContent();
       // let targetSection = document.getElementsByClassName("replyBox")[0];
-      // console.log(targetSection);
       // targetSection.scrollIntoView({
       //    behavior: "smooth"
       // });
@@ -79,7 +86,7 @@ export const countTextLength = ((target) => {
 // =====================================================================================
 $().ready(() => {
    replyShowContent();
-   
+   relatedPostContent();
    $("#goAllList").on("click", () => {
       location.href = firstContextPath + "/board/music"
    });
@@ -122,6 +129,7 @@ $().ready(() => {
       console.log(e.target);
    });
 
+   // ~ 부모 댓글 작성 폼에서 등록 Button
    $("#replyWriteBtn").on("click", () => {
       let id = document.getElementById("replyWriter").innerText;
       let content = document.getElementById("replyTextrea").value;
@@ -140,6 +148,7 @@ $().ready(() => {
       }
    });
 
+   // ~ 수정 폼 취소 버튼
    $(document).on("click", ".cancleBtn", (e) => {
       Swal.fire({
          title: "수정중인 내용을 취소 하겠습니까?",
@@ -155,7 +164,7 @@ $().ready(() => {
       });
    })
 
-   // ~ 댓글 수정
+   // ~ 댓글 수정 Button (기존 댓글 수정 폼 뜨게하기)
    $(document).on("click", ".modifyBtn", (e) => {
       let content = $(e.target).closest(".comment_attach").prev().children().eq(1).val();
       let writer = $(e.target).closest(".comment_attach").prev().children().eq(0).text();

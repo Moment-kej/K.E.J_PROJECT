@@ -22,6 +22,24 @@ export const getUrlParam = (paramName) => {
     //     console.log("파라미터:", key, "값:", value);
     // });
 };
+// =====================================================================================
+// 시간포맷 : yyyy.MM.dd HH:mm (EE)
+export const formatDateTime_hhmmss = (timestamp) => {
+    const inData = new Date(timestamp);
+    const year = inData.getFullYear();
+    const month = addLeadingZero(inData.getMonth() + 1);
+    const day = addLeadingZero(inData.getDate());
+    const hours = addLeadingZero(inData.getHours());
+    const minutes = addLeadingZero(inData.getMinutes());
+    const second = addLeadingZero(inData.getSeconds());
+    
+    // 오늘 날짜와 month, day가 같으면 'HH:mm' 형식으로 표시
+    if (isToday(inData)) {
+        return hours + ':' + minutes;
+    } else {
+        return year + '.' + month + '.' + day + ' ' + hours + ':' + minutes + ':' + second;
+    }
+};
 
 // =====================================================================================
 // 시간포맷 : yyyy.MM.dd HH:mm (EE)
@@ -111,7 +129,6 @@ export const pathNameOfBoardNumber = () => {
 // }
 
 // =====================================================================================
-// ajax 공통함수 / GET, POST 확인완료
 export const ajaxRequest = (url, method, data, successCallback) => {
     const hasSuccessCallback = $.isFunction(successCallback) ? true : false;
     const datas = data ? data : {};

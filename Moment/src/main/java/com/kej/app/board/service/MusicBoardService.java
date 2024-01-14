@@ -8,13 +8,10 @@ import com.kej.app.board.service.vo.Criteria;
 
 public interface MusicBoardService {
 	
-	// Music 게시판 목록 조회	
-	public List<BoardVO> musicBoardAllList(Criteria cri);
 	
-	public int pageCount(Criteria cri);
-	
-	// Music 단건 조회
-	public BoardVO musicBoardDetail(int BoardNo);
-	public Map<String, Object> musicBoardFirstAndLastNumber(BoardVO vo);
-	public String getRelatedPost(BoardVO vo);
+	public List<BoardVO> musicBoardAllList(Criteria cri);					// Music 게시판 목록 조회	
+	public int pageCount(Criteria cri);										// 페이징
+	public BoardVO musicBoardDetail(int BoardNo);							// Music 단건 조회
+	public Map<String, Object> musicBoardFirstAndLastNumber(BoardVO vo);	// 이전글, 다음글
+	public List<BoardVO> getRelatedPost(BoardVO vo);						// 관련 게시글
 }

@@ -1,4 +1,4 @@
-import { firstContextPath, formatTime_hhmm, createAndAppendElement } from '../../common/common.js';
+import { firstContextPath, formatDateTime_hhmmss, createAndAppendElement } from '../../common/common.js';
 
 // =====================================================================================
 const boardListContainer = document.getElementById("boardList");
@@ -21,7 +21,7 @@ export const createSortListTypeComponent = (data) => {
 
    const tbody = createAndAppendElement(table, 'tbody', { id: 'article_list' });
    data.map((item) => {
-      item.writeDt = formatTime_hhmm(item.writeDt);
+      item.writeDt = formatDateTime_hhmmss(item.writeDt);
       const trBody = createAndAppendElement(tbody, 'tr');
 
       for (const key of columnMapping.rowDataKeys) {
@@ -48,7 +48,7 @@ export const createSortCardTypeComponent = (data) => {
    const boardSortCardType = createAndAppendElement(boardListContainer, 'ul', { id : 'boardSortCardType'});
 
    data.map((item) => {
-      const dateFormat = formatTime_hhmm(item.writeDt);
+      const dateFormat = formatDateTime_hhmmss(item.writeDt);
       // createAndAppendElement 함수를 사용하여 새로운 리스트 아이템 생성 및 추가
       const newListItem = createAndAppendElement(boardSortCardType, 'li');
 
@@ -81,7 +81,7 @@ export const createSortAlbumTypeComponent = (data) => {
    
    const albumTypeArea = createAndAppendElement(boardListContainer, 'div', { class: 'albumType'} );
    data.map((item) => {
-      const dateFormat = formatTime_hhmm(item.writeDt);
+      const dateFormat = formatDateTime_hhmmss(item.writeDt);
       const postTypeArea = createAndAppendElement(albumTypeArea, 'div', { class: 'postType'} );
       const cardTypeArea = createAndAppendElement(postTypeArea, 'div', { class: 'cardType'} )
 

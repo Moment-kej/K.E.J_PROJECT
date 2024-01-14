@@ -5,7 +5,7 @@
       <!-- Board Detail Page -->
       <div class="container-fluid"><!-- 은애언니, 수민 (class명 수정)-->
         <div class="container-fluid">
-          <div class="mx-auto">
+          <div id="detailSection" class="mx-auto">
             <!-- Top Button -->
             <div class="d-flex justify-content-between align-items-center topBtnBox"><!-- 은애언니, 수민 여기 div안에 내용 바꼇어 확인해줭-->
               <div class="leftBtnBox">
@@ -210,75 +210,12 @@
             </div> <!-- Detail Content End -->
 
             <!-- 관련 게시글? 추천 게시글? -->
-            <div class="related_list_article">
+            <div id="relatePostArticle" class="related_list_article">
               <h2>
                 <strong class="title"> '<span class="inner">Music</span>' </strong>
                 <span class="text">게시판 글</span>
               </h2>
-              <div class="relatedArticleTab">
-                <ul class="pl-1">
-                  <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                      <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                      <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                      <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                      <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                  </li>
-                  <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                      <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                      <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                      <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                      <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                  </li>
-                  <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                      <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                      <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                      <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                      <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                  </li>
-                  <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                      <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                      <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                      <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                      <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                  </li>
-                  <li class="d-flex justify-content-between align-items-center">
-                    <div class="tit_area d-flex justify-content-start align-items-center">
-                      <a href="#"><span class="textColorTit">게시글 제목이 들어갈 곳</span></a>
-                      <span class="ml-1 textColor count">[3]</span>
-                    </div>
-                    <div class="member_area">
-                      <span class="text-right textColorGray">UserID</span>
-                    </div>
-                    <div class="date_area">
-                      <span class="text-right textColorGray">2023.12.06</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              <div id="relatePostList" class="relatedArticleTab"></div>
             </div>
           </div>
         </div>

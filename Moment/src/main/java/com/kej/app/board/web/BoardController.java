@@ -358,9 +358,9 @@ public class BoardController {
     
     @GetMapping("/music/relation-post")
     @ResponseBody
-    public String getRelationPosts(BoardVO vo) {
-    	musicService.getRelatedPost(vo);
-    	return "HEllo";
+    public List<BoardVO> getRelationPosts(BoardVO vo) {
+    	
+    	return musicService.getRelatedPost(vo);
     }
     
     

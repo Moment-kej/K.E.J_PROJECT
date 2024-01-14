@@ -56,7 +56,7 @@
   		 LIMIT 1
   	</select>
   	
-  	<!--  Music 단건 조회 -->
+  	<!--  Music 게시글 단건 조회 -->
   	<select id="musicBoardDetail" resultType="BoardVO">
   		SELECT b.board_no
 			 , b.id
@@ -81,20 +81,20 @@
 		   AND code = 20
   	</select>
   	
+  	<!-- 관련게시글 - 이전, 다음 게시글 4개씩 조회 -->
   	<select id="findPrevNextBoardNumber" resultType="BoardVO">
 	  	WITH OrderedData AS (
-		    SELECT 
-		        board_no,
-		        LAG(board_no, 1) OVER (ORDER BY board_no DESC) AS prev1,
-		        LAG(board_no, 2) OVER (ORDER BY board_no DESC) AS prev2,
-		        LAG(board_no, 3) OVER (ORDER BY board_no DESC) AS prev3,
-		        LAG(board_no, 4) OVER (ORDER BY board_no DESC) AS prev4,
-		        LEAD(board_no, 1) OVER (ORDER BY board_no DESC) AS next1,
-		        LEAD(board_no, 2) OVER (ORDER BY board_no DESC) AS next2,
-		        LEAD(board_no, 3) OVER (ORDER BY board_no DESC) AS next3,
-		        LEAD(board_no, 4) OVER (ORDER BY board_no DESC) AS next4
-		    FROM BOARD
-		    WHERE code = #{code}
+		    SELECT board_no,
+		           LAG(board_no, 1) OVER (ORDER BY board_no DESC) AS prev1,
+		           LAG(board_no, 2) OVER (ORDER BY board_no DESC) AS prev2,
+		           LAG(board_no, 3) OVER (ORDER BY board_no DESC) AS prev3,
+		           LAG(board_no, 4) OVER (ORDER BY board_no DESC) AS prev4,
+		           LEAD(board_no, 1) OVER (ORDER BY board_no DESC) AS next1,
+		           LEAD(board_no, 2) OVER (ORDER BY board_no DESC) AS next2,
+		           LEAD(board_no, 3) OVER (ORDER BY board_no DESC) AS next3,
+		           LEAD(board_no, 4) OVER (ORDER BY board_no DESC) AS next4
+		      FROM board
+		     WHERE code = #{code}
 		)
 		SELECT 
 		    CONCAT_WS(',',
@@ -108,9 +108,34 @@
 		        IFNULL(next3, NULL),
 		        IFNULL(next4, NULL)
 		    ) AS related_post_list
-		FROM OrderedData
-		WHERE board_no = #{boardNo};
-
+		 FROM OrderedData
+		WHERE board_no = #{boardNo}
+  	</select>
+  	
+	<!-- 관련게시글 -->
+  	<select id="getRelatedPost" parameterType="BoardVO" resultType="BoardVO">
+  		SELECT b.board_no
+			 , b.code
+			 , b.category
+			 , b.id
+			 , b.title
+			 , b.content
+			 , b.write_dt
+			 , b.view_count
+			 , b.yn
+			 , (SELECT count(*)
+		  		  FROM reply r
+		  		 WHERE yn = 1
+		  		   AND b.board_no = r.board_no
+				   AND r.yn = 1
+		  	   ) AS reply_count
+		  FROM board b
+		 WHERE b.code = #{code}
+		   AND b.board_no IN 
+		   <foreach collection="selectedArray" item="arr" open="(" close=")" separator=",">
+				#{arr}
+		   </foreach>
+		 ORDER BY b.board_no DESC
   	</select>
   	
   </mapper>
