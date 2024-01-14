@@ -7,7 +7,6 @@
     <definition name="mainTemplate" template="/WEB-INF/views/tiles/layout.jsp">
         <put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
         <put-attribute name="content" value="" />
-        <put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
     </definition>
     
     <definition name="*/*" extends="mainTemplate">
