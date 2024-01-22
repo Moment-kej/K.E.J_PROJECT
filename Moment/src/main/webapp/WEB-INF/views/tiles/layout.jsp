@@ -37,6 +37,11 @@
 
 	<!-- Fontawesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+	
+	<!-- TUI 에디터 CSS CDN -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+	<!-- Toast UI Editor -->
+	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
 	<!-- CK Editor -->
 	<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/super-build/ckeditor.js"></script>

@@ -31,13 +31,10 @@
                         </div>
                       </div>
                       <!-- 게시글 작성 장소 -->
-                      <div class="form-group">
-                        <textarea class="form-control"  id=content name=content rows="4" placeholder="내용을 입력해주세요!"></textarea>
-                      </div>
+                      <div id="content"></div>
                       <!-- 게시글 등록 또는 뒤로가기 (임시저장 없음 알림창 띄우기) -->
                       <button type="submit" class="mr-2" id="submintBtn" >등록</button>
                       <button id="backBtn" >뒤로가기</button>
-
                     </form>
                   </div>
                 </div>
@@ -46,8 +43,14 @@
     </div>
 </div>
 <script>
-      ClassicEditor.create( document.querySelector('#content'), {
-        language: "ko"
-      });
+	/* https://congsong.tistory.com/67 */
+	const editor = new toastui.Editor({
+	    el: document.querySelector('#content'), // 에디터를 적용할 요소 (컨테이너)
+	    height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
+	    initialEditType: 'wysiwyg',             // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
+	    initialValue: '내용을 입력해 주세요.',       // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+	    previewStyle: 'vertical',               // 마크다운 프리뷰 스타일 (tab || vertical)
+      hideModeSwitch:true
+	});
 </script>
 
