@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -74,20 +75,28 @@
             </div>
             </li>
             <li class="nav-item nav-profile dropdown">
-            <a class="nav-link" href="${pageContext.request.contextPath}/login">로그인</a>
-            <!--<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src="${pageContext.request.contextPath}/assets/images/faces/face28.jpg" alt="profile"/>
-            </a>-->
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
-                Settings
-                </a>
-                <a class="dropdown-item">
-                <i class="ti-power-off text-primary"></i>
-                Logout
-                </a>
-            </div>
+                <sec:authorize access="isAnonymous()">
+                    <a class="nav-link mr-3" href="#">회원가입</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/login">로그인</a>
+                </sec:authorize><sec:authorize access="isAuthenticated()">
+                    <span class="nav-link mr-3"><sec:authentication property="principal.username"/>님<br/>반갑습니다.</span>
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                        <img src="${pageContext.request.contextPath}/assets/images/faces/face28.jpg" alt="profile"/>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/user/my/id">
+                            <i class="ti-settings text-primary"></i>
+                            마이페이지
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="document.getElementById('logout-form').submit();">
+                            <i class="ti-power-off text-primary"></i>
+                            로그아웃
+                        </a>
+                        <form id="logout-form" action="${pageContext.request.contextPath}/logout" method="POST">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        </form>
+                    </div>
+                </sec:authorize>
             </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">

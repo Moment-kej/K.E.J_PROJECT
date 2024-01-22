@@ -46,6 +46,12 @@ public class CommonController {
 		return "login";
 	}
 	
+	// 접근불가 페이지
+	@GetMapping("/accessDenied")
+	public String accessDenied() {
+		return "accessDenied";
+	}
+	
 	@GetMapping("/naverNews")
 	@ResponseBody
 	public List<NewsVO> getAllNews(@RequestParam(defaultValue = "1") int page,
