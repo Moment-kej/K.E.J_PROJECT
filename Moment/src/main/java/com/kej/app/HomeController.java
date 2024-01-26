@@ -1,21 +1,9 @@
 package com.kej.app;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
 
 import com.kej.app.common.service.CommonService;
 
@@ -25,6 +13,15 @@ import com.kej.app.common.service.CommonService;
 @Controller
 public class HomeController {
 	@Autowired CommonService service;
+	
+	public static void main(String[] args) {
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String rawPassword = "1234";
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+
+        System.out.println("Raw Password: " + rawPassword);
+        System.out.println("Encoded Password: " + encodedPassword);
+	}
 //	private static String CLIENT_ID = "uzFgU5Xq_6esU6400qi2";
 //	private static String CLIENT_SECRET = "2zYFlRC1sO";
 //	

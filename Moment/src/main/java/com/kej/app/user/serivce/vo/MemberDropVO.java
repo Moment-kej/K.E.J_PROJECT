@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import lombok.Data;
 
 @Data
-public class MemberDropVO {
+public class MemberDropVO{
 	private int dropNo;
 	private int reason;
 	private String reasonDetail;
