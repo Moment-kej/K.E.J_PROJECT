@@ -79,7 +79,7 @@
                     <a class="nav-link mr-3" href="#">회원가입</a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/login">로그인</a>
                 </sec:authorize><sec:authorize access="isAuthenticated()">
-                    <span class="nav-link mr-3"><sec:authentication property="principal.username"/>님<br/>반갑습니다.</span>
+                    <span class="nav-link mr-3 username"><sec:authentication property="principal.username"/>님<br/>반갑습니다.</span>
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                         <img src="${pageContext.request.contextPath}/assets/images/faces/face28.jpg" alt="profile"/>
                     </a>
@@ -245,3 +245,9 @@
             </li> -->
         </ul>
     </nav>
+
+    <script>
+        // 아이디 찾기
+        const userName = document.querySelector(".username").innerText.split("님")[0];
+
+    </script>

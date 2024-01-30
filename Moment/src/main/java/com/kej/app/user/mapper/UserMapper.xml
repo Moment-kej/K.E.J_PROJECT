@@ -13,6 +13,12 @@
 		VALUES 
 			(#{dropNo, jdbcType=INTEGER, javaType=Integer}, #{reason}, #{reasonDetail}, now(), #{id})
 	</insert>
+	
+	<select id="selectUserById" resultType="MemberVO">
+		<![CDATA[ 
+				SELECT * FROM member WHERE id = #{id} 
+		]]>
+	</select>
 
 
 
