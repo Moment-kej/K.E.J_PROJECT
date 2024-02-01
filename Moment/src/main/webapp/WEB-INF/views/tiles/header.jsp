@@ -84,7 +84,7 @@
                         <img src="${pageContext.request.contextPath}/assets/images/faces/face28.jpg" alt="profile"/>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/user/my/id">
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/user/my">
                             <i class="ti-settings text-primary"></i>
                             마이페이지
                         </a>
@@ -137,18 +137,18 @@
             </div>
             </li>
             <!-- 2023.12.27 eunae -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/user/my">
                 <i class="icon-grid menu-icon"></i>
                 <span class="menu-title">MyInfoPw</span>
             </a>
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <!-- <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/user/my/id">
                 <i class="icon-grid menu-icon"></i>
                 <span class="menu-title">MyInfo</span>
             </a>
-            </li>
+            </li> -->
             <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="icon-layout menu-icon"></i>
@@ -246,8 +246,4 @@
         </ul>
     </nav>
 
-    <script>
-        // 아이디 찾기
-        const userName = document.querySelector(".username").innerText.split("님")[0];
-
-    </script>
+    <script type="module" src="${pageContext.request.contextPath}/assets/js/common/header.js"></script>
