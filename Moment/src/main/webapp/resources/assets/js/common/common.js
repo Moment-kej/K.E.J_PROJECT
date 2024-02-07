@@ -143,7 +143,6 @@ export const ajaxRequest = (url, method, data, successCallback) => {
             console.error('오류발생!' + error);
         }
     };
-    
     // success 함수
     if(hasSuccessCallback) ajaxOptions.success = successCallback;
 
@@ -179,3 +178,8 @@ export const createAndAppendElement = (parent, elementType, attributes = {}, con
 
     return element;
 };
+
+export const userInfo = (callback) => {
+    const id = document.querySelector(".username").innerText.split("님")[0];
+    ajaxRequest(firstContextPath + "/user/info", "GET", {id: id}, callback);
+}

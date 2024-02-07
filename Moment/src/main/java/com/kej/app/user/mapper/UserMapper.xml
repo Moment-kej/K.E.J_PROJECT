@@ -15,9 +15,7 @@
 	</insert>
 	
 	<select id="selectUserById" resultType="MemberVO">
-		<![CDATA[ 
-				SELECT * FROM member WHERE id = #{id} 
-		]]>
+		SELECT * FROM member WHERE id = #{id}
 	</select>
 
 

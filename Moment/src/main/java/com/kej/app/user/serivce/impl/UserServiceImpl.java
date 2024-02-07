@@ -12,7 +12,7 @@ import com.kej.app.user.serivce.vo.MemberVO;
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired UserMapper uMapper;
-	@Autowired private SqlSessionTemplate sqlSesstion;
+	@Autowired private SqlSessionTemplate sqlSession;
 	
 	@Override
 	public int userDropOutReasonInsert(MemberDropVO vo) {
@@ -22,6 +22,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public MemberVO getUserById(String username) {
 		return uMapper.selectUserById(username);
+	}
+	
+	public MemberVO getUserByIdTest(String id){
+		return sqlSession.selectOne("user.selectUserById", id);
 	}
 
 }
